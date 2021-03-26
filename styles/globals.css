@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a {
+  @apply text-transparent font-bold bg-gradient-to-r bg-clip-text from-blue-400 hover:from-yellow-400 to-indigo-600 hover:to-red-500;
+}
