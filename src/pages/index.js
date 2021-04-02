@@ -24,7 +24,7 @@ export default function Home() {
   }, [wave]);
 
   return (
-    <div className="flex flex-col items-center justify-center py-4 min-h-screen bg-gradient-to-r from-gray-50 to-white">
+    <div className="flex flex-col items-center justify-center py-4 min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-r from-gray-50 dark:from-gray-900 dark:to-gray-800 to-white">
       <Head>
         <title>Mykhaylo Ryechkin</title>
         <link rel="icon" href="/favicon.ico" />
@@ -48,29 +48,31 @@ export default function Home() {
           </h1>
           <Confetti active={wave} />
         </div>
-        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
           I write code for a living, drink more coffee than I probably should, and listen
           to mostly electronic music in the process.
         </p>
-        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
           I was born in 🇺🇦{' '}
           <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text from-blue-400 to-yellow-400">
             Ukraine
           </span>{' '}
-          and have been living in 🇨🇦{' '}
-          <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text from-red-700 to-red-500">
+          but have been living in 🇨🇦{' '}
+          <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text dark:from-red-500 from-red-700 dark:to-red-300 to-red-500">
             Canada
           </span>{' '}
-          for over 20 years now.
+          for most of my adult life.
         </p>
-        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
           I originally studied Communications Engineering at Carleton University, but have
           chosen the path of web development fairly early on in my career, and have since
           been in the industry for over 12 years.
         </p>
-        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
           Recently I started documenting my learnings in the world of{' '}
-          <span className="p-1 text-green-600 font-mono bg-green-50">JavaScript</span>{' '}
+          <span className="p-1 dark:text-green-300 text-green-600 font-mono bg-green-50 dark:bg-green-900">
+            JavaScript
+          </span>{' '}
           on&nbsp;
           <a
             href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
