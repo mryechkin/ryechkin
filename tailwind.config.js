@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        pink: colors.fuchsia
+        green: colors.green,
+        pink: colors.fuchsia,
+        yellow: colors.yellow
       },
       keyframes: {
         wiggle: {

@@ -31,29 +31,47 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-1 flex-col items-center justify-center text-center">
-        <div className="flex flex-col items-start justify-center px-4 w-full sm:px-4 sm:max-w-lg md:max-w-xl">
+        <div className="flex flex-col items-center justify-center px-4 w-full sm:px-4 md:max-w-xl">
           <h1 className="text-3xl font-thin sm:text-4xl md:text-5xl">
             Hey!{' '}
             <button
               type="button"
-              className="hover:animate-wiggle focus:animate-wiggle p-2 transform active:scale-150"
+              className="p-2 transform active:scale-150 hover:animate-wiggle focus:animate-wiggle"
               onClick={() => setWave(true)}
             >
               <Image src="/assets/wave.png" alt="Wave" height={30} width={30} />
             </button>
+            <span className="text-md ml-2 mt-4 text-transparent bg-gradient-to-r bg-clip-text from-yellow-400 to-pink-500 via-pink-500 sm:text-xl sm:from-red-400 sm:to-yellow-400 sm:via-pink-500 md:text-2xl">
+              <span className="font-extrabold">I&apos;m</span>
+              <span className="ml-1 font-black">Mykhaylo.</span>
+            </span>
           </h1>
           <Confetti active={wave} />
-          <p className="text-md mt-4 text-transparent bg-gradient-to-r bg-clip-text from-yellow-400 to-pink-500 via-pink-500 sm:text-xl sm:from-red-400 sm:to-yellow-400 sm:via-pink-500 md:text-2xl">
-            <span className="font-extrabold">I&apos;m</span>
-            <span className="ml-1 font-black">Mykhaylo</span>. And this is my page.
-          </p>
         </div>
-        <p className="mt-4 px-4 max-w-full text-left text-gray-500 text-xs sm:mt-8 sm:px-4 sm:max-w-lg sm:text-center sm:text-sm md:max-w-4xl md:text-base">
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
           I write code for a living, drink more coffee than I probably should, and listen
-          to electronic music while doing it.
-          <br />
-          Recently I started creating some content on JavaScript and all things front-end.
-          Follow along on&nbsp;
+          to mostly electronic music in the process.
+        </p>
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+          I was born in 🇺🇦{' '}
+          <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text from-blue-400 to-yellow-400">
+            Ukraine
+          </span>{' '}
+          and have been living in 🇨🇦{' '}
+          <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text from-red-700 to-red-500">
+            Canada
+          </span>{' '}
+          for over 20 years now.
+        </p>
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+          I originally studied Communications Engineering at Carleton University, but have
+          chosen the path of web development fairly early on in my career, and have since
+          been in the industry for over 12 years.
+        </p>
+        <p className="sm:text-md mt-4 px-4 w-full text-left text-gray-500 text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
+          Recently I started documenting my learnings in the world of{' '}
+          <span className="p-1 text-green-600 font-mono bg-green-50">JavaScript</span>{' '}
+          on&nbsp;
           <a
             href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
             alt="Mykhaylo's YouTube"
@@ -62,11 +80,11 @@ export default function Home() {
           >
             YouTube
           </a>
-          &nbsp;:)
+          . Follow along 🙂
         </p>
         <div className="flex items-center justify-center mt-6 w-full max-w-4xl">
           <span className="flex sm:hidden">
-            <Image src="/assets/banner1h.jpg" alt="Banner" width={320} height={480} />
+            <Image src="/assets/banner3h.jpg" alt="Banner" width={320} height={480} />
           </span>
           <span className="flex sm:hidden">
             <Image src="/assets/banner4.jpg" alt="Banner" width={320} height={480} />
