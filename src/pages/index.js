@@ -44,61 +44,25 @@ export default function Home() {
   }, [wave]);
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center text-center">
-      <div className="flex flex-col items-center justify-center mb-8 px-4 w-full sm:px-4 md:max-w-xl">
-        <h1 className="text-3xl font-extralight sm:text-4xl md:text-5xl">
-          Hey!{' '}
+    <main className="bg-white/50 dark:bg-gray-800/50 flex flex-col items-center justify-center p-4 w-full text-center text-sm rounded-xl shadow dark:shadow-md sm:rounded-2xl md:p-8 md:max-w-3xl md:text-base md:rounded-3xl lg:max-w-5xl">
+      <div className="flex flex-col items-center justify-center mb-4 px-4 md:mb-8">
+        <h1 className="text-left text-transparent text-5xl font-light leading-normal bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-blue-300 to-blue-400 dark:via-pink-300 via-pink-500 sm:text-center md:text-6xl lg:text-7xl">
+          Hey
           <button
             type="button"
             className="p-2 transform active:scale-150 hover:animate-wiggle focus:animate-wiggle"
             onClick={() => setWave(true)}
           >
-            <Image src="/assets/wave.png" alt="Wave" height={30} width={30} />
+            <Image src="/assets/wave.png" alt="Wave" height={40} width={40} />
           </button>
-          <span className="text-md ml-2 mt-4 text-transparent bg-gradient-to-r bg-clip-text from-yellow-400 to-pink-500 via-pink-500 sm:text-xl sm:from-red-400 sm:to-yellow-400 sm:via-pink-500 md:text-2xl">
-            <span className="font-extrabold">I&apos;m</span>
-            <span className="ml-1 font-black">Mykhaylo.</span>
+          <span className="mt-4 sm:ml-2">
+            <span>I&apos;m</span>
+            <span className="ml-2 font-black tracking-tighter">Mykhaylo.</span>
           </span>
         </h1>
         <Confetti active={wave} />
       </div>
-      <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
-        I write code for a living, drink more coffee than I probably should, and listen to
-        mostly electronic music in the process.
-      </p>
-      <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
-        I was born in 🇺🇦{' '}
-        <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text from-blue-400 to-yellow-400">
-          Ukraine
-        </span>{' '}
-        but have been living in 🇨🇦{' '}
-        <span className="text-transparent font-semibold bg-gradient-to-r bg-clip-text dark:from-red-500 from-red-700 dark:to-red-300 to-red-500">
-          Canada
-        </span>{' '}
-        for most of my adult life.
-      </p>
-      <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
-        I originally studied Communications Engineering at Carleton University, but have
-        chosen the path of web development fairly early on in my career, and have since
-        been in the industry for over 12 years.
-      </p>
-      <p className="sm:text-md mt-4 px-4 w-full text-left text-sm sm:px-4 md:max-w-4xl md:text-center md:text-base">
-        Recently I started documenting my learnings in the world of{' '}
-        <span className="p-1 dark:text-green-300 text-green-600 font-mono bg-green-50 dark:bg-green-900">
-          JavaScript
-        </span>{' '}
-        on&nbsp;
-        <a
-          href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
-          alt="Mykhaylo's YouTube"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          YouTube
-        </a>
-        . Follow along 🙂
-      </p>
-      <div className="flex items-center justify-center mt-12 w-full max-w-4xl">
+      <div className="flex items-center justify-center mb-4 mt-2 w-full max-w-4xl md:mb-8 md:mt-4">
         <span className="hidden sm:flex">
           {images.desktop.map((img, i) => (
             <Image key={`desktop-${img}-${i}`} src={img} width={90} height={135} />
@@ -110,6 +74,40 @@ export default function Home() {
           ))}
         </span>
       </div>
+      <p className="mt-4 px-4 w-full text-left sm:px-4 md:text-center">
+        I write code for a living, drink more coffee than I probably should, and listen to
+        mostly electronic music in the process.
+      </p>
+      <p className="mt-4 px-4 w-full text-left sm:px-4 md:text-center">
+        I was born in{' '}
+        <span className="text-transparent font-bold bg-gradient-to-r bg-clip-text from-blue-400 to-yellow-500">
+          Ukraine
+        </span>{' '}
+        but have been living in{' '}
+        <span className="text-transparent font-bold bg-gradient-to-r bg-clip-text dark:from-red-500 from-red-700 dark:to-red-300 to-red-500">
+          Canada
+        </span>{' '}
+        for most of my adult life.
+      </p>
+      <p className="mt-4 px-4 w-full text-left sm:px-4 md:text-center">
+        I'm a software engineer at <span className="accent">Manulife</span>, and have been
+        doing development for over 12 years now. I originally studied Telecommunications
+        Engineering at Carleton University, but my focus and passion have always been in
+        web technologies.
+      </p>
+      <p className="mt-4 px-4 w-full text-left sm:px-4 md:text-center">
+        Recently I started sharing my learnings in the world of{' '}
+        <span className="accent">JavaScript</span> on{' '}
+        <a
+          href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
+          alt="Mykhaylo's YouTube"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          YouTube
+        </a>
+        .
+      </p>
     </main>
   );
 }

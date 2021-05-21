@@ -11,8 +11,8 @@ export default function IconToggle({ enabled, setEnabled, OnIcon, OffIcon }) {
       checked={enabled}
       onChange={setEnabled}
       className={classNames(
-        enabled ? 'bg-gray-600' : 'bg-gray-200',
-        'relative inline-flex flex-shrink-0 w-11 h-7 border-2 border-transparent rounded-full focus:outline-none cursor-pointer transition-colors duration-200 ease-in-out focus:ring-indigo-500 focus:ring-offset-2 focus:ring-2'
+        enabled ? 'bg-gray-900/50' : 'bg-gray-100/50',
+        'relative inline-flex flex-shrink-0 w-11 h-7 border-2 border-transparent rounded-full focus:outline-none shadow cursor-pointer transition-colors duration-200 ease-in-out focus:ring-indigo-500 focus:ring-offset-2 focus:ring-2'
       )}
     >
       <span className="sr-only">Use setting</span>
@@ -31,7 +31,7 @@ export default function IconToggle({ enabled, setEnabled, OnIcon, OffIcon }) {
           )}
           aria-hidden="true"
         >
-          <OffIcon className="w-4 h-4 text-gray-600 bg-white" />
+          <OffIcon className="w-4 h-4 text-yellow-500 bg-white" />
         </span>
         <span
           className={classNames(
@@ -42,7 +42,7 @@ export default function IconToggle({ enabled, setEnabled, OnIcon, OffIcon }) {
           )}
           aria-hidden="true"
         >
-          <OnIcon className="w-4 h-4 text-gray-600 bg-gray-200" />
+          <OnIcon className="w-4 h-4 text-indigo-600 bg-gray-200" />
         </span>
       </span>
     </Switch>

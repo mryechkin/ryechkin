@@ -1,38 +1,13 @@
 {
-  "extends": ["airbnb", "plugin:prettier/recommended"],
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "jest": true,
-    "node": true
-  },
-  "parser": "babel-eslint",
-  "rules": {
-    "import/no-unresolved": 0,
-    "import/prefer-default-export": 0,
-    "jsx-a11y/href-no-hash": 0,
-    "jsx-a11y/anchor-is-valid": 0,
-    "jsx-a11y/label-has-associated-control": 0,
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
-    "react/style-prop-object": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/prop-types": 0,
-    "react/react-in-jsx-scope": 0,
-    "no-use-before-define": 0,
-    "max-len": [
-      "warn",
-      {
-        "code": 90,
-        "tabWidth": 2,
-        "comments": 90,
-        "ignoreComments": false,
-        "ignoreTrailingComments": true,
-        "ignoreUrls": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
+  "extends": ["acme"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+            ["@", "./src"]
+        ],
+        "extensions": [".js"]
       }
-    ]
+    }
   }
 }
