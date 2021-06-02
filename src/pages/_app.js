@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { FiSun } from 'react-icons/fi';
 import { IoMoon } from 'react-icons/io5';
+
 import '@/styles/globals.css';
 
 import { Footer } from '@/components';
 
 function MyApp({ Component, pageProps }) {
   const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    if (window) {
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        setIsDark(true);
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        setIsDark(true);
+      });
+    }
+  }, []);
 
   return (
     <div className={isDark ? 'dark' : ''}>
@@ -24,7 +39,7 @@ function MyApp({ Component, pageProps }) {
           >
             {!isDark && (
               <FiSun
-                className="w-8 h-8 text-gray-600 hover:text-gray-900"
+                className="w-8 h-8 text-gray-700 hover:text-gray-900"
                 aria-hidden="true"
               />
             )}

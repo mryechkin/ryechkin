@@ -44,7 +44,7 @@ export default function Home() {
             Hey
             <button
               type="button"
-              className="p-2 transform active:scale-150 hover:animate-wiggle focus:animate-wiggle"
+              className="animate-slow p-2 transform active:scale-150 hover:animate-wiggle focus:animate-wiggle"
               onClick={() => setWave(true)}
             >
               <Image src="/assets/wave.png" alt="Wave" height={40} width={40} />
@@ -77,9 +77,9 @@ export default function Home() {
             </span>
           </p>
           <p className="mt-4 px-2 w-full text-left sm:px-4">
-            I'm a <span className="font-semibold">Kitchener (Ontario)</span> based
-            software engineer, currently working as a Lead Software Engineer at{' '}
-            <span className="accent">Manulife</span>.
+            I'm a software engineer based in{' '}
+            <span className="font-semibold">Kitchener (Ontario)</span>, currently working
+            as a Lead Software Engineer at <span className="accent">Manulife</span>.
           </p>
           <p className="mt-4 px-2 w-full text-left sm:px-4">
             I originally studied Telecommunications Engineering at Carleton University,
@@ -88,8 +88,10 @@ export default function Home() {
           </p>
           <p className="mt-4 px-2 w-full text-left sm:px-4">
             My current personal stack consists of{' '}
-            <span className="font-mono">Next.js, Auth0, FaunaDB, TailwindCSS</span> and
-            more.
+            <span className="font-mono">
+              Next.js, GraphQL, Strapi, Auth0, FaunaDB, TailwindCSS
+            </span>{' '}
+            and more.
           </p>
           <p className="my-4 px-2 w-full text-left sm:px-4">
             I also have some content about various things in the world of{' '}

@@ -23,12 +23,17 @@ module.exports = {
         body: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
+        slow: {
+          '0%, 100%': { transform: 'rotate(-1deg)' },
+          '50%': { transform: 'rotate(1deg)' },
+        },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-6deg)' },
           '50%': { transform: 'rotate(6deg)' },
         },
       },
       animation: {
+        slow: 'wiggle 1s ease-in-out infinite',
         wiggle: 'wiggle 0.3s ease-in-out infinite',
       },
     },

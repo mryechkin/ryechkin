@@ -52,7 +52,7 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="dark:hover:text-gray-50 dark:text-gray-200 text-gray-500 hover:text-gray-700 text-xl transform hover:scale-125 sm:text-3xl"
+              className="dark:hover:text-indigo-200 dark:text-indigo-300 text-indigo-400 hover:text-indigo-600 text-xl transform hover:scale-125 sm:text-3xl"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="w-8 h-8" aria-hidden="true" />
