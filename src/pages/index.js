@@ -101,23 +101,23 @@ export default function Home({ isDark }) {
           </p>
           <p className="mt-4 px-2 w-full text-left sm:px-4">
             I originally studied Telecommunications Engineering at Carleton University,
-            but my focus and passion have always been in web technologies, and I've been
+            but my focus and passion have always been in web technologies. I've been
             developing enterprise-grade software for over 12 years now.
           </p>
           <p className="mt-4 px-2 w-full text-left sm:px-4">
-            My current personal stack consists of{' '}
+            Some of the tech I'm currently using in personal projects consists of{' '}
             <span className="font-mono">
-              Next.js, GraphQL, Strapi, Auth0, FaunaDB, TailwindCSS
+              Next.js, GraphQL, Auth0, FaunaDB, TailwindCSS, Strapi
             </span>{' '}
             and more.
           </p>
           <p className="my-4 px-2 w-full text-left sm:px-4">
-            Recently I've started creating content on various topics in the world of
+            Recently I've also started creating content on various topics in the world of
             modern web development. Check it out on{' '}
             <span className="inline-block">
               <a
                 href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
-                alt="Mykhaylo's YouTube"
+                alt="Mykhaylo's YouTube Channel"
                 target="_blank"
                 rel="noopener noreferrer"
               >

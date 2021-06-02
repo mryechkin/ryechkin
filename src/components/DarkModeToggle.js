@@ -12,7 +12,7 @@ export default function DarkModeToggle({ enabled, setEnabled }) {
       onChange={setEnabled}
       className={classNames(
         enabled ? 'bg-gray-900' : 'bg-gray-200',
-        'relative inline-flex flex-shrink-0 w-11 h-7 border border-transparent rounded-full focus:outline-none cursor-pointer transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+        'relative inline-flex flex-shrink-0 w-11 h-7 border-2 border-transparent rounded-full focus:outline-none cursor-pointer transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
       )}
     >
       <span className="sr-only">Change color mode</span>
