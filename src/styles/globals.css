@@ -17,5 +17,33 @@ a {
 }
 
 .accent {
-  @apply p-1 dark:text-green-300 text-green-600 font-mono bg-green-50 dark:bg-green-900;
+  @apply dark:text-cyan-300 text-cyan-600 bg-cyan-50 dark:bg-cyan-900 p-1 font-mono;
+}
+
+.rainbow {
+  @apply text-transparent bg-gradient-to-br bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-blue-300 to-blue-400 dark:via-pink-300 via-pink-500;
+}
+
+.retro {
+  text-shadow: 4px 3px 0px #60a5fa, 8px 7px 0px #2563eb;
+}
+
+.dark .retro {
+  text-shadow: 4px 3px 0px #fb7185, 8px 7px 0px #e11d48;
+}
+
+.social-github {
+  @apply dark:hover:text-gray-600 hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+}
+
+.social-linkedin {
+  @apply dark:hover:text-[#0a66c2] hover:text-[#0a66c2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+}
+
+.social-twitter {
+  @apply dark:hover:text-[#1da1f2] hover:text-[#1da1f2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+}
+
+.social-youtube {
+  @apply dark:hover:text-[#ff0000] hover:text-[#ff0000] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
 }

@@ -7,21 +7,25 @@ const navigation = {
   social: [
     {
       name: 'GitHub',
+      className: 'social-github',
       href: 'https://github.com/mryechkin',
       icon: (props) => <SiGithub {...props} />,
     },
     {
       name: 'LinkedIn',
+      className: 'social-linkedin',
       href: 'https://ca.linkedin.com/in/mryechkin',
       icon: (props) => <SiLinkedin {...props} />,
     },
     {
       name: 'Twitter',
+      className: 'social-twitter',
       href: 'https://twitter.com/mryechkin',
       icon: (props) => <SiTwitter {...props} />,
     },
     {
       name: 'YouTube',
+      className: 'social-youtube',
       href: 'https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ',
       icon: (props) => <SiYoutube {...props} />,
     },
@@ -52,14 +56,14 @@ export default function Footer() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="dark:hover:text-indigo-200 dark:text-indigo-300 text-indigo-400 hover:text-indigo-600 text-xl transform hover:scale-125 sm:text-3xl"
+              className={item.className}
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="w-8 h-8" aria-hidden="true" />
             </a>
           ))}
         </div>
-        <p className="mt-12 text-center dark:text-indigo-300 text-indigo-400 text-xs tracking-widest sm:text-sm">
+        <p className="mt-12 text-center dark:text-gray-100 text-gray-400 text-xs tracking-widest sm:text-sm">
           &copy; 2021 <span className="font-semibold">Mykhaylo Ryechkin</span>.
           <span className="ml-1 font-normal">All rights reserved.</span>
         </p>

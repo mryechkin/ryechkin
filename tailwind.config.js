@@ -14,8 +14,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        cyan: colors.cyan,
         green: colors.green,
         pink: colors.fuchsia,
+        rose: colors.rose,
         yellow: colors.yellow,
       },
       fontFamily: {
@@ -24,17 +26,17 @@ module.exports = {
       },
       keyframes: {
         slow: {
-          '0%, 100%': { transform: 'rotate(-1deg)' },
-          '50%': { transform: 'rotate(1deg)' },
+          '0%, 100%': { transform: 'rotate(-2deg)' },
+          '50%': { transform: 'rotate(2deg)' },
         },
         wiggle: {
-          '0%, 100%': { transform: 'rotate(-6deg)' },
-          '50%': { transform: 'rotate(6deg)' },
+          '0%, 100%': { transform: 'rotate(-4deg)' },
+          '50%': { transform: 'rotate(4deg)' },
         },
       },
       animation: {
-        slow: 'wiggle 1s ease-in-out infinite',
-        wiggle: 'wiggle 0.3s ease-in-out infinite',
+        slow: 'wiggle 2s ease-in-out infinite',
+        wiggle: 'wiggle 0.2s ease-in-out infinite',
       },
     },
   },
