@@ -59,7 +59,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <p className="mt-12 text-center dark:text-gray-200 text-gray-500 text-xs tracking-widest sm:text-sm">
+        <p className="mt-12 text-center dark:text-indigo-300 text-indigo-400 text-xs tracking-widest sm:text-sm">
           &copy; 2021 <span className="font-semibold">Mykhaylo Ryechkin</span>.
           <span className="ml-1 font-normal">All rights reserved.</span>
         </p>

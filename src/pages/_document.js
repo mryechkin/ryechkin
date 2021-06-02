@@ -10,7 +10,12 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+          <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://fonts.googleapis.com/css?family=Poppins"
+          />
         </Head>
         <body>
           <Main />

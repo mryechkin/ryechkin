@@ -20,6 +20,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        body: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         wiggle: {
