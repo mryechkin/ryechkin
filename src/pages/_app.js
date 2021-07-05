@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import '@/styles/globals.css';
 
-import { DarkModeToggle, Footer } from '@/components';
+import { Footer, GradientContainer } from '@/components';
 
 function MyApp({ Component, pageProps }) {
   const [isDark, setIsDark] = useState(false);
@@ -16,24 +16,23 @@ function MyApp({ Component, pageProps }) {
       ) {
         setIsDark(true);
       }
-      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(() => {
         setIsDark(true);
       });
     }
   }, []);
 
   return (
-    <div className={isDark ? 'dark' : ''}>
+    <div className={isDark ? 'dark' : 'light'}>
       <div className="flex flex-col items-center justify-center p-2 min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 overflow-hidden sm:p-2 md:p-4">
-        <Head>
-          <title>Mykhaylo Ryechkin</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Component isDark={isDark} {...pageProps} />
-        <div className="mt-12">
-          <DarkModeToggle enabled={isDark} setEnabled={setIsDark} />
-        </div>
-        <Footer />
+        <GradientContainer>
+          <Head>
+            <title>Mykhaylo Ryechkin</title>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Component isDark={isDark} {...pageProps} />
+          <Footer isDark={isDark} setIsDark={setIsDark} />
+        </GradientContainer>
       </div>
     </div>
   );

@@ -4,11 +4,7 @@ const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: process.env.NODE_ENV
-    ? // JIT for `npm run dev`.
-      'jit'
-    : // No JIT for IDE class and generation & prettier runs.
-      undefined,
+  mode: 'jit',
   purge: ['./src/**/*.{js,mdx}'],
   darkMode: 'class',
   theme: {

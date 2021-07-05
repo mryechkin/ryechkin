@@ -17,11 +17,15 @@ a {
 }
 
 .accent {
-  @apply dark:text-cyan-300 text-cyan-600 bg-cyan-50 dark:bg-cyan-900 p-1 font-mono;
+  @apply p-1 dark:text-cyan-300 text-cyan-600 font-mono bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
+}
+
+.accent-no-bg {
+  @apply font-mono font-black;
 }
 
 .rainbow {
-  @apply text-transparent bg-gradient-to-br bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-blue-300 to-blue-400 dark:via-pink-300 via-pink-500;
+  @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-cyan-300 to-cyan-500 dark:via-pink-300 via-pink-500;
 }
 
 .retro {
@@ -33,7 +37,7 @@ a {
 }
 
 .social-github {
-  @apply dark:hover:text-gray-600 hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+  @apply dark:hover:text-gray-600 dark:hover:bg-white hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
 }
 
 .social-linkedin {

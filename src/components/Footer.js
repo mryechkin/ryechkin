@@ -1,6 +1,10 @@
+import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
+
+// import { HiHeart } from 'react-icons/hi';
+import { DarkModeToggle } from '@/components';
 
 const navigation = {
   main: [{ name: 'Home', href: '/' }],
@@ -32,7 +36,7 @@ const navigation = {
   ],
 };
 
-export default function Footer() {
+export default function Footer({ isDark, setIsDark }) {
   const router = useRouter();
 
   return (
@@ -49,24 +53,40 @@ export default function Footer() {
             ))}
           </nav>
         )}
-        <div className="flex justify-center mt-12 space-x-6">
-          {navigation.social.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={item.className}
-            >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="w-8 h-8" aria-hidden="true" />
-            </a>
-          ))}
+        <div className="flex justify-center mt-4 space-x-6 sm:mt-8">
+          <div className="flex justify-between px-2 w-full sm:px-8">
+            <span className="flex">
+              {navigation.social.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dark:hover:text-indigo-400 p-2 text-gray-800 dark:text-indigo-200 hover:text-indigo-500 text-xl sm:text-3xl"
+                >
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="w-8 h-8" aria-hidden="true" />
+                </a>
+              ))}
+            </span>
+            <DarkModeToggle
+              enabled={isDark}
+              setEnabled={() => {
+                setIsDark(!isDark);
+              }}
+            />
+          </div>
         </div>
-        <p className="mt-12 text-center dark:text-gray-100 text-gray-400 text-xs tracking-widest sm:text-sm">
-          &copy; 2021 <span className="font-semibold">Mykhaylo Ryechkin</span>.
-          <span className="ml-1 font-normal">All rights reserved.</span>
-        </p>
+        <div className="sm:text-md mt-8 text-center text-gray-800 dark:text-indigo-200 text-sm tracking-wide sm:mt-10">
+          <div className="hidden my-8 sm:inline-flex sm:flex-grow-0 sm:items-center sm:justify-center">
+            <span>&copy; 2021</span>
+            <span className="ml-1 font-semibold">Mykhaylo Ryechkin</span>.
+            <span className="ml-1 font-normal">All rights reserved.</span>
+          </div>
+          <div className="inline-flex items-center justify-center my-4 font-normal sm:hidden">
+            &copy; 2021 Mykhaylo Ryechkin. All rights reserved.
+          </div>
+        </div>
       </div>
     </footer>
   );
