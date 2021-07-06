@@ -12,20 +12,32 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23c7d2fe' fill-opacity='0.5' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
 }
 
+@layer components {
+  .prose blockquote {
+    @apply dark:text-cyan-200 text-gray-600;
+  }
+  .prose code {
+    @apply dark:text-cyan-200 text-gray-700;
+  }
+  .prose strong {
+    @apply dark:text-gray-50 text-gray-800;
+  }
+}
+
 a {
-  @apply hover:dark:text-blue-200 dark:hover:text-blue-500 relative dark:text-blue-300 text-blue-400 hover:text-blue-600 underline font-extrabold;
+  @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
 }
 
 .accent {
-  @apply p-1 dark:text-cyan-300 text-cyan-600 font-mono bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
+  @apply p-2 dark:text-cyan-300 text-cyan-600 font-mono bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
 }
 
 .accent-no-bg {
-  @apply font-mono font-black;
+  @apply dark:text-cyan-300 text-gray-600 font-semibold;
 }
 
 .rainbow {
-  @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-cyan-300 to-cyan-500 dark:via-pink-300 via-pink-500;
+  @apply to-amber-400 text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-rose-300;
 }
 
 .retro {

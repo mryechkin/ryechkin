@@ -10,7 +10,7 @@ export default function DarkModeToggle({ enabled, setEnabled }) {
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.9 }}
     >
-      {enabled && <IoMoon className="w-6 h-6 text-blue-600" />}
+      {enabled && <IoMoon className="w-6 h-6 text-indigo-500" />}
       {!enabled && <CgSun className="w-6 h-6 text-rose-400" />}
     </motion.button>
   );

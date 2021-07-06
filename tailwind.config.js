@@ -15,6 +15,7 @@ module.exports = {
         pink: colors.fuchsia,
         rose: colors.rose,
         yellow: colors.yellow,
+        amber: colors.amber,
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],

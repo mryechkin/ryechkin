@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 import '@/styles/globals.css';
+import '@/styles/prism.css';
 
 import { Footer, GradientContainer } from '@/components';
 
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className={isDark ? 'dark' : 'light'}>
-      <div className="flex flex-col items-center justify-center p-2 min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 overflow-hidden sm:p-2 md:p-4">
+      <div className="flex flex-col items-center justify-center min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 overflow-hidden">
         <GradientContainer>
           <Head>
             <title>Mykhaylo Ryechkin</title>
