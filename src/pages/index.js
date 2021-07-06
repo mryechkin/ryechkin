@@ -31,7 +31,7 @@ export default function Home() {
       <div className="z-10 flex flex-col items-center justify-center py-4 md:py-8">
         <div className="font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="rainbow flex items-center justify-center p-2">
+            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
               Hey
               <motion.button
                 type="button"
