@@ -35,7 +35,7 @@ const navigation = {
   ],
 };
 
-export default function Footer({ isDark, setIsDark, hideKylo }) {
+export default function Footer({ hideKylo }) {
   const router = useRouter();
 
   return (
@@ -54,7 +54,7 @@ export default function Footer({ isDark, setIsDark, hideKylo }) {
         )}
         {!hideKylo && (
           <div className="flex items-center justify-center py-8">
-            <KyloRen isDark={isDark} />
+            <KyloRen />
           </div>
         )}
         <div className="flex justify-center space-x-6">
@@ -73,12 +73,7 @@ export default function Footer({ isDark, setIsDark, hideKylo }) {
                 </a>
               ))}
             </span>
-            <DarkModeToggle
-              enabled={isDark}
-              setEnabled={() => {
-                setIsDark(!isDark);
-              }}
-            />
+            <DarkModeToggle />
           </div>
         </div>
         <div className="sm:text-md mt-8 text-center text-gray-700 dark:text-indigo-200 text-sm tracking-wide sm:mt-10">

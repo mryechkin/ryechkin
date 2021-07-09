@@ -6,15 +6,15 @@ import { Layout } from '@/components';
 
 export default function NotFound({ isDark, setIsDark }) {
   return (
-    <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
-      <div className="prose lg:prose-xl mx-auto pb-8 text-center sm:mt-20">
+    <Layout isDark={isDark} setIsDark={setIsDark}>
+      <div className="prose md:prose-lg lg:prose-xl mx-auto pb-8 text-center sm:mt-20">
         <div className="flex items-center justify-center p-8">
           <FaExclamationTriangle className="w-10 h-10 dark:text-rose-400 text-rose-500" />
         </div>
         <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl sm:tracking-tight lg:text-6xl">
           Page Not Found.
         </h1>
-        <p className="mt-6 mx-auto max-w-xl text-xl">
+        <p className="mt-6 mx-auto max-w-5xl text-xl">
           The page you are looking for doesn&apos;t exist.
         </p>
         <p className="py-6 sm:py-12">

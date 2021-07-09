@@ -49,7 +49,7 @@ a {
 }
 
 .accent-no-bg {
-  @apply dark:text-cyan-300 text-gray-600 font-semibold;
+  @apply dark:text-cyan-300 text-cyan-700 font-semibold;
 }
 
 .rainbow {

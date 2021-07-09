@@ -13,9 +13,11 @@ const skills = [
   'React',
   'Next.js',
   'Node.js',
-  'Auth0',
   'GraphQL',
   'TailwindCSS',
+  'Auth0',
+  'Babel',
+  'Rollup',
   'Strapi',
   'Storybook',
   'Vercel',
@@ -58,12 +60,12 @@ export default function Home({ isDark, setIsDark }) {
         </div>
         <Confetti active={wave} />
       </div>
-      <div className="flex items-center justify-center mb-4 mt-2 max-w-4xl md:mb-8 md:mt-4">
+      <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
         <Image src="/assets/header.jpg" width={450} height={135} />
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4 text-center sm:text-left">
-          I&quot;m a software engineer based in{' '}
+          I&apos;m a software engineer based in{' '}
           <span className="accent-no-bg">Kitchener, Canada</span>. I write code for a
           living, drink more coffee than I probably should, and listen to a lot of
           electronic music in the process <RickRoll />
@@ -84,7 +86,9 @@ export default function Home({ isDark, setIsDark }) {
           <span className="accent font-black">12</span> years now.
         </div>
         <div className="mt-4 text-center sm:text-left">
-          Some of the technologies I&apos;ve recently been working with include:
+          <div>
+            Some of the technologies I&apos;ve recently been working with include:
+          </div>
           <div className="accent inline">
             &#123;&nbsp;
             {skills.join(', ')}
@@ -92,7 +96,7 @@ export default function Home({ isDark, setIsDark }) {
           </div>
         </div>
         <div className="my-4 text-center sm:text-left">
-          Thanks for stopping by :) Check out my
+          Thanks for stopping by <span className="text-2xl">☺</span> Check out my
           <span className="inline-block px-1">
             <a
               href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"

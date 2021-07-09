@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 
 const variants = {
   rotate: {
@@ -11,8 +12,9 @@ const variants = {
   stop: { x: [0, 0] },
 };
 
-export default function KyloRen({ isDark, onClick }) {
+export default function KyloRen({ onClick }) {
   const [spinning, setSpinning] = useState(false);
+  const { theme } = useTheme();
 
   return (
     <>
@@ -28,10 +30,9 @@ export default function KyloRen({ isDark, onClick }) {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {!isDark && (
+        {theme === 'light' ? (
           <Image src="/assets/kyloren3.svg" height="64" width="64" alt="Kylo Ren" />
-        )}
-        {isDark && (
+        ) : (
           <Image
             src="/assets/kyloren3-inverse.svg"
             height="64"

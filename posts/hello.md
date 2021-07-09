@@ -2,9 +2,7 @@
 title: 'Hello World!'
 date: '2021-07-05'
 excerpt: 'Amet Lorem cupidatat dolore veniam duis aliqua dolore laboris exercitation ad do sit.'
-author:
-  id: 'mryechkin'
-  name: 'Mykhaylo Ryechkin'
+tags: ['Hello', 'World']
 ---
 
 Proident est laborum ea id aute id do occaecat nostrud nisi non mollit. Irure velit aliquip est nostrud aliqua aute amet minim. Ut ad velit Lorem deserunt Lorem cupidatat sit pariatur nisi elit deserunt mollit. Cupidatat ullamco exercitation pariatur officia sint **dolore labore** in. Tempor culpa qui et dolore cupidatat aliquip adipisicing. Sint ex dolor aute pariatur eu. Duis ut reprehenderit eiusmod est veniam eiusmod culpa anim magna.

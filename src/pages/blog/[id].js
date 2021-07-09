@@ -25,15 +25,19 @@ export default function Post({ isDark, setIsDark, postData }) {
         <meta name="twitter:description" content={postData.description} />
       </Head>
       <h1>{postData.title}</h1>
-      <div className="relative z-10 pb-8 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-        Published by <span className="accent leading-tight">{postData.author.name}</span>{' '}
-        on{' '}
+      <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
+        Published on{' '}
         <span className="font-semibold">
           <DateDisplay dateString={postData.date} />
         </span>
       </div>
+      <div className="z-10 flex flex-col items-center justify-center pb-4">
+        {postData.tags?.map((tag) => (
+          <span className="accent leading-tight">{tag}</span>
+        ))}
+      </div>
       <article
-        className="prose lg:prose-xl relative z-10 mx-auto pb-4 dark:text-gray-50 text-gray-800"
+        className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto pb-4 dark:text-gray-50 text-gray-800"
         dangerouslySetInnerHTML={{ __html: postData.content }}
       />
     </Layout>
