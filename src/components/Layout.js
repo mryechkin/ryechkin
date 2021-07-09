@@ -1,71 +1,18 @@
-export default function Layout({ children }) {
+import BackgroundPattern from '@/components/BackgroundPattern';
+import Footer from '@/components/Footer';
+
+export default function Layout({ children, isDark, setIsDark, hideKylo }) {
   return (
-    <main className="flex flex-col items-center justify-center mx-auto p-2 w-full min-w-min text-center dark:text-gray-50 text-gray-800 font-body text-base sm:px-0 sm:py-4 md:py-8 md:max-w-3xl md:text-lg lg:max-w-5xl">
-      <svg
-        className="absolute z-0 top-12 md:left-1/4"
-        width={302}
-        height={384}
-        fill="none"
-        viewBox="0 0 302 384"
-      >
-        <defs>
-          <pattern
-            id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
-            x={0}
-            y={0}
-            width={20}
-            height={20}
-            patternUnits="userSpaceOnUse"
-          >
-            <rect
-              x={0}
-              y={0}
-              width={4}
-              height={4}
-              className="text-gray-100 dark:text-gray-700"
-              fill="currentColor"
-            />
-          </pattern>
-        </defs>
-        <rect
-          width={302}
-          height={384}
-          fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"
-        />
-      </svg>
-      <svg
-        className="absolute z-0 top-1/2 md:right-1/4"
-        width={242}
-        height={384}
-        fill="none"
-        viewBox="0 0 302 384"
-      >
-        <defs>
-          <pattern
-            id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
-            x={0}
-            y={0}
-            width={20}
-            height={20}
-            patternUnits="userSpaceOnUse"
-          >
-            <rect
-              x={0}
-              y={0}
-              width={4}
-              height={4}
-              className="text-gray-200 dark:text-gray-700"
-              fill="currentColor"
-            />
-          </pattern>
-        </defs>
-        <rect
-          width={302}
-          height={384}
-          fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"
-        />
-      </svg>
-      {children}
-    </main>
+    <div className="flex flex-col items-center justify-center min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 overflow-hidden">
+      <div className="relative p-1 w-full min-h-screen bg-gradient-to-br dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 sm:p-2">
+        <div className="flex flex-col justify-between p-4 min-h-screen bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 sm:p-8">
+          <main className="prose lg:prose-xl z-10 mx-auto w-full max-w-5xl">
+            {children}
+          </main>
+          <BackgroundPattern className="top-20 sm:top-40" />
+          <Footer isDark={isDark} setIsDark={setIsDark} hideKylo={hideKylo} />
+        </div>
+      </div>
+    </div>
   );
 }

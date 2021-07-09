@@ -13,6 +13,15 @@
 }
 
 @layer components {
+  .prose {
+    @apply dark:text-gray-50 text-gray-500;
+  }
+  .prose h1 {
+    @apply text-center dark:text-cyan-200 text-gray-800;
+  }
+  .prose h2 {
+    @apply text-center dark:text-cyan-300 text-gray-800;
+  }
   .prose blockquote {
     @apply dark:text-cyan-200 text-gray-600;
   }
@@ -22,6 +31,13 @@
   .prose strong {
     @apply dark:text-gray-50 text-gray-800;
   }
+  .prose a {
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
+  }
+}
+
+body {
+  @apply dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
 }
 
 a {
@@ -37,7 +53,7 @@ a {
 }
 
 .rainbow {
-  @apply to-amber-400 text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 dark:to-rose-300;
+  @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 to-amber-400 dark:to-rose-300;
 }
 
 .retro {

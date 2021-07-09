@@ -25,15 +25,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className={isDark ? 'dark' : 'light'}>
-      <div className="flex flex-col items-center justify-center min-h-screen dark:text-gray-50 text-gray-500 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 overflow-hidden">
-        <GradientContainer>
-          <Head>
-            <title>Mykhaylo Ryechkin</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Component isDark={isDark} {...pageProps} />
-          <Footer isDark={isDark} setIsDark={setIsDark} />
-        </GradientContainer>
+      <Head>
+        <title>Mykhaylo Ryechkin</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="dark:text-gray-50 text-gray-500 selection:bg-cyan-100 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900">
+        <Component isDark={isDark} setIsDark={setIsDark} {...pageProps} />
       </div>
     </div>
   );

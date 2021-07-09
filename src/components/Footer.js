@@ -35,13 +35,13 @@ const navigation = {
   ],
 };
 
-export default function Footer({ isDark, setIsDark }) {
+export default function Footer({ isDark, setIsDark, hideKylo }) {
   const router = useRouter();
 
   return (
     <footer>
-      <div className="mx-auto pt-0 px-4 py-12 max-w-7xl overflow-hidden sm:px-6 lg:px-8">
-        {router.pathname !== '/' && (
+      <div className="mx-auto pt-0 py-6 max-w-5xl overflow-hidden md:py-12">
+        {router.pathname !== '/' && router.pathname !== '/404' && (
           <nav className="flex flex-wrap justify-center pb-4 md:pb-8" aria-label="Footer">
             {navigation.main.map((item) => (
               <div key={item.name} className="px-5 py-2">
@@ -52,11 +52,13 @@ export default function Footer({ isDark, setIsDark }) {
             ))}
           </nav>
         )}
-        <div className="flex items-center justify-center my-4">
-          <KyloRen isDark={isDark} />
-        </div>
+        {!hideKylo && (
+          <div className="flex items-center justify-center py-8">
+            <KyloRen isDark={isDark} />
+          </div>
+        )}
         <div className="flex justify-center space-x-6">
-          <div className="flex justify-between px-2 w-full sm:px-8">
+          <div className="flex justify-between w-full">
             <span className="flex">
               {navigation.social.map((item) => (
                 <a

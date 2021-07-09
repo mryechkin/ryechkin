@@ -12,6 +12,8 @@ const skills = [
   'JavaScript',
   'React',
   'Next.js',
+  'Node.js',
+  'Auth0',
   'GraphQL',
   'TailwindCSS',
   'Strapi',
@@ -19,7 +21,7 @@ const skills = [
   'Vercel',
 ];
 
-export default function Home() {
+export default function Home({ isDark, setIsDark }) {
   const [wave, setWave] = useState(false);
 
   useEffect(() => {
@@ -27,8 +29,8 @@ export default function Home() {
   }, [wave]);
 
   return (
-    <Layout>
-      <div className="z-10 flex flex-col items-center justify-center py-4 md:py-8">
+    <Layout isDark={isDark} setIsDark={setIsDark}>
+      <div className="flex flex-col items-center justify-center py-2 sm:py-8">
         <div className="font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
@@ -49,11 +51,11 @@ export default function Home() {
             </span>
           </span>
         </div>
-        <h3 className="sm:text-md inline-flex items-center self-end align-middle mt-4 text-blue-400 dark:text-rose-400 font-sans text-sm sm:mt-0">
+        <div className="sm:text-md inline-flex items-center self-end align-middle mr-12 mt-4 text-blue-400 dark:text-rose-400 font-sans text-base sm:mr-16 sm:mt-0 sm:text-lg md:mr-20 lg:mr-24">
           <span className="ml-1 font-medium">(like</span>
           <span className="ml-1 font-black">&quot;Kylo&quot;</span>
           <span className="font-medium">)</span>
-        </h3>
+        </div>
         <Confetti active={wave} />
       </div>
       <div className="flex items-center justify-center mb-4 mt-2 max-w-4xl md:mb-8 md:mt-4">
@@ -61,41 +63,36 @@ export default function Home() {
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4 text-center sm:text-left">
-          I write code for a living, drink more coffee than I probably should, and listen
-          to a lot of electronic music in the process <RickRoll />
+          I&quot;m a software engineer based in{' '}
+          <span className="accent-no-bg">Kitchener, Canada</span>. I write code for a
+          living, drink more coffee than I probably should, and listen to a lot of
+          electronic music in the process <RickRoll />
         </div>
         <div className="mt-4 text-center sm:text-left">
-          I am a software engineer based in{' '}
-          <span className="accent-no-bg">Kitchener, Canada</span>, currently working as a{' '}
+          In my current role as a{' '}
           <span className="accent-no-bg">Lead Software Engineer</span> at{' '}
-          <span className="accent-no-bg">Manulife</span>.
+          <span className="accent-no-bg">Manulife</span>, I&apos;m the technical product
+          owner and one of the core maintainers of an &quot;inner-source&quot; component
+          library for React at Manulife.
         </div>
         <div className="mt-4 text-center sm:text-left">
-          I originally studied{' '}
+          Originally studied{' '}
           <span className="accent-no-bg">Telecommunications Engineering</span> at{' '}
           <span className="accent-no-bg">Carleton University</span>, but my focus and
-          passion have always been in web technologies.
+          passion have always been in web technologies. I&apos;been developing
+          enterprise-grade software for
+          <span className="accent font-black">12</span> years now.
         </div>
         <div className="mt-4 text-center sm:text-left">
-          I&apos;ve been developing enterprise-grade software for over{' '}
-          <span className="accent font-black">12</span> years now (7 of those at{' '}
-          <span className="accent-no-bg">BlackBerry</span>)
-        </div>
-        <div className="mt-4 text-center sm:text-left">
-          Some of the technologies I&apos;ve been recently working with include:
-          <span className="flex flex-wrap items-center justify-center font-mono sm:justify-items-start">
-            <span className="accent">&#123;</span>
-            {skills.map((skill) => (
-              <span key={skill} className="accent pr-1">
-                {skill},
-              </span>
-            ))}
-            <span className="accent">...etc</span>
-            <span className="accent">&#125;</span>
-          </span>
+          Some of the technologies I&apos;ve recently been working with include:
+          <div className="accent inline">
+            &#123;&nbsp;
+            {skills.join(', ')}
+            ,&nbsp;...etc&nbsp;&#125;
+          </div>
         </div>
         <div className="my-4 text-center sm:text-left">
-          I also have a
+          Thanks for stopping by :) Check out my
           <span className="inline-block px-1">
             <a
               href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
@@ -107,8 +104,7 @@ export default function Home() {
             </a>
             <HiOutlineExternalLink className="inline-block ml-1 dark:text-cyan-300 text-cyan-500" />
           </span>
-          channel where I share content on various topics in the world of modern web
-          development.
+          channel, where I share various content and tutorials on all things web.
         </div>
       </div>
     </Layout>
