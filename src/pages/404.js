@@ -14,7 +14,7 @@ export default function NotFound({ isDark, setIsDark }) {
         <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl sm:tracking-tight lg:text-6xl">
           Page Not Found.
         </h1>
-        <p className="mt-6 mx-auto max-w-5xl text-xl">
+        <p className="mt-6 mx-auto max-w-5xl text-lg">
           The page you are looking for doesn&apos;t exist.
         </p>
         <p className="pb-4 sm:pb-8">

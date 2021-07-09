@@ -40,7 +40,7 @@ export default function Footer({ hideKylo }) {
 
   return (
     <footer>
-      <div className="mx-auto pt-0 py-6 max-w-5xl overflow-hidden md:py-12">
+      <div className="mx-auto pt-0 py-6 max-w-5xl overflow-hidden md:py-8">
         {router.pathname !== '/' && router.pathname !== '/404' && (
           <nav className="flex flex-wrap justify-center pb-4 md:pb-8" aria-label="Footer">
             {navigation.main.map((item) => (

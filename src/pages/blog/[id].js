@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { DateDisplay, Layout } from '@/components';
+import { DateDisplay, Layout, Tags } from '@/components';
 import markdownToHtml from '@/lib/markdown';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 
@@ -26,20 +26,16 @@ export default function Post({ isDark, setIsDark, postData }) {
       </Head>
       <h1>{postData.title}</h1>
       <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-        Published on{' '}
-        <span className="font-semibold">
+        Published on
+        <span className="px-2 font-semibold">
           <DateDisplay dateString={postData.date} />
         </span>
+        by
+        <span className="accent-no-bg ml-2">{postData.author.name}</span>
       </div>
-      <div className="z-10 flex flex-row items-center justify-center pb-4">
-        {postData.tags?.map((tag) => (
-          <span key={tag} className="accent leading-tight">
-            {tag}
-          </span>
-        ))}
-      </div>
+      <Tags list={postData.tags} />
       <article
-        className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto pb-4 dark:text-gray-50 text-gray-800"
+        className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto py-4 dark:text-gray-50 text-gray-800 md:pt-8"
         dangerouslySetInnerHTML={{ __html: postData.content }}
       />
     </Layout>
