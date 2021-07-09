@@ -31,9 +31,11 @@ export default function Post({ isDark, setIsDark, postData }) {
           <DateDisplay dateString={postData.date} />
         </span>
       </div>
-      <div className="z-10 flex flex-col items-center justify-center pb-4">
+      <div className="z-10 flex flex-row items-center justify-center pb-4">
         {postData.tags?.map((tag) => (
-          <span className="accent leading-tight">{tag}</span>
+          <span key={tag} className="accent leading-tight">
+            {tag}
+          </span>
         ))}
       </div>
       <article

@@ -32,7 +32,7 @@ export default function Home({ isDark, setIsDark }) {
 
   return (
     <Layout isDark={isDark} setIsDark={setIsDark}>
-      <div className="flex flex-col items-center justify-center py-2 sm:py-8">
+      <div className="flex flex-col items-center justify-center py-2 sm:py-4">
         <div className="font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
@@ -61,7 +61,7 @@ export default function Home({ isDark, setIsDark }) {
         <Confetti active={wave} />
       </div>
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
-        <Image src="/assets/header.jpg" width={450} height={135} />
+        <Image src="/assets/header.jpg" width={480} height={120} />
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4 text-center sm:text-left">
@@ -73,12 +73,13 @@ export default function Home({ isDark, setIsDark }) {
         <div className="mt-4 text-center sm:text-left">
           In my current role as a{' '}
           <span className="accent-no-bg">Lead Software Engineer</span> at{' '}
-          <span className="accent-no-bg">Manulife</span>, I&apos;m the technical product
-          owner and one of the core maintainers of an &quot;inner-source&quot; component
-          library for React at Manulife.
+          <span className="accent-no-bg">Manulife</span>, I&apos;m a core maintainer and
+          the technical product owner of an internal &quot;inner-source&quot; component
+          library for React. I work with engineers and designers to establish an
+          end-to-end design system at Manulife.
         </div>
         <div className="mt-4 text-center sm:text-left">
-          Originally studied{' '}
+          I originally studied{' '}
           <span className="accent-no-bg">Telecommunications Engineering</span> at{' '}
           <span className="accent-no-bg">Carleton University</span>, but my focus and
           passion have always been in web technologies. I&apos;been developing

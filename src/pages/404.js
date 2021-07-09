@@ -17,9 +17,9 @@ export default function NotFound({ isDark, setIsDark }) {
         <p className="mt-6 mx-auto max-w-5xl text-xl">
           The page you are looking for doesn&apos;t exist.
         </p>
-        <p className="py-6 sm:py-12">
+        <p className="pb-4 sm:pb-8">
           <Link href="/">
-            <a>Go Home.</a>
+            <a>← Home</a>
           </Link>
         </p>
         <Image src="/assets/banner4.jpg" width={150} height={225} />
