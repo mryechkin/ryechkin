@@ -9,18 +9,18 @@ export default function Post({ isDark, setIsDark, postData }) {
     <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
       <Head>
         <title>{postData.title}</title>
-        <meta charSet="utf-8" />
+        {/* <meta charSet="utf-8" />
         <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="robots" content="follow, index" />
-        <link href="/favicon.ico" rel="shortcut icon" />
+        <link href="/favicon.ico" rel="shortcut icon" /> */}
         <meta content={postData.description} name="description" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={postData.title} />
+        {/* <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={postData.title} /> */}
         <meta property="og:description" content={postData.description} />
         <meta property="og:title" content={postData.title} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="misha.wtf" />
+        {/* <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="misha.wtf" /> */}
         <meta name="twitter:title" content={postData.title} />
         <meta name="twitter:description" content={postData.description} />
       </Head>

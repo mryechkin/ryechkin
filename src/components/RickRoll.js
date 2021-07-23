@@ -22,6 +22,7 @@ export default function RickRoll() {
         <motion.span className="inline-flex ml-1" layout>
           {!rickrolled && (
             <motion.button
+              aria-label="Headphones"
               onClick={() => {
                 console.log('Sorry :)');
                 setSpinning(true);

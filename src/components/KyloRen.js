@@ -18,8 +18,10 @@ export default function KyloRen({ onClick }) {
 
   return (
     <>
-      <motion.div
+      <motion.button
+        aria-label="Kylo Ren"
         id="kylo-ren"
+        type="button"
         className="w-16 cursor-pointer"
         onClick={(e) => {
           setSpinning(!spinning);
@@ -40,7 +42,7 @@ export default function KyloRen({ onClick }) {
             alt="Kylo Ren"
           />
         )}
-      </motion.div>
+      </motion.button>
     </>
   );
 }

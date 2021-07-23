@@ -9,6 +9,7 @@ export default function Header({ setConfetti }) {
           <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
             Hey
             <motion.button
+              aria-label="Hand showing peace sign"
               type="button"
               className="p-4"
               whileHover={{ scale: 1.2 }}

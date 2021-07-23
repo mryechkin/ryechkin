@@ -8,7 +8,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
           <link

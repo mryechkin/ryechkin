@@ -37,7 +37,7 @@ export default function Home({ isDark, setIsDark }) {
         <Confetti active={confetti} />
       </div>
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
-        <Image src="/assets/header.jpg" width={480} height={120} />
+        <Image src="/assets/header.jpg" alt="Header image" width={480} height={120} />
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4 text-center sm:text-left">
@@ -68,11 +68,19 @@ export default function Home({ isDark, setIsDark }) {
           </div>
           <Tags list={skills} />
         </div>
-        <div className="flex flex-wrap items-center mt-4">
+        <div className="mt-4">
           Check out my
-          <span className="px-1">
+          <a
+            href="https://www.youtube.com/c/MykhayloRyechkin"
+            alt="Mykhaylo's YouTube Channel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            YouTube
+          </a>
+          {/* <span className="inline px-1">
             <a
-              href="https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ"
+              href="https://www.youtube.com/c/MykhayloRyechkin"
               alt="Mykhaylo's YouTube Channel"
               target="_blank"
               rel="noopener noreferrer"
@@ -80,11 +88,8 @@ export default function Home({ isDark, setIsDark }) {
               YouTube
             </a>
             <HiOutlineExternalLink className="inline-block ml-1 dark:text-cyan-300 text-cyan-500" />
-          </span>
-          <span className="flex flex-wrap">
-            channel as well, where I share various content and tutorials on all things
-            web.
-          </span>
+          </span> */}
+          channel as well, where I share various content and tutorials on all things web.
         </div>
         <div className="flex items-center justify-center mt-4">
           Thanks for stopping by
