@@ -12,15 +12,66 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23c7d2fe' fill-opacity='0.5' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
 }
 
+@layer base {
+  body {
+    @apply dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
+  }
+
+  a {
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
+  }
+
+  .accent {
+    @apply p-1 dark:text-cyan-300 text-cyan-600 font-mono bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
+  }
+
+  .accent-no-bg {
+    @apply dark:text-cyan-300 text-cyan-600 font-semibold;
+  }
+
+  .accent-indigo {
+    @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
+  }
+
+  .rainbow {
+    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 to-rose-600 dark:to-rose-300;
+  }
+
+  .retro {
+    @apply text-blue-200 dark:text-rose-50 font-black tracking-tighter;
+    text-shadow: 4px 3px 0px #60a5fa, 8px 7px 0px #2563eb;
+  }
+
+  .dark .retro {
+    text-shadow: 4px 3px 0px #fb7185, 8px 7px 0px #e11d48;
+  }
+
+  .social-github {
+    @apply dark:hover:text-gray-600 dark:hover:bg-white hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+  }
+
+  .social-linkedin {
+    @apply dark:hover:text-[#0a66c2] hover:text-[#0a66c2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+  }
+
+  .social-twitter {
+    @apply dark:hover:text-[#1da1f2] hover:text-[#1da1f2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+  }
+
+  .social-youtube {
+    @apply dark:hover:text-[#ff0000] hover:text-[#ff0000] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+  }
+}
+
 @layer components {
   .prose {
     @apply dark:text-gray-50 text-gray-500;
   }
   .prose h1 {
-    @apply text-center dark:text-cyan-200 text-cyan-600;
+    @apply rainbow text-left sm:text-center !important;
   }
   .prose h2 {
-    @apply text-center dark:text-cyan-300 text-cyan-700;
+    @apply accent inline-flex !important;
   }
   .prose blockquote {
     @apply dark:text-cyan-200 text-gray-600;
@@ -36,50 +87,8 @@
   }
 }
 
-body {
-  @apply dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
-}
-
-a {
-  @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
-}
-
-.accent {
-  @apply p-1 dark:text-cyan-300 text-cyan-600 font-mono bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
-}
-
-.accent-no-bg {
-  @apply dark:text-cyan-300 text-cyan-600 font-semibold;
-}
-
-.accent-indigo {
-  @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
-}
-
-.rainbow {
-  @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-400 to-amber-400 dark:to-rose-300;
-}
-
-.retro {
-  text-shadow: 4px 3px 0px #60a5fa, 8px 7px 0px #2563eb;
-}
-
-.dark .retro {
-  text-shadow: 4px 3px 0px #fb7185, 8px 7px 0px #e11d48;
-}
-
-.social-github {
-  @apply dark:hover:text-gray-600 dark:hover:bg-white hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
-}
-
-.social-linkedin {
-  @apply dark:hover:text-[#0a66c2] hover:text-[#0a66c2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
-}
-
-.social-twitter {
-  @apply dark:hover:text-[#1da1f2] hover:text-[#1da1f2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
-}
-
-.social-youtube {
-  @apply dark:hover:text-[#ff0000] hover:text-[#ff0000] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
