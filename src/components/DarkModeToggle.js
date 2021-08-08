@@ -13,11 +13,12 @@ export default function DarkModeToggle() {
 
   if (!mounted) return null;
 
+  const ariaLabel = `Toggle ${theme} mode`;
+
   return (
     <motion.button
-      aria-label={() =>
-        setTheme(theme === 'light' ? 'Toggle dark mode' : 'Toggle light mode')
-      }
+      aria-label={ariaLabel}
+      type="button"
       className="p-2"
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       whileHover={{ scale: 1.2 }}

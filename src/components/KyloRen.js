@@ -33,10 +33,10 @@ export default function KyloRen({ onClick }) {
         whileTap={{ scale: 0.9 }}
       >
         {theme === 'light' ? (
-          <Image src="/assets/kyloren3.svg" height="64" width="64" alt="Kylo Ren" />
+          <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
         ) : (
           <Image
-            src="/assets/kyloren3-inverse.svg"
+            src="/assets/kyloren-inverse.svg"
             height="64"
             width="64"
             alt="Kylo Ren"

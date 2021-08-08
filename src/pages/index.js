@@ -6,24 +6,10 @@ import { HiOutlineExternalLink } from 'react-icons/hi';
 import Image from 'next/image';
 
 import { Header, Layout, RickRoll, Tags } from '@/components';
+import markdownToHtml from '@/lib/markdown';
+import { getDataBySlug } from '@/lib/posts';
 
-const skills = [
-  'JavaScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'GraphQL',
-  'TailwindCSS',
-  'Auth0',
-  'Babel',
-  'Rollup',
-  'Strapi',
-  'Storybook',
-  'Vercel',
-  '...more',
-];
-
-export default function Home({ isDark, setIsDark }) {
+export default function Home({ data, isDark, setIsDark }) {
   const [confetti, setConfetti] = useState(false);
 
   useEffect(() => {
@@ -40,45 +26,22 @@ export default function Home({ isDark, setIsDark }) {
         <Image src="/assets/header.jpg" alt="Header image" width={480} height={120} />
       </div>
       <div className="z-10 mx-auto max-w-full">
-        <div className="mt-4 text-center sm:text-left">
+        <div className="mt-4">
           I&apos;m a software engineer based in{' '}
-          <span className="accent-no-bg">Kitchener, Canada</span>. I write code for a
+          <span className="accent-no-bg">{data.location}</span>. I write code for a
           living, drink more coffee than I probably should, and listen to a lot of
           electronic music in the process <RickRoll />
         </div>
-        <div className="mt-4 text-center sm:text-left">
-          In my current role as a{' '}
-          <span className="accent-no-bg">Lead Software Engineer</span> at{' '}
-          <span className="accent-no-bg">Manulife</span>, I&apos;m a core maintainer and
-          the technical product owner of an internal &quot;inner-source&quot; component
-          library for React. I work with engineers and designers to establish an
-          end-to-end design system at Manulife.
-        </div>
-        <div className="mt-4 text-center sm:text-left">
-          I originally studied{' '}
-          <span className="accent-no-bg">Telecommunications Engineering</span> at{' '}
-          <span className="accent-no-bg">Carleton University</span>, but my focus and
-          passion have always been in web technologies. I&apos;been developing
-          enterprise-grade software for
-          <span className="accent font-black">12</span> years now.
-        </div>
-        <div className="mt-4 text-center sm:text-left">
+        <div dangerouslySetInnerHTML={{ __html: data.content }} />
+        <div className="mt-4">
           <div>
             Some of the technologies I&apos;ve recently been working with include:
           </div>
-          <Tags list={skills} />
+          <Tags list={data.technologies} />
         </div>
         <div className="mt-4">
           Check out my
-          <a
-            href="https://www.youtube.com/c/MykhayloRyechkin"
-            alt="Mykhaylo's YouTube Channel"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            YouTube
-          </a>
-          {/* <span className="inline px-1">
+          <span className="inline px-1">
             <a
               href="https://www.youtube.com/c/MykhayloRyechkin"
               alt="Mykhaylo's YouTube Channel"
@@ -88,8 +51,8 @@ export default function Home({ isDark, setIsDark }) {
               YouTube
             </a>
             <HiOutlineExternalLink className="inline-block ml-1 dark:text-cyan-300 text-cyan-500" />
-          </span> */}
-          channel as well, where I share various content and tutorials on all things web.
+          </span>
+          channel as well for some of my development content and tutorials.
         </div>
         <div className="flex items-center justify-center mt-4">
           Thanks for stopping by
@@ -100,4 +63,18 @@ export default function Home({ isDark, setIsDark }) {
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const post = getDataBySlug('about');
+  const content = await markdownToHtml(post.content || '');
+
+  return {
+    props: {
+      data: {
+        ...post,
+        content,
+      },
+    },
+  };
 }

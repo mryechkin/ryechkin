@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import { NextSeo } from 'next-seo';
 
 import { DateDisplay, Layout, Tags } from '@/components';
 import markdownToHtml from '@/lib/markdown';
@@ -8,32 +10,40 @@ export default function Post({ isDark, setIsDark, postData }) {
   return (
     <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
       <Head>
-        <title>{postData.title}</title>
-        {/* <meta charSet="utf-8" />
-        <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta name="robots" content="follow, index" />
-        <link href="/favicon.ico" rel="shortcut icon" /> */}
-        <meta content={postData.description} name="description" />
-        {/* <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={postData.title} /> */}
-        <meta property="og:description" content={postData.description} />
-        <meta property="og:title" content={postData.title} />
-        {/* <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="misha.wtf" /> */}
-        <meta name="twitter:title" content={postData.title} />
-        <meta name="twitter:description" content={postData.description} />
+        <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
+      <NextSeo
+        title={postData.title}
+        description={postData.summary}
+        canonical={postData.canonical}
+        openGraph={{
+          title: postData.title,
+          description: postData.summary,
+          url: postData.canonical,
+          type: 'article',
+          article: {
+            publishedTime: postData.date,
+            authors: [postData.author?.name],
+            tags: postData.seo,
+            image:
+              postData.image ||
+              `https://www.misha.wtf/_next/image?url=%2F${postData.slug}.jpg&w=1200&q=627`,
+          },
+        }}
+      />
       <h1>{postData.title}</h1>
       <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
         Published on
         <span className="px-2 font-semibold">
-          <DateDisplay dateString={postData.date} />
+          <DateDisplay date={postData.date} />
         </span>
         by
         <span className="accent-no-bg ml-2">{postData.author.name}</span>
       </div>
-      <Tags list={postData.tags} />
+      <Tags className="mt-4" list={postData.tags} />
+      <div className="flex items-center justify-center mt-8">
+        <Image src={`/blog/${postData.slug}.jpg`} height={334} width={640} />
+      </div>
       <article
         className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto py-4 dark:text-gray-50 text-gray-800 md:pt-8"
         dangerouslySetInnerHTML={{ __html: postData.content }}

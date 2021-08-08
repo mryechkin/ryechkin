@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
+import cn from 'classnames/dedupe';
 
-export default function Tags({ list }) {
+export default function Tags({ className, list }) {
   return (
-    <div className="z-10 flex flex-wrap items-center justify-center">
+    <div className={cn('z-10 flex flex-wrap items-center justify-center', className)}>
       <span className="accent-no-bg leading-tight">&#123;</span>
       {list?.map((tag, i) => (
         <Fragment key={tag}>

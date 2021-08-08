@@ -15,14 +15,14 @@ export default function NotFound({ isDark, setIsDark }) {
           Page Not Found.
         </h1>
         <p className="mt-6 mx-auto max-w-5xl text-lg">
-          The page you are looking for doesn&apos;t exist.
+          These aren&apos;t the droids you&apos;re looking for.
         </p>
         <p className="pb-4 sm:pb-8">
           <Link href="/">
             <a>← Home</a>
           </Link>
         </p>
-        <Image src="/assets/banner4.jpg" width={150} height={225} />
+        <Image src="/assets/404.jpg" width={150} height={225} />
       </div>
     </Layout>
   );
