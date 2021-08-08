@@ -6,4 +6,5 @@ export { default as Header } from './Header';
 export { default as KyloRen } from './KyloRen';
 export { default as Layout } from './Layout';
 export { default as RickRoll } from './RickRoll';
+export { default as SEO } from './SEO';
 export { default as Tags } from './Tags';

@@ -4,9 +4,8 @@ import Confetti from 'react-dom-confetti';
 import { FiSmile } from 'react-icons/fi';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import Image from 'next/image';
-import { NextSeo } from 'next-seo';
 
-import { Header, Layout, RickRoll, Tags } from '@/components';
+import { Header, Layout, RickRoll, SEO, Tags } from '@/components';
 import markdownToHtml from '@/lib/markdown';
 import { getDataBySlug } from '@/lib/posts';
 
@@ -19,7 +18,7 @@ export default function Home({ data, isDark, setIsDark }) {
 
   return (
     <Layout isDark={isDark} setIsDark={setIsDark}>
-      <NextSeo title={data.title} description={data.description} />
+      <SEO description={data.description} title={data.title} />
       <Header setConfetti={setConfetti} />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
@@ -27,7 +26,7 @@ export default function Home({ data, isDark, setIsDark }) {
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
         <Image
           src="/assets/header.jpg"
-          alt="Header image"
+          alt="Header Image"
           width={480}
           height={120}
           quality={100}

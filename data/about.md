@@ -1,6 +1,6 @@
 ---
 title: 'About Me'
-description: 'Personal page of Mykhaylo Ryechkin'
+description: 'Lead Software Engineer @ Manulife'
 location: 'Kitchener, Canada'
 technologies:
   [

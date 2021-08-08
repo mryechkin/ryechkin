@@ -10,7 +10,7 @@ export default {
         url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
         width: 1200,
         height: 627,
-        alt: 'header image',
+        alt: 'Header Image',
       },
     ],
     url: 'https://www.misha.wtf/',
