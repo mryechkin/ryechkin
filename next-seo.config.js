@@ -7,7 +7,7 @@ export default {
     locale: 'en_IE',
     images: [
       {
-        url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=627',
+        url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
         width: 1200,
         height: 627,
         alt: 'header image',

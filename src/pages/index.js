@@ -19,13 +19,20 @@ export default function Home({ data, isDark, setIsDark }) {
 
   return (
     <Layout isDark={isDark} setIsDark={setIsDark}>
-      <NextSeo title={data.title} />
+      <NextSeo title={data.title} description={data.description} />
       <Header setConfetti={setConfetti} />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
       </div>
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
-        <Image src="/assets/header.jpg" alt="Header image" width={480} height={120} />
+        <Image
+          src="/assets/header.jpg"
+          alt="Header image"
+          width={480}
+          height={120}
+          quality={100}
+          priority
+        />
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4">

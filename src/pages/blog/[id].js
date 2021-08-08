@@ -42,7 +42,12 @@ export default function Post({ isDark, setIsDark, postData }) {
       </div>
       <Tags className="mt-4" list={postData.tags} />
       <div className="flex items-center justify-center mt-8">
-        <Image src={`/blog/${postData.slug}.jpg`} height={334} width={640} />
+        <Image
+          src={`/blog/${postData.slug}.jpg`}
+          height={334}
+          width={640}
+          quality={100}
+        />
       </div>
       <article
         className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto py-4 dark:text-gray-50 text-gray-800 md:pt-8"

@@ -1,5 +1,6 @@
 ---
 title: 'About Me'
+description: 'Personal page of Mykhaylo Ryechkin'
 location: 'Kitchener, Canada'
 technologies:
   [
