@@ -1,6 +1,7 @@
 export default {
   defaultTitle: 'Mykhaylo Ryechkin',
   titleTemplate: 'Mykhaylo Ryechkin | %s',
+  title: undefined,
   openGraph: {
     type: 'website',
     locale: 'en_IE',

@@ -1,4 +1,5 @@
 ---
+title: 'About Me'
 location: 'Kitchener, Canada'
 technologies:
   [

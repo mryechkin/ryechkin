@@ -4,6 +4,7 @@ import Confetti from 'react-dom-confetti';
 import { FiSmile } from 'react-icons/fi';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import Image from 'next/image';
+import { NextSeo } from 'next-seo';
 
 import { Header, Layout, RickRoll, Tags } from '@/components';
 import markdownToHtml from '@/lib/markdown';
@@ -18,6 +19,7 @@ export default function Home({ data, isDark, setIsDark }) {
 
   return (
     <Layout isDark={isDark} setIsDark={setIsDark}>
+      <NextSeo title={data.title} />
       <Header setConfetti={setConfetti} />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
