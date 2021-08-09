@@ -35,17 +35,17 @@ export default function Home({ data, isDark, setIsDark }) {
       </div>
       <div className="z-10 mx-auto max-w-full">
         <div className="mt-4">
-          I&apos;m a software engineer based in{' '}
-          <span className="accent-no-bg">{data.location}</span>. I write code for a
-          living, drink more coffee than I probably should, and listen to a lot of
-          electronic music in the process <RickRoll />
+          I also go by <span className="accent font-extrabold">Misha</span>. I&apos;m a
+          software engineer based in <span className="accent-no-bg">{data.location}</span>
+          . I write code for a living, drink more coffee than I probably should, and
+          listen to a lot of electronic music in the process <RickRoll />
         </div>
         <div dangerouslySetInnerHTML={{ __html: data.content }} />
         <div className="mt-4">
           <div>
             Some of the technologies I&apos;ve recently been working with include:
           </div>
-          <Tags list={data.technologies} />
+          <Tags className="mt-4" list={data.technologies} />
         </div>
         <div className="mt-4">
           Check out my
@@ -64,7 +64,7 @@ export default function Home({ data, isDark, setIsDark }) {
         </div>
         <div className="flex items-center justify-center mt-4">
           Thanks for stopping by
-          <span className="pl-2 dark:text-indigo-300 text-indigo-400 text-2xl">
+          <span className="pl-2 text-blue-400 dark:text-rose-400 text-2xl">
             <FiSmile />
           </span>
         </div>

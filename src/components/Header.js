@@ -23,7 +23,7 @@ export default function Header({ setConfetti }) {
           <span className="retro ml-4">Mykhaylo.</span>
         </span>
       </div>
-      <div className="flex justify-end mt-4 w-full max-w-3xl text-blue-400 dark:text-rose-400 font-sans text-base sm:mt-0">
+      <div className="flex justify-end mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
         <span className="ml-1 font-medium">(like</span>
         <span className="ml-1 font-black">&quot;Kylo&quot;</span>
         <span className="font-medium">)</span>

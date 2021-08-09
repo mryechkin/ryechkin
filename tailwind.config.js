@@ -9,6 +9,10 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      backgroundImage: () => ({
+        'pattern-dark': "url('/assets/pattern-dark.svg')",
+        'pattern-light': "url('/assets/pattern-light.svg')",
+      }),
       colors: {
         cyan: colors.cyan,
         green: colors.green,
@@ -18,8 +22,7 @@ module.exports = {
         amber: colors.amber,
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        body: ['Poppins', ...defaultTheme.fontFamily.sans],
+        sans: ['Asap', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         slow: {

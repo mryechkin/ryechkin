@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import { useState } from 'react';
 import { FaHeadphones } from 'react-icons/fa';
-import { FiSmile } from 'react-icons/fi';
+// import { FiSmile } from 'react-icons/fi';
+import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 const variants = {
@@ -25,11 +26,9 @@ export default function RickRoll() {
               aria-label="Headphones"
               onClick={() => {
                 console.log('Sorry :)');
-                setSpinning(true);
+                // setSpinning(true);
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
                 setRickRolled(true);
-                setTimeout(() => {
-                  window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
-                }, 500);
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -40,21 +39,21 @@ export default function RickRoll() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <FaHeadphones className="dark:text-indigo-300 text-indigo-400" />
+              <FaHeadphones className="text-blue-400 dark:text-rose-400" />
             </motion.button>
           )}
           {rickrolled && (
             <motion.button
-              onClick={() => {
-                setSpinning(!spinning);
-              }}
+              // onClick={() => {
+              //   setSpinning(!spinning);
+              // }}
               animate={spinning ? 'rotate' : 'stop'}
               variants={variants}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              {/* <HiHeart className="dark:text-red-400 text-red-600" /> */}
-              <FiSmile className="dark:text-cyan-200 text-cyan-500" />
+              <HiHeart className="dark:text-rose-400 text-rose-500" />
+              {/* <FiSmile className="text-blue-400 dark:text-rose-400" /> */}
             </motion.button>
           )}
         </motion.span>

@@ -7,7 +7,7 @@ export default function Tags({ className, list }) {
       <span className="accent-no-bg leading-tight">&#123;</span>
       {list?.map((tag, i) => (
         <Fragment key={tag}>
-          <span className="accent leading-tight">{tag}</span>
+          <span className="accent font-mono leading-tight">{tag}</span>
           {i < list.length - 1 && <span className="accent-no-bg leading-tight">,</span>}
         </Fragment>
       ))}

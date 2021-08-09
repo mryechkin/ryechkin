@@ -35,14 +35,14 @@ const navigation = {
   ],
 };
 
-export default function Footer({ hideKylo }) {
+export default function Footer({ className, hideKylo }) {
   const router = useRouter();
 
   return (
-    <footer>
-      <div className="mx-auto pt-0 py-6 max-w-5xl overflow-hidden md:py-8">
+    <footer className={className}>
+      <div className="mx-auto max-w-5xl overflow-hidden">
         {router.pathname !== '/' && router.pathname !== '/404' && (
-          <nav className="flex flex-wrap justify-center pb-4 md:pb-8" aria-label="Footer">
+          <nav className="flex flex-wrap justify-center" aria-label="Footer">
             {navigation.main.map((item) => (
               <div key={item.name} className="px-5 py-2">
                 <Link href={item.href}>
@@ -53,35 +53,31 @@ export default function Footer({ hideKylo }) {
           </nav>
         )}
         {!hideKylo && (
-          <div className="flex items-center justify-center py-8">
+          <div className="flex items-center justify-center py-4 md:py-8">
             <KyloRen />
           </div>
         )}
-        <div className="flex justify-center space-x-6">
-          <div className="flex justify-between w-full">
-            <span className="flex">
-              {navigation.social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="dark:hover:text-gray-800 p-2 dark:text-cyan-200 hover:text-cyan-500 text-gray-600 text-xl sm:text-3xl"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="w-8 h-8" aria-hidden="true" />
-                </a>
-              ))}
-            </span>
-            <DarkModeToggle />
-          </div>
+        <div className="flex justify-between px-4 w-full sm:px-8">
+          <span className="flex">
+            {navigation.social.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dark:hover:text-gray-800 p-2 dark:text-cyan-200 hover:text-cyan-500 text-gray-600 text-xl sm:text-3xl"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="w-8 h-8" aria-hidden="true" />
+              </a>
+            ))}
+          </span>
+          <DarkModeToggle />
         </div>
-        <div className="sm:text-md mt-8 text-center text-gray-700 dark:text-indigo-200 text-sm tracking-wide sm:mt-10">
-          <div className="flex flex-grow-0 flex-wrap items-center justify-center my-4 sm:my-8">
-            <span>&copy; 2021</span>
-            <span className="ml-1 font-semibold">Mykhaylo Ryechkin</span>.
-            <span className="ml-1 font-normal">All rights reserved.</span>
-          </div>
+        <div className="flex flex-grow-0 flex-wrap items-center justify-center my-6 text-blue-400 dark:text-rose-50 text-sm tracking-wide sm:my-8">
+          <span>&copy; 2021</span>
+          <span className="ml-1 font-semibold">Mykhaylo Ryechkin</span>.
+          <span className="ml-1 font-normal">All rights reserved.</span>
         </div>
       </div>
     </footer>

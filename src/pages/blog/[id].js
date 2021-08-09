@@ -2,13 +2,16 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
-import { DateDisplay, Layout, Tags } from '@/components';
+import { BackgroundPattern, DateDisplay, Footer, Layout, Tags } from '@/components';
 import markdownToHtml from '@/lib/markdown';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 
 export default function Post({ isDark, setIsDark, postData }) {
   return (
     <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
+      {/* <div className="p-1 w-full min-h-screen bg-gradient-to-br dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 sm:p-2">
+      <div className="min-h-full bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900">
+        <main className="bg-dot-pattern prose md:prose-md lg:prose-lg xl:prose-xl z-10 mx-auto px-2 max-w-5xl bg-auto bg-left-top bg-no-repeat overflow-hidden sm:px-4 md:px-8"> */}
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
@@ -31,7 +34,7 @@ export default function Post({ isDark, setIsDark, postData }) {
           },
         }}
       />
-      <h1>{postData.title}</h1>
+      <h1 className="pt-8">{postData.title}</h1>
       <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
         Published on
         <span className="px-2 font-semibold">
@@ -41,9 +44,10 @@ export default function Post({ isDark, setIsDark, postData }) {
         <span className="accent-no-bg ml-2">{postData.author.name}</span>
       </div>
       <Tags className="mt-4" list={postData.tags} />
-      <div className="flex items-center justify-center mt-8">
+      <div className="z-20 mt-8 mx-auto max-w-xl">
         <Image
           src={`/blog/${postData.slug}.jpg`}
+          layout="responsive"
           height={334}
           width={640}
           quality={100}

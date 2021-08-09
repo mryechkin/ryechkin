@@ -1,7 +1,7 @@
 ---
-title: 'Easy user authentication in Next.js with Supabase and Supabase UI'
+title: 'User Authentication in Next.js with Supabase'
 date: 'Sat Aug 07 2021 16:50:31 GMT-0400 (Eastern Daylight Time)'
-summary: 'See how easy it is to get full authenticatoion in your Next.js app with Supabase and Supabase UI!'
+summary: 'How to setup auth in your Next.js app with Supabase and Supabase UI.'
 canonical: 'https://misha.wtf/blog/nextjs-supabase-auth'
 tags: ['Next.js', 'Supabase', 'Supabase UI', 'Authentication']
 seo:
