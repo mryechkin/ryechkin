@@ -1,15 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
-import { FiSmile } from 'react-icons/fi';
-import { HiOutlineExternalLink } from 'react-icons/hi';
 import Image from 'next/image';
+import { MDXRemote } from 'next-mdx-remote';
 
-import { Header, Layout, RickRoll, SEO, Tags } from '@/components';
-import markdownToHtml from '@/lib/markdown';
-import { getDataBySlug } from '@/lib/posts';
+import { Header, Layout, SEO } from '@/components';
+import { getDataBySlug } from '@/lib/data';
+import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ data, isDark, setIsDark }) {
+export default function Home({ isDark, setIsDark, data, source }) {
   const [confetti, setConfetti] = useState(false);
 
   useEffect(() => {
@@ -34,13 +33,16 @@ export default function Home({ data, isDark, setIsDark }) {
         />
       </div>
       <div className="z-10 mx-auto max-w-full">
-        <div className="mt-4">
+        <MDXRemote {...source} />
+        {/* <div className="mt-4">
           I also go by <span className="accent font-extrabold">Misha</span>. I&apos;m a
           software engineer based in <span className="accent-no-bg">{data.location}</span>
           . I write code for a living, drink more coffee than I probably should, and
           listen to a lot of electronic music in the process <RickRoll />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: data.content }} />
+        <div>
+          <MDXRemote {...source} />
+        </div>
         <div className="mt-4">
           <div>
             Some of the technologies I&apos;ve recently been working with include:
@@ -67,7 +69,7 @@ export default function Home({ data, isDark, setIsDark }) {
           <span className="pl-2 text-blue-400 dark:text-rose-400 text-2xl">
             <FiSmile />
           </span>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );
@@ -75,14 +77,12 @@ export default function Home({ data, isDark, setIsDark }) {
 
 export async function getStaticProps() {
   const post = getDataBySlug('about');
-  const content = await markdownToHtml(post.content || '');
+  const source = await getMdxSource(post);
 
   return {
     props: {
-      data: {
-        ...post,
-        content,
-      },
+      data: post.data,
+      source,
     },
   };
 }

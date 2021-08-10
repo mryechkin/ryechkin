@@ -1,17 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
-import { BackgroundPattern, DateDisplay, Footer, Layout, Tags } from '@/components';
-import markdownToHtml from '@/lib/markdown';
-import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import { DateDisplay, Layout, Tags } from '@/components';
+import { getAllPosts, getPostBySlug } from '@/lib/data';
+import { getMdxSource } from '@/lib/mdx';
 
-export default function Post({ isDark, setIsDark, postData }) {
+export default function Post({ isDark, setIsDark, postData, source }) {
   return (
     <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
-      {/* <div className="p-1 w-full min-h-screen bg-gradient-to-br dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 sm:p-2">
-      <div className="min-h-full bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900">
-        <main className="bg-dot-pattern prose md:prose-md lg:prose-lg xl:prose-xl z-10 mx-auto px-2 max-w-5xl bg-auto bg-left-top bg-no-repeat overflow-hidden sm:px-4 md:px-8"> */}
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
@@ -53,24 +51,21 @@ export default function Post({ isDark, setIsDark, postData }) {
           quality={100}
         />
       </div>
-      <article
-        className="prose md:prose-lg lg:prose-xl relative z-10 mx-auto py-4 dark:text-gray-50 text-gray-800 md:pt-8"
-        dangerouslySetInnerHTML={{ __html: postData.content }}
-      />
+      <article className="prose md:prose-lg lg:prose-xl z-10 py-4 w-full max-w-full dark:text-gray-50 text-gray-800 md:pt-8">
+        <MDXRemote {...source} />
+      </article>
     </Layout>
   );
 }
 
 export async function getStaticProps({ params }) {
   const post = getPostBySlug(params.id);
-  const content = await markdownToHtml(post.content || '');
+  const source = await getMdxSource(post);
 
   return {
     props: {
-      postData: {
-        ...post,
-        content,
-      },
+      postData: post.data,
+      source,
     },
   };
 }
@@ -82,7 +77,7 @@ export async function getStaticPaths() {
     paths: posts.map((post) => {
       return {
         params: {
-          id: post.slug,
+          id: post.data?.slug,
         },
       };
     }),

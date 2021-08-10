@@ -99,3 +99,7 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+.remark-highlight {
+  @apply whitespace-pre-line;
+}
