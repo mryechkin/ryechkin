@@ -10,6 +10,7 @@ import { MDX } from '@/components';
 import SEO from '../../next-seo.config';
 
 import '@/styles/globals.css';
+import '@/styles/prism.css';
 
 export const siteTitle = 'Mykhaylo Ryechkin';
 

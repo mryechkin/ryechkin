@@ -78,7 +78,7 @@
     @apply rainbow text-center !important;
   }
   .prose h2 {
-    @apply accent inline-flex !important;
+    @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose blockquote {
     @apply dark:text-cyan-200 text-gray-600;
@@ -98,8 +98,4 @@
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
-}
-
-.remark-highlight {
-  @apply whitespace-pre-line;
 }

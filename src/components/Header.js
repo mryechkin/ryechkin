@@ -6,7 +6,7 @@ export default function Header({ setConfetti }) {
     <div className="flex flex-col items-center justify-center py-2 sm:py-4">
       <div className="w-full max-w-3xl font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
         <span className="flex flex-wrap items-center justify-center">
-          <span className="rainbow flex items-center justify-center p-2">
+          <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
             Hey
             <motion.button
               aria-label="Hand showing peace sign"
@@ -16,7 +16,7 @@ export default function Header({ setConfetti }) {
               whileTap={{ scale: 0.9 }}
               onClick={() => setConfetti(true)}
             >
-              <FaHandPeace className="dark:text-[#fec777] text-[#e87b32] w-8 h-8 font-bold sm:w-12 sm:h-12" />
+              <FaHandPeace className="w-8 h-8 dark:text-yellow-300 text-yellow-400 font-bold sm:w-12 sm:h-12" />
             </motion.button>
             I&apos;m
           </span>

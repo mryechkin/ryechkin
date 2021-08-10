@@ -25,6 +25,7 @@
     "date-fns": "^2.22.1",
     "framer-motion": "^4.1.17",
     "gray-matter": "^4.0.3",
+    "mdx-prism": "^0.3.4",
     "next": "^10.2.2",
     "next-mdx-remote": "^3.0.4",
     "next-seo": "^4.26.0",
