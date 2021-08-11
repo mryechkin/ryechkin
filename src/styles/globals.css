@@ -80,10 +80,10 @@
     @apply dark:text-cyan-200 text-gray-700;
   }
   .prose strong {
-    @apply dark:text-cyan-50 text-gray-800 font-extrabold;
+    @apply dark:text-cyan-50 text-gray-600 font-bold;
   }
   .prose a {
-    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-sm;
   }
 }
 
