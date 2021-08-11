@@ -11,11 +11,10 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            as="font"
+            as="style"
             crossOrigin="anonymous"
-            href="/fonts/asap-v15-latin.woff2"
-            rel="preload"
-            type="font/woff2"
+            href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+            rel="stylesheet preload prefetch"
           />
         </Head>
         <body>
