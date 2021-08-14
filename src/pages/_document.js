@@ -11,11 +11,8 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            as="style"
-            crossOrigin="anonymous"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
-            rel="stylesheet preload prefetch"
-            type="text/css"
+            href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;800;900&display=swap"
+            rel="stylesheet"
           />
         </Head>
         <body>

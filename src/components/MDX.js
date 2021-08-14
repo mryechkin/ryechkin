@@ -16,7 +16,6 @@ const Technologies = () => (
       'GraphQL',
       'Babel',
       'Rollup',
-      'Supabase',
       'Storybook',
       'TailwindCSS',
       '...more',

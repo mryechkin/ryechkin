@@ -68,7 +68,11 @@
     @apply dark:text-gray-50 text-gray-500;
   }
   .prose h1 {
-    @apply rainbow text-center !important;
+    @apply rainbow relative text-center !important;
+  }
+  .prose h1::after {
+    content: "";
+    @apply w-full h-4 absolute dark:bg-gray-900 bg-gray-800;
   }
   .prose h2 {
     @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;
@@ -80,10 +84,13 @@
     @apply dark:text-cyan-200 text-gray-700;
   }
   .prose strong {
-    @apply dark:text-cyan-50 text-gray-600 font-bold;
+    @apply dark:text-cyan-100 text-gray-600 font-semibold;
   }
   .prose a {
     @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-sm;
+  }
+  .prose hr {
+    @apply my-4 sm:my-8 !important;
   }
 }
 
