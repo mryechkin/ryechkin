@@ -33,6 +33,10 @@
     @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
   }
 
+  .rainbow-bg {
+    @apply bg-gradient-to-r dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
+  }
+
   .rainbow {
     @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 to-rose-600 dark:to-rose-300;
   }
@@ -90,7 +94,7 @@
     @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-sm;
   }
   .prose hr {
-    @apply my-4 sm:my-8 !important;
+    @apply my-8 sm:my-10 !important;
   }
 }
 

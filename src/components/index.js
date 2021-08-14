@@ -9,4 +9,5 @@ export { default as Layout } from './Layout';
 export { default as MDX } from './MDX';
 export { default as RickRoll } from './RickRoll';
 export { default as SEO } from './SEO';
+export { default as Separator } from './Separator';
 export { default as Tags } from './Tags';
