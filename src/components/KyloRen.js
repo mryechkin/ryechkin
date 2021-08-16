@@ -22,7 +22,7 @@ export default function KyloRen({ onClick }) {
         aria-label="Kylo Ren"
         id="kylo-ren"
         type="button"
-        className="w-16 cursor-pointer"
+        className="w-16 cursor-pointer select-none"
         onClick={(e) => {
           setSpinning(!spinning);
           if (onClick) onClick(e);

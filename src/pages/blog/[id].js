@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
-import { DateDisplay, Layout, Tags } from '@/components';
+import { Badges, DateDisplay, Layout } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -41,7 +41,7 @@ export default function Post({ isDark, setIsDark, postData, source }) {
         by
         <span className="accent-no-bg ml-2">{postData.author.name}</span>
       </div>
-      <Tags className="mt-4" list={postData.tags} />
+      <Badges className="mt-4" data={postData.tags} />
       <div className="z-20 mt-8 mx-auto max-w-xl">
         <Image
           src={`/blog/${postData.slug}.jpg`}

@@ -1,59 +1,42 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { FaHeadphones } from 'react-icons/fa';
-// import { FiSmile } from 'react-icons/fi';
 import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
-const variants = {
-  rotate: {
-    rotate: [0, 360],
-    transition: { duration: 1, repeat: Infinity, ease: 'linear' },
-  },
-  stop: { rotate: [0, 0] },
-};
+import { useRickRoll } from '@/lib/hooks';
 
 export default function RickRoll() {
-  const [spinning, setSpinning] = useState(false);
   const [rickrolled, setRickRolled] = useState(false);
+  const { goteem } = useRickRoll();
 
   return (
     <AnimateSharedLayout>
       <AnimatePresence exitBeforeEnter>
-        <motion.span className="inline-flex ml-1" layout>
+        <motion.span className="inline-flex" layout>
           {!rickrolled && (
             <motion.button
               aria-label="Headphones"
+              className="p-2"
               onClick={() => {
-                console.log('Sorry :)');
-                // setSpinning(true);
                 window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+                goteem();
                 setRickRolled(true);
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{
-                rotate: [0, 360],
-                transition: { duration: 0.5, ease: 'easeInOut' },
-              }}
               whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 1.25 }}
             >
               <FaHeadphones className="text-blue-400 dark:text-rose-400" />
             </motion.button>
           )}
           {rickrolled && (
             <motion.button
-              // onClick={() => {
-              //   setSpinning(!spinning);
-              // }}
-              animate={spinning ? 'rotate' : 'stop'}
-              variants={variants}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="p-2 cursor-default"
+              animate={{
+                scale: [1, 1.25, 1, 0.9],
+                transition: { duration: 1, repeat: Infinity, ease: 'easeInOut' },
+              }}
             >
-              <HiHeart className="dark:text-rose-400 text-rose-500" />
-              {/* <FiSmile className="text-blue-400 dark:text-rose-400" /> */}
+              <HiHeart className="text-blue-400 dark:text-rose-400" />
             </motion.button>
           )}
         </motion.span>

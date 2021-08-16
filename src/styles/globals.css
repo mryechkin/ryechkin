@@ -74,9 +74,8 @@
   .prose h1 {
     @apply rainbow relative text-center !important;
   }
-  .prose h1::after {
-    content: "";
-    @apply w-full h-4 absolute dark:bg-gray-900 bg-gray-800;
+  .prose-lg h1, .prose-xl h1 {
+    @apply leading-tight !important;
   }
   .prose h2 {
     @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;

@@ -2,6 +2,7 @@ import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import Counter from '@/components/Counter';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import KyloRen from '@/components/KyloRen';
 
@@ -60,7 +61,10 @@ export default function Footer({ className, hideKylo }) {
             <KyloRen />
           </div>
         )}
-        <div className="flex justify-between pt-8 px-4 w-full sm:pt-12 sm:px-8">
+        <div className="flex items-center justify-center py-8 sm:py-12">
+          <Counter />
+        </div>
+        <div className="flex justify-between px-4 w-full sm:px-8">
           <span className="flex">
             {navigation.social.map((item) => (
               <a
