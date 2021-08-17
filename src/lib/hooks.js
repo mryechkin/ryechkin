@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 import { getHits, updateHits } from '@/lib/api';
 
-export const useHits = (slug) => {
+export const useHits = (slug = 'index') => {
   const { data, error, mutate } = useSWR(slug, getHits);
 
   function increment(count = 1) {

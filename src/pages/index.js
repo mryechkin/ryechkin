@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
@@ -6,10 +7,18 @@ import { MDXRemote } from 'next-mdx-remote';
 
 import { Header, Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
+import { useHits } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ isDark, setIsDark, data, source }) {
+export default function Home({ isDark, setIsDark, data, source, isProduction }) {
+  const { increment } = useHits();
   const [confetti, setConfetti] = useState(false);
+
+  useEffect(() => {
+    // Don't count hits on localhost
+    if (!isProduction) return;
+    increment();
+  }, []);
 
   useEffect(() => {
     if (confetti) setConfetti(false);
@@ -34,42 +43,6 @@ export default function Home({ isDark, setIsDark, data, source }) {
       </div>
       <div className="z-10 mx-auto max-w-full">
         <MDXRemote {...source} />
-        {/* <div className="mt-4">
-          I also go by <span className="accent font-extrabold">Misha</span>. I&apos;m a
-          software engineer based in <span className="accent-no-bg">{data.location}</span>
-          . I write code for a living, drink more coffee than I probably should, and
-          listen to a lot of electronic music in the process <RickRoll />
-        </div>
-        <div>
-          <MDXRemote {...source} />
-        </div>
-        <div className="mt-4">
-          <div>
-            Some of the technologies I&apos;ve recently been working with include:
-          </div>
-          <Tags className="mt-4" list={data.technologies} />
-        </div>
-        <div className="mt-4">
-          Check out my
-          <span className="inline px-1">
-            <a
-              href="https://www.youtube.com/c/MykhayloRyechkin"
-              alt="Mykhaylo's YouTube Channel"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              YouTube
-            </a>
-            <HiOutlineExternalLink className="inline-block ml-1 dark:text-cyan-300 text-cyan-500" />
-          </span>
-          channel as well for some of my development content and tutorials.
-        </div>
-        <div className="flex items-center justify-center mt-4">
-          Thanks for stopping by
-          <span className="pl-2 text-blue-400 dark:text-rose-400 text-2xl">
-            <FiSmile />
-          </span>
-        </div> */}
       </div>
     </Layout>
   );
@@ -81,6 +54,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      isProduction: process.env.NODE_ENV === 'production',
       data: post.data,
       source,
     },
