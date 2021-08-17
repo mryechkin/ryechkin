@@ -81,7 +81,7 @@ export default function Footer({ className, hideKylo }) {
           </span>
           <DarkModeToggle />
         </div>
-        <div className="flex flex-grow-0 flex-wrap items-center justify-center my-6 text-blue-400 dark:text-rose-50 text-sm tracking-wide sm:my-8">
+        <div className="flex flex-grow-0 flex-wrap items-center justify-center my-6 text-blue-400 dark:text-rose-50 text-xs tracking-tight opacity-75 sm:my-8">
           <span>&copy; 2021</span>
           <span className="ml-1 font-semibold tracking-wide">Mykhaylo Ryechkin</span>.
           <span className="ml-1 font-normal">All rights reserved.</span>

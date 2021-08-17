@@ -3,11 +3,11 @@ import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
-import { useRickRoll } from '@/lib/hooks';
+import { useHits } from '@/lib/hooks';
 
 export default function RickRoll() {
   const [rickrolled, setRickRolled] = useState(false);
-  const { goteem } = useRickRoll();
+  const { increment } = useHits('rickroll');
 
   return (
     <AnimateSharedLayout>
@@ -19,7 +19,7 @@ export default function RickRoll() {
               className="p-2"
               onClick={() => {
                 window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
-                goteem();
+                increment();
                 setRickRolled(true);
               }}
               whileHover={{ scale: 1.1 }}

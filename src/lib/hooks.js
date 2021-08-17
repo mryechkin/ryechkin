@@ -1,19 +1,19 @@
 import useSWR from 'swr';
 
-import { getRickRoll, updateRickRoll } from '@/lib/api';
+import { getHits, updateHits } from '@/lib/api';
 
-export const useRickRoll = () => {
-  const { data, error, mutate } = useSWR('rickroll', getRickRoll);
+export const useHits = (slug) => {
+  const { data, error, mutate } = useSWR(slug, getHits);
 
-  function goteem() {
+  function increment(count = 1) {
     if (!data) return;
-    mutate({ ...data, count: data.count + 1 }, false);
-    mutate(updateRickRoll(data.count + 1));
+    mutate({ ...data, count: data.count + count }, false);
+    mutate(updateHits({ slug, count: data.count + count }));
   }
 
   return {
     data,
     error,
-    goteem,
+    increment,
   };
 };

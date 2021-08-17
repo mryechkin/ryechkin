@@ -22,7 +22,7 @@ module.exports = {
         amber: colors.amber,
       },
       fontFamily: {
-        sans: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         slow: {
