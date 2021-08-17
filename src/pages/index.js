@@ -10,13 +10,13 @@ import { getDataBySlug } from '@/lib/data';
 import { useHits } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ isDark, setIsDark, data, source, isProduction }) {
+export default function Home({ isDark, setIsDark, data, source }) {
   const { increment } = useHits();
   const [confetti, setConfetti] = useState(false);
 
   useEffect(() => {
     // Don't count hits on localhost
-    if (!isProduction) return;
+    if (process.env.NEXT_PUBLIC_APP_ENV !== 'production') return;
     increment();
   }, []);
 
@@ -54,7 +54,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      isProduction: process.env.NODE_ENV === 'production',
       data: post.data,
       source,
     },
