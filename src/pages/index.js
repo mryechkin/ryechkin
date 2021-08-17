@@ -7,18 +7,10 @@ import { MDXRemote } from 'next-mdx-remote';
 
 import { Header, Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
-import { useHits } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
 
 export default function Home({ isDark, setIsDark, data, source }) {
-  const { increment } = useHits();
   const [confetti, setConfetti] = useState(false);
-
-  useEffect(() => {
-    // Don't count hits on localhost
-    if (process.env.NEXT_PUBLIC_APP_ENV !== 'production') return;
-    increment();
-  }, []);
 
   useEffect(() => {
     if (confetti) setConfetti(false);
