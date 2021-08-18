@@ -6,6 +6,7 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider, useTheme } from 'next-themes';
 
 import { MDX } from '@/components';
+import { usePanelbear } from '@/lib/analytics';
 
 import SEO from '../../next-seo.config';
 
@@ -15,6 +16,10 @@ import '@/styles/prism.css';
 export const siteTitle = 'Mykhaylo Ryechkin';
 
 function MyApp({ Component, pageProps }) {
+  usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID, {
+    debug: process.env.NEXT_PUBLIC_APP_ENV === 'development',
+  });
+
   return (
     <ThemeProvider
       attribute="class"
