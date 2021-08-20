@@ -30,7 +30,7 @@ const navigation = {
     {
       name: 'YouTube',
       className: 'social-youtube',
-      href: 'https://www.youtube.com/channel/UCWS51MbLHKtzEmYLtExyshQ',
+      href: 'https://www.youtube.com/c/MykhayloRyechkin',
       icon: (props) => <SiYoutube {...props} />,
     },
   ],
@@ -61,9 +61,6 @@ export default function Footer({ className, hideKylo }) {
             <KyloRen />
           </div>
         )}
-        <div className="flex items-center justify-center py-8 sm:py-12">
-          <Counter />
-        </div>
         <div className="flex justify-between px-4 w-full sm:px-8">
           <span className="flex">
             {navigation.social.map((item) => (

@@ -2,8 +2,7 @@ import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 
 export default function SEO({ description, title }) {
-  const fullTitle = `Mykhaylo Ryechkin | ${title}`;
-
+  const fullTitle = `${title} | Misha.WTF`;
   return (
     <>
       <Head>
@@ -14,7 +13,7 @@ export default function SEO({ description, title }) {
         <meta name="twitter:title" content={fullTitle} />
       </Head>
       <NextSeo
-        description={description}
+        description={description || 'Front-end development, and all things modern web'}
         title={title}
         openGraph={{
           title: fullTitle,

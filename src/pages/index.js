@@ -5,7 +5,7 @@ import Confetti from 'react-dom-confetti';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Header, Layout, SEO } from '@/components';
+import { Counter, Header, Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -18,7 +18,7 @@ export default function Home({ isDark, setIsDark, data, source }) {
 
   return (
     <Layout isDark={isDark} setIsDark={setIsDark}>
-      <SEO description={data.description} title={data.title} />
+      <SEO title="Mykhaylo Ryechkin" />
       <Header setConfetti={setConfetti} />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
@@ -35,6 +35,9 @@ export default function Home({ isDark, setIsDark, data, source }) {
       </div>
       <div className="z-10 mx-auto max-w-full">
         <MDXRemote {...source} />
+      </div>
+      <div className="flex items-center justify-center pt-8 sm:pt-12">
+        <Counter />
       </div>
     </Layout>
   );

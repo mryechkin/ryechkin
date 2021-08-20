@@ -1,5 +1,6 @@
 export { default as BackgroundPattern } from './BackgroundPattern';
 export { default as Badges } from './Badges';
+export { default as Counter } from './Counter';
 export { default as DarkModeToggle } from './DarkModeToggle';
 export { default as DateDisplay } from './DateDisplay';
 export { default as ExternalLink } from './ExternalLink';

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
-import { Badges, DateDisplay, Layout } from '@/components';
+import { Badges, Counter, DateDisplay, Layout } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -54,6 +54,9 @@ export default function Post({ isDark, setIsDark, postData, source }) {
       <article className="prose md:prose-lg lg:prose-xl z-10 py-4 w-full max-w-full dark:text-gray-50 text-gray-800 md:pt-8">
         <MDXRemote {...source} />
       </article>
+      <div className="flex items-center justify-center py-8 sm:py-12">
+        <Counter slug={postData.slug} />
+      </div>
     </Layout>
   );
 }
