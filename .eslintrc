@@ -1,5 +1,5 @@
 {
-  "extends": ["acme"],
+  "extends": ["acme", "plugin:@next/next/recommended"],
   "settings": {
     "import/resolver": {
       "alias": {
@@ -10,6 +10,7 @@
   },
   "rules": {
     "no-unused-vars": "warn",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "import/order": "warn"
   }
 }
