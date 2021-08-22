@@ -15,6 +15,7 @@ const Technologies = () => (
       'Node.js',
       'Express',
       'GraphQL',
+      'PostgreSQL',
       'Babel',
       'Rollup',
       'Storybook',

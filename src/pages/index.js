@@ -5,6 +5,8 @@ import Confetti from 'react-dom-confetti';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
+import header from '../../public/assets/header.jpg';
+
 import { Counter, Header, Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
@@ -24,19 +26,12 @@ export default function Home({ isDark, setIsDark, data, source }) {
         <Confetti active={confetti} />
       </div>
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
-        <Image
-          src="/assets/header.jpg"
-          alt="Header Image"
-          width={480}
-          height={120}
-          quality={100}
-          priority
-        />
+        <Image src={header} alt="Header Image" quality={100} priority />
       </div>
-      <div className="z-10 mx-auto max-w-full">
+      <div className="z-10 mx-auto max-w-full text-center">
         <MDXRemote {...source} />
       </div>
-      <div className="flex items-center justify-center pt-8 sm:pt-12">
+      <div className="flex items-center justify-center pb-1 pt-8 sm:pt-12">
         <Counter />
       </div>
     </Layout>

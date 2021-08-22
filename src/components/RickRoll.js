@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { usePress } from 'react-aria';
 import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
@@ -9,6 +10,17 @@ import { useHits } from '@/lib/hooks';
 export default function RickRoll() {
   const [rickrolled, setRickRolled] = useState(false);
   const { increment } = useHits('rickroll');
+  const { pressProps: headphonesPressProps } = usePress({
+    onPress: () => {
+      window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+      increment();
+      trackRickRoll();
+      setRickRolled(true);
+    },
+  });
+  const { pressProps: heartPressProps } = usePress({
+    onPress: () => setRickRolled(false),
+  });
 
   return (
     <AnimateSharedLayout>
@@ -17,26 +29,22 @@ export default function RickRoll() {
           {!rickrolled && (
             <motion.button
               aria-label="Headphones"
-              className="p-2"
-              onClick={() => {
-                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
-                increment();
-                trackRickRoll();
-                setRickRolled(true);
-              }}
+              className="p-2 rounded-md"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 1.25 }}
+              {...headphonesPressProps}
             >
               <FaHeadphones className="text-blue-400 dark:text-rose-400" />
             </motion.button>
           )}
           {rickrolled && (
             <motion.button
-              className="p-2 cursor-default"
+              className="p-2 rounded-md cursor-default"
               animate={{
                 scale: [1, 1.25, 1, 0.9],
                 transition: { duration: 1, repeat: Infinity, ease: 'easeInOut' },
               }}
+              {...heartPressProps}
             >
               <HiHeart className="text-blue-400 dark:text-rose-400" />
             </motion.button>
