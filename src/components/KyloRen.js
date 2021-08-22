@@ -25,7 +25,7 @@ export default function KyloRen() {
         aria-label="Kylo Ren"
         id="kylo-ren"
         type="button"
-        className="flex items-center justify-center p-1 w-16 rounded-full cursor-pointer select-none"
+        className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
         animate={spinning ? 'rotate' : 'stop'}
         variants={variants}
         whileHover={{ scale: 1.1 }}

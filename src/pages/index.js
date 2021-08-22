@@ -9,7 +9,7 @@ import { Counter, Header, Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ isDark, setIsDark, data, source }) {
+export default function Home({ source }) {
   const [confetti, setConfetti] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Home({ isDark, setIsDark, data, source }) {
   }, [confetti]);
 
   return (
-    <Layout isDark={isDark} setIsDark={setIsDark}>
+    <Layout>
       <SEO title="Mykhaylo Ryechkin" />
       <Header setConfetti={setConfetti} />
       <div className="flex items-center justify-center w-full">

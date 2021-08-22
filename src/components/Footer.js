@@ -2,7 +2,6 @@ import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Counter from '@/components/Counter';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import KyloRen from '@/components/KyloRen';
 

@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 import { Layout } from '@/components';
 
-export default function NotFound({ isDark, setIsDark }) {
+export default function NotFound() {
   return (
-    <Layout isDark={isDark} setIsDark={setIsDark}>
+    <Layout>
       <div className="prose md:prose-lg lg:prose-xl mx-auto pb-8 text-center sm:mt-20">
         <div className="flex items-center justify-center p-8">
           <FaExclamationTriangle className="w-10 h-10 dark:text-rose-400 text-rose-500" />

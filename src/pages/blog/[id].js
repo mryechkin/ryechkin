@@ -7,9 +7,9 @@ import { Badges, Counter, DateDisplay, Layout } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Post({ isDark, setIsDark, postData, source }) {
+export default function Post({ postData, source }) {
   return (
-    <Layout isDark={isDark} setIsDark={setIsDark} hideKylo>
+    <Layout hideKylo>
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>

@@ -22,11 +22,7 @@ html {
   }
 
   a {
-    @apply focus dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded-sm;
-  }
-
-  button, input {
-    @apply focus;
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded;
   }
 
   .accent {
@@ -39,10 +35,6 @@ html {
 
   .accent-indigo {
     @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
-  }
-
-  .focus {
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-400 !important;
   }
 
   .rainbow-bg {
@@ -102,7 +94,7 @@ html {
     @apply dark:text-cyan-100 text-gray-600 font-semibold;
   }
   .prose a {
-    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-sm;
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded;
   }
   .prose hr {
     @apply my-8 sm:my-10 !important;

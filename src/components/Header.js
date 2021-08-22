@@ -15,7 +15,7 @@ export default function Header({ setConfetti }) {
             <motion.button
               aria-label="Hand showing peace sign"
               type="button"
-              className="p-3 rounded-md"
+              className="p-3 rounded"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               {...pressProps}
