@@ -60,7 +60,7 @@ export default function Footer({ className, hideKylo }) {
             <KyloRen />
           </div>
         )}
-        <div className="flex justify-between px-4 w-full sm:px-8">
+        <div className="flex justify-between px-4 py-8 w-full sm:px-8 md:py-0">
           <span className="flex">
             {navigation.social.map((item) => (
               <a

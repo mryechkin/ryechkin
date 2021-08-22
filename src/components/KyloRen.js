@@ -1,27 +1,39 @@
-import { useState } from 'react';
-import { usePress } from 'react-aria';
-import { motion } from 'framer-motion';
+// import { useState } from 'react';
+// import { usePress } from 'react-aria';
+// import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-const variants = {
-  rotate: {
-    rotate: [0, 360],
-    transition: { duration: 1.2, repeat: Infinity, ease: 'linear' },
-  },
-  stop: { x: [0, 0] },
-};
+// const variants = {
+//   rotate: {
+//     rotate: [0, 360],
+//     transition: { duration: 1.2, repeat: Infinity, ease: 'linear' },
+//   },
+//   stop: { x: [0, 0] },
+// };
 
 export default function KyloRen() {
-  const [spinning, setSpinning] = useState(false);
+  // const [spinning, setSpinning] = useState(false);
   const { theme } = useTheme();
-  const { pressProps } = usePress({
-    onPress: () => setSpinning(!spinning),
-  });
+  // const { pressProps } = usePress({
+  //   onPress: () => setSpinning(!spinning),
+  // });
 
   return (
     <>
-      <motion.button
+      <div className="flex items-center justify-center p-1 w-16 select-none">
+        {theme === 'light' ? (
+          <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
+        ) : (
+          <Image
+            src="/assets/kyloren-inverse.svg"
+            height="64"
+            width="64"
+            alt="Kylo Ren"
+          />
+        )}
+      </div>
+      {/* <motion.button
         aria-label="Kylo Ren"
         id="kylo-ren"
         type="button"
@@ -42,7 +54,7 @@ export default function KyloRen() {
             alt="Kylo Ren"
           />
         )}
-      </motion.button>
+      </motion.button> */}
     </>
   );
 }
