@@ -1,6 +1,7 @@
 import { FiSmile } from 'react-icons/fi';
 
 import ExternalLink from './ExternalLink';
+import PeaceSign from './PeaceSign';
 import RickRoll from './RickRoll';
 import Separator from './Separator';
 import Tags from './Tags';
@@ -27,8 +28,9 @@ const Technologies = () => (
 
 export default {
   hr: Separator,
-  FiSmile,
   ExternalLink,
+  FiSmile,
+  PeaceSign,
   RickRoll,
   Tags,
   Technologies,

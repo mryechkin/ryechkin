@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
-import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import header from '../../public/assets/header.jpg';
-
-import { Counter, Header, Layout, SEO } from '@/components';
+import { Header, Layout, PeaceSign, SEO, Separator, Videos } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ source }) {
+export default function Home({ data, source }) {
   const [confetti, setConfetti] = useState(false);
 
   useEffect(() => {
@@ -18,26 +15,43 @@ export default function Home({ source }) {
 
   return (
     <Layout>
-      <SEO title="Mykhaylo Ryechkin" />
-      <Header setConfetti={setConfetti} />
+      <SEO title={data.title} />
+      <Header />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
       </div>
-      <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
-        <Image src={header} alt="Header Image" quality={100} priority />
+      <div className="flex flex-col items-center justify-center py-2 sm:py-4">
+        <div className="w-full max-w-3xl font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
+          <span className="flex flex-wrap items-center justify-center">
+            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
+              Hey
+              <PeaceSign
+                className="p-2"
+                innerClassName="h-8 w-8 sm:w-12 sm:h-12"
+                setConfetti={setConfetti}
+              />
+              I&apos;m
+            </span>
+            <span className="retro ml-4">Mykhaylo.</span>
+          </span>
+        </div>
+        <div className="flex justify-end mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
+          <span className="ml-1 font-medium">(like</span>
+          <span className="ml-1 font-black">&quot;Kylo&quot;</span>
+          <span className="font-medium">)</span>
+        </div>
       </div>
       <div className="z-10 mx-auto max-w-full text-center">
         <MDXRemote {...source} />
-      </div>
-      <div className="flex items-center justify-center pb-1 pt-8 sm:pt-12">
-        <Counter />
+        <Separator />
+        <Videos />
       </div>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const post = getDataBySlug('about');
+  const post = getDataBySlug('index');
   const source = await getMdxSource(post);
 
   return {

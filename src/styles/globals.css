@@ -25,6 +25,10 @@ html {
     @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded;
   }
 
+  nav > a {
+    @apply px-2 sm:px-8 text-base !important;
+  }
+
   .accent {
     @apply dark:text-cyan-300 text-cyan-600 bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
   }
@@ -46,12 +50,12 @@ html {
   }
 
   .retro {
-    @apply text-blue-200 dark:text-rose-50 font-black tracking-tighter;
-    text-shadow: 4px 3px 0px #60a5fa, 6px 5px 0px #2563eb;
+    @apply text-blue-300 dark:text-rose-50 font-black tracking-tight;
+    text-shadow: 3px 2px 0px #2563eb, 5px 4px 0px #bfdbfe;
   }
 
   .dark .retro {
-    text-shadow: 4px 3px 0px #fb7185, 8px 7px 0px #e11d48;
+    text-shadow: 3px 2px 0px #fb7185, 5px 4px 0px #e11d48;
   }
 
   .social-github {
@@ -81,7 +85,7 @@ html {
   .prose-lg h1, .prose-xl h1 {
     @apply leading-tight !important;
   }
-  .prose h2 {
+  .prose h2, .prose h3 {
     @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose blockquote {

@@ -1,37 +1,46 @@
-import { usePress } from 'react-aria';
-import { FaHandPeace } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Header({ setConfetti }) {
-  const { pressProps } = usePress({
-    onPress: () => setConfetti(true),
-  });
+import DarkModeToggle from './DarkModeToggle';
+
+const navItems = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'About Me',
+    href: '/about',
+  },
+];
+
+export default function Header() {
   return (
-    <div className="flex flex-col items-center justify-center py-2 sm:py-4">
-      <div className="w-full max-w-3xl font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
-        <span className="flex flex-wrap items-center justify-center">
-          <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
-            Hey
-            <motion.button
-              aria-label="Hand showing peace sign"
-              type="button"
-              className="p-3 rounded"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              {...pressProps}
-            >
-              <FaHandPeace className="w-8 h-8 dark:text-yellow-300 text-yellow-400 font-bold sm:w-12 sm:h-12" />
-            </motion.button>
-            I&apos;m
-          </span>
-          <span className="retro ml-4">Mykhaylo.</span>
+    <div className="flex flex-col items-center justify-between p-2 w-full sm:flex-row sm:flex-nowrap sm:py-4">
+      <span className="flex items-center justify-between text-xl font-bold tracking-tighter sm:text-4xl">
+        <span className="inline-flex mr-4 border-cyan-400">
+          <Image
+            src="/assets/avatar.jpg"
+            width={48}
+            height={48}
+            alt="Avatar"
+            className="w-12 h-12 border-4 border-cyan-400 rounded-full"
+          />
         </span>
-      </div>
-      <div className="flex justify-end mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
-        <span className="ml-1 font-medium">(like</span>
-        <span className="ml-1 font-black">&quot;Kylo&quot;</span>
-        <span className="font-medium">)</span>
-      </div>
+        <span className="retro">Misha.WTF</span>
+      </span>
+      <span className="flex items-center justify-between">
+        <nav className="flex items-center justify-center">
+          {navItems.map((nav) => (
+            <Link href={nav.href} key={nav.href}>
+              <a>{nav.label}</a>
+            </Link>
+          ))}
+        </nav>
+        <span className="hidden ml-2 sm:block sm:ml-4">
+          <DarkModeToggle />
+        </span>
+      </span>
     </div>
   );
 }

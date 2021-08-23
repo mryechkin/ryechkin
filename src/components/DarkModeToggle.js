@@ -24,6 +24,7 @@ export default function DarkModeToggle() {
       aria-label={ariaLabel}
       type="button"
       className="p-2 rounded"
+      whileFocus={{ scale: 1.2 }}
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.9 }}
       {...pressProps}

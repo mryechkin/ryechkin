@@ -35,12 +35,12 @@ const navigation = {
   ],
 };
 
-export default function Footer({ className, hideKylo }) {
+export default function Footer({ className, hideKylo, setConfetti }) {
   const router = useRouter();
 
   return (
     <footer className={className}>
-      <div className="mx-auto max-w-5xl overflow-hidden">
+      <div className="mx-auto max-w-5xl">
         {router.pathname !== '/' && router.pathname !== '/404' && (
           <nav
             className="flex flex-wrap justify-center pt-8 sm:pt-12"
@@ -57,10 +57,10 @@ export default function Footer({ className, hideKylo }) {
         )}
         {!hideKylo && (
           <div className="flex items-center justify-center pt-8 md:pt-12">
-            <KyloRen />
+            <KyloRen setConfetti={setConfetti} />
           </div>
         )}
-        <div className="flex justify-between px-4 py-8 w-full sm:px-8 md:py-0">
+        <div className="flex justify-between px-2 py-8 w-full md:py-0">
           <span className="flex">
             {navigation.social.map((item) => (
               <a
