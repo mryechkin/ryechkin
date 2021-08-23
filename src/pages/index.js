@@ -21,28 +21,30 @@ export default function Home({ data, source }) {
         <Confetti active={confetti} />
       </div>
       <div className="flex flex-col items-center justify-center py-2 sm:py-4">
-        <div className="w-full max-w-3xl font-sans text-5xl font-bold tracking-tighter sm:text-center md:text-6xl lg:text-7xl">
+        <div className="w-full max-w-3xl font-sans text-3xl font-bold tracking-tighter sm:text-center sm:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
               Hey
               <PeaceSign
                 className="p-2"
-                innerClassName="h-8 w-8 sm:w-12 sm:h-12"
+                innerClassName="h-6 w-6 sm:w-12 sm:h-12"
                 setConfetti={setConfetti}
               />
               I&apos;m
             </span>
-            <span className="retro ml-4">Mykhaylo.</span>
+            <span className="retro ml-1 sm:ml-2">Mykhaylo.</span>
           </span>
         </div>
-        <div className="flex justify-end mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
+        <div className="flex items-center justify-center mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
           <span className="ml-1 font-medium">(like</span>
           <span className="ml-1 font-black">&quot;Kylo&quot;</span>
           <span className="font-medium">)</span>
         </div>
       </div>
-      <div className="z-10 mx-auto max-w-full text-center">
-        <MDXRemote {...source} />
+      <div className="z-10 items-center justify-center mx-auto max-w-full text-center">
+        <div className="mx-auto max-w-3xl">
+          <MDXRemote {...source} />
+        </div>
         <Separator />
         <Videos />
       </div>
