@@ -1,3 +1,4 @@
+export { default as Avatar } from './Avatar';
 export { default as BackgroundPattern } from './BackgroundPattern';
 export { default as Badges } from './Badges';
 export { default as Counter } from './Counter';

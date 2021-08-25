@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
+import { FiSmile } from 'react-icons/fi';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Header, Layout, PeaceSign, SEO, Separator, Videos } from '@/components';
+import { Avatar, Layout, PeaceSign, SEO, Separator, Videos } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -16,14 +17,13 @@ export default function Home({ data, source }) {
   return (
     <Layout>
       <SEO title={data.title} />
-      <Header />
       <div className="flex items-center justify-center w-full">
         <Confetti active={confetti} />
       </div>
       <div className="flex flex-col items-center justify-center py-2 sm:py-4">
         <div className="w-full max-w-3xl font-sans text-3xl font-bold tracking-tighter sm:text-center sm:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
+            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-500">
               Hey
               <PeaceSign
                 className="p-2"
@@ -32,7 +32,8 @@ export default function Home({ data, source }) {
               />
               I&apos;m
             </span>
-            <span className="retro ml-1 sm:ml-2">Mykhaylo.</span>
+            <span className="retro ml-1 sm:ml-2">Mykhaylo</span>
+            <Avatar className="hidden md:block md:ml-6" />
           </span>
         </div>
         <div className="flex items-center justify-center mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
@@ -47,6 +48,13 @@ export default function Home({ data, source }) {
         </div>
         <Separator />
         <Videos />
+        <Separator />
+        <div className="inline-flex items-center justify-center w-full">
+          Thanks for stopping by
+          <span className="pl-2 text-blue-400 dark:text-rose-400 text-2xl">
+            <FiSmile />
+          </span>
+        </div>
       </div>
     </Layout>
   );

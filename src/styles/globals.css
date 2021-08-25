@@ -82,7 +82,7 @@ html {
   .prose h1 {
     @apply rainbow relative text-center !important;
   }
-  .prose-lg h1, .prose-xl h1 {
+  .prose-lg h1 {
     @apply leading-tight !important;
   }
   .prose h2, .prose h3 {
@@ -95,7 +95,7 @@ html {
     @apply dark:text-cyan-200 text-gray-700;
   }
   .prose strong {
-    @apply dark:text-cyan-100 text-gray-600 font-semibold;
+    @apply dark:text-cyan-100 text-cyan-900 font-semibold;
   }
   .prose a {
     @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded;

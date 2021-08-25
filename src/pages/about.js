@@ -3,7 +3,7 @@ import { MDXRemote } from 'next-mdx-remote';
 
 import header from '../../public/assets/header.jpg';
 
-import { Header, Layout, SEO } from '@/components';
+import { Layout, SEO } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -11,7 +11,6 @@ export default function About({ data, source }) {
   return (
     <Layout slug="about">
       <SEO title={data.title} />
-      <Header />
       <div className="flex items-center justify-center mb-4 mt-2 mx-auto max-w-5xl md:mb-8 md:mt-4">
         <Image src={header} alt="Header Image" quality={100} priority />
       </div>

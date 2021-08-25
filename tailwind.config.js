@@ -11,15 +11,15 @@ module.exports = {
     extend: {
       backgroundImage: () => ({
         'pattern-dark': "url('/assets/pattern-dark.svg')",
+        'pattern-dark-sm': "url('/assets/pattern-dark-sm.svg')",
         'pattern-light': "url('/assets/pattern-light.svg')",
+        'pattern-light-sm': "url('/assets/pattern-light-sm.svg')",
       }),
       colors: {
         cyan: colors.cyan,
         green: colors.green,
         pink: colors.fuchsia,
         rose: colors.rose,
-        yellow: colors.yellow,
-        amber: colors.amber,
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
