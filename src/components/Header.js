@@ -14,7 +14,7 @@ export default function Header() {
     <div className="flex flex-col items-center justify-between p-2 px-6 w-full sm:flex-row sm:flex-nowrap sm:px-8 sm:py-4">
       <span className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter sm:py-4 sm:text-4xl">
         <Link href="/">
-          <a className="shadow-thick dark:shadow-thick-dark dark:hover:shadow-link hover:shadow-link py-2 dark:text-gray-50 text-gray-800 focus:rounded-md">
+          <a className="dark:hover:shadow-link hover:shadow-link shadow-thick dark:shadow-thick-dark py-2 dark:text-gray-50 text-gray-800 focus:rounded-md">
             Misha.WTF
           </a>
         </Link>
