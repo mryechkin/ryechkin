@@ -24,18 +24,6 @@ export default function KyloRen({ setConfetti }) {
 
   return (
     <>
-      {/* <div className="flex items-center justify-center p-1 w-16 select-none">
-        {theme === 'light' ? (
-          <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
-        ) : (
-          <Image
-            src="/assets/kyloren-inverse.svg"
-            height="64"
-            width="64"
-            alt="Kylo Ren"
-          />
-        )}
-      </div> */}
       <motion.button
         aria-label="Kylo Ren"
         id="kylo-ren"
@@ -43,7 +31,8 @@ export default function KyloRen({ setConfetti }) {
         className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
         animate={spinning ? 'rotate' : 'stop'}
         variants={variants}
-        whileHover={{ scale: 1.1 }}
+        whileFocus={{ scale: 1.2 }}
+        whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
         {...pressProps}
       >

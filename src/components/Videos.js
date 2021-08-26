@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
-import { ExternalLink, GradientContainer } from '@/components';
+import ExternalLink from './ExternalLink';
+import GradientContainer from './GradientContainer';
 
 const items = [
   {
@@ -35,27 +36,24 @@ const items = [
 
 export default function Videos() {
   return (
-    <>
-      <h1>Latest Videos</h1>
-      <div className="flex flex-wrap gap-2 items-start justify-around w-full">
-        {items?.length &&
-          items.map((item) => (
-            <div
-              key={item.imageUrl}
-              className="flex flex-col items-center justify-between max-w-sm"
-            >
-              <GradientContainer className="max-w-xs">
-                <Image src={item.imageUrl} alt={item.title} width={1280} height={720} />
-              </GradientContainer>
-              <h3>
-                <ExternalLink href={item.href}>{item.title}</ExternalLink>
-              </h3>
-              <p className="inline-flex my-0 px-2 text-left text-base">
-                {item.description}
-              </p>
-            </div>
-          ))}
-      </div>
-    </>
+    <div className="flex flex-wrap gap-2 items-start justify-around w-full">
+      {items?.length &&
+        items.map((item) => (
+          <div
+            key={item.imageUrl}
+            className="flex flex-col items-center justify-between max-w-sm"
+          >
+            <GradientContainer className="max-w-xs">
+              <Image src={item.imageUrl} alt={item.title} width={1280} height={720} />
+            </GradientContainer>
+            <h3>
+              <ExternalLink href={item.href}>{item.title}</ExternalLink>
+            </h3>
+            <p className="inline-flex my-0 px-2 text-left text-base">
+              {item.description}
+            </p>
+          </div>
+        ))}
+    </div>
   );
 }

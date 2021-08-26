@@ -4,12 +4,11 @@ import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
 import { Badges, Counter, DateDisplay, Layout } from '@/components';
-import { getAllPosts, getPostBySlug } from '@/lib/data';
-import { getMdxSource } from '@/lib/mdx';
+import { getAllPosts } from '@/lib/data';
 
-export default function Post({ postData, source }) {
+export default function Blog({ postData, source }) {
   return (
-    <Layout hideKylo slug={postData.slug}>
+    <Layout hideKylo>
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
@@ -54,33 +53,18 @@ export default function Post({ postData, source }) {
       <article className="prose md:prose-lg lg:prose-xl z-10 py-4 w-full max-w-full dark:text-gray-50 text-gray-800 md:pt-8">
         <MDXRemote {...source} />
       </article>
+      <div className="flex items-center justify-center py-8 sm:py-12">
+        <Counter slug={postData.slug} />
+      </div>
     </Layout>
   );
 }
 
-export async function getStaticProps({ params }) {
-  const post = getPostBySlug(params.id);
-  const source = await getMdxSource(post);
-
-  return {
-    props: {
-      postData: post.data,
-      source,
-    },
-  };
-}
-
-export async function getStaticPaths() {
+export async function getStaticProps() {
   const posts = getAllPosts();
 
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          id: post.data?.slug,
-        },
-      };
-    }),
-    fallback: false,
+    props: { posts },
+    revalidate: 10,
   };
 }

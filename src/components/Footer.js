@@ -1,9 +1,11 @@
 import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import DarkModeToggle from '@/components/DarkModeToggle';
-import KyloRen from '@/components/KyloRen';
+import Counter from './Counter';
+import DarkModeToggle from './DarkModeToggle';
+import KyloRen from './KyloRen';
 
 const navigation = {
   main: [{ name: '← Home', href: '/' }],
@@ -23,7 +25,7 @@ const navigation = {
     {
       name: 'Twitter',
       className: 'social-twitter',
-      href: 'https://twitter.com/mryechkin',
+      href: 'https://twitter.com/misha_wtf',
       icon: (props) => <SiTwitter {...props} />,
     },
     {
@@ -35,7 +37,7 @@ const navigation = {
   ],
 };
 
-export default function Footer({ className, hideKylo, setConfetti }) {
+export default function Footer({ className, hideKylo, setConfetti, slug }) {
   const router = useRouter();
 
   return (
@@ -55,6 +57,9 @@ export default function Footer({ className, hideKylo, setConfetti }) {
             ))}
           </nav>
         )}
+        <div className="flex items-center justify-center pb-1 pt-8 sm:pt-12">
+          <Counter slug={slug} />
+        </div>
         {!hideKylo && (
           <div className="flex items-center justify-center pt-8 md:pt-12">
             <KyloRen setConfetti={setConfetti} />
@@ -63,16 +68,19 @@ export default function Footer({ className, hideKylo, setConfetti }) {
         <div className="flex justify-between px-2 py-8 w-full md:py-0">
           <span className="flex">
             {navigation.social.map((item) => (
-              <a
+              <motion.a
                 key={item.name}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="dark:hover:text-gray-800 p-2 dark:text-cyan-200 hover:text-cyan-500 text-gray-600 text-xl sm:text-3xl"
+                className="dark:hover:text-gray-50 dark:focus:text-gray-50 p-2 dark:text-cyan-200 focus:text-cyan-400 hover:text-cyan-400 text-gray-600 text-xl rounded-md sm:text-3xl"
+                whileFocus={{ scale: 1.2 }}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="w-8 h-8" aria-hidden="true" />
-              </a>
+              </motion.a>
             ))}
           </span>
           <DarkModeToggle />

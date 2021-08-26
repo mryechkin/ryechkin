@@ -18,15 +18,19 @@ html {
 
 @layer base {
   body {
-    @apply font-sans dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
+    @apply text-cyan-400 font-sans dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
   }
 
   a {
-    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-extrabold hover:bg-cyan-100 rounded;
+    @apply focus:no-underline hover:no-underline !important;
   }
 
-  nav > a {
-    @apply px-2 sm:px-8 text-base !important;
+  a, button, input[type="button"] {
+    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 py-1;
+  }
+
+  nav a {
+    @apply hover:shadow-link dark:hover:shadow-link-dark p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
   }
 
   .accent {
@@ -98,7 +102,7 @@ html {
     @apply dark:text-cyan-100 text-cyan-900 font-semibold;
   }
   .prose a {
-    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 relative p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded;
+    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-md;
   }
   .prose hr {
     @apply my-8 sm:my-10 !important;

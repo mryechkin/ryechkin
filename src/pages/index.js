@@ -17,13 +17,10 @@ export default function Home({ data, source }) {
   return (
     <Layout>
       <SEO title={data.title} />
-      <div className="flex items-center justify-center w-full">
-        <Confetti active={confetti} />
-      </div>
       <div className="flex flex-col items-center justify-center py-2 sm:py-4">
         <div className="w-full max-w-3xl font-sans text-3xl font-bold tracking-tighter sm:text-center sm:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-500">
+            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
               Hey
               <PeaceSign
                 className="p-2"
@@ -41,12 +38,14 @@ export default function Home({ data, source }) {
           <span className="ml-1 font-black">&quot;Kylo&quot;</span>
           <span className="font-medium">)</span>
         </div>
+        <Confetti active={confetti} config={{ spread: 360 }} />
       </div>
       <div className="z-10 items-center justify-center mx-auto max-w-full text-center">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <MDXRemote {...source} />
         </div>
         <Separator />
+        <h1>Latest Videos</h1>
         <Videos />
         <Separator />
         <div className="inline-flex items-center justify-center w-full">

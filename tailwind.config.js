@@ -15,6 +15,12 @@ module.exports = {
         'pattern-light': "url('/assets/pattern-light.svg')",
         'pattern-light-sm': "url('/assets/pattern-light-sm.svg')",
       }),
+      boxShadow: {
+        link: '0 -5px 0 0 rgba(34, 211, 238, 1) inset',
+        'link-dark': '0 -5px 0 0 rgba(103, 232, 249, 1) inset',
+        thick: '0 -8px 0 0 rgba(34, 211, 238, 1) inset',
+        'thick-dark': '0 -8px 0 0 rgba(103, 232, 249, 1) inset',
+      },
       colors: {
         cyan: colors.cyan,
         green: colors.green,
