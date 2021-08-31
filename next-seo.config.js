@@ -1,6 +1,6 @@
 export default {
   defaultTitle: 'Mykhaylo Ryechkin',
-  titleTemplate: 'Mykhaylo Ryechkin | %s',
+  titleTemplate: '%s | Misha.WTF',
   title: undefined,
   openGraph: {
     type: 'website',
@@ -17,7 +17,7 @@ export default {
     site_name: 'Mykhaylo Ryechkin',
   },
   twitter: {
-    handle: 'mryechkin',
+    handle: 'misha_wtf',
     site: 'misha.wtf',
     cardType: 'summary_large_image',
   },
