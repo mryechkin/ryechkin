@@ -9,12 +9,12 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      backgroundImage: () => ({
+      backgroundImage: {
         'pattern-dark': "url('/assets/pattern-dark.svg')",
         'pattern-dark-sm': "url('/assets/pattern-dark-sm.svg')",
         'pattern-light': "url('/assets/pattern-light.svg')",
         'pattern-light-sm': "url('/assets/pattern-light-sm.svg')",
-      }),
+      },
       boxShadow: {
         link: '0 -5px 0 0 rgba(34, 211, 238, 1) inset',
         'link-dark': '0 -5px 0 0 rgba(103, 232, 249, 1) inset',

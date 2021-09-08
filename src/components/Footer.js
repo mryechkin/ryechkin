@@ -57,7 +57,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
             ))}
           </nav>
         )}
-        <div className="flex items-center justify-center pb-1 pt-8 sm:pt-12">
+        <div className="flex items-center justify-center pt-8 md:pb-4 md:pt-12">
           <Counter slug={slug} />
         </div>
         {!hideKylo && (

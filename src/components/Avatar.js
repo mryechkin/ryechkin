@@ -1,16 +1,51 @@
+import { useState } from 'react';
+import { usePress } from 'react-aria';
 import cn from 'classnames/dedupe';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Avatar({ className }) {
+const variants = {
+  rotate: {
+    rotate: [0, 360],
+    transition: { duration: 0.8, repeat: Infinity, ease: 'linear' },
+  },
+  stop: { x: [0, 0] },
+};
+
+export default function Avatar({ className, setConfetti }) {
+  const [spinning, setSpinning] = useState(false);
+  const { pressProps } = usePress({
+    onPress: () => {
+      setSpinning(!spinning);
+      if (setConfetti) setConfetti(true);
+    },
+  });
+
   return (
-    <span className={cn('inline-flex w-8 h-8 sm:w-14 sm:h-14', className)}>
-      <Image
-        src="/assets/avatar.jpg"
-        width={56}
-        height={56}
-        alt="Avatar"
-        className="rounded-full"
-      />
-    </span>
+    <>
+      <motion.button
+        aria-label="Avatar"
+        id="avatar"
+        type="button"
+        className={cn(
+          'flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
+          className
+        )}
+        animate={spinning ? 'rotate' : 'stop'}
+        variants={variants}
+        whileFocus={{ scale: 1.2 }}
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        {...pressProps}
+      >
+        <Image
+          src="/assets/avatar.jpg"
+          width={56}
+          height={56}
+          alt="Avatar"
+          className="rounded-full"
+        />
+      </motion.button>
+    </>
   );
 }

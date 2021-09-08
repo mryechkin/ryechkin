@@ -1,4 +1,6 @@
 import { FiSmile } from 'react-icons/fi';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import ExternalLink from './ExternalLink';
 import PeaceSign from './PeaceSign';
@@ -30,6 +32,8 @@ export default {
   hr: Separator,
   ExternalLink,
   FiSmile,
+  Image,
+  Link,
   PeaceSign,
   RickRoll,
   Tags,
