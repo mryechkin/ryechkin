@@ -1,33 +1,59 @@
-import { useEffect, useState } from 'react';
-import { motion, useAnimation, useCycle } from 'framer-motion';
+import { useState } from 'react';
+import { StarIcon } from '@heroicons/react/solid';
+import { motion, useCycle } from 'framer-motion';
 
-export default function Snippets() {
-  const x = [0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -4, -3, -2, -1];
-  const sinX = x.map((i) => Math.sin(i));
-  // const [x, cycleX] = useCycle(...values);
-  // const [y, cycleY] = useCycle(...sinX);
+import { useInterval } from '@/lib/hooks';
+import { generateArray } from '@/lib/utils';
+
+export default function Snippets({ delay = 100 }) {
+  const x = generateArray(1000, 1, -15, 15);
+  const y = x.map((i) => Math.cos(i * i));
+  const [isActive, setIsActive] = useState(null);
 
   const [xy, cycleXY] = useCycle(
     ...x.map((val, i) => {
-      return { x: val * 30, y: sinX[i] * 30 };
+      return { x: val * 10, y: y[i] * 20 };
     })
   );
 
+  useInterval(
+    () => {
+      cycleXY();
+    },
+    isActive ? delay : null
+  );
+
   return (
-    <div className="flex items-center justify-center h-full min-h-screen">
-      <motion.button
-        type="button"
-        className="px-4 py-2 text-green-900 text-lg font-black bg-green-400 rounded-lg"
-        animate={{ ...xy }}
+    <div className="flex flex-col items-center justify-center mx-auto w-full h-screen overflow-hidden md:max-w-3xl">
+      <motion.div
+        className="p-2 w-12 h-12 text-cyan-300 font-bold"
         initial={false}
+        animate={{ ...xy }}
+      >
+        <StarIcon />
+      </motion.div>
+      {xy && (
+        <div className="flex flex-col items-start justify-center mt-12 p-8 w-full text-2xl">
+          <div>
+            <strong>X</strong>: <span className="accent mr-4">{xy.x}</span>
+          </div>
+          <div>
+            <strong>Y</strong>: <span className="accent">{xy.y}</span>
+          </div>
+        </div>
+      )}
+      <div className="accent-no-bg py-8 text-3xl font-light tracking-wider">
+        y = cos(x<sup>2</sup>)
+      </div>
+      <button
+        type="button"
+        className="mt-8 px-12 py-4 text-cyan-300 text-2xl border border-cyan-300 rounded-full"
         onClick={() => {
-          setInterval(() => {
-            cycleXY();
-          }, 100);
+          setIsActive(!isActive);
         }}
       >
-        Click Me
-      </motion.button>
+        {isActive ? 'Stop' : 'Animate'}
+      </button>
     </div>
   );
 }
