@@ -1,62 +1,106 @@
-export default function BackgroundPattern() {
+export default function BackgroundPattern({
+  color = 'text-gray-100 dark:text-gray-600',
+}) {
   return (
-    <svg
-      className="-z-10 absolute top-20 sm:top-40 md:left-1/4"
-      width={302}
-      height={384}
-      fill="none"
-      viewBox="0 0 302 384"
-    >
-      <defs>
-        <pattern
-          id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
-          x={0}
-          y={0}
-          width={20}
-          height={20}
-          patternUnits="userSpaceOnUse"
+    <div className="hidden lg:absolute lg:inset-y-0 lg:block lg:w-9/12 lg:h-full">
+      <div className="relative mx-auto h-full text-lg" aria-hidden="true">
+        <svg
+          className="absolute left-full top-12 transform -translate-x-32"
+          width={404}
+          height={384}
+          fill="none"
+          viewBox="0 0 404 384"
         >
+          <defs>
+            <pattern
+              id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
+              x={0}
+              y={0}
+              width={20}
+              height={20}
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                x={0}
+                y={0}
+                width={4}
+                height={4}
+                className={color}
+                fill="currentColor"
+              />
+            </pattern>
+          </defs>
           <rect
-            x={0}
-            y={0}
-            width={4}
-            height={4}
-            className="text-gray-100 dark:text-gray-700"
-            fill="currentColor"
+            width={404}
+            height={384}
+            fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"
           />
-        </pattern>
-      </defs>
-      <rect width={302} height={384} fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)" />
-    </svg>
+        </svg>
+        <svg
+          className="absolute right-full top-1/2 transform -translate-y-1/2 translate-x-32"
+          width={404}
+          height={384}
+          fill="none"
+          viewBox="0 0 404 384"
+        >
+          <defs>
+            <pattern
+              id="f210dbf6-a58d-4871-961e-36d5016a0f49"
+              x={0}
+              y={0}
+              width={20}
+              height={20}
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                x={0}
+                y={0}
+                width={4}
+                height={4}
+                className={color}
+                fill="currentColor"
+              />
+            </pattern>
+          </defs>
+          <rect
+            width={404}
+            height={384}
+            fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)"
+          />
+        </svg>
+        <svg
+          className="absolute bottom-12 left-full transform -translate-x-32"
+          width={404}
+          height={384}
+          fill="none"
+          viewBox="0 0 404 384"
+        >
+          <defs>
+            <pattern
+              id="d3eb07ae-5182-43e6-857d-35c643af9034"
+              x={0}
+              y={0}
+              width={20}
+              height={20}
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                x={0}
+                y={0}
+                width={4}
+                height={4}
+                className={color}
+                fill="currentColor"
+              />
+            </pattern>
+          </defs>
+          <rect
+            width={404}
+            height={384}
+            fill="url(#d3eb07ae-5182-43e6-857d-35c643af9034)"
+          />
+        </svg>
+      </div>
+    </div>
   );
-  // return (
-  //   <svg
-  //     className={`absolute z-0 top-1/2 md:right-1/4 ${className}`}
-  //     width={242}
-  //     height={384}
-  //     fill="none"
-  //     viewBox="0 0 302 384"
-  //   >
-  //     <defs>
-  //       <pattern
-  //         id="74b3fd99-0a6f-4271-bef2-e80eeafdf357"
-  //         x={0}
-  //         y={0}
-  //         width={20}
-  //         height={20}
-  //         patternUnits="userSpaceOnUse"
-  //       >
-  //         <rect
-  //           x={0}
-  //           y={0}
-  //           width={4}
-  //           height={4}
-  //           className="text-gray-200 dark:text-gray-700"
-  //           fill="currentColor"
-  //         />
-  //       </pattern>
-  //     </defs>
-  //     <rect width={302} height={384} fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)" />
-  //   </svg>
-  // );
 }

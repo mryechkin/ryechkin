@@ -18,8 +18,8 @@ module.exports = {
       boxShadow: {
         link: '0 -5px 0 0 rgba(34, 211, 238, 1) inset',
         'link-dark': '0 -5px 0 0 rgba(103, 232, 249, 1) inset',
-        thick: '0 -8px 0 0 rgba(34, 211, 238, 1) inset',
-        'thick-dark': '0 -8px 0 0 rgba(103, 232, 249, 1) inset',
+        underline: '0 -1px 0 0 rgba(34, 211, 238, 1) inset',
+        'underline-dark': '0 -1px 0 0 rgba(103, 232, 249, 1) inset',
       },
       colors: {
         cyan: colors.cyan,
@@ -51,5 +51,5 @@ module.exports = {
       animation: ['hover', 'focus', 'active'],
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/typography')],
 };

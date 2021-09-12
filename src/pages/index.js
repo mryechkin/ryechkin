@@ -1,59 +1,49 @@
-import { useEffect, useState } from 'react';
-import Confetti from 'react-dom-confetti';
 import { FiSmile } from 'react-icons/fi';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Avatar, Layout, More, PeaceSign, SEO, Separator, Videos } from '@/components';
+import { Layout, More, PeaceSign, SEO, Separator, Videos } from '@/components';
 import { getDataBySlug } from '@/lib/data';
+import { useConfetti } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
 
 export default function Home({ data, source }) {
-  const [confetti, setConfetti] = useState(false);
-
-  useEffect(() => {
-    if (confetti) setConfetti(false);
-  }, [confetti]);
+  const [confetti, setConfetti] = useConfetti();
 
   return (
-    <Layout>
+    <Layout confetti={confetti}>
       <SEO title={data.title} />
-      <div className="flex flex-col items-center justify-center py-2 sm:py-4">
-        <div className="w-full max-w-3xl font-sans text-3xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
+      <div className="inline-flex items-end justify-center py-2 w-full sm:py-4">
+        <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
               Hey
               <PeaceSign
                 className="p-2"
-                innerClassName="h-6 w-6 sm:w-12 sm:h-12"
+                innerClassName="h-6 w-6 sm:w-10 sm:h-10 md:w-12 md:h-12"
                 setConfetti={setConfetti}
               />
               I&apos;m
             </span>
-            <span className="retro ml-1 sm:ml-2">Mykhaylo</span>
-            <Avatar className="hidden sm:flex sm:ml-6" setConfetti={setConfetti} />
+            <span className="retro inline-flex ml-1 sm:ml-2">Mykhaylo.</span>
           </span>
         </div>
-        <div className="flex items-center justify-center mt-2 w-full max-w-2xl text-blue-500 dark:text-rose-200 font-sans text-base sm:mt-1">
-          <span className="ml-1 font-medium">(like</span>
-          <span className="ml-1 font-black">&quot;Kylo&quot;</span>
-          <span className="font-medium">)</span>
-        </div>
-        <Confetti active={confetti} config={{ spread: 360 }} />
       </div>
-      <div className="z-10 items-center justify-center mx-auto max-w-full text-center">
+      <div className="items-center justify-center mx-auto max-w-full text-center">
         <div className="mx-auto max-w-4xl">
-          <MDXRemote {...source} />
+          <div className="prose md:prose-md lg:prose-lg py-4 w-full max-w-full sm:text-center">
+            <MDXRemote {...source} />
+          </div>
           <span className="inline-flex items-center justify-center">
-            <span className="accent font-bold">{`{ ... }`}</span>
             <Link href="/about" passHref>
-              <More className="ml-2" />
+              <a className="nav-link">About Me &rarr;</a>
             </Link>
           </span>
         </div>
         <Separator />
-        <h1>Latest Videos</h1>
+        <h1 className="retro pb-2 text-left text-3xl sm:pb-4 sm:text-4xl md:text-5xl">
+          Latest Videos
+        </h1>
         <Videos />
         <Separator />
         <div className="inline-flex items-center justify-center w-full">

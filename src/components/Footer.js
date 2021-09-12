@@ -65,7 +65,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
             <KyloRen setConfetti={setConfetti} />
           </div>
         )}
-        <div className="flex justify-between px-2 py-8 w-full md:py-0">
+        <div className="flex flex-col items-center justify-center px-2 py-8 w-full sm:flex-row sm:justify-between md:py-0">
           <span className="flex">
             {navigation.social.map((item) => (
               <motion.a
@@ -83,9 +83,9 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
               </motion.a>
             ))}
           </span>
-          <DarkModeToggle />
+          <DarkModeToggle className="mt-4 sm:mt-0" />
         </div>
-        <div className="flex flex-grow-0 flex-wrap items-center justify-center my-6 text-blue-400 dark:text-rose-50 text-xs tracking-tight opacity-75 sm:my-8">
+        <div className="flex flex-grow-0 flex-wrap items-center justify-center py-6 text-gray-400 dark:text-rose-50 text-xs tracking-tight border-t border-indigo-100 dark:border-indigo-900 opacity-75 sm:mt-8 sm:py-8">
           <span>&copy; 2021</span>
           <span className="ml-1 font-semibold tracking-wide">Mykhaylo Ryechkin</span>.
           <span className="ml-1 font-normal">All rights reserved.</span>

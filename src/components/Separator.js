@@ -9,7 +9,7 @@ export default function Separator({ className }) {
       )}
     >
       <div className="rainbow-bg text-transparent text-4xl bg-clip-text sm:text-6xl">
-        &middot;&middot;&middot;&middot;&middot;&middot;&middot;
+        &middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;
       </div>
     </div>
   );

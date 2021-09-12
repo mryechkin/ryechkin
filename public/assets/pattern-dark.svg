@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" fill="none" viewBox="0 0 600 300">
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" fill="none" viewBox="0 0 300 600">
   <defs>
     <pattern id="74b3fd99-0a6f-4271-bef2-e80eeafdf357" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
       <rect x="0" y="0" width="3" height="3" fill="#374151"/>
     </pattern>
   </defs>
-  <rect width="600" height="300" fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"/>
+  <rect width="300" height="600" fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"/>
 </svg>

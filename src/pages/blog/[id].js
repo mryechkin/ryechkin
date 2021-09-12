@@ -32,28 +32,30 @@ export default function Post({ postData, source }) {
           },
         }}
       />
-      <h1 className="pt-8">{postData.title}</h1>
-      <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-        Published on
-        <span className="px-2 font-semibold">
-          <DateDisplay date={postData.date} />
-        </span>
-        by
-        <span className="accent-no-bg ml-2">{postData.author.name}</span>
+      <div className="prose md:prose-md lg:prose-lg w-full max-w-full">
+        <h1 className="pt-8">{postData.title}</h1>
+        <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
+          Published on
+          <span className="px-2 font-semibold">
+            <DateDisplay date={postData.date} />
+          </span>
+          by
+          <span className="accent-no-bg ml-2">{postData.author.name}</span>
+        </div>
+        <Badges className="mt-4" data={postData.tags} />
+        <div className="z-20 mt-8 mx-auto max-w-xl">
+          <Image
+            src={`/blog/${postData.slug}.jpg`}
+            layout="responsive"
+            height={334}
+            width={640}
+            quality={100}
+          />
+        </div>
+        <article className="z-10 py-4 dark:text-gray-50 text-gray-800 md:pt-8">
+          <MDXRemote {...source} />
+        </article>
       </div>
-      <Badges className="mt-4" data={postData.tags} />
-      <div className="z-20 mt-8 mx-auto max-w-xl">
-        <Image
-          src={`/blog/${postData.slug}.jpg`}
-          layout="responsive"
-          height={334}
-          width={640}
-          quality={100}
-        />
-      </div>
-      <article className="prose md:prose-lg lg:prose-xl z-10 py-4 w-full max-w-full dark:text-gray-50 text-gray-800 md:pt-8">
-        <MDXRemote {...source} />
-      </article>
     </Layout>
   );
 }

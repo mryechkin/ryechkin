@@ -1,5 +1,7 @@
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import Image from 'next/image';
 
+import Card from './Card';
 import ExternalLink from './ExternalLink';
 import GradientContainer from './GradientContainer';
 
@@ -35,25 +37,13 @@ const items = [
 ];
 
 export default function Videos() {
-  return (
-    <div className="flex flex-wrap gap-2 items-start justify-around w-full">
-      {items?.length &&
-        items.map((item) => (
-          <div
-            key={item.imageUrl}
-            className="flex flex-col items-center justify-between max-w-sm"
-          >
-            <GradientContainer className="max-w-xs">
-              <Image src={item.imageUrl} alt={item.title} width={1280} height={720} />
-            </GradientContainer>
-            <h3>
-              <ExternalLink href={item.href}>{item.title}</ExternalLink>
-            </h3>
-            <p className="inline-flex my-0 px-2 text-left text-base">
-              {item.description}
-            </p>
-          </div>
-        ))}
-    </div>
-  );
+  return items.map((item) => (
+    <Card key={item.imageUrl} item={item} isExternal>
+      <h1 className="inline-flex items-center justify-center dark:text-cyan-300 text-cyan-500">
+        {item.title}
+        <HiOutlineExternalLink className="inline-block" />
+      </h1>
+      <p>{item.description}</p>
+    </Card>
+  ));
 }

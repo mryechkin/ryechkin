@@ -28,11 +28,11 @@ html {
   }
 
   a, button, input[type="button"] {
-    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 py-1 cursor-pointer;
+    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 cursor-pointer;
   }
 
-  nav a {
-    @apply hover:shadow-link dark:hover:shadow-link-dark p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
+  nav a, .nav-link {
+    @apply transition-all hover:shadow-link dark:hover:shadow-link-dark dark:shadow-underline-dark shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
   }
 
   .accent {
@@ -52,16 +52,24 @@ html {
   }
 
   .rainbow {
-    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 to-rose-600 dark:to-rose-300;
+    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
   }
 
   .retro {
-    @apply text-blue-300 dark:text-rose-50 font-black tracking-tight;
-    text-shadow: 3px 2px 0px #2563eb, 5px 4px 0px #bfdbfe;
+    @apply text-indigo-300 dark:text-rose-50 font-black tracking-tight;
+    text-shadow: 3px 2px 0px #4F46E5, 5px 4px 0px #C7D2FE;
   }
 
   .dark .retro {
     text-shadow: 3px 2px 0px #fb7185, 5px 4px 0px #e11d48;
+  }
+
+  .retro-shadow {
+    box-shadow: 6px 6px 0px #C7D2FE;
+  }
+
+  .dark .retro-shadow {
+    box-shadow: 6px 6px 0px #312E81;
   }
 
   .social-github {
@@ -86,7 +94,7 @@ html {
     @apply dark:text-gray-50 text-gray-500;
   }
   .prose h1 {
-    @apply rainbow relative text-center !important;
+    @apply rainbow relative text-left !important;
   }
   .prose-lg h1 {
     @apply leading-tight !important;

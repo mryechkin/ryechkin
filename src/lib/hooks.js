@@ -46,3 +46,13 @@ export const useInterval = (callback, delay) => {
     }
   }, [delay]);
 };
+
+export const useConfetti = () => {
+  const [confetti, setConfetti] = useState(false);
+
+  useEffect(() => {
+    if (confetti) setConfetti(false);
+  }, [confetti]);
+
+  return [confetti, setConfetti];
+};
