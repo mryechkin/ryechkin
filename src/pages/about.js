@@ -12,7 +12,7 @@ export default function About({ data, source }) {
     <Layout slug="about">
       <SEO title={data.title} />
       <div className="prose md:prose-md lg:prose-lg mx-auto max-w-full">
-        <h1 className="retro mb-0">About Me</h1>
+        <h1>About Me</h1>
         <MDXRemote {...source} />
       </div>
     </Layout>

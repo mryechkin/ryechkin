@@ -94,7 +94,7 @@ html {
     @apply dark:text-gray-50 text-gray-500;
   }
   .prose h1 {
-    @apply rainbow relative text-center !important;
+    @apply retro relative text-center !important;
   }
   .prose-lg h1 {
     @apply leading-tight !important;
