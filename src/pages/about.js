@@ -11,15 +11,9 @@ export default function About({ data, source }) {
   return (
     <Layout slug="about">
       <SEO title={data.title} />
-      <div className="prose md:prose-md lg:prose-lg z-10 inline-flex flex-col items-center justify-between mb-4 mt-2 mx-auto max-w-full text-center md:mb-8 md:mt-4">
-        <div className="retro text-2xl sm:text-4xl md:text-5xl">About Me</div>
+      <div className="prose md:prose-md lg:prose-lg mx-auto max-w-full">
+        <h1 className="retro mb-0">About Me</h1>
         <MDXRemote {...source} />
-        {/* <div className="sm:pr-8">
-          <MDXRemote {...source} />
-        </div>
-        <div className="hidden flex-shrink-0 sm:inline-flex sm:w-64 md:w-72">
-          <Image src={hammock} alt="About me" quality={100} priority />
-        </div> */}
       </div>
     </Layout>
   );

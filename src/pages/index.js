@@ -41,10 +41,12 @@ export default function Home({ data, source }) {
           </span>
         </div>
         <Separator />
-        <h1 className="retro pb-2 text-left text-3xl sm:pb-4 sm:text-4xl md:text-5xl">
+        <h1 className="retro py-2 text-left text-3xl sm:pb-4 sm:text-4xl md:text-5xl">
           Latest Videos
         </h1>
-        <Videos />
+        <div className="pb-4 md:pb-8">
+          <Videos />
+        </div>
         <Separator />
         <div className="inline-flex items-center justify-center w-full">
           Thanks for stopping by

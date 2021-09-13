@@ -12,7 +12,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
   return (
     <div className="pt-2 w-full min-h-screen bg-gradient-to-br dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 overflow-hidden">
       <div className="min-h-[var(--min-height)] relative flex flex-col justify-between bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 sm:justify-around">
-        <div className="flex flex-nowrap items-center justify-between mx-auto p-2 px-4 w-full max-w-5xl sm:px-6 sm:py-4 md:px-8">
+        <header className="flex flex-nowrap items-center justify-between mx-auto pb-4 pt-2 px-4 w-full max-w-5xl sm:px-6 sm:py-4 md:px-8">
           <div className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter sm:py-4 sm:text-4xl">
             <Avatar className="flex mr-6" setConfetti={setHeaderConfetti} />
             <Link href="/">
@@ -22,7 +22,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
             </Link>
           </div>
           <DarkModeToggle />
-        </div>
+        </header>
         <div className="flex items-center justify-center w-full">
           <Confetti active={confetti || headerConfetti} config={{ spread: 360 }} />
         </div>
@@ -31,9 +31,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
             {children}
           </div>
         </main>
-        <div className="px-4 sm:px-6 md:px-8">
-          <Footer slug={slug} hideKylo />
-        </div>
+        <Footer slug={slug} hideKylo />
       </div>
     </div>
   );
