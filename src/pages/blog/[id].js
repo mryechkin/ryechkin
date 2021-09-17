@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
-import { Badges, Counter, DateDisplay, Layout } from '@/components';
+import { Badges, DateDisplay, ExternalLink, Layout } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -33,16 +33,12 @@ export default function Post({ postData, source }) {
         }}
       />
       <div className="prose md:prose-md lg:prose-lg w-full max-w-full">
-        <h1 className="pt-8">{postData.title}</h1>
-        <div className="relative z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-          Published on
-          <span className="px-2 font-semibold">
+        <h1 className="retro">{postData.title}</h1>
+        <div className="z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
+          <span className="px-1 font-semibold">
             <DateDisplay date={postData.date} />
           </span>
-          by
-          <span className="accent-no-bg ml-2">{postData.author.name}</span>
         </div>
-        <Badges className="mt-4" data={postData.tags} />
         <div className="z-20 mt-8 mx-auto max-w-xl">
           <Image
             src={`/blog/${postData.slug}.jpg`}

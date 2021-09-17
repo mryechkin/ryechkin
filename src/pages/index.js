@@ -13,10 +13,10 @@ export default function Home({ data, source }) {
   return (
     <Layout confetti={confetti}>
       <SEO title={data.title} />
-      <div className="inline-flex items-end justify-center py-2 w-full sm:py-4">
+      <div className="inline-flex items-end justify-center w-full">
         <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-400">
+            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-500">
               Hey
               <PeaceSign
                 className="p-2"
