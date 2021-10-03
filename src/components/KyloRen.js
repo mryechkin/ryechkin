@@ -31,8 +31,8 @@ export default function KyloRen({ setConfetti }) {
         className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
         animate={spinning ? 'rotate' : 'stop'}
         variants={variants}
-        whileFocus={{ scale: 1.2 }}
-        whileHover={{ scale: 1.2 }}
+        whileFocus={{ scale: 1.1 }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         {...pressProps}
       >

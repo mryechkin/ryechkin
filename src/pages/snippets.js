@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/solid';
 import { motion, useCycle } from 'framer-motion';
+import { Button } from 'wtf-design-system';
 
 import { useInterval } from '@/lib/hooks';
 import { generateArray } from '@/lib/utils';
@@ -45,15 +46,16 @@ export default function Snippets({ delay = 100 }) {
       <div className="accent-no-bg py-8 text-3xl font-light tracking-wider">
         y = cos(x<sup>2</sup>)
       </div>
-      <button
-        type="button"
-        className="mt-8 px-12 py-4 text-cyan-300 text-2xl border border-cyan-300 rounded-full"
+      <Button
+        css={{
+          marginTop: '$8',
+        }}
         onClick={() => {
           setIsActive(!isActive);
         }}
       >
         {isActive ? 'Stop' : 'Animate'}
-      </button>
+      </Button>
     </div>
   );
 }

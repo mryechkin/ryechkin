@@ -20,7 +20,7 @@ export default function Home({ data, source }) {
               Hey
               <PeaceSign
                 className="p-2"
-                innerClassName="h-6 w-6 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                innerClassName="h-6 w-6 sm:w-10 sm:h-10"
                 setConfetti={setConfetti}
               />
               I&apos;m
@@ -34,11 +34,6 @@ export default function Home({ data, source }) {
           <div className="prose md:prose-md lg:prose-lg py-4 w-full max-w-full sm:text-center">
             <MDXRemote {...source} />
           </div>
-          <span className="inline-flex items-center justify-center">
-            <Link href="/about" passHref>
-              <a className="nav-link">About Me &rarr;</a>
-            </Link>
-          </span>
         </div>
         <Separator />
         <h1 className="retro py-2 text-left text-3xl sm:pb-4 sm:text-4xl md:text-5xl">

@@ -27,7 +27,7 @@ html {
     @apply focus:no-underline hover:no-underline !important;
   }
 
-  a, button, input[type="button"] {
+  a, input[type="button"] {
     @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 cursor-pointer;
   }
 
@@ -45,6 +45,18 @@ html {
 
   .accent-indigo {
     @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
+  }
+
+  .background-pattern {
+    @apply sm:dark:bg-pattern-dark sm:bg-pattern-light sm:bg-no-repeat sm:bg-origin-content;
+  }
+
+  .background-pattern-sm {
+    @apply sm:dark:bg-pattern-dark-sm sm:bg-pattern-light-sm sm:bg-no-repeat sm:bg-origin-content;
+  }
+
+  .custom-focus {
+    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
   }
 
   .rainbow-bg {

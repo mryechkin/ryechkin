@@ -28,13 +28,13 @@ export default function Avatar({ className, setConfetti }) {
         id="avatar"
         type="button"
         className={cn(
-          'flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
+          'custom-focus flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
           className
         )}
         animate={spinning ? 'rotate' : 'stop'}
         variants={variants}
-        whileFocus={{ scale: 1.2 }}
-        whileHover={{ scale: 1.2 }}
+        whileFocus={{ scale: 1.1 }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         {...pressProps}
       >

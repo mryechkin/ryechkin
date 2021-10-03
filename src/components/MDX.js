@@ -13,17 +13,18 @@ const Technologies = () => (
     className="mt-4"
     list={[
       'JavaScript',
+      'CSS-in-JS',
       'React',
       'Next.js',
       'Node.js',
-      'Express',
       'GraphQL',
       'PostgreSQL',
       'Babel',
       'Rollup',
       'Storybook',
+      'Supabase',
       'TailwindCSS',
-      '...more',
+      '...(and more)',
     ]}
   />
 );

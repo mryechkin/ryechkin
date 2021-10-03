@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Avatar from '@/components/Avatar';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import Footer from '@/components/Footer';
+import Menu from '@/components/Menu';
 import { useConfetti } from '@/lib/hooks';
 
 export default function Layout({ children, confetti = false, slug = 'index' }) {
@@ -21,13 +22,16 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
               </a>
             </Link>
           </div>
-          <DarkModeToggle />
+          <div className="flex items-center justify-center">
+            <Menu />
+            <DarkModeToggle className="hidden ml-4 md:block" />
+          </div>
         </header>
         <div className="flex items-center justify-center w-full">
           <Confetti active={confetti || headerConfetti} config={{ spread: 360 }} />
         </div>
         <main className="w-full max-w-none overflow-hidden">
-          <div className="sm:dark:bg-pattern-dark mx-auto px-4 max-w-5xl sm:px-6 sm:bg-pattern-light sm:bg-left-top sm:bg-no-repeat sm:bg-origin-content md:px-8">
+          <div className="background-pattern mx-auto px-4 max-w-5xl sm:px-6 sm:bg-left-top md:px-8">
             {children}
           </div>
         </main>

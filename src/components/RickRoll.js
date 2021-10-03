@@ -29,13 +29,13 @@ export default function RickRoll() {
           {!rickrolled && (
             <motion.button
               aria-label="Headphones"
-              className="p-2 rounded"
-              whileFocus={{ scale: 1.2 }}
-              whileHover={{ scale: 1.2 }}
+              className="custom-focus p-2 rounded"
+              whileFocus={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               {...headphonesPressProps}
             >
-              <FaHeadphones className="text-blue-400 dark:text-rose-400" />
+              <FaHeadphones className="w-4 h-4 text-blue-400 dark:text-rose-400" />
             </motion.button>
           )}
           {rickrolled && (

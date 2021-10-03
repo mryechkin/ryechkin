@@ -42,8 +42,8 @@ export default function Navigation() {
         </span>
         <motion.button
           className="p-2 w-12 h-12 md:hidden"
-          whileFocus={{ scale: 1.2 }}
-          whileHover={{ scale: 1.2 }}
+          whileFocus={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           {...openPressProps}
         >
@@ -69,8 +69,8 @@ export default function Navigation() {
             <DarkModeToggle />
             <motion.button
               className="absolute right-0 top-0 m-10 p-2 w-12 h-12"
-              whileFocus={{ scale: 1.2 }}
-              whileHover={{ scale: 1.2 }}
+              whileFocus={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               {...closePressProps}
             >

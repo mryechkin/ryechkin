@@ -24,9 +24,9 @@ export default function DarkModeToggle({ className }) {
     <motion.button
       aria-label={ariaLabel}
       type="button"
-      className={cn('p-2 rounded', className)}
-      whileFocus={{ scale: 1.2 }}
-      whileHover={{ scale: 1.2 }}
+      className={cn('custom-focus p-2 rounded', className)}
+      whileFocus={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       {...pressProps}
     >

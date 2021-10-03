@@ -12,9 +12,9 @@ export default function PeaceSign({ className, innerClassName, setConfetti }) {
     <motion.button
       aria-label="Hand showing peace sign"
       type="button"
-      className={cn('rounded', className)}
-      whileFocus={{ scale: 1.2 }}
-      whileHover={{ scale: 1.2 }}
+      className={cn('custom-focus rounded', className)}
+      whileFocus={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       {...pressProps}
     >

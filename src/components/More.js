@@ -8,8 +8,8 @@ const More = forwardRef(({ className, onClick }, ref) => {
       className={cn('dark:text-cyan-300 text-cyan-600 no-underline text-3xl', className)}
       onClick={onClick}
       ref={ref}
-      whileFocus={{ scale: 1.2, x: 0 }}
-      whileHover={{ scale: 1.2, x: 0 }}
+      whileFocus={{ scale: 1.1, x: 0 }}
+      whileHover={{ scale: 1.1, x: 0 }}
       whileTap={{ scale: 0.9 }}
     >
       &rarr;
