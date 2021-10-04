@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { generateImage, toBase64 } from '@/lib/utils';
+
 export default function Card({ item, isExternal }) {
   return (
     <Link href={item.href} passHref>
@@ -13,7 +15,14 @@ export default function Card({ item, isExternal }) {
         whileTap={{ y: 0 }}
       >
         <div className="relative col-span-4 w-full h-full sm:col-span-1">
-          <Image src={item.imageUrl} alt={item.title} layout="fill" objectFit="cover" />
+          <Image
+            src={item.imageUrl}
+            alt={item.title}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(generateImage(640, 480))}`}
+          />
         </div>
         <div className="flex flex-col col-span-4 items-start justify-start p-4 bg-gray-50 dark:bg-gray-900 sm:col-span-3">
           <h1 className="inline-flex flex-nowrap items-center justify-start text-left dark:text-cyan-300 text-cyan-500 text-lg font-bold overflow-ellipsis sm:text-xl md:text-2xl">

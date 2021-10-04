@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="640" fill="none" viewBox="0 0 360 640">
   <defs>
     <pattern id="74b3fd99-0a6f-4271-bef2-e80eeafdf357" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="3" height="3" fill="#F3F4F6"/>
+      <rect x="0" y="0" width="3" height="3" fill="#E5E7EB"/>
     </pattern>
   </defs>
   <rect width="360" height="640" fill="url(#74b3fd99-0a6f-4271-bef2-e80eeafdf357)"/>

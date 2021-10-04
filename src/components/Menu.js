@@ -65,9 +65,9 @@ export default function Menu() {
           </motion.button>
         </PopoverTrigger>
         <PopoverContent
-          sideOffset={5}
+          // sideOffset={5}
           css={{
-            backgroundColor: '$slate1',
+            backgroundColor: '$slate3',
             alignItems: 'center',
             justifyContent: 'center',
             minWidth: '$40',
