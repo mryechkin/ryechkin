@@ -26,9 +26,9 @@ export default function Post({ postData, source }) {
             publishedTime: postData.date,
             authors: [postData.author?.name],
             tags: postData.seo,
-            image:
-              postData.image ||
-              `https://www.misha.wtf/_next/image?url=%2F${postData.slug}.jpg&w=1200&q=627`,
+            image: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
+            // postData.image ||
+            // `https://www.misha.wtf/_next/image?url=%2F${postData.slug}.jpg&w=1200&q=627`,
           },
         }}
       />
@@ -39,12 +39,13 @@ export default function Post({ postData, source }) {
             <DateDisplay date={postData.date} />
           </span>
         </div>
-        <div className="z-20 mt-8 mx-auto max-w-xl">
+        <div className="mt-8 mx-auto max-w-xl">
           <Image
-            src={`/blog/${postData.slug}.jpg`}
+            src={`/blog/${postData.slug}/cover.png`}
+            className="bg-gray-900 rounded-lg"
             layout="responsive"
-            height={334}
-            width={640}
+            height={340}
+            width={860}
             quality={100}
           />
         </div>
