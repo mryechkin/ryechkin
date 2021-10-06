@@ -21,94 +21,80 @@ author:
   url: 'https://twitter.com/misha_wtf'
 ---
 
-[Supabase](https://www.supabase.io) has been getting a lot of attention in the tech community lately, and for good reason. This open source platform makes it super easy to get started building complex full-stack applications, and in this post we will take a look at how to utilize one of its core offerings: **user authentication**.
+[Supabase](https://www.supabase.io) has been getting a lot of attention in the tech community, and for good reason. This open source platform makes it super easy to get started building complex full-stack applications, and in this post we will take a look at how to utilize one of its core offerings: **User Authentication**.
+
+## Overview
+
+One of the things that stands out about Supabase almost immediately is just how easy it is to get started. You can be up and running in quite literally minutes, and Authentication is no exception. It provides a fully integrated solution, including user management and email notifications, with no reliance on any external authentication services. And with Supabase being open source, you have complete control and ownership of your user data, as it's all stored in the same PostgreSQL database.
+
+Supabase provides several different authentication mechanisms out of the box:
+
+- Basic `Email` authentication
+- `Magic Link` or a one-time login with email
+- `Social` logins: Google, Facebook, GitHub, Azure, Gitlab, Twitter, Discord, and Bitbucket
+- Phone / SMS login using `Twilio` integration
+
+In this tutorial we'll be using `Email` authentication, with ability to reset forgotten password.
 
 ## Supabase Client
 
-Supabase provides a [client library](https://supabase.io/docs/reference/javascript/supabase-client) that makes it _supa_ easy to get started with in your project. It is a modular library, comprised of several different sub-libraries, each enabling integration with the different systems:
+Supabase provides a [client library](https://supabase.io/docs/reference/javascript/supabase-client) that makes it _supa_ easy to get started in your project. It is a modular library, comprised of several different sub-libraries, each enabling integration with the specific sub-system:
 
-- `@supabase/postgrest-js` for [PostgREST](https://github.com/postgrest/postgrest)
-- `@supabase/realtime-js` for [Realtime](https://github.com/supabase/realtime)
-- `@supabase/gotrue-js` for [GoTrue](https://github.com/netlify/gotrue) (Netlify's authentication and user management API)
+- `@supabase/postgrest-js` for [PostgREST](https://github.com/postgrest/postgrest) (REST API for PostgreSQL)
+- `@supabase/realtime-js` for [Realtime](https://github.com/supabase/realtime) (realtime connection to PostgreSQL via websockets)
+- `@supabase/gotrue-js` for [GoTrue](https://github.com/netlify/gotrue) (fork of Netlify's authentication and user management API)
 
-It's worthwhile to note as well that the client is available in several different languages, including **C#**, **Python**, **Rust** and **Dart**.
+The single `@supabase/supabase-js` bundle combines the three libraries into one, and adds some ease-of-use enhancements, making it the perfect Supabase companion for your projects.
+
+It's worthwhile to note that the client library is also available in several other different languages as well - including **C#**, **Python**, **Rust** and **Dart**.
 
 ## Supabase UI
 
-Supabase also provides an open-source component library called [Supabase UI](https://ui.supabase.io/), which is a collection of common components and UI elements that are used across the range of Supabase products. Its styling is heavily inspired by [Tailwind CSS](https://www.tailwindcss.com/), so you _know_ it will look good out of the box.
+Supabase also provides an open source component library called [Supabase UI](https://ui.supabase.io/), which is a collection of common UI components and utilities that are used across the range of Supabase products. Its styling is heavily inspired by [Tailwind CSS](https://www.tailwindcss.com/), so you know it will look good out of the box :)
 
-> **NOTE:** this library is still in early alpha stage at the time of this writing, so the API and some features may still change in the full release.
+We will be using the [Auth](https://ui.supabase.io/components/auth) component, which provides all the necessary screens and integrations for the various authentication flows. In particular, we'll need to be able to perform the following:
 
-In particular, we will be using the [Auth](https://ui.supabase.io/components/auth) component, which will provide a complete UI for the authentication flow in our project.
+- **Sign Up**
+- **Sign In**
+- **Sign Out**
+- **Forgot Password (Reset)**
+- **Update Password**
 
-## Setup
+As you can see, that's quite a bit of UI and state logic that we would need to implement ourselves from scratch. Using a component that provides all of that already wired up out of the box will be a big time saver!
 
-For this tutorial, we'll be using [Next.js](https://nextjs.org/) :rocket:
+In this tutorial, we'll take a look at everything you need to use this component in your own application, as well as some ways to customize it to your needs.
 
-### Project Scaffold and Dependencies
+**NOTE:** `Supabase UI` was still in early development stage at the time of this writing, so the API and some features may still change in the full release.
 
-First, let's create our project base using `create-next-app` and the `with-tailwindcss` starter template:
+## Authentication Provider
+
+In order to handle all authentication related logic in our app, we're going to use the concept of an **Authenticaion Provider** as our auth layer. This pattern was heavily inspired by Kent C. Dodds' [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows the same basic principles, with a few tweaks.
+
+## Supabase Setup
+
+Before proceeding further, you will need to create a Supabase account if you haven't already done so. Supabase provides a [very generous](https://supabase.io/pricing) free tier for their hosted solution. Remember it's open-source, so you can always host your own as well!
+
+## Installation
+
+For this tutorial, we'll be using [Next.js](https://nextjs.org/) and the [TailwindCSS](https://www.tailwindcss.com/) starter template :rocket:
+
+To do that, run:
 
 ```bash
 npx create-next-app --example with-tailwindcss next-with-supabase-auth
 ```
 
-Next, install both the **Supabase Client** (`@supabase/supabase-js`), and the **Supabase UI** component library (`@supabase/ui`):
+Then, install both the **Supabase Client**, and the **Supabase UI** component library:
 
 ```bash
 npm install @supabase/supabase-js @supabase/ui
 ```
 
-And that's all we'll need to get started with this project. Let's start building!
-
-### Global CSS
-
-The template we used to scaffold the project already comes with TailwindCSS pre-configured, as well as some basic UI elements. However, as you'll see later on, we will need to do some CSS overrides, and so we're going to make a few small changes.
-
-First, let's create our global CSS file. At the root of the project, create `styles` folder and inside it a `globals.css` file:
-
-```css
-// styles/globals.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-Next, in your `pages/_app.js` file, replace this line:
-
-```jsx
-// pages/_app.js
-..
-import 'tailwindcss/tailwind.css';
-```
-
-with this one:
-
-```jsx
-// pages/_app.js
-..
-import '../styles/globals.css';
-```
-
-Now we can write any custom CSS overrides in that file.
+That's all we need to get started. Let's start building!
 
 ## Application Structure
 
-Our application will be pretty simple. It will consist of two pages:
-
-- Main landing page, with authentication flows: `pages/index.js`
-- Profile page to display some info about the logged-in user: `pages/profile.js`
-
-The main page will also show the authentication status, and provide the necessary UI to perform all the authentication flows:
-
-- **Sign In**
-- **Sign Up**
-- **Sign Out**
-- **Forgot Password**
-- **Update Password**
-- **Magic Link**
-
-As mentioned earlier, we'll be using the `Auth` component from **Supabase UI** to accomplish the above.
+Our application will be pretty simple. The main `Home` page will show the different authentication screens (ie. Sign In, Sign Up, etc.), as well as the authentication status and the ability to sign out. We'll also have a `Profile` page to display the currently logged-in user's data, which needs to be a "protected" page (meaning that only authenticated users can access it). We will take a look at how to accomplish this both on client and server-side in **Next.js**.
 
 ### Home Page
 
@@ -175,9 +161,7 @@ export default function Profile() {
 
 (/public/blog/nextjs-supabase-auth-2.png)
 
-## Supabase Setup
-
-Before proceeding further, you will need to create a Supabase account if you haven't already done so. Supabase provides a [very generous](https://supabase.io/pricing) free tier for their hosted solution. Remember it's open-source, so you can always host your own as well!
+##
 
 ### Create Project
 
@@ -193,7 +177,7 @@ In the dashboard, go to `Settings > API`. As you'll see, by default an anonymous
 
 We will need to access these in our app in the next step.
 
-### Supabase Client
+### Initializing Supabase
 
 Supabase JS client allows us to interact with the API from within our app. In order to instantiate it, we will need to specify the URL and the public API key from the previous step.
 

@@ -20,7 +20,7 @@ html {
 
 @layer base {
   body {
-    @apply text-cyan-400 font-sans dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-700;
+    @apply text-cyan-400 font-sans dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-500;
   }
 
   a {
@@ -68,7 +68,7 @@ html {
   }
 
   .retro {
-    @apply text-indigo-300 dark:text-rose-50 font-black tracking-tight;
+    @apply text-blue-300 dark:text-rose-50 selection:text-cyan-50 dark:selection:text-gray-800 font-black tracking-tight;
     text-shadow: 3px 2px 0px #4F46E5, 5px 4px 0px #C7D2FE;
   }
 

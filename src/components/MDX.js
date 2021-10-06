@@ -12,19 +12,14 @@ const Technologies = () => (
   <Tags
     className="mt-4"
     list={[
-      'JavaScript',
-      'CSS-in-JS',
       'React',
       'Next.js',
-      'Node.js',
-      'GraphQL',
-      'PostgreSQL',
-      'Babel',
-      'Rollup',
-      'Storybook',
       'Supabase',
-      'TailwindCSS',
-      '...(and more)',
+      'Rollup',
+      'Vite',
+      'Storybook',
+      'Stitches',
+      'Tailwind',
     ]}
   />
 );
