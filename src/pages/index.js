@@ -31,14 +31,12 @@ export default function Home({ data, source }) {
       </div>
       <div className="items-center justify-center mx-auto max-w-full text-center">
         <div className="mx-auto max-w-4xl">
-          <div className="prose md:prose-md lg:prose-lg py-4 w-full max-w-full sm:text-center">
+          <div className="prose lg:prose-lg py-4 w-full max-w-full sm:text-center">
             <MDXRemote {...source} />
           </div>
         </div>
         <Separator />
-        <h1 className="retro py-2 text-left text-3xl sm:pb-4 sm:text-4xl md:text-5xl">
-          Latest Videos
-        </h1>
+        <h1 className="retro py-2 text-3xl lg:pb-4 lg:text-5xl">Latest Videos</h1>
         <div className="pb-4 md:pb-8">
           <Videos />
         </div>

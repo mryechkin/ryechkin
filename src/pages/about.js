@@ -9,7 +9,7 @@ export default function About({ data, source }) {
   return (
     <Layout slug="about">
       <SEO title={data.title} />
-      <div className="prose md:prose-md lg:prose-lg mx-auto max-w-full">
+      <div className="prose lg:prose-lg mx-auto max-w-full">
         <h1>About Me</h1>
         <div className="flex items-start justify-between">
           <div className="lg:pr-4">
@@ -36,7 +36,9 @@ export default function About({ data, source }) {
                 'Tailwind',
               ]}
             />
-            <p className="text-right">...and always looking to learn more!</p>
+            <p className="text-center lg:text-right">
+              ...and always looking to learn more!
+            </p>
           </div>
           <div className="hidden flex-shrink-0 pt-12 sm:w-52 lg:inline-flex lg:w-56">
             <Image

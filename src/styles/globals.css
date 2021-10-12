@@ -35,6 +35,10 @@ html {
     @apply transition-all hover:shadow-link dark:hover:shadow-link-dark dark:shadow-underline-dark shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
   }
 
+  footer nav a, footer .nav-link {
+    @apply text-sm !important;
+  }
+
   .accent {
     @apply dark:text-cyan-300 text-cyan-600 bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
   }
@@ -121,7 +125,7 @@ html {
     @apply dark:text-cyan-200 text-gray-700;
   }
   .prose strong {
-    @apply dark:text-cyan-100 text-cyan-900 font-semibold;
+    @apply dark:text-white text-gray-800;
   }
   .prose a {
     @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-md;

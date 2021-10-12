@@ -32,7 +32,7 @@ export default function Post({ postData, source }) {
           },
         }}
       />
-      <div className="prose md:prose-md lg:prose-lg w-full max-w-full">
+      <div className="prose lg:prose-lg w-full max-w-full">
         <h1 className="retro">{postData.title}</h1>
         <div className="z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
           <span className="px-1 font-semibold">

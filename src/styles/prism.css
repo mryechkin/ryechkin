@@ -13,7 +13,7 @@ pre[class*="language-"] {
   --box-shadow: #E5E7EB;
   --color: #1F2937;
   --comment: #9CA3AF;
-  --keyword: #06B6D4;
+  --keyword: #0EA5E9;
   --parameter: #EF4444;
   --punctuation: #C026D3;
   --tag: #EC4899;
@@ -25,7 +25,7 @@ html[class="dark"] pre[class*="language-"] {
   --attr-name: #A3E635;
   --attr-value: #FDE68A;
   --bg: #1F2937;
-  --border: #4338CA;
+  --border: #312E81;
   --box-shadow: #374151;
   --color: #F3F4F6;
   --comment: #6B7280;
@@ -33,6 +33,18 @@ html[class="dark"] pre[class*="language-"] {
   --parameter: #FB923C;
   --punctuation: #D946EF;
   --tag: #F43F5E;
+}
+
+pre[class*="language-"] > code {
+  --border-width: 0;
+  --codeblock-padding: 0.5em 0.5em;
+}
+
+@media (min-width: 1024px) {
+  pre[class*="language-"] > code {
+    --border-width: 5px;
+    --codeblock-padding: 0.5em 1em;
+  }
 }
 
 code[class*="language-"],
@@ -63,7 +75,7 @@ pre[class*="language-"] {
 }
 pre[class*="language-"] > code {
   position: relative;
-  border-left: 10px solid var(--border);
+  border-left: var(--border-width) solid var(--border);
   box-shadow: 0 0 0 0 var(--border), 0 0 0 1px var(--box-shadow);
   background-color: var(--bg);
   background-image: linear-gradient(
@@ -78,7 +90,7 @@ pre[class*="language-"] > code {
 code[class*="language-"] {
   max-height: inherit;
   height: inherit;
-  padding: 0 1em !important;
+  padding: var(--codeblock-padding) !important;
   display: block;
   overflow: auto;
 }

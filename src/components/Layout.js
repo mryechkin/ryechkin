@@ -23,8 +23,9 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
             </Link>
           </div>
           <div className="flex items-center justify-center">
+            <DarkModeToggle className="mr-4 lg:hidden" />
             <Menu />
-            <DarkModeToggle className="hidden ml-4 md:block" />
+            <DarkModeToggle className="hidden lg:block lg:ml-4" />
           </div>
         </header>
         <div className="flex items-center justify-center w-full">

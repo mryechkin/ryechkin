@@ -16,7 +16,7 @@ export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
     <nav
       aria-label={ariaLabel}
       className={cn(
-        'flex md:flex md:flex-row md:space-x-4 items-center justify-center',
+        'flex lg:flex lg:flex-row lg:space-x-4 items-center justify-center',
         className
       )}
     >
@@ -27,15 +27,6 @@ export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
           </Link>
         </div>
       ))}
-      {/* <Link href="/">
-        <a className="w-full text-center">Home</a>
-      </Link>
-      <Link href="/blog">
-        <a className="w-full text-center">Blog</a>
-      </Link>
-      <Link href="/about">
-        <a className="w-full text-center">About</a>
-      </Link> */}
     </nav>
   );
 };
@@ -47,7 +38,7 @@ export default function Menu() {
       <Popover onOpenChange={(open) => setIsOpen(open)}>
         <PopoverTrigger asChild>
           <motion.button
-            className="custom-focus block p-2 md:hidden"
+            className="custom-focus block p-2 lg:hidden"
             type="button"
             aria-label="Menu"
             whileFocus={{ scale: 1.1 }}
@@ -65,7 +56,6 @@ export default function Menu() {
           </motion.button>
         </PopoverTrigger>
         <PopoverContent
-          // sideOffset={5}
           css={{
             backgroundColor: '$slate3',
             alignItems: 'center',
@@ -74,7 +64,7 @@ export default function Menu() {
             padding: '$8',
           }}
         >
-          <Nav className="flex-col space-y-4 md:flex-row" />
+          <Nav className="flex-col space-y-4 lg:flex-row" />
         </PopoverContent>
       </Popover>
       <Nav className="hidden" />

@@ -25,7 +25,7 @@ export default function Card({ item, isExternal }) {
           />
         </div>
         <div className="flex flex-col col-span-4 items-start justify-start p-4 bg-gray-50 dark:bg-gray-900 sm:col-span-3">
-          <h1 className="inline-flex flex-nowrap items-center justify-start text-left dark:text-cyan-300 text-cyan-500 text-lg font-bold overflow-ellipsis sm:text-xl md:text-2xl">
+          <h1 className="inline-flex flex-nowrap items-center justify-start text-left dark:text-cyan-300 text-cyan-500 text-lg font-bold overflow-ellipsis sm:text-xl lg:text-2xl">
             <span className="line-clamp-1">{item.title}</span>
             {isExternal && (
               <HiOutlineExternalLink className="inline-block flex-shrink-0 ml-2" />
