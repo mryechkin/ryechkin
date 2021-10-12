@@ -35,7 +35,7 @@ export default function RickRoll() {
               whileTap={{ scale: 0.9 }}
               {...headphonesPressProps}
             >
-              <FaHeadphones className="w-4 h-4 text-blue-400 dark:text-rose-400" />
+              <FaHeadphones className="w-4 h-4 dark:text-cyan-300 text-cyan-400" />
             </motion.button>
           )}
           {rickrolled && (
@@ -47,7 +47,7 @@ export default function RickRoll() {
               }}
               {...heartPressProps}
             >
-              <HiHeart className="text-blue-400 dark:text-rose-400" />
+              <HiHeart className="text-red-500 dark:text-rose-400" />
             </motion.button>
           )}
         </motion.span>
