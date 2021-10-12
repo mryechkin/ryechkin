@@ -69,10 +69,6 @@ In this tutorial, we'll take a look at everything you need to use this component
 
 **NOTE:** At the timing of writing this post, Supabase UI is in early development stages, so the API and some features may still change in the full release. For example, theming is not currently supported, and is the reason we'll need to perform some workarounds later on.
 
-## Authentication Provider
-
-In order to handle all authentication logic in our app, we're going to use the concept of an **Authenticaion Provider** as our auth layer. This pattern was heavily inspired by Kent C. Dodds' [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows the same basic principles, with a few tweaks.
-
 ## Supabase Setup
 
 You will need to create a Supabase account if you haven't already done so. Supabase provides a [generous](https://supabase.io/pricing) free tier for their cloud solution, so it's easy to get started. Alternatively, since it's open-source, you can also host your own as well.
@@ -231,7 +227,7 @@ Now whenever we need to use Supabase Client, we can simply import it and access 
 
 In order to handle all authentication-related logic in our app, we're going to use the concept of an authenticaion provider. This pattern was heavily inspired by Kent C. Dodds [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows a lot of the same principles.
 
-We'll call this `AuthProvider` and use it as the top-level component in our app, thereby enabling auth functionality throughout. It will utilize React [Context](https://reactjs.org/docs/context.html), and provide the `session` and `user` objects from Supabase Client, as well as the [`signOut`](https://supabase.io/docs/reference/javascript/auth-signout) function. The rest of the authentication flows will be handled by the `Auth` component from Supabase UI, which we'll get to in later steps.
+We'll call this `AuthProvider` and use it as the top-level component in our app, thereby enabling auth functionality throughout. It will utilize [React Context](https://reactjs.org/docs/context.html), and provide the `session` and `user` objects from Supabase Client, as well as the [signOut](https://supabase.io/docs/reference/javascript/auth-signout) function. The rest of the authentication flows will be handled by the `Auth` component from Supabase UI, which we'll get to in later steps.
 
 Inside the `lib` folder, create `auth.js`, and add the following:
 

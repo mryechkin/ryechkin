@@ -1,156 +1,239 @@
-/* PrismJS 1.24.1
-https://prismjs.com/download.html?themes#themes=prism-okaidia&languages=markup+css+clike+javascript */
 /**
- * okaidia theme for JavaScript, CSS and HTML
- * Loosely based on Monokai textmate theme by http://www.monokai.nl/
- * @author ocodia
+ * Custom theme for Prism, inspired by Monokai (Light + Dark Mode)
+ * Author: Mykhaylo Ryechkin
  */
 
- /* Color Tokens */
-:not(pre) > code[class*="language-"],
+/* Light Mode */
+code[class*="language-"],
 pre[class*="language-"] {
-  --attr-name: #65A30D;
-  --attr-value: #0369A1;
+  --attr-name: #6366F1;
+  --attr-value: #60A5FA;
   --bg: #F9FAFB;
-  --color: #111827;
+  --border: #C7D2FE;
+  --box-shadow: #E5E7EB;
+  --color: #1F2937;
   --comment: #9CA3AF;
-  --keyword: #0891B2;
-  --imports: #06B6D4;
-  --text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  --keyword: #06B6D4;
+  --parameter: #EF4444;
+  --punctuation: #C026D3;
+  --tag: #EC4899;
 }
 
-html[class="dark"] code[class*="language-"]:not([contenteditable]),
+/* Dark Mode */
+html[class="dark"] code[class*="language-"],
 html[class="dark"] pre[class*="language-"] {
   --attr-name: #A3E635;
-  --attr-value: #FAE8FF;
+  --attr-value: #FDE68A;
   --bg: #1F2937;
+  --border: #4338CA;
+  --box-shadow: #374151;
   --color: #F3F4F6;
   --comment: #6B7280;
   --keyword: #67E8F9;
-  --imports: #F0ABFC;
-  --text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  --parameter: #FB923C;
+  --punctuation: #D946EF;
+  --tag: #F43F5E;
 }
 
 code[class*="language-"],
 pre[class*="language-"] {
-	color: var(--color);
-	background: none;
-	text-shadow: var(--text-shadow);
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	font-size: 1em;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
-
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
+  color: var(--color);
+  background: 0 0;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
 }
-
-/* Code blocks */
 pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-	border-radius: 0.3em;
+  position: relative;
+  margin: 0.5em 0;
+  overflow: visible;
+  padding: 0;
 }
-
+pre[class*="language-"] > code {
+  position: relative;
+  border-left: 10px solid var(--border);
+  box-shadow: 0 0 0 0 var(--border), 0 0 0 1px var(--box-shadow);
+  background-color: var(--bg);
+  background-image: linear-gradient(
+    transparent 50%,
+    rgba(69, 142, 209, 0.04) 50%
+  );
+  background-size: 3em 3em;
+  background-origin: content-box;
+  background-attachment: local;
+  color: var(--color) !important;
+}
+code[class*="language-"] {
+  max-height: inherit;
+  height: inherit;
+  padding: 0 1em !important;
+  display: block;
+  overflow: auto;
+}
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: var(--bg);
+  background-color: var(--bg);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 1em;
 }
-
-/* Inline code */
 :not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-	white-space: normal;
+  position: relative;
+  padding: 0.2em;
+  border-radius: 0.3em;
+  color: var(--tag);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline;
+  white-space: normal;
 }
-
+pre[class*="language-"]:after,
+pre[class*="language-"]:before {
+  content: "";
+  z-index: -2;
+  display: block;
+  position: absolute;
+  bottom: 0.75em;
+  left: 0.18em;
+  width: 40%;
+  height: 20%;
+  max-height: 13em;
+  box-shadow: 0 13px 8px #979797;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+pre[class*="language-"]:after {
+  right: 0.75em;
+  left: auto;
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+.token.block-comment,
+.token.cdata,
 .token.comment,
-.token.prolog,
 .token.doctype,
-.token.cdata {
-	color: var(--comment);
+.token.prolog {
+  color: var(--comment);
 }
-
 .token.punctuation {
-	color: var(--color);
+  color: var(--punctuation);
 }
-
-.token.namespace {
-	opacity: .7;
-}
-
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #f92672;
-}
-
+.token.attr-equals,
 .token.boolean,
-.token.number {
-	color: #ae81ff;
+.token.constant,
+.token.deleted,
+.token.function-name,
+.token.number,
+.token.property,
+.token.symbol,
+.token.tag {
+  color: var(--tag);
 }
-
-.token.selector,
 .token.attr-name,
-.token.string,
-.token.char,
 .token.builtin,
-.token.inserted {
-	color: var(--attr-name);
+.token.char,
+.token.function,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: var(--attr-name) !important;
 }
-
-.token.operator,
 .token.entity,
+.token.operator,
 .token.url,
-.language-css .token.string,
-.style .token.string,
 .token.variable {
-	color: var(--color);
+  color: var(--tag);
 }
-
 .token.atrule,
-.token.attr-value,
-.token.function {
-	color: var(--attr-value);
+.token.attr-value {
+  color: var(--attr-value);
+  font-style: italic;
 }
-
-.token.class-name,
-.token.maybe-class-name,
-.token.imports {
-	color: var(--imports);
-}
-
 .token.keyword {
-	color: var(--keyword);
+  color: var(--keyword);
 }
-
-.token.regex,
-.token.important {
-	color: #fd971f;
+.token.parameter {
+  color: var(--parameter);
 }
-
+.token.control-flow,
+.token.module,
+.token.script-punctuation {
+  color: var(--tag) !important;
+}
+.token.arrow,
+.token.class-name {
+  color: var(--keyword) !important;
+  font-style: italic;
+}
+.token.plain-text {
+  color: var(--color);
+}
 .token.important,
+.token.regex {
+  color: var(--parameter);
+}
+.language-css .token.string,
+.style .token.string {
+  color: var(--tag);
+}
+.token.important {
+  font-weight: 400;
+}
 .token.bold {
-	font-weight: bold;
+  font-weight: 700;
 }
 .token.italic {
-	font-style: italic;
+  font-style: italic;
 }
-
 .token.entity {
-	cursor: help;
+  cursor: help;
 }
-
+.token.namespace {
+  opacity: 0.7;
+}
+@media screen and (max-width: 767px) {
+  pre[class*="language-"]:after,
+  pre[class*="language-"]:before {
+    bottom: 14px;
+    box-shadow: none;
+  }
+}
+pre[class*="language-"].line-numbers.line-numbers {
+  padding-left: 0;
+}
+pre[class*="language-"].line-numbers.line-numbers code {
+  padding-left: 3.8em;
+}
+pre[class*="language-"].line-numbers.line-numbers .line-numbers-rows {
+  left: 0;
+}
+pre[class*="language-"][data-line] {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+pre[data-line] code {
+  position: relative;
+  padding-left: 4em;
+}
+pre .line-highlight {
+  margin-top: 0;
+}

@@ -9,6 +9,7 @@ import RickRoll from './RickRoll';
 import Separator from './Separator';
 
 const MDX = {
+  a: ExternalLink,
   hr: Separator,
   ExternalLink,
   FiSmile,
