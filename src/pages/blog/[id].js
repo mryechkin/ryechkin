@@ -39,7 +39,7 @@ export default function Post({ postData, source }) {
             <DateDisplay date={postData.date} />
           </span>
         </div>
-        <div className="mt-8 mx-auto max-w-xl">
+        <div className="mt-8 mx-auto max-w-3xl shadow-md">
           <Image
             src={`/blog/${postData.slug}/cover.png`}
             className="bg-gray-900 rounded-lg"

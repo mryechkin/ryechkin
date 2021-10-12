@@ -4,34 +4,19 @@ import Link from 'next/link';
 
 import ExternalLink from './ExternalLink';
 import PeaceSign from './PeaceSign';
+import PostImage from './PostImage';
 import RickRoll from './RickRoll';
 import Separator from './Separator';
-import Tags from './Tags';
 
-const Technologies = () => (
-  <Tags
-    className="mt-4"
-    list={[
-      'React',
-      'Next.js',
-      'Supabase',
-      'Rollup',
-      'Vite',
-      'Storybook',
-      'Stitches',
-      'Tailwind',
-    ]}
-  />
-);
-
-export default {
+const MDX = {
   hr: Separator,
   ExternalLink,
   FiSmile,
   Image,
   Link,
   PeaceSign,
+  PostImage,
   RickRoll,
-  Tags,
-  Technologies,
 };
+
+export default MDX;

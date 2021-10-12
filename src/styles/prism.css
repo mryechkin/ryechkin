@@ -6,11 +6,36 @@ https://prismjs.com/download.html?themes#themes=prism-okaidia&languages=markup+c
  * @author ocodia
  */
 
+ /* Color Tokens */
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  --attr-name: #65A30D;
+  --attr-value: #0369A1;
+  --bg: #F9FAFB;
+  --color: #111827;
+  --comment: #9CA3AF;
+  --keyword: #0891B2;
+  --imports: #06B6D4;
+  --text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+}
+
+html[class="dark"] code[class*="language-"]:not([contenteditable]),
+html[class="dark"] pre[class*="language-"] {
+  --attr-name: #A3E635;
+  --attr-value: #FAE8FF;
+  --bg: #1F2937;
+  --color: #F3F4F6;
+  --comment: #6B7280;
+  --keyword: #67E8F9;
+  --imports: #F0ABFC;
+  --text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
-	color: #f8f8f2;
+	color: var(--color);
 	background: none;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	text-shadow: var(--text-shadow);
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	font-size: 1em;
 	text-align: left;
@@ -40,7 +65,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #272822;
+	background: var(--bg);
 }
 
 /* Inline code */
@@ -54,11 +79,11 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-	color: #8292a2;
+	color: var(--comment);
 }
 
 .token.punctuation {
-	color: #f8f8f2;
+	color: var(--color);
 }
 
 .token.namespace {
@@ -84,7 +109,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-	color: #a6e22e;
+	color: var(--attr-name);
 }
 
 .token.operator,
@@ -93,18 +118,23 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-	color: #f8f8f2;
+	color: var(--color);
 }
 
 .token.atrule,
 .token.attr-value,
-.token.function,
-.token.class-name {
-	color: #e6db74;
+.token.function {
+	color: var(--attr-value);
+}
+
+.token.class-name,
+.token.maybe-class-name,
+.token.imports {
+	color: var(--imports);
 }
 
 .token.keyword {
-	color: #66d9ef;
+	color: var(--keyword);
 }
 
 .token.regex,
