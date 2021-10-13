@@ -17,7 +17,7 @@ export default function Card({ item, isExternal }) {
         whileTap={{ y: 0 }}
       >
         <div className="flex flex-col col-span-4 items-start justify-start p-4 md:col-span-3">
-          <h1 className="dark:group-hover:bg-gray-900 inline-flex flex-nowrap items-center justify-start px-2 text-left dark:text-cyan-300 text-cyan-300 group-hover:text-white text-lg font-bold group-hover:bg-black bg-gray-900 overflow-ellipsis md:text-xl lg:text-2xl">
+          <h1 className="dark:group-hover:bg-gray-900 dark:group-focus:bg-gray-900 inline-flex flex-nowrap items-center justify-start px-2 text-left dark:text-cyan-300 text-cyan-300 group-hover:text-white group-focus:text-white text-lg font-bold group-hover:bg-black group-focus:bg-black bg-gray-900 overflow-ellipsis md:text-xl lg:text-2xl">
             <span className="line-clamp-1">{item.title}</span>
             {isExternal && (
               <HiOutlineExternalLink className="inline-block flex-shrink-0 ml-2" />
