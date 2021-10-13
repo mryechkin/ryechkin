@@ -27,7 +27,7 @@ html {
     @apply focus:no-underline hover:no-underline !important;
   }
 
-  a, input[type="button"] {
+  a:not(.retro-shadow), input[type="button"]:not(.retro-shadow) {
     @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 cursor-pointer;
   }
 

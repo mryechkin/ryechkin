@@ -33,7 +33,7 @@ const items = [
     description:
       'In this video I show you everything you need to build the "Slide Over" from Tailwind UI as a fully accessible React component, using Tailwind CSS, React-Aria and Framer Motion.',
     imageUrl: '/thumbs/accessible-slideover.jpg',
-    tags: ['React Aria', 'Tailwind UI', 'Accessible', 'a11y'],
+    tags: ['React Aria', 'Tailwind UI', 'Accessibility', 'a11y'],
   },
 ];
 
