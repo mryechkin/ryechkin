@@ -73,7 +73,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
           <DarkModeToggle className="mt-12 lg:mt-0" />
         </span>
       </div>
-      <div className="flex flex-grow-0 flex-wrap items-center justify-center py-6 dark:text-cyan-200 text-gray-700 text-xs tracking-tight border-t border-indigo-100 dark:border-indigo-900 opacity-75 sm:mt-8 sm:py-8">
+      <div className="flex flex-grow-0 flex-wrap items-center justify-center py-6 text-gray-800 dark:text-white text-xs tracking-tight border-t border-indigo-100 dark:border-indigo-800 sm:mt-8 sm:py-8">
         <span>&copy; 2021</span>
         <span className="ml-1 font-semibold tracking-wide">Mykhaylo Ryechkin</span>.
         <span className="ml-1 font-normal">All rights reserved.</span>

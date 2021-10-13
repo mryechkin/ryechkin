@@ -36,7 +36,7 @@ export default function Home({ data, source }) {
           </div>
         </div>
         <Separator />
-        <h1 className="retro py-2 text-3xl lg:pb-4 lg:text-5xl">Latest Videos</h1>
+        <h1 className="retro py-2 text-5xl">Latest Videos</h1>
         <div className="pb-4 md:pb-8">
           <Videos />
         </div>

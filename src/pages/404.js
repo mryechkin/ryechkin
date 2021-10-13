@@ -14,15 +14,12 @@ export default function NotFound() {
         <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl sm:tracking-tight lg:text-6xl">
           Page Not Found.
         </h1>
-        <p className="mt-6 mx-auto max-w-5xl text-lg">
+        <p className="mt-6 mx-auto max-w-5xl text-base lg:text-lg">
           These aren&apos;t the droids you&apos;re looking for.
         </p>
-        <p className="pb-4 sm:pb-8">
-          <Link href="/">
-            <a>← Home</a>
-          </Link>
-        </p>
-        <Image src="/assets/404.jpg" width={150} height={225} />
+        <Link href="/">
+          <a>← Home</a>
+        </Link>
       </div>
     </Layout>
   );

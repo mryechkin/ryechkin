@@ -1,9 +1,6 @@
 import { HiOutlineExternalLink } from 'react-icons/hi';
-import Image from 'next/image';
 
 import Card from './Card';
-import ExternalLink from './ExternalLink';
-import GradientContainer from './GradientContainer';
 
 const items = [
   {
@@ -12,6 +9,7 @@ const items = [
     description:
       'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
     imageUrl: '/thumbs/eslint-prettier-config.jpg',
+    tags: ['ESLint', 'Prettier', 'Next.js'],
   },
   {
     title: 'HeadlessUI Slideover',
@@ -19,6 +17,7 @@ const items = [
     description:
       'In this video we look at how to update the existing implementation of the Tailwind UI Slide Over component that I showed in an earlier video, with the ready-made React component that is now available out of the box from Tailwind UI.',
     imageUrl: '/thumbs/headlessui-slideover.jpg',
+    tags: ['Headless UI', 'Tailwind UI', 'TailwindCSS'],
   },
   {
     title: 'Icon Library with SVGR and Rollup',
@@ -26,6 +25,7 @@ const items = [
     description:
       'Learn how to build your own SVG icon component library for React! In this video, we use SVGR and Rollup to make a publishable NPM package, with components generated directly from your SVG files.',
     imageUrl: '/thumbs/svgr-icon-library.jpg',
+    tags: ['Rollup', 'SVGR', 'Libraries'],
   },
   {
     title: 'Accessible SlideOver with Tailwind UI and React-Aria',
@@ -33,6 +33,7 @@ const items = [
     description:
       'In this video I show you everything you need to build the "Slide Over" from Tailwind UI as a fully accessible React component, using Tailwind CSS, React-Aria and Framer Motion.',
     imageUrl: '/thumbs/accessible-slideover.jpg',
+    tags: ['React Aria', 'Tailwind UI', 'Accessible', 'a11y'],
   },
 ];
 

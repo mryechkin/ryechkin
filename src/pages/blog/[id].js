@@ -34,10 +34,8 @@ export default function Post({ postData, source }) {
       />
       <div className="prose lg:prose-lg w-full max-w-full">
         <h1 className="retro">{postData.title}</h1>
-        <div className="z-10 pb-2 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-          <span className="px-1 font-semibold">
-            <DateDisplay date={postData.date} />
-          </span>
+        <div className="z-10 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
+          <DateDisplay date={postData.date} />
         </div>
         <div className="mt-8 mx-auto max-w-3xl shadow-md">
           <Image
