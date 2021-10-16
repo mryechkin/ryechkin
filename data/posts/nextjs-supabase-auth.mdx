@@ -109,7 +109,7 @@ Then, install both **Supabase Client**, and **Supabase UI** dependencies:
 npm install @supabase/supabase-js @supabase/ui
 ```
 
-That's all we need to get started. Let's start building!
+That's all we need to get started. Let's code!
 
 ## Application Structure
 
@@ -196,11 +196,11 @@ export default function Profile() {
 
 ## Adding Authentication
 
-Now that we have the base of our project scaffoled out, let's go ahead and add the Supabase Client, along with the authentication layer.
+With the base of our project scaffolded out, we can start working on the authentication layer.
 
 ### Initializing Supabase
 
-Supabase Client lets us easily access the Supabase API from our app. In order to initialize it, we will need to specify the URL and the public API key from the previous step.
+Supabase Client lets us easily work with the Supabase API, and manages our authentication and user data on the front-end. In order to initialize it, we will need to specify the URL and the public API key from the previous step.
 
 We can do this by setting those values as [environment variables](https://nextjs.org/docs/basic-features/environment-variables) in **Next.js**. Create a `.env.local` file in the root of the project, and set the values to the ones from the dashboard earlier:
 
@@ -225,9 +225,9 @@ Now whenever we need to use Supabase Client, we can simply import it and access 
 
 ### Authentication Provider
 
-In order to handle all authentication-related logic in our app, we're going to use the concept of an authenticaion provider. This pattern was heavily inspired by Kent C. Dodds [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows a lot of the same principles.
+In order to handle all authentication-related logic in our app, we're going to use the concept of an authenticaion provider. This pattern was heavily inspired by Kent C. Dodds [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows a lot of the same basic principles.
 
-We'll call this `AuthProvider` and use it as the top-level component in our app, thereby enabling auth functionality throughout. It will utilize [React Context](https://reactjs.org/docs/context.html), and provide the `session` and `user` objects from Supabase Client, as well as the [signOut](https://supabase.io/docs/reference/javascript/auth-signout) function. The rest of the authentication flows will be handled by the `Auth` component from Supabase UI, which we'll get to in later steps.
+We'll call this `AuthProvider` and use it as the top-level component in our app, thereby providing user data and authentication functionality throughout. It will utilize [React Context](https://reactjs.org/docs/context.html), and provide the `session` and `user` objects from Supabase Client, as well as the [signOut](https://supabase.io/docs/reference/javascript/auth-signout) function. The rest of the authentication flows will be handled by the `Auth` component from Supabase UI, which we'll get to in later steps.
 
 Inside the `lib` folder, create `auth.js`, and add the following:
 
@@ -240,21 +240,6 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ supabase, ...props }) => {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const session = supabase.auth.session();
-    setSession(session);
-    setUser(session?.user ?? null);
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-    });
-
-    return () => {
-      authListener?.unsubscribe();
-    };
-  }, []);
 
   return (
     <AuthContext.Provider
@@ -276,3 +261,70 @@ export const useAuth = () => {
   return context;
 };
 ```
+
+Here, we have the main `AuthProvider`, which we'll need to wrap our application in. It provides `user` and `session` data, and the `signOut` functionality (which invokes it via Supabase Client).
+
+We also created the `useAuth` hook to be able to easily access these values in our React components:
+
+```jsx
+import { useAuth } from '../lib/auth';
+
+const { user, session } = useAuth();
+```
+
+Now before we can use it, we need to make `AuthProvider` the top-level wrapper of our application. We'll do this by adding the following to `pages/_app.js`:
+
+```jsx
+import { AuthProvider } from '../lib/auth';
+import { supabase } from '../lib/client';
+
+..
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <AuthProvider supabase={supabase}>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
+}
+```
+
+where `supabase` is our Supabase Client instance. Now we can freely use the `useAuth` hook in our app and access the `session` and `user` objects.
+
+### Handling auth state change
+
+We also need to add a way to update our user and session data whenever authentication status of the current user (in the Supabase Client) changes. For example, when a user successfully logs in, or logs out.
+
+Back in our `lib/auth.js` file, let's use `useEffect` and create an `authListener` event listener for the `onAuthStateChange` event, on initial load:
+
+```jsx
+// lib/auth.js
+useEffect(() => {
+  const session = supabase.auth.session();
+  setSession(session);
+  setUser(session?.user ?? null);
+
+  const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    setSession(session);
+    setUser(session?.user ?? null);
+  });
+
+  return () => {
+    authListener?.unsubscribe();
+  };
+}, []);
+```
+
+Now, whenever auth state in Supabase Client changes, our `user` and `session` state objects will get updated as well.
+
+### Supabase UI
+
+<PostImage src={`/blog/nextjs-supabase-auth/home-2.png`} height={1106} width={1338} />
+
+<PostImage src={`/blog/nextjs-supabase-auth/sui-sign-up.png`} height={714} width={884} />
+
+<PostImage
+  src={`/blog/nextjs-supabase-auth/sui-password-reset.png`}
+  height={388}
+  width={882}
+/>

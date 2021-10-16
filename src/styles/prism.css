@@ -190,10 +190,12 @@ pre[class*="language-"]:after {
 .token.script-punctuation {
   color: var(--tag) !important;
 }
-.token.arrow,
-.token.class-name {
+.token.arrow {
   color: var(--keyword) !important;
   font-style: italic;
+}
+.token.class-name {
+  color: var(--keyword) !important;
 }
 .token.plain-text {
   color: var(--color);

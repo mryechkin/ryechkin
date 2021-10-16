@@ -9,7 +9,7 @@ import { getMdxSource } from '@/lib/mdx';
 
 export default function Post({ postData, source }) {
   return (
-    <Layout hideKylo slug={postData.slug}>
+    <Layout hideKylo slug={`blog/${postData.slug}`}>
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
