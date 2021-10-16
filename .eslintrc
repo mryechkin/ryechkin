@@ -3,7 +3,10 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [["@", "./src"]],
+        "map": [
+          ["@", "./src"],
+          ["test-utils", "./test/test-utils"]
+        ],
         "extensions": [".js"]
       }
     }

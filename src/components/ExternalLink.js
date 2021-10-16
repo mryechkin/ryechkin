@@ -8,7 +8,10 @@ export default function ExternalLink({ alt, href, children, className }) {
         <a href={href} alt={alt} target="_blank" rel="noopener noreferrer">
           {children}
         </a>
-        <HiOutlineExternalLink className="inline-block dark:text-cyan-300 text-cyan-500" />
+        <HiOutlineExternalLink
+          data-testid="icon-external"
+          className="inline-block dark:text-cyan-300 text-cyan-500"
+        />
       </span>
     </>
   );
