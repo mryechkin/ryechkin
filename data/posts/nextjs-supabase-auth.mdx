@@ -29,20 +29,20 @@ One of the things that stands out about Supabase almost immediately is just how 
 
 Supabase provides several different authentication mechanisms out of the box:
 
-- Basic `Email` authentication
-- `Magic Link` or a one-time login with email
-- `Social` logins: Google, Facebook, GitHub, Azure, Gitlab, Twitter, Discord, and Bitbucket
-- Phone / SMS login using `Twilio` integration
+- Basic **Email** authentication
+- **Magic Link** or a one-time login with email
+- **Social** logins: Google, Facebook, GitHub, Azure, Gitlab, Twitter, Discord, and Bitbucket
+- Phone / SMS login using **Twilio** integration
 
-In this tutorial we'll be using `Email` authentication, with ability to reset forgotten password.
+In this tutorial we'll be using **Email** authentication, with ability to reset forgotten password.
 
 ## Supabase Client
 
 Supabase provides a [client library](https://supabase.io/docs/reference/javascript/supabase-client) that makes it _supa easy_ to get started in your project. It is a modular library, comprised of several different sub-libraries, each enabling integration with the specific sub-system:
 
-- `@supabase/postgrest-js` for [PostgREST](https://github.com/postgrest/postgrest) (REST API for PostgreSQL)
-- `@supabase/realtime-js` for [Realtime](https://github.com/supabase/realtime) (realtime connection to PostgreSQL via websockets)
-- `@supabase/gotrue-js` for [GoTrue](https://github.com/netlify/gotrue) (fork of Netlify's authentication and user management API)
+- **@supabase/postgrest-js** for [PostgREST](https://github.com/postgrest/postgrest) (REST API for PostgreSQL)
+- **@supabase/realtime-js** for [Realtime](https://github.com/supabase/realtime) (realtime connection to PostgreSQL via websockets)
+- **@supabase/gotrue-js** for [GoTrue](https://github.com/netlify/gotrue) (fork of Netlify's authentication and user management API)
 
 The single `@supabase/supabase-js` bundle combines the three libraries into one, and adds some ease-of-use enhancements, making it the perfect Supabase companion for your projects.
 
@@ -52,12 +52,7 @@ It's worthwhile to note that the client library is also available in several oth
 
 Supabase also provides an open source component library called [Supabase UI](https://ui.supabase.io/), which is a collection of common UI components and utilities that are used across the range of Supabase products. Its styling is heavily inspired by [Tailwind CSS](https://www.tailwindcss.com/), so you know it will look good out of the box.
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/supabase-ui.png`}
-  alt="Supabase UI"
-  height={382}
-  width={635}
-/>
+<PostImage src={`/blog/nextjs-supabase-auth/supabase-ui.png`} alt="Supabase UI" height={382} width={635} />
 <Caption>Supabase UI</Caption>
 
 We will be using the [Auth](https://ui.supabase.io/components/auth) component, which provides all the necessary screens and integrations for the various authentication flows. In particular, we'll need to be able to perform the following:
@@ -96,12 +91,7 @@ In order to be able to access the Supabase API via our JS client, we will need t
 
 In the dashboard, go to **Settings > API**. As you'll see, by default an anonymous public API key is already available. This will be enough for our needs. Take note of this value, as well as the `URL`:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/settings.jpg`}
-  alt="API Settings in Supabase Dashboard"
-  height={650}
-  width={900}
-/>
+<PostImage src={`/blog/nextjs-supabase-auth/settings.jpg`} alt="API Settings in Supabase Dashboard" height={650} width={900} />
 <Caption>API Settings in Supabase Dashboard</Caption>
 
 Make sure to keep these on hand, as we'll need them later on.
@@ -139,36 +129,23 @@ Let's go ahead and put some placeholder content on the main page to start with:
 <PostImage
   src={`/blog/nextjs-supabase-auth/home-1.png`}
   alt="Home Page (placeholder)"
-  height={326}
-  width={1024}
+  width={720}
+  height={218}
 />
 <Caption>pages/index.js</Caption>
 
 ```jsx
 // pages/index.js;
-import Head from 'next/head';
+import Layout from '@/components/Layout';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center py-2 min-h-screen">
-      <Head>
-        <title>Next.js with Supabase Auth</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex flex-1 flex-col items-center justify-center px-20 w-full text-center">
-        <h1 className="text-6xl font-bold">
-          Next with <span className="text-green-400 font-black">Supabase</span>
-        </h1>
-
-        <p className="mt-8 text-2xl">
-          Status:
-          <code className="ml-1 p-3 font-mono text-lg bg-gray-100 rounded-lg">
-            Logged Out
-          </code>
-        </p>
-      </main>
-    </div>
+    <Layout>
+      <p className="my-4 text-lg">
+        Status:
+        <code className="highlight">Logged Out</code>
+      </p>
+    </Layout>
   );
 }
 ```
@@ -180,8 +157,8 @@ Similarly, let's put some placeholder content on the Profile page:
 <PostImage
   src={`/blog/nextjs-supabase-auth/profile-1.png`}
   alt="Profile Page (placeholder)"
-  height={453}
-  width={800}
+  width={714}
+  height={408}
 />
 <Caption>pages/profile.js</Caption>
 
@@ -189,23 +166,66 @@ Similarly, let's put some placeholder content on the Profile page:
 // pages/profile.js
 import Link from 'next/link';
 
+import Layout from '@/components/Layout';
+
 export default function Profile() {
   return (
-    <div className="flex flex-col items-center justify-center py-2 min-h-screen">
-      <main className="flex flex-1 flex-col items-center justify-center px-20 w-full text-center">
-        <h3 className="py-8 text-4xl font-bold">User ID</h3>
-        <div className="text-gray-500 text-lg">
-          <span className="mr-2 font-semibold">Last Logged In:</span>
-          N/A
-        </div>
+    <Layout>
+      <h3 className="py-8 text-4xl font-black">User ID</h3>
+      <p className="my-4 text-lg">
+        Last Signed In:
+        <code className="highlight">N/A</code>
+      </p>
+      <div className="inline-flex flex-col">
         <Link href="/">
-          <a className="mt-8 px-8 py-4 text-green-400 font-bold border-2 border-green-400 rounded-full">
-            Go Home
-          </a>
+          <a className="button mt-8">Go Home</a>
         </Link>
+      </div>
+    </Layout>
+  );
+}
+```
+
+Where `Layout` is a layout container, abstracted into a component in `components/Layout.js`:
+
+```jsx
+// components/Layout.js
+import Head from 'next/head';
+
+export default function Layout({ children }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-2 min-h-screen">
+      <Head>
+        <title>Next.js with Supabase Auth</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main className="flex flex-1 flex-col items-center justify-center px-8 w-full text-center sm:px-20">
+        <h1 className="text-5xl font-bold sm:text-6xl">
+          Next.js with <span className="text-green-400 font-black">Supabase</span>
+        </h1>
+        <div className="mt-8 w-full max-w-sm">{children}</div>
       </main>
     </div>
   );
+}
+```
+
+We've also abstracted some CSS classes that will be used throughout the app in the `styles/globals.css` file (via Tailwind classes):
+
+```css
+/* styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .button {
+    @apply px-8 py-2 text-green-400 hover:text-white focus:text-white font-bold focus:bg-green-400 hover:bg-green-400 border-2 border-green-400 rounded-full;
+  }
+  .highlight {
+    @apply ml-1 p-2 font-mono bg-gray-100 rounded-lg;
+  }
 }
 ```
 
@@ -241,7 +261,7 @@ Now whenever we need to use Supabase Client, we can simply import it and access 
 
 ### Authentication Provider
 
-In order to handle all authentication-related logic in our app, we're going to use the concept of an authenticaion provider. This pattern was heavily inspired by Kent C. Dodds [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows a lot of the same basic principles.
+In order to handle all the authentication logic in our app, we're going to use the concept of an authenticaion provider. This pattern was heavily inspired by Kent C. Dodds [blog post](https://kentcdodds.com/blog/authentication-in-react-applications) on this topic, and follows a lot of the same basic principles.
 
 We'll call this `AuthProvider` and use it as the top-level component in our app, thereby providing user data and authentication functionality throughout. It will utilize [React Context](https://reactjs.org/docs/context.html), and provide the `session` and `user` objects from Supabase Client, as well as the [signOut](https://supabase.io/docs/reference/javascript/auth-signout) function. The rest of the authentication flows will be handled by the `Auth` component from Supabase UI, which we'll get to in later steps.
 
@@ -278,53 +298,7 @@ export const useAuth = () => {
 };
 ```
 
-Here, we have the main `AuthProvider`, which we'll need to wrap our application in. It provides the `user` and `session` values, as well as exposes the `signOut` function from Supabase Client.
-
-We also created the `useAuth` hook, for easy access to these values in our React components:
-
-```jsx
-// pages/index.js
-import { useAuth } from '@/lib/auth';
-
-export default function Home() {
-  const { user, signOut } = useAuth();
-
-  // ...
-
-  return (
-
-    // ...
-
-    <p className="mt-8 text-2xl">
-      Status:
-      <code className="ml-1 p-3 font-mono text-lg bg-gray-100 rounded-lg">
-        {user ? 'Logged In' : 'Logged Out'}
-      </code>
-    </p>
-
-    {user && (
-      <button
-        type="button"
-        className="text-green-400 font-bold mt-8 px-8 py-4 rounded-full border-2 border-green-400"
-        onClick={signOut}
-      >
-        Sign Out
-      </button>
-    )}
-
-    // ...
-
-  );
-}
-```
-
-<p className="text-base">
-  <span className="accent font-bold ml-4">→ TIP:</span> Enable{' '}
-  <ExternalLink href="https://nextjs.org/docs/advanced-features/module-path-aliases">
-    absolute import paths and module aliases
-  </ExternalLink>{' '}
-  in Next.js for shorter imports.
-</p>
+Here, we have the main `AuthProvider`, which we'll need to wrap our application in. It provides the `user` and `session` values, as well as exposes the `signOut` function from Supabase Client. To access these values in our app pages, we've also created the `useAuth` hook, which simply pulls the values from the `AuthContext`.
 
 Now before we can use it, we need to make `AuthProvider` the top-level component of our application. We'll do this by adding the following to `pages/_app.js`:
 
@@ -346,44 +320,57 @@ function MyApp({ Component, pageProps }) {
 
 Where `supabase` is our Supabase Client instance. Now we can freely use the `useAuth` hook in our app and access the `session` and `user` objects.
 
-### Handling auth state change
-
-What happens if the authenticated state changes in Supabase Client? For example, when a user successfully logs in, or the current user signs out? Our application will need to know about these changes in the state. So, we also need to add a way to update our `user` and `session` data whenever this auth state change happens. We can do this by listening in on an existing method in Supabase Client, called `onAuthStateChange`, which is meant exactly for scenarios like this.
-
-Back in our `lib/auth.js` file, let's use `useEffect` and create an `authListener` listener for the `onAuthStateChange` event, on initial load:
+Here is how you could check for the currently logged-in `user` on the Home page and display the corresponding status (ie. `Logged In` / `Logged Out`). We can also add a button to log out the current user, by calling the `signOut` function:
 
 ```jsx
-// lib/auth.js
+// pages/index.js
+import { useAuth } from '@/lib/auth';
 
-// ..
+export default function Home() {
+  const { user, signOut } = useAuth();
 
-useEffect(() => {
-  const session = supabase.auth.session();
-  setSession(session);
-  setUser(session?.user ?? null);
+  // ...
 
-  const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-    setSession(session);
-    setUser(session?.user ?? null);
-  });
+  return (
+    // ...
 
-  return () => {
-    authListener?.unsubscribe();
-  };
-}, []);
+    <p className="my-4 text-lg">
+      Status:
+      <code className="highlight">{user ? 'Logged In' : 'Logged Out'}</code>
+    </p>
 
-// ..
+    {user && (
+      <div className="inline-flex flex-col mt-8 space-y-8">
+        <Link href="/profile">
+          <a className="button">Go to Profile</a>
+        </Link>
+        <button type="button" className="button" onClick={signOut}>
+          Sign Out
+        </button>
+      </div>
+    )}
+
+    // ...
+  );
+}
 ```
 
-Now, whenever auth state in Supabase Client changes, our `user` and `session` state objects will get updated as well.
+<p className="text-base">
+  <span className="accent font-bold sm:ml-4">→ TIP:</span> Enable{' '}
+  <ExternalLink href="https://nextjs.org/docs/advanced-features/module-path-aliases">
+    absolute import paths and module aliases
+  </ExternalLink>{' '}
+  in Next.js for shorter imports.
+</p>
+
 
 ## Adding Supabase UI
 
 We're getting closer to having our authentication flows working, however we're still missing a critical piece of the solution - the UI itself! As we saw earlier, we will need to be able to do the following: **Sign Up**, **Sign In**, **Sign Out**, **Reset Password**, **Update Password**.
 
-Normally, this would take quite a bit of time setting up if we had to do it from scratch. We'd need to build and style several different forms and form elements, input validation, state and UI logic, and so on. As you can see, the list gets rather long, rather quickly.
+Normally this would take quite a bit of time to build ourselves from scratch - we'd need to create several different forms, add input validation, error handling, state and UI logic, and so on. As you can see, the list gets rather long, rather quickly.
 
-Luckily, Supabase team made this easy for us to do as well. Using the Auth component from **Supabase UI**, we can add all of these required screens to our app with minimal code (with UI logic and validation already baked-in).
+Luckily, Supabase makes this easy for us to do as well. Using the Auth component from **Supabase UI**, we can add all of these required screens to our app with fairly minimal effort, and it'll have the mentioned functionality already baked-in.
 
 To do this, we'll add the `Auth` component to our main landing page, and pass it our Supabase Client instance. In `pages/index.js`, add:
 
@@ -393,57 +380,66 @@ import { Auth } from '@supabase/ui';
 
 import { supabase } from '@/lib/client';
 
-// ..
+// ...
 
 return (
-  // ..
-
-  {!user && (
-    <div className="w-full max-w-sm">
-      <Auth supabaseClient={supabase} />
-    </div>
-  )}
-
-  // ..
+  // ...
+  {!user && <Auth supabaseClient={supabase} />}
+  // ...
 );
 ```
 
 <PostImage
   src={`/blog/nextjs-supabase-auth/home-2.png`}
   alt="Sign In"
-  height={1106}
-  width={1338}
+  width={714}
+  height={570}
 />
 <Caption>Sign In</Caption>
 
-We pass our `supabase` client instance to it via the `supabaseClient` prop, and also wrap it in a container to set a max width. Et voila! 🎉 Now we have a shiny new UI, with all of the required forms to handle the login flows. Click around to see the different views:
+We pass our `supabase` client instance to it via the `supabaseClient` prop, and _voila!_ 🎉 Now we have a shiny new UI, with all of the required forms to handle the login flows. Before we can fully test this, however, there are still a few things we need to setup.
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/sui-sign-up.png`}
-  alt="Sign Up"
-  height={714}
-  width={884}
-/>
-<Caption>Sign Up</Caption>
+## Handling Auth State Change
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/sui-password-reset.png`}
-  alt="Password Reset"
-  height={388}
-  width={882}
-/>
-<Caption>Password Reset</Caption>
+What happens if the authenticated state changes in Supabase Client? For example, when a user successfully logs in, or the current user signs out? Our application will need to know about these changes in the state. So, we also need a way to update our `user` and `session` data whenever this happens. We can do this by adding an event listener on the `onAuthStateChange` method in Supabase Client.
 
-Before we can test this, there are still a few things we need to configure. Earlier, we added an event listener for `onAuthStateChanged` in our `AuthProvider` so that `user` and `session` are in sync with Supabase Client. Now, we also need a way to tell the `Auth` component which screen to show as a result of the auth state change. For example, when a user signs out, we want our `Auth` component to show the **Sign In** screen again.
+Back in our `lib/auth.js` file, create `authListener` for the `onAuthStateChange` event inside a `useEffect` hook (on initial load):
 
-We can do this by passing `authView` prop to the `Auth` component, which tells it what authentication flow to show. The `event` received by `onAuthStateChanged` will dictate which view we should be showing.
+```jsx
+// lib/auth.js
+
+// ...
+
+useEffect(() => {
+  const activeSession = supabase.auth.session();
+  setSession(activeSession);
+  setUser(activeSession?.user ?? null);
+
+  const { data: authListener } = supabase.auth.onAuthStateChange(
+    (event, currentSession) => {
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
+    }
+  );
+
+  return () => {
+    authListener?.unsubscribe();
+  };
+}, []);
+
+// ...
+```
+
+Now whenever auth state in Supabase Client changes, our `user` and `session` state objects will be updated as well, and this data will be in sync with Supabase Client.
+
+Next, we need a way to tell the `Auth` component which screen to show as a result of the auth state change. For example, when a user signs out, we want our `Auth` component to show the **Sign In** screen again. We can do this by passing `view` prop to the `Auth` component, which tells it what authentication flow to show. The `event` received by `onAuthStateChanged` will dictate which view we should be showing. We'll see how this gets utilized for updating a user's password, in the later step.
 
 First, let's store all the possible values for both the `VIEWS` and `EVENTS` in `lib/auth.js`:
 
 ```jsx
 // lib/auth.js
 
-// ..
+// ...
 
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
@@ -459,74 +455,101 @@ export const VIEWS = {
   UPDATE_PASSWORD: 'update_password',
 };
 
-// ..
+// ...
 ```
 
-Then, we'll need to keep track of the current view in our `AuthProvider`, so let's add it as `authView` in the context as well:
+Then, we'll need to keep track of the current view in our `AuthProvider`, so let's add it as `view` to the context as well:
 
 ```jsx
 // lib/auth.js
-
-// ..
-
 export const AuthProvider = ({ supabase, ...props }) => {
-  const [authView, setAuthView] = useState(VIEWS.SIGN_IN);
+  const [view, setView] = useState(VIEWS.SIGN_IN);
 
-  // ..
+  // ...
 
   useEffect(() => {
-    const session = supabase.auth.session();
-    setSession(session);
-    setUser(session?.user ?? null);
+    // ...
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, currentSession) => {
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
 
-      if (event === EVENTS.PASSWORD_RECOVERY) setAuthView(VIEWS.UPDATE_PASSWORD);
-      if (event === EVENTS.SIGNED_OUT) setAuthView(VIEWS.SIGN_IN);
-    });
+        switch (event) {
+          case EVENTS.PASSWORD_RECOVERY:
+            setView(VIEWS.UPDATE_PASSWORD);
+            break;
+          case EVENTS.SIGNED_OUT:
+          case EVENTS.USER_UPDATED:
+            setView(VIEWS.SIGN_IN);
+            break;
+          default:
+        }
+      }
+    );
 
-    // ..
-
+    // ...
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        authView,
         session,
         user,
+        view,
         signOut: () => supabase.auth.signOut(),
       }}
       {...props}
     />
   );
 };
-..
 ```
 
-Here, we're setting the `authView` to `FORGOTTEN_PASSWORD` when `PASSWORD_RECOVERY` event is dispatched, and to `SIGN_IN` when user logs out, or user is updated in session.
-
-Now all that's left is to pass this value to `Auth` component. In our Home page `pages/index.js`, update the following:
+Here, we're setting the `view` to `UPDATE_PASSWORD` when `PASSWORD_RECOVERY` event is dispatched, and to `SIGN_IN` when user logs out, or user is updated in session. Now all that's left is to pass this value to `Auth` component. In our Home page `pages/index.js`, update the following:
 
 ```jsx
 // pages/index.js
-
 export default function Home() {
-  const { authView, user, signOut } = useAuth();
-
-  // ..
-
+  const { user, view, signOut } = useAuth();
+  // ...
   return (
-
-    // ..
-
-    {!user && (
-      <Auth authView={authView} supabaseClient={supabase} />
-    )}
-
-    // ..
+    // ...
+    {!user && <Auth view={view} supabaseClient={supabase} />}
+    // ...
   );
 }
 ```
+
+## Authentication Flows
+
+Now that we have our UI and `AuthProvider` setup, let's go through the available authentication flows, and see them in action.
+
+### Sign Up
+
+First, we'll need to create a new user.
+
+<PostImage
+  src={`/blog/nextjs-supabase-auth/sui-sign-up.png`}
+  alt="Sign Up"
+  width={884}
+  height={714}
+/>
+<Caption>Sign Up</Caption>
+
+### Password Reset
+
+<PostImage
+  src={`/blog/nextjs-supabase-auth/sui-password-reset.png`}
+  alt="Password Reset"
+  width={882}
+  height={388}
+/>
+<Caption>Password Reset</Caption>
+
+<PostImage
+  src={`/blog/nextjs-supabase-auth/reset-password-email.png`}
+  alt="Reset Password - default email"
+  width={694}
+  height={490}
+/>
+<Caption>Reset Password - default email</Caption>

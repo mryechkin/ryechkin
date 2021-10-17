@@ -179,6 +179,7 @@ pre[class*="language-"]:after {
   color: var(--attr-value);
   font-style: italic;
 }
+.token.rule,
 .token.keyword {
   color: var(--keyword);
 }
