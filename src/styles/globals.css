@@ -118,6 +118,9 @@ html {
   .prose h2, .prose h3 {
     @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
+  .prose h4 {
+    @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
+  }
   .prose blockquote {
     @apply dark:text-cyan-200 text-gray-600;
   }
