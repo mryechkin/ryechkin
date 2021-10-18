@@ -10,7 +10,7 @@ import SEO from '../../next-seo.config';
 import '@/styles/globals.css';
 import '@/styles/prism.css';
 
-import { MDX } from '@/components';
+import { GoogleAnalytics, MDX } from '@/components';
 import { usePanelbear } from '@/lib/analytics';
 
 export const siteTitle = 'Mykhaylo Ryechkin';
@@ -22,9 +22,7 @@ const globalStyles = globalCss({
 function App({ Component, pageProps }) {
   globalStyles();
 
-  usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID, {
-    debug: process.env.NEXT_PUBLIC_APP_ENV === 'development',
-  });
+  usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID);
 
   return (
     <WTFProvider>
@@ -44,6 +42,7 @@ function App({ Component, pageProps }) {
             <meta content="width=device-width, initial-scale=1" name="viewport" />
           </Head>
           <DefaultSeo {...SEO} />
+          <GoogleAnalytics />
           <div className="dark:text-gray-50 text-gray-500 selection:bg-cyan-100 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900">
             <Component {...pageProps} />
           </div>
