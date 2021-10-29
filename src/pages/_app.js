@@ -3,7 +3,7 @@ import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
-import { darkTheme, globalCss, Provider as WTFProvider } from 'wtf-design-system';
+import { darkTheme, globalStyles, Provider as WTFProvider } from 'wtf-design-system';
 
 import SEO from '../../next-seo.config';
 
@@ -14,10 +14,6 @@ import { GoogleAnalytics, MDX } from '@/components';
 import { usePanelbear } from '@/lib/analytics';
 
 export const siteTitle = 'Mykhaylo Ryechkin';
-
-const globalStyles = globalCss({
-  '*': { margin: 0, padding: 0 },
-});
 
 function App({ Component, pageProps }) {
   globalStyles();

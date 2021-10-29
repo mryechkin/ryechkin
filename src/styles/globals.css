@@ -63,6 +63,10 @@ html {
     @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
   }
 
+  .custom-focus-offset {
+    @apply focus:outline-none focus:ring focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
+  }
+
   .rainbow-bg {
     @apply bg-gradient-to-r dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
   }
