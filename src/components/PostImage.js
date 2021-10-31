@@ -1,4 +1,5 @@
 import { XIcon } from '@heroicons/react/solid';
+import cn from 'classnames';
 import Image from 'next/image';
 import {
   Dialog,
@@ -10,13 +11,16 @@ import {
 
 import Caption from './Caption';
 
-export default function PostImage({ src, width, height, caption = '' }) {
+export default function PostImage({ className, src, width, height, caption = '' }) {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <Dialog css={{ px: '$8' }}>
         <DialogTrigger asChild>
           <button
-            className="custom-focus-offset mx-auto my-4 w-full rounded-lg shadow cursor-pointer"
+            className={cn(
+              'custom-focus-offset mx-auto my-4 w-full md:max-w-xl lg:max-w-2xl rounded-lg shadow cursor-pointer',
+              className
+            )}
             type="button"
           >
             <Image
@@ -40,7 +44,7 @@ export default function PostImage({ src, width, height, caption = '' }) {
             alt={caption}
           />
           <DialogClose asChild>
-            <IconButton css={{ top: '$1', right: '$1' }}>
+            <IconButton>
               <XIcon className="w-8 h-8" />
             </IconButton>
           </DialogClose>

@@ -131,6 +131,9 @@ html {
   .prose code {
     @apply dark:text-cyan-200 text-gray-700;
   }
+  .prose pre {
+    @apply text-xs lg:text-sm !important;
+  }
   .prose strong {
     @apply dark:text-white text-gray-800;
   }
