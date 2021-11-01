@@ -1,11 +1,19 @@
-import { HiOutlineCalendar } from 'react-icons/hi';
-import { format } from 'date-fns';
+import { BiCalendar } from 'react-icons/bi';
+import cn from 'classnames';
+import { format, parseISO } from 'date-fns';
 
-export default function DateDisplay({ date: dateString }) {
-  const date = new Date(Date.parse(dateString));
+export default function DateDisplay({ className, date: dateString, showIcon }) {
+  const date = parseISO(dateString);
   return (
-    <div className="inline-flex items-center justify-center dark:bg-transparent bg-white">
-      <HiOutlineCalendar className="mr-2 w-8 h-8 text-blue-400 dark:text-indigo-300" />
+    <div
+      className={cn(
+        'inline-flex items-center justify-center dark:bg-transparent bg-white',
+        className
+      )}
+    >
+      {showIcon && (
+        <BiCalendar className="mr-2 w-6 h-6 text-blue-400 dark:text-indigo-300" />
+      )}
       <time
         className="text-gray-800 dark:text-white font-mono font-semibold"
         dateTime={dateString}

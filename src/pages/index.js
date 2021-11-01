@@ -1,13 +1,47 @@
 import { FiSmile } from 'react-icons/fi';
-import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Layout, More, PeaceSign, SEO, Separator, Videos } from '@/components';
-import { getDataBySlug } from '@/lib/data';
+import { Card, Layout, PeaceSign, Posts, Prose, SEO, Separator } from '@/components';
+import { getAllPosts, getDataBySlug } from '@/lib/data';
 import { useConfetti } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
 
-export default function Home({ data, source }) {
+const videos = [
+  {
+    title: 'ESLint + Prettier shared config for Next.js',
+    href: 'https://youtu.be/tsPXN4mJGSc',
+    summary:
+      'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
+    imageUrl: '/thumbs/eslint-prettier-config.jpg',
+    tags: ['ESLint', 'Prettier', 'Next.js'],
+  },
+  {
+    title: 'HeadlessUI Slideover',
+    href: 'https://youtu.be/7GAvtWmVRSY',
+    summary:
+      'In this video we look at how to update the existing implementation of the Tailwind UI Slide Over component that I showed in an earlier video, with the ready-made React component that is now available out of the box from Tailwind UI.',
+    imageUrl: '/thumbs/headlessui-slideover.jpg',
+    tags: ['Headless UI', 'Tailwind UI', 'TailwindCSS'],
+  },
+  {
+    title: 'Icon Library with SVGR and Rollup',
+    href: 'https://youtu.be/v0ZLEy1SE-A',
+    summary:
+      'Learn how to build your own SVG icon component library for React! In this video, we use SVGR and Rollup to make a publishable NPM package, with components generated directly from your SVG files.',
+    imageUrl: '/thumbs/svgr-icon-library.jpg',
+    tags: ['Rollup', 'SVGR', 'Libraries'],
+  },
+  {
+    title: 'Accessible SlideOver with Tailwind UI and React-Aria',
+    href: 'https://youtu.be/9EqJ-xgmIHc',
+    summary:
+      'In this video I show you everything you need to build the "Slide Over" from Tailwind UI as a fully accessible React component, using Tailwind CSS, React-Aria and Framer Motion.',
+    imageUrl: '/thumbs/accessible-slideover.jpg',
+    tags: ['React Aria', 'Tailwind UI', 'Accessibility', 'a11y'],
+  },
+];
+
+export default function Home({ data, posts, source }) {
   const [confetti, setConfetti] = useConfetti();
 
   return (
@@ -29,16 +63,19 @@ export default function Home({ data, source }) {
           </span>
         </div>
       </div>
-      <div className="items-center justify-center mx-auto max-w-full text-center">
-        <div className="mx-auto max-w-4xl">
-          <div className="prose lg:prose-lg py-4 w-full max-w-full sm:text-center">
-            <MDXRemote {...source} />
-          </div>
-        </div>
+      <div className="items-center justify-center mx-auto">
+        <Prose>
+          <MDXRemote {...source} />
+        </Prose>
         <Separator />
-        <h1 className="retro py-2 text-5xl">Latest Videos</h1>
+        <h1 className="title">Latest Posts</h1>
+        <Posts data={posts} />
+        <Separator />
+        <h1 className="title">Videos</h1>
         <div className="pb-4 md:pb-8">
-          <Videos />
+          {videos.map((item) => (
+            <Card key={item.imageUrl} item={item} isExternal isVideo />
+          ))}
         </div>
         <Separator />
         <div className="inline-flex items-center justify-center w-full">
@@ -53,12 +90,14 @@ export default function Home({ data, source }) {
 }
 
 export async function getStaticProps() {
-  const post = getDataBySlug('index');
-  const source = await getMdxSource(post);
+  const posts = getAllPosts();
+  const home = getDataBySlug('index');
+  const source = await getMdxSource(home);
 
   return {
     props: {
-      data: post.data,
+      data: home.data,
+      posts,
       source,
     },
   };

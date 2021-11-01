@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
 
-import { Badges, DateDisplay, ExternalLink, Layout } from '@/components';
+import { DateDisplay, Layout } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -35,7 +35,7 @@ export default function Post({ postData, source }) {
       <div className="prose lg:prose-lg w-full max-w-full">
         <h1 className="retro">{postData.title}</h1>
         <div className="z-10 text-center dark:text-gray-200 text-gray-600 text-base sm:text-lg">
-          <DateDisplay date={postData.date} />
+          <DateDisplay date={postData.date} showIcon />
         </div>
         <div className="mt-8 mx-auto max-w-3xl shadow-md">
           <Image
@@ -56,7 +56,7 @@ export default function Post({ postData, source }) {
 }
 
 export async function getStaticProps({ params }) {
-  const post = getPostBySlug(params.id);
+  const post = getPostBySlug(params.slug);
   const source = await getMdxSource(post);
 
   return {
@@ -74,7 +74,7 @@ export async function getStaticPaths() {
     paths: posts.map((post) => {
       return {
         params: {
-          id: post.data?.slug,
+          slug: post.data?.slug,
         },
       };
     }),

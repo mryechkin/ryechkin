@@ -70,7 +70,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
         </span>
         <span className="flex flex-col items-center justify-center lg:flex-row lg:items-center lg:justify-center">
           <Nav className="text-sm lg:mr-4" aria-label="Bottom navigation" />
-          <DarkModeToggle className="mt-12 lg:mt-0" />
+          <DarkModeToggle className="mt-8 lg:mt-0" />
         </span>
       </div>
       <div className="flex flex-grow-0 flex-wrap items-center justify-center py-6 text-gray-800 dark:text-white text-xs tracking-tight border-t border-indigo-100 dark:border-indigo-800 sm:mt-8 sm:py-8">

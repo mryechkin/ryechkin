@@ -18,7 +18,7 @@ export default function PostImage({ className, src, width, height, caption = '' 
         <DialogTrigger asChild>
           <button
             className={cn(
-              'custom-focus-offset mx-auto my-4 w-full md:max-w-xl lg:max-w-2xl rounded-lg shadow cursor-pointer',
+              'custom-focus-offset mx-auto my-4 w-full max-w-xl rounded-lg shadow cursor-pointer',
               className
             )}
             type="button"

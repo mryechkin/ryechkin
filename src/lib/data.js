@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { join } from 'path';
 
+import { parseISO } from 'date-fns';
 import matter from 'gray-matter';
 
 const dataDirectory = join(process.cwd(), 'data');
@@ -21,5 +22,11 @@ export function getPostBySlug(slug) {
 
 export function getAllPosts() {
   const slugs = fs.readdirSync(postsDirectory);
-  return slugs.map((slug) => getPostBySlug(slug));
+  const posts = slugs.map((slug) => getPostBySlug(slug));
+  const data = posts.sort(
+    (a, b) =>
+      // sort by date
+      parseISO(b.data.date) - parseISO(a.data.date)
+  );
+  return data;
 }

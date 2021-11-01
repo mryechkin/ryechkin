@@ -67,6 +67,14 @@ html {
     @apply focus:outline-none focus:ring focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
   }
 
+  .note {
+    @apply text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 border-l-4 sm:border-l-8 border-indigo-300 dark:border-indigo-600 text-sm sm:text-base p-2;
+  }
+
+  .title {
+    @apply rainbow py-2 text-5xl font-black tracking-tight;
+  }
+
   .rainbow-bg {
     @apply bg-gradient-to-r dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
   }
@@ -132,7 +140,7 @@ html {
     @apply dark:text-cyan-200 text-gray-700;
   }
   .prose pre {
-    @apply text-xs lg:text-sm !important;
+    @apply text-sm lg:text-base !important;
   }
   .prose strong {
     @apply dark:text-white text-gray-800;

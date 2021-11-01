@@ -28,7 +28,7 @@ module.exports = {
         rose: colors.rose,
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: ['Heebo', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         slow: {
