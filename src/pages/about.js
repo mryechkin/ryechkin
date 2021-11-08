@@ -36,9 +36,6 @@ export default function About({ data, source }) {
                 'Tailwind',
               ]}
             />
-            <p className="text-center lg:text-right">
-              ...and always looking to learn more!
-            </p>
           </div>
           <div className="hidden flex-shrink-0 pt-12 sm:w-52 lg:inline-flex lg:w-56">
             <Image
