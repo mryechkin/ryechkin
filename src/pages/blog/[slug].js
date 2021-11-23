@@ -8,10 +8,15 @@ import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
 export default function Post({ postData, source }) {
+  const fullTitle = `Mykhaylo Ryechkin | ${postData.title}`;
+  const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${postData.slug}%2Fcover.png&w=1200&q=100`;
+
   return (
     <Layout hideKylo slug={`blog/${postData.slug}`}>
       <Head>
-        <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
+        <title>{fullTitle}</title>
+        <meta name="og:image" content={image} />
+        <meta name="twitter:title" content={fullTitle} />
       </Head>
       <SEO
         title={postData.title}
@@ -21,12 +26,20 @@ export default function Post({ postData, source }) {
           title: postData.title,
           description: postData.summary,
           url: postData.canonical,
+          images: [
+            {
+              url: image,
+              width: 1200,
+              height: 627,
+              alt: fullTitle,
+            },
+          ],
           type: 'article',
           article: {
             publishedTime: postData.date,
             authors: [postData.author?.name],
             tags: postData.seo,
-            image: `https://www.misha.wtf/_next/image?url=%2Fblog%2F${postData.slug}%2Fcover.png&w=1200&q=100`,
+            image,
           },
         }}
       />
