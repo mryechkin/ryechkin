@@ -64,7 +64,7 @@ export default function Home({ data, posts, source }) {
         </div>
       </div>
       <div className="items-center justify-center mx-auto">
-        <Prose>
+        <Prose className="lg:max-w-3xl lg:text-center">
           <MDXRemote {...source} />
         </Prose>
         <Separator />
