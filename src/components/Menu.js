@@ -8,8 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from 'wtf-design-system';
 export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
   const links = [
     { name: 'Home', href: '/' },
-    { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },
+    { name: 'Blog', href: '/blog' },
   ];
 
   return (
