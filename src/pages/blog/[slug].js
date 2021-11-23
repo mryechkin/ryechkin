@@ -2,9 +2,8 @@ import { FaTwitter } from 'react-icons/fa';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
-import { NextSeo } from 'next-seo';
 
-import { DateDisplay, ExternalLink, Layout } from '@/components';
+import { DateDisplay, ExternalLink, Layout, SEO } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -14,7 +13,7 @@ export default function Post({ postData, source }) {
       <Head>
         <title>{`Mykhaylo Ryechkin | ${postData.title}`}</title>
       </Head>
-      <NextSeo
+      <SEO
         title={postData.title}
         description={postData.summary}
         canonical={postData.canonical}
@@ -37,7 +36,9 @@ export default function Post({ postData, source }) {
           <DateDisplay date={postData.date} showIcon />
           <ExternalLink
             href={postData.author?.url}
-            icon={<FaTwitter className="inline-block dark:text-cyan-300 text-cyan-500" />}
+            icon={
+              <FaTwitter className="inline-block w-4 h-4 dark:text-cyan-300 text-cyan-500" />
+            }
           >
             {postData.author?.name}
           </ExternalLink>
@@ -50,6 +51,7 @@ export default function Post({ postData, source }) {
             height={627}
             width={1200}
             quality={100}
+            priority
           />
         </div>
         <article className="z-10 py-4 dark:text-gray-50 text-gray-800 md:pt-8">

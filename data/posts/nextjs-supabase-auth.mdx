@@ -1,7 +1,7 @@
 ---
 title: 'User Authentication in Next.js with Supabase'
 date: '2021-11-22'
-summary: 'How to setup auth in your Next.js app with Supabase and Supabase UI.'
+summary: 'How to setup authentication in your Next.js app with Supabase and Supabase UI.'
 canonical: 'https://misha.wtf/blog/nextjs-supabase-auth'
 tags: ['Next.js', 'Supabase', 'Authentication']
 seo:
@@ -471,9 +471,7 @@ inside a `useEffect` hook (on initial load):
 
 ```jsx
 // src/lib/auth.js
-
 // ...
-
 useEffect(() => {
   const activeSession = supabase.auth.session();
   setSession(activeSession);
@@ -490,7 +488,6 @@ useEffect(() => {
     authListener?.unsubscribe();
   };
 }, []);
-
 // ...
 ```
 
@@ -510,9 +507,7 @@ First, let's store all the possible values for both the `VIEWS` and `EVENTS` in 
 
 ```jsx
 // src/lib/auth.js
-
 // ...
-
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
   SIGNED_OUT: 'SIGNED_OUT',
@@ -526,7 +521,6 @@ export const VIEWS = {
   MAGIC_LINK: 'magic_link',
   UPDATE_PASSWORD: 'update_password',
 };
-
 // ...
 ```
 
@@ -537,12 +531,9 @@ We'll need to keep track of the current view in our **AuthProvider**, so let's a
 // src/lib/auth.js
 export const AuthProvider = ({ supabase, ...props }) => {
   const [view, setView] = useState(VIEWS.SIGN_IN);
-
   // ...
-
   useEffect(() => {
     // ...
-
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
         setSession(currentSession);
@@ -560,7 +551,6 @@ export const AuthProvider = ({ supabase, ...props }) => {
         }
       }
     );
-
     // ...
   }, []);
 
@@ -686,15 +676,11 @@ Signing out a user is as easy as calling the `signOut` function:
 ```jsx
 // src/pages/index.js
 // ...
-
-const { ..., signOut } = useAuth();
-
+const { user, view, signOut } = useAuth();
 // ...
-
 <button type="button" className="button-inverse" onClick={signOut}>
   Sign Out
-</button>
-
+</button>;
 // ...
 ```
 
@@ -715,7 +701,6 @@ switch (event) {
     break;
   // ...
 }
-
 // ...
 ```
 
@@ -774,7 +759,6 @@ export default function Home() {
       </Layout>
     );
   }
-
   // ...
 }
 ```
@@ -831,10 +815,8 @@ down (via the above API). To do this, update **AuthProvider** in `lib/auth.js` t
 // src/lib/auth.js
 export const AuthProvider = ({ supabase, ...props }) => {
   // ...
-
   useEffect(() => {
     // ...
-
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
         // ...
@@ -846,10 +828,8 @@ export const AuthProvider = ({ supabase, ...props }) => {
         }).then((res) => res.json());
       }
     );
-
     // ...
   }, []);
-
   // ...
 };
 ```
@@ -965,7 +945,7 @@ Now our authentication forms match as well! 🎉 Play around with it and change 
 Though not the ideal solution, it still beats setting everything up from scratch, and I'm confident
 that the folks over at **Supabase** will have this capability delivered in the near future.
 
-You may want to keep an eye on their [GitHub repo](https://github.com/supabase/ui) for future updates.
+You may want to keep an eye on their GitHub [repo](https://github.com/supabase/ui) as well for future updates.
 
 ## Wrap Up
 
@@ -973,7 +953,7 @@ And this about wraps it up. If you've followed along this far, by now you should
 working authentication layer in your app, with all of the required forms and flows hooked in,
 and a pretty decent-looking UI to go along with it.
 
-All of the code in this article is available for reference in [GitHub](https://github.com/mryechkin/nextjs-with-supabase-auth) as well.
+All of the code in this article is available for reference in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth) as well.
 
 If you'd like to learn more about **Supabase** and **Supabase UI**, make sure to check out the official docs:
 

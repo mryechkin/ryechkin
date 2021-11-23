@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 
-export default function SEO({ description, title }) {
-  const fullTitle = `Mykhaylo Ryechkin - ${title}`;
+export default function SEO({ description, title, openGraph, canonical }) {
+  const fullTitle = `Mykhaylo Ryechkin | ${title}`;
 
   // const options = {
   //   bg: 'white',
@@ -32,18 +32,21 @@ export default function SEO({ description, title }) {
         title={title}
         titleTemplate="Mykhaylo Ryechkn | "
         defaultTitle="Mykhaylo Ryechkin"
-        openGraph={{
-          title: fullTitle,
-          images: [
-            {
-              url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
-              width: 1200,
-              height: 627,
-              alt: 'Mykhaylo Ryechkin',
-            },
-          ],
-          description,
-        }}
+        canonical={canonical}
+        openGraph={
+          openGraph || {
+            title: fullTitle,
+            images: [
+              {
+                url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
+                width: 1200,
+                height: 627,
+                alt: 'Mykhaylo Ryechkin',
+              },
+            ],
+            description,
+          }
+        }
       />
     </>
   );

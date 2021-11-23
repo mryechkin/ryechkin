@@ -32,7 +32,7 @@ html[class="dark"] pre[class*="language-"] {
   --keyword: #67E8F9;
   --parameter: #FB923C;
   --punctuation: #D946EF;
-  --tag: #F43F5E;
+  --tag: #A5B4FC;
 }
 
 pre[class*="language-"] > code {
