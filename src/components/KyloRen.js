@@ -23,30 +23,23 @@ export default function KyloRen({ setConfetti }) {
   });
 
   return (
-    <>
-      <motion.button
-        aria-label="Kylo Ren"
-        id="kylo-ren"
-        type="button"
-        className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
-        animate={spinning ? 'rotate' : 'stop'}
-        variants={variants}
-        whileFocus={{ scale: 1.1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        {...pressProps}
-      >
-        {theme === 'light' ? (
-          <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
-        ) : (
-          <Image
-            src="/assets/kyloren-inverse.svg"
-            height="64"
-            width="64"
-            alt="Kylo Ren"
-          />
-        )}
-      </motion.button>
-    </>
+    <motion.button
+      aria-label="Kylo Ren"
+      id="kylo-ren"
+      type="button"
+      className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
+      animate={spinning ? 'rotate' : 'stop'}
+      variants={variants}
+      whileFocus={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      {...pressProps}
+    >
+      {theme === 'light' ? (
+        <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
+      ) : (
+        <Image src="/assets/kyloren-inverse.svg" height="64" width="64" alt="Kylo Ren" />
+      )}
+    </motion.button>
   );
 }

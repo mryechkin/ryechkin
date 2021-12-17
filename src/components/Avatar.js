@@ -22,30 +22,28 @@ export default function Avatar({ className, setConfetti }) {
   });
 
   return (
-    <>
-      <motion.button
-        aria-label="Avatar"
-        id="avatar"
-        type="button"
-        className={cn(
-          'custom-focus flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
-          className
-        )}
-        animate={spinning ? 'rotate' : 'stop'}
-        variants={variants}
-        whileFocus={{ scale: 1.1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        {...pressProps}
-      >
-        <Image
-          src="/assets/avatar.jpg"
-          width={56}
-          height={56}
-          alt="Avatar"
-          className="rounded-full"
-        />
-      </motion.button>
-    </>
+    <motion.button
+      aria-label="Avatar"
+      id="avatar"
+      type="button"
+      className={cn(
+        'custom-focus flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
+        className
+      )}
+      animate={spinning ? 'rotate' : 'stop'}
+      variants={variants}
+      whileFocus={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      {...pressProps}
+    >
+      <Image
+        src="/assets/avatar.jpg"
+        width={56}
+        height={56}
+        alt="Avatar"
+        className="rounded-full"
+      />
+    </motion.button>
   );
 }

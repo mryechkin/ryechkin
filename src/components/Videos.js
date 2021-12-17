@@ -1,5 +1,3 @@
-import { HiOutlineExternalLink } from 'react-icons/hi';
-
 import Card from './Card';
 
 const items = [

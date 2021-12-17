@@ -12,12 +12,12 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
 
   return (
     <div className="pt-2 w-full min-h-screen bg-gradient-to-r from-yellow-300 to-pink-500 via-cyan-400 overflow-hidden">
-      <div className="min-h-[var(--min-height)] relative flex flex-col justify-between bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900 sm:justify-around">
+      <div className="min-h-[var(--min-height)] relative flex flex-col justify-between bg-gradient-to-br dark:from-gray-800 dark:via-indigo-900 from-white via-indigo-50 to-gray-50 dark:to-gray-900 sm:justify-around">
         <header className="flex flex-nowrap items-center justify-between mx-auto pb-4 pt-2 px-4 w-full max-w-5xl sm:px-6 md:px-8">
           <div className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter sm:py-4 sm:text-4xl">
             <Avatar className="flex mr-6" setConfetti={setHeaderConfetti} />
             <Link href="/">
-              <a className="dark:hover:shadow-link py-2 dark:text-gray-50 text-gray-800 font-normal focus:rounded-md hover:shadow-link shadow-underline dark:shadow-underline-dark transition-all">
+              <a className="py-2 dark:text-gray-50 text-gray-800 font-normal focus:rounded-md hover:shadow-link shadow-underline transition-all">
                 <span className="font-black">Misha</span>.WTF
               </a>
             </Link>

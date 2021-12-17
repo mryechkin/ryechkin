@@ -15,7 +15,7 @@ import { usePanelbear } from '@/lib/analytics';
 
 export const siteTitle = 'Mykhaylo Ryechkin';
 
-function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   globalStyles();
 
   usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID);
@@ -39,7 +39,7 @@ function App({ Component, pageProps }) {
           </Head>
           <DefaultSeo {...SEO} />
           <GoogleAnalytics />
-          <div className="dark:text-gray-50 text-gray-500 selection:bg-cyan-100 bg-gradient-to-br dark:from-gray-700 from-white to-gray-50 dark:to-gray-900">
+          <div className="text-gray-500 dark:text-gray-50 bg-gradient-to-br from-white dark:from-gray-700 to-gray-50 dark:to-gray-900">
             <Component {...pageProps} />
           </div>
         </MDXProvider>
@@ -47,5 +47,3 @@ function App({ Component, pageProps }) {
     </WTFProvider>
   );
 }
-
-export default App;

@@ -1,6 +1,5 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { usePress } from 'react-aria';
-import { Dialog, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import Link from 'next/link';
@@ -29,19 +28,19 @@ export default function Navigation() {
 
   return (
     <AnimateSharedLayout>
-      <span className="flex items-center justify-between">
-        <nav className="hidden items-center justify-center py-2 sm:py-4 md:flex">
+      <span className="flex justify-between items-center">
+        <nav className="hidden md:flex justify-center items-center py-2 sm:py-4">
           {navItems.map((nav) => (
             <Link href={nav.href} key={nav.href}>
               <a className="whitespace-nowrap">{nav.label}</a>
             </Link>
           ))}
         </nav>
-        <span className="hidden ml-2 md:block md:ml-4">
+        <span className="hidden md:block ml-2 md:ml-4">
           <DarkModeToggle />
         </span>
         <motion.button
-          className="p-2 w-12 h-12 md:hidden"
+          className="md:hidden p-2 w-12 h-12"
           whileFocus={{ scale: 1.1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
@@ -53,13 +52,13 @@ export default function Navigation() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed z-50 left-0 top-0 flex flex-col items-center justify-between w-screen h-full bg-gray-900"
+            className="flex fixed top-0 left-0 z-50 flex-col justify-between items-center w-screen h-full bg-gray-900"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             layout
           >
-            <nav className="flex flex-col items-center justify-center py-2 sm:py-4">
+            <nav className="flex flex-col justify-center items-center py-2 sm:py-4">
               {navItems.map((nav) => (
                 <Link href={nav.href} key={nav.href}>
                   <a className="whitespace-nowrap">{nav.label}</a>
@@ -68,7 +67,7 @@ export default function Navigation() {
             </nav>
             <DarkModeToggle />
             <motion.button
-              className="absolute right-0 top-0 m-10 p-2 w-12 h-12"
+              className="absolute top-0 right-0 p-2 m-10 w-12 h-12"
               whileFocus={{ scale: 1.1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

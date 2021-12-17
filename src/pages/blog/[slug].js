@@ -43,20 +43,18 @@ export default function Post({ postData, source }) {
           },
         }}
       />
-      <div className="prose lg:prose-lg w-full max-w-full">
+      <div className="w-full max-w-full prose lg:prose-lg">
         <h1 className="retro">{postData.title}</h1>
-        <div className="z-10 inline-flex flex-col items-center justify-center w-full text-center dark:text-gray-200 text-gray-600 text-sm sm:flex-row sm:justify-evenly">
+        <div className="inline-flex z-10 flex-col sm:flex-row justify-center sm:justify-evenly items-center w-full text-sm text-center text-gray-600 dark:text-gray-200">
           <DateDisplay date={postData.date} showIcon />
           <ExternalLink
             href={postData.author?.url}
-            icon={
-              <FaTwitter className="inline-block w-4 h-4 dark:text-cyan-300 text-cyan-500" />
-            }
+            icon={<FaTwitter className="inline-block pl-1 w-6 h-6 text-sky-accent" />}
           >
             {postData.author?.name}
           </ExternalLink>
         </div>
-        <div className="mt-8 mx-auto max-w-xl shadow-md">
+        <div className="mx-auto mt-8 max-w-xl shadow-md">
           <Image
             src={`/blog/${postData.slug}/cover.png`}
             className="bg-gray-900 rounded-lg"
@@ -67,7 +65,7 @@ export default function Post({ postData, source }) {
             priority
           />
         </div>
-        <article className="z-10 py-4 dark:text-gray-50 text-gray-800 md:pt-8">
+        <article className="z-10 py-4 md:pt-8 text-gray-800 dark:text-gray-50">
           <MDXRemote {...source} />
         </article>
       </div>

@@ -58,7 +58,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="dark:hover:text-cyan-300 dark:focus:text-cyan-300 mx-1 p-2 focus:text-cyan-400 hover:text-cyan-400 dark:text-gray-100 text-gray-700 text-xl rounded-md sm:mx-2 sm:text-3xl"
+              className="dark:hover:text-sky-accent dark:focus:text-sky-accent mx-1 p-2 focus:text-sky-accent hover:text-sky-accent dark:text-gray-200 text-gray-700 text-xl rounded-md sm:mx-2 sm:text-3xl"
               whileFocus={{ scale: 1.1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

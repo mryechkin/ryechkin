@@ -9,11 +9,11 @@ export default function About({ data, source }) {
   return (
     <Layout slug="about">
       <SEO title={data.title} />
-      <div className="prose lg:prose-lg mx-auto max-w-full">
+      <div className="mx-auto max-w-full prose lg:prose-lg">
         <h1>About Me</h1>
-        <div className="flex items-start justify-between">
+        <div className="flex justify-between items-start">
           <div className="lg:pr-4">
-            <div className="min-h-48 lg:hidden">
+            <div className="lg:hidden min-h-[length:12rem]">
               <Image
                 src="/assets/hammock-wide.jpg"
                 alt="About me"
@@ -24,7 +24,7 @@ export default function About({ data, source }) {
             </div>
             <MDXRemote {...source} />
             <Tags
-              className="mt-4"
+              className="justify-center"
               list={[
                 'React',
                 'Next.js',
@@ -33,11 +33,12 @@ export default function About({ data, source }) {
                 'Vite',
                 'Storybook',
                 'Stitches',
+                'Styled Components',
                 'Tailwind',
               ]}
             />
           </div>
-          <div className="hidden flex-shrink-0 pt-4 sm:w-52 lg:inline-flex lg:w-56">
+          <div className="hidden lg:inline-flex flex-shrink-0 pt-4 sm:w-52 lg:w-56">
             <Image
               src="/assets/hammock.jpg"
               alt="About me"

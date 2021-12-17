@@ -1,16 +1,5 @@
 {
   "extends": ["acme", "plugin:@next/next/recommended"],
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "map": [
-          ["@", "./src"],
-          ["test-utils", "./test/test-utils"]
-        ],
-        "extensions": [".js"]
-      }
-    }
-  },
   "rules": {
     "no-unused-vars": "warn",
     "react-hooks/exhaustive-deps": "warn",

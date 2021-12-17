@@ -1,17 +1,18 @@
-import { Fragment } from 'react';
 import cn from 'classnames/dedupe';
 
+import Pill from './Pill';
+
 export default function Tags({ className, list }) {
-  return (
-    <div className={cn('z-10 flex flex-wrap items-center justify-center', className)}>
-      <span className="accent-no-bg leading-tight">&#123;</span>
-      {list?.map((tag, i) => (
-        <Fragment key={tag}>
-          <span className="accent p-1 font-mono leading-tight">{tag}</span>
-          {i < list.length - 1 && <span className="accent-no-bg leading-tight">,</span>}
-        </Fragment>
-      ))}
-      <span className="accent-no-bg leading-tight">&#125;</span>
-    </div>
-  );
+  if (list && list.length) {
+    return (
+      <div className={cn('flex flex-wrap items-center justify-start', className)}>
+        {list.map((item) => (
+          <Pill key={item} css={{ marginBottom: '$2', marginRight: '$2' }}>
+            {item}
+          </Pill>
+        ))}
+      </div>
+    );
+  }
+  return null;
 }

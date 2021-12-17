@@ -12,7 +12,7 @@ export default function Blog({ posts }) {
           recently learned, used, or just simply find interesting.
         </div>
       </Prose>
-      <div className="mt-8">
+      <div className="mt-8 pb-4">
         <Posts data={posts} />
       </div>
     </Layout>

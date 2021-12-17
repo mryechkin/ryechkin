@@ -20,7 +20,7 @@ html {
 
 @layer base {
   body {
-    @apply text-cyan-400 font-sans dark:selection:text-cyan-900 dark:selection:bg-cyan-300 selection:text-cyan-500;
+    @apply font-sans dark:selection:text-indigo-900 dark:selection:bg-indigo-300 selection:bg-indigo-700 selection:text-indigo-100;
   }
 
   a {
@@ -28,11 +28,11 @@ html {
   }
 
   a:not(.retro-shadow), input[type="button"]:not(.retro-shadow) {
-    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 cursor-pointer;
+    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-sky-accent cursor-pointer;
   }
 
   nav a, .nav-link {
-    @apply transition-all hover:shadow-link dark:hover:shadow-link-dark dark:shadow-underline-dark shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
+    @apply transition-all hover:shadow-link shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
   }
 
   footer nav a, footer .nav-link {
@@ -40,11 +40,11 @@ html {
   }
 
   .accent {
-    @apply dark:text-cyan-300 text-cyan-600 bg-cyan-50 dark:bg-cyan-900 bg-clip-content;
+    @apply dark:text-white text-black underline underline-offset-4 decoration-2 decoration-dotted dark:decoration-amber-400 decoration-violet-400 font-semibold;
   }
 
-  .accent-no-bg {
-    @apply dark:text-cyan-300 text-cyan-600 font-semibold;
+  .accent-no-deco {
+    @apply dark:text-white text-black font-semibold;
   }
 
   .accent-indigo {
@@ -60,15 +60,15 @@ html {
   }
 
   .custom-focus {
-    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
+    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-sky-accent focus:rounded-md cursor-pointer;
   }
 
   .custom-focus-offset {
-    @apply focus:outline-none focus:ring focus:ring-cyan-400 dark:focus:ring-cyan-300 focus:rounded-md cursor-pointer
+    @apply focus:outline-none focus:ring focus:ring-sky-accent focus:rounded-md cursor-pointer;
   }
 
   .note {
-    @apply text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 border-l-4 sm:border-l-8 border-indigo-300 dark:border-indigo-600 text-sm sm:text-base p-2;
+    @apply text-gray-600 dark:text-gray-300 bg-indigo-50 dark:bg-indigo-900 border-l-4 sm:border-l-8 border-indigo-300 dark:border-indigo-600 text-sm sm:text-base p-2;
   }
 
   .title {
@@ -84,12 +84,12 @@ html {
   }
 
   .retro {
-    @apply text-blue-300 dark:text-rose-50 selection:text-cyan-50 dark:selection:text-gray-800 font-black tracking-tight;
+    @apply text-blue-300 dark:text-amber-50 selection:text-indigo-50 dark:selection:text-gray-800 font-black tracking-tight;
     text-shadow: 3px 2px 0px #4F46E5, 5px 4px 0px #C7D2FE;
   }
 
   .dark .retro {
-    text-shadow: 3px 2px 0px #fb7185, 5px 4px 0px #e11d48;
+    text-shadow: 3px 2px 0px #ec4899, 5px 4px 0px #fbbf24;
   }
 
   .retro-shadow {
@@ -97,7 +97,7 @@ html {
   }
 
   .dark .retro-shadow {
-    box-shadow: 6px 6px 0px #312E81;
+    box-shadow: 6px 6px 0px #3730A3;
   }
 
   .social-github {
@@ -134,10 +134,10 @@ html {
     @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose blockquote {
-    @apply dark:text-cyan-200 text-gray-600;
+    @apply dark:text-indigo-200 text-gray-600;
   }
   .prose code {
-    @apply dark:text-cyan-200 text-gray-700;
+    @apply dark:text-indigo-200 text-gray-700;
   }
   .prose pre {
     @apply text-sm lg:text-base !important;
@@ -146,7 +146,7 @@ html {
     @apply dark:text-white text-gray-800;
   }
   .prose a {
-    @apply dark:hover:text-gray-800 dark:hover:bg-cyan-300 p-1 dark:text-cyan-300 text-cyan-500 underline font-bold hover:bg-cyan-100 rounded-md;
+    @apply focus:no-underline hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-accent underline-offset-2 text-gray-800 dark:text-gray-50 font-semibold !important;
   }
   .prose hr {
     @apply my-8 sm:my-10 !important;

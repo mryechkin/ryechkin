@@ -4,8 +4,7 @@ const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,mdx}', './data/**/*.mdx'],
+  content: ['./src/**/*.{js,mdx}', './data/**/*.mdx'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -16,16 +15,12 @@ module.exports = {
         'pattern-light-sm': "url('/assets/pattern-light-sm.svg')",
       },
       boxShadow: {
-        link: '0 -5px 0 0 rgba(34, 211, 238, 1) inset',
-        'link-dark': '0 -5px 0 0 rgba(103, 232, 249, 1) inset',
-        underline: '0 -1px 0 0 rgba(34, 211, 238, 1) inset',
-        'underline-dark': '0 -1px 0 0 rgba(103, 232, 249, 1) inset',
+        link: '0 -6px 0 0 var(--colors-sky10) inset',
+        underline: '0 -2px 0 0 var(--colors-sky10) inset',
       },
       colors: {
-        cyan: colors.cyan,
-        green: colors.green,
         pink: colors.fuchsia,
-        rose: colors.rose,
+        "sky-accent": "var(--colors-sky10)",
       },
       fontFamily: {
         sans: ['Heebo', ...defaultTheme.fontFamily.sans],

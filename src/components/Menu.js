@@ -46,9 +46,7 @@ export default function Menu() {
             whileTap={{ scale: 0.9 }}
           >
             <AnimatePresence>
-              {!isOpen && (
-                <MenuAlt4Icon className="w-8 h-8 dark:text-cyan-300 text-cyan-400" />
-              )}
+              {!isOpen && <MenuAlt4Icon className="w-8 h-8 text-sky-accent" />}
               {isOpen && (
                 <XCircleIcon className="w-8 h-8 dark:text-rose-400 text-rose-500" />
               )}
