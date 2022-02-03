@@ -27,7 +27,7 @@ export default function Avatar({ className, setConfetti }) {
       id="avatar"
       type="button"
       className={cn(
-        'custom-focus flex items-center justify-center w-8 h-8 sm:w-14 sm:h-14 cursor-pointer select-none rounded',
+        'custom-focus flex h-8 w-8 cursor-pointer select-none items-center justify-center rounded sm:h-14 sm:w-14',
         className
       )}
       animate={spinning ? 'rotate' : 'stop'}

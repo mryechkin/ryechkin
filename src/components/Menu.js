@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from 'wtf-design-system';
 
-export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
+export function Nav({ className, ariaLabel = 'Navigation' }) {
   const links = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -16,12 +16,12 @@ export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
     <nav
       aria-label={ariaLabel}
       className={cn(
-        'flex lg:flex lg:flex-row lg:space-x-4 items-center justify-center',
+        'flex items-center justify-center lg:flex lg:flex-row lg:space-x-4',
         className
       )}
     >
       {links.map((item) => (
-        <div key={item.name} className="flex px-5 py-2 w-full">
+        <div key={item.name} className="flex w-full px-5 py-2">
           <Link href={item.href}>
             <a className="nav-link w-full text-center">{item.name}</a>
           </Link>
@@ -29,7 +29,7 @@ export const Nav = ({ className, ariaLabel = 'Navigation' }) => {
       ))}
     </nav>
   );
-};
+}
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,9 +46,9 @@ export default function Menu() {
             whileTap={{ scale: 0.9 }}
           >
             <AnimatePresence>
-              {!isOpen && <MenuAlt4Icon className="w-8 h-8 text-sky-accent" />}
+              {!isOpen && <MenuAlt4Icon className="h-8 w-8 text-sky-accent" />}
               {isOpen && (
-                <XCircleIcon className="w-8 h-8 dark:text-rose-400 text-rose-500" />
+                <XCircleIcon className="h-8 w-8 text-rose-500 dark:text-rose-400" />
               )}
             </AnimatePresence>
           </motion.button>

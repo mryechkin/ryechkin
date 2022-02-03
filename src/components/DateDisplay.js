@@ -7,14 +7,14 @@ export default function DateDisplay({ className, date: dateString, showIcon }) {
   return (
     <div
       className={cn(
-        'inline-flex items-center justify-center py-1 dark:bg-transparent bg-white',
+        'inline-flex items-center justify-center bg-white py-1 dark:bg-transparent',
         className
       )}
     >
       {showIcon && (
-        <BiCalendar className="mr-2 w-4 h-4 text-blue-400 dark:text-indigo-300" />
+        <BiCalendar className="mr-2 h-4 w-4 text-blue-400 dark:text-indigo-300" />
       )}
-      <time className="text-gray-800 dark:text-white font-semibold" dateTime={dateString}>
+      <time className="font-semibold text-gray-800 dark:text-white" dateTime={dateString}>
         {format(date, 'LLLL d, yyyy')}
       </time>
     </div>

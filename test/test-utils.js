@@ -11,7 +11,7 @@ const globalStyles = globalCss({
   '*': { margin: 0, padding: 0 },
 });
 
-const AllTheProviders = ({ children }) => {
+function AllTheProviders({ children }) {
   globalStyles();
 
   return (
@@ -27,7 +27,7 @@ const AllTheProviders = ({ children }) => {
       </ThemeProvider>
     </WTFProvider>
   );
-};
+}
 
 const customRender = (ui, options) =>
   render(ui, { wrapper: AllTheProviders, ...options });

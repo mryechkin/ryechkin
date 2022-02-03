@@ -47,10 +47,10 @@ export default function Home({ data, posts, source }) {
   return (
     <Layout confetti={confetti}>
       <SEO title={data.title} />
-      <div className="inline-flex items-end justify-center w-full">
-        <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
+      <div className="inline-flex w-full items-end justify-center">
+        <div className="w-full max-w-3xl flex-shrink-0 font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="flex items-center justify-center p-2 dark:text-yellow-300 text-yellow-500">
+            <span className="flex items-center justify-center p-2 text-yellow-500 dark:text-yellow-300">
               Hey
               <PeaceSign
                 className="p-2"
@@ -59,11 +59,11 @@ export default function Home({ data, posts, source }) {
               />
               I&apos;m
             </span>
-            <span className="retro inline-flex ml-1 sm:ml-2">Mykhaylo.</span>
+            <span className="retro ml-1 inline-flex sm:ml-2">Mykhaylo.</span>
           </span>
         </div>
       </div>
-      <div className="items-center justify-center mx-auto">
+      <div className="mx-auto items-center justify-center">
         <Prose className="lg:max-w-3xl lg:text-center">
           <MDXRemote {...source} />
         </Prose>
@@ -78,9 +78,9 @@ export default function Home({ data, posts, source }) {
           ))}
         </div>
         <Separator />
-        <div className="inline-flex items-center justify-center w-full">
+        <div className="inline-flex w-full items-center justify-center">
           Thanks for stopping by
-          <span className="pl-2 text-blue-400 dark:text-rose-400 text-2xl">
+          <span className="pl-2 text-2xl text-blue-400 dark:text-rose-400">
             <FiSmile />
           </span>
         </div>

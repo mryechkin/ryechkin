@@ -5,7 +5,7 @@ export default function Highlight({ children, className }) {
     <span className="relative inline-block font-bold">
       <span
         aria-hidden="true"
-        className={cn('absolute z-0 inset-0 -m-1 transform -rotate-2', className)}
+        className={cn('absolute inset-0 z-0 -m-1 -rotate-2 transform', className)}
       />
       <span className="relative">{children}</span>
     </span>

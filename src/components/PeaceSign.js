@@ -19,7 +19,7 @@ export default function PeaceSign({ className, innerClassName, setConfetti }) {
       {...pressProps}
     >
       <FaHandPeace
-        className={cn('dark:text-yellow-300 text-yellow-500 font-bold', innerClassName)}
+        className={cn('font-bold text-yellow-500 dark:text-yellow-300', innerClassName)}
       />
     </motion.button>
   );

@@ -5,6 +5,7 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { darkTheme, globalStyles, Provider as WTFProvider } from 'wtf-design-system';
 
+// eslint-disable-next-line import/order
 import SEO from '../../next-seo.config';
 
 import '@/styles/globals.css';
@@ -39,7 +40,7 @@ export default function App({ Component, pageProps }) {
           </Head>
           <DefaultSeo {...SEO} />
           <GoogleAnalytics />
-          <div className="text-gray-500 dark:text-gray-50 bg-gradient-to-br from-white dark:from-gray-700 to-gray-50 dark:to-gray-900">
+          <div className="bg-gradient-to-br from-white to-gray-50 text-gray-500 dark:from-gray-700 dark:to-gray-900 dark:text-gray-50">
             <Component {...pageProps} />
           </div>
         </MDXProvider>

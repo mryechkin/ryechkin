@@ -16,7 +16,7 @@ export default function Badges({ className, data, onClick }) {
             {...pressProps}
             key={badge}
             className={cn({
-              'inline-flex items-center mx-2 px-3 py-0.5 focus:outline-none focus:ring focus:ring-cyan-400 dark:focus:ring-cyan-300 dark:text-cyan-300 text-cyan-600 text-sm font-medium bg-cyan-50 dark:bg-cyan-900 border dark:border-cyan-300 border-cyan-600 border-opacity-75 dark:border-opacity-75 rounded-full hover:cursor-pointer select-none': true,
+              'mx-2 inline-flex select-none items-center rounded-full border border-cyan-600 border-opacity-75 bg-cyan-50 px-3 py-0.5 text-sm font-medium text-cyan-600 hover:cursor-pointer focus:outline-none focus:ring focus:ring-cyan-400 dark:border-cyan-300 dark:border-opacity-75 dark:bg-cyan-900 dark:text-cyan-300 dark:focus:ring-cyan-300': true,
             })}
             data-badge={badge}
             role="button"
@@ -34,7 +34,7 @@ export default function Badges({ className, data, onClick }) {
         <span
           key={badge}
           className={cn({
-            'inline-flex items-center mx-2 px-3 py-0.5 dark:text-cyan-300 text-cyan-600 text-sm font-medium bg-cyan-50 dark:bg-cyan-900 border dark:border-cyan-300 border-cyan-600 border-opacity-75 dark:border-opacity-75 rounded-full select-none': true,
+            'mx-2 inline-flex select-none items-center rounded-full border border-cyan-600 border-opacity-75 bg-cyan-50 px-3 py-0.5 text-sm font-medium text-cyan-600 dark:border-cyan-300 dark:border-opacity-75 dark:bg-cyan-900 dark:text-cyan-300': true,
           })}
         >
           {badge}

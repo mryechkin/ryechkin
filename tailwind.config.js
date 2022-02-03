@@ -20,7 +20,7 @@ module.exports = {
       },
       colors: {
         pink: colors.fuchsia,
-        "sky-accent": "var(--colors-sky10)",
+        'sky-accent': 'var(--colors-sky10)',
       },
       fontFamily: {
         sans: ['Heebo', ...defaultTheme.fontFamily.sans],

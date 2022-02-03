@@ -6,18 +6,6 @@ html {
   --min-height: calc(100vh - 0.5rem);
 }
 
-.bg-dark {
-  background-color: #1f2937;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%234f46e5' fill-opacity='0.5' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
-  /* background-position-x: 25%; */
-}
-
-.bg-light {
-  background-color: #f9fafb;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23c7d2fe' fill-opacity='0.5' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
-  /* background-position-x: 25%; */
-}
-
 @layer base {
   body {
     @apply font-sans dark:selection:text-indigo-900 dark:selection:bg-indigo-300 selection:bg-indigo-700 selection:text-indigo-100;
@@ -47,18 +35,6 @@ html {
     @apply dark:text-white text-black font-semibold;
   }
 
-  .accent-indigo {
-    @apply px-2 dark:text-indigo-300 text-indigo-600 font-mono bg-indigo-50 dark:bg-indigo-900 bg-clip-content;
-  }
-
-  .background-pattern {
-    @apply sm:dark:bg-pattern-dark sm:bg-pattern-light sm:bg-no-repeat sm:bg-origin-content;
-  }
-
-  .background-pattern-sm {
-    @apply sm:dark:bg-pattern-dark-sm sm:bg-pattern-light-sm sm:bg-no-repeat sm:bg-origin-content;
-  }
-
   .custom-focus {
     @apply focus:outline-none focus:ring focus:ring-inset focus:ring-sky-accent focus:rounded-md cursor-pointer;
   }
@@ -67,21 +43,6 @@ html {
     @apply focus:outline-none focus:ring focus:ring-sky-accent focus:rounded-md cursor-pointer;
   }
 
-  .note {
-    @apply text-gray-600 dark:text-gray-300 bg-indigo-50 dark:bg-indigo-900 border-l-4 sm:border-l-8 border-indigo-300 dark:border-indigo-600 text-sm sm:text-base p-2;
-  }
-
-  .title {
-    @apply rainbow py-2 text-5xl font-black tracking-tight;
-  }
-
-  .rainbow-bg {
-    @apply bg-gradient-to-r dark:from-yellow-300 from-yellow-400 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
-  }
-
-  .rainbow {
-    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500;
-  }
 
   .retro {
     @apply text-blue-300 dark:text-amber-50 selection:text-indigo-50 dark:selection:text-gray-800 font-black tracking-tight;
@@ -115,11 +76,24 @@ html {
   .social-youtube {
     @apply dark:hover:text-[#ff0000] hover:text-[#ff0000] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
   }
+
+  .title {
+    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 py-2 text-5xl font-black tracking-tight;
+  }
 }
 
 @layer components {
   .prose {
     @apply dark:text-gray-50 text-gray-500;
+  }
+  .prose a {
+    @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-accent underline-offset-2 text-gray-800 dark:text-gray-50 font-semibold !important;
+  }
+  .prose blockquote {
+    @apply dark:text-indigo-200 text-gray-600;
+  }
+  .prose code {
+    @apply dark:text-indigo-200 text-gray-700;
   }
   .prose h1 {
     @apply retro relative text-center !important;
@@ -133,23 +107,14 @@ html {
   .prose h4 {
     @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
-  .prose blockquote {
-    @apply dark:text-indigo-200 text-gray-600;
-  }
-  .prose code {
-    @apply dark:text-indigo-200 text-gray-700;
+  .prose hr {
+    @apply my-8 sm:my-10 !important;
   }
   .prose pre {
     @apply text-sm lg:text-base !important;
   }
   .prose strong {
     @apply dark:text-white text-gray-800;
-  }
-  .prose a {
-    @apply focus:no-underline hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-accent underline-offset-2 text-gray-800 dark:text-gray-50 font-semibold !important;
-  }
-  .prose hr {
-    @apply my-8 sm:my-10 !important;
   }
 }
 

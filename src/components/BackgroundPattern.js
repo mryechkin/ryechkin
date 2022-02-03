@@ -4,10 +4,10 @@ export default function BackgroundPattern({ className }) {
   const color = cn('text-gray-100 dark:text-gray-600', className);
 
   return (
-    <div className="hidden lg:absolute lg:inset-y-0 lg:block lg:w-10/12 lg:h-full">
+    <div className="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-10/12">
       <div className="relative mx-auto h-full text-lg" aria-hidden="true">
         <svg
-          className="absolute left-full top-12 transform -translate-x-32"
+          className="absolute left-full top-12 -translate-x-32 transform"
           width={404}
           height={384}
           fill="none"
@@ -39,7 +39,7 @@ export default function BackgroundPattern({ className }) {
           />
         </svg>
         <svg
-          className="absolute right-full top-48 transform translate-x-32"
+          className="absolute right-full top-48 translate-x-32 transform"
           width={404}
           height={384}
           fill="none"
@@ -71,7 +71,7 @@ export default function BackgroundPattern({ className }) {
           />
         </svg>
         <svg
-          className="absolute left-full top-96 transform -translate-x-64 translate-y-48"
+          className="absolute left-full top-96 -translate-x-64 translate-y-48 transform"
           width={404}
           height={384}
           fill="none"

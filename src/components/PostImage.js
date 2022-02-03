@@ -13,12 +13,12 @@ import Caption from './Caption';
 
 export default function PostImage({ className, src, width, height, caption = '' }) {
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <Dialog css={{ px: '$8' }}>
+    <div className="flex w-full flex-col items-center justify-center">
+      <Dialog css={{ px: '$8', zIndex: 99999 }}>
         <DialogTrigger asChild>
           <button
             className={cn(
-              'custom-focus-offset mx-auto my-4 w-full max-w-xl rounded-lg shadow cursor-pointer',
+              'custom-focus-offset mx-auto my-4 w-full max-w-xl cursor-pointer rounded-lg shadow',
               className
             )}
             type="button"
@@ -45,7 +45,7 @@ export default function PostImage({ className, src, width, height, caption = '' 
           />
           <DialogClose asChild>
             <IconButton>
-              <XIcon className="w-8 h-8" />
+              <XIcon className="h-8 w-8" />
             </IconButton>
           </DialogClose>
         </DialogContent>

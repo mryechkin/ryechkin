@@ -35,10 +35,12 @@ const social = [
 ];
 
 export default function Footer({ className, hideKylo, setConfetti, slug }) {
+  const year = new Date().getFullYear();
+
   return (
     <footer
       className={cn(
-        'background-pattern-sm sm:bg-right-top mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8',
+        'mx-auto w-full max-w-5xl px-4 sm:bg-pattern-light-sm sm:bg-right-top sm:bg-no-repeat sm:bg-origin-content sm:px-6 sm:dark:bg-pattern-dark-sm lg:px-8',
         className
       )}
     >
@@ -50,7 +52,7 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
           <KyloRen setConfetti={setConfetti} />
         </div>
       )}
-      <div className="flex flex-col items-center justify-center px-2 py-8 w-full space-y-8 lg:flex-row lg:justify-between lg:pt-0 lg:space-y-0">
+      <div className="flex w-full flex-col items-center justify-center space-y-8 px-2 py-8 lg:flex-row lg:justify-between lg:space-y-0 lg:pt-0">
         <span className="flex">
           {social.map((item) => (
             <motion.a
@@ -58,13 +60,13 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="dark:hover:text-sky-accent dark:focus:text-sky-accent mx-1 p-2 focus:text-sky-accent hover:text-sky-accent dark:text-gray-200 text-gray-700 text-xl rounded-md sm:mx-2 sm:text-3xl"
+              className="mx-1 rounded-md p-2 text-xl text-gray-700 hover:text-sky-accent focus:text-sky-accent dark:text-gray-200 dark:hover:text-sky-accent dark:focus:text-sky-accent sm:mx-2 sm:text-3xl"
               whileFocus={{ scale: 1.1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <span className="sr-only">{item.name}</span>
-              <item.icon className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />
+              <item.icon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
             </motion.a>
           ))}
         </span>
@@ -73,8 +75,8 @@ export default function Footer({ className, hideKylo, setConfetti, slug }) {
           <DarkModeToggle className="mt-8 lg:mt-0" />
         </span>
       </div>
-      <div className="flex flex-grow-0 flex-wrap items-center justify-center py-6 text-gray-800 dark:text-white text-xs tracking-tight border-t border-indigo-100 dark:border-indigo-800 sm:mt-8 sm:py-8">
-        <span>&copy; 2021</span>
+      <div className="flex flex-grow-0 flex-wrap items-center justify-center border-t border-indigo-100 py-6 text-xs tracking-tight text-gray-800 dark:border-indigo-800 dark:text-white sm:mt-8 sm:py-8">
+        <span>&copy; {year}</span>
         <span className="ml-1 font-semibold tracking-wide">Mykhaylo Ryechkin</span>.
         <span className="ml-1 font-normal">All rights reserved.</span>
       </div>

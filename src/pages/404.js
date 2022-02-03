@@ -6,11 +6,11 @@ import { Layout } from '@/components';
 export default function NotFound() {
   return (
     <Layout>
-      <div className="pb-8 mx-auto sm:mt-20 text-center prose md:prose-lg lg:prose-xl">
-        <div className="flex justify-center items-center p-8">
-          <FaExclamationTriangle className="w-10 h-10 text-rose-500 dark:text-rose-400" />
+      <div className="prose mx-auto pb-8 text-center sm:mt-20 md:prose-lg lg:prose-xl">
+        <div className="flex items-center justify-center p-8">
+          <FaExclamationTriangle className="h-10 w-10 text-rose-500 dark:text-rose-400" />
         </div>
-        <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold sm:tracking-tight">
+        <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl sm:tracking-tight lg:text-6xl">
           Page Not Found.
         </h1>
         <p className="mx-auto mt-6 max-w-5xl text-base lg:text-lg">

@@ -25,16 +25,16 @@ export default function Snippets({ delay = 100 }) {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center mx-auto w-full h-screen overflow-hidden md:max-w-3xl">
+    <div className="mx-auto flex h-screen w-full flex-col items-center justify-center overflow-hidden md:max-w-3xl">
       <motion.div
-        className="p-2 w-12 h-12 text-cyan-300 font-bold"
+        className="h-12 w-12 p-2 font-bold text-cyan-300"
         initial={false}
         animate={{ ...xy }}
       >
         <StarIcon />
       </motion.div>
       {xy && (
-        <div className="flex flex-col items-start justify-center mt-12 p-8 w-full text-2xl">
+        <div className="mt-12 flex w-full flex-col items-start justify-center p-8 text-2xl">
           <div>
             <strong>X</strong>: <span className="accent mr-4">{xy.x}</span>
           </div>

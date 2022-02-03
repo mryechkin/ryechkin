@@ -9,11 +9,11 @@ export default function About({ data, source }) {
   return (
     <Layout slug="about">
       <SEO title={data.title} />
-      <div className="mx-auto max-w-full prose lg:prose-lg">
+      <div className="prose mx-auto max-w-full lg:prose-lg">
         <h1>About Me</h1>
-        <div className="flex justify-between items-start">
+        <div className="flex items-start justify-between">
           <div className="lg:pr-4">
-            <div className="lg:hidden min-h-[length:12rem]">
+            <div className="lg:hidden">
               <Image
                 src="/assets/hammock-wide.jpg"
                 alt="About me"
@@ -30,15 +30,13 @@ export default function About({ data, source }) {
                 'Next.js',
                 'Supabase',
                 'Rollup',
-                'Vite',
                 'Storybook',
-                'Stitches',
                 'Styled Components',
                 'Tailwind',
               ]}
             />
           </div>
-          <div className="hidden lg:inline-flex flex-shrink-0 pt-4 sm:w-52 lg:w-56">
+          <div className="hidden flex-shrink-0 pt-4 sm:w-52 lg:inline-flex lg:w-56">
             <Image
               src="/assets/hammock.jpg"
               alt="About me"

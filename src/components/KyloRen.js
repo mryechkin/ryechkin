@@ -27,7 +27,7 @@ export default function KyloRen({ setConfetti }) {
       aria-label="Kylo Ren"
       id="kylo-ren"
       type="button"
-      className="flex items-center justify-center p-1 w-16 rounded cursor-pointer select-none"
+      className="flex w-16 cursor-pointer select-none items-center justify-center rounded p-1"
       animate={spinning ? 'rotate' : 'stop'}
       variants={variants}
       whileFocus={{ scale: 1.1 }}

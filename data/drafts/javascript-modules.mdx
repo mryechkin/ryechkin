@@ -1,6 +1,6 @@
 ---
 title: 'JavaScript Module Ecosystem'
-date: '2021-08-24'
+date: '2021-12-01'
 summary: 'Overview of the JavaScript module ecosystem.'
 canonical: 'https://misha.wtf/blog/javascript-modules'
 tags: ['JavaScript', 'ESM', 'CommonJS']
@@ -212,7 +212,106 @@ Doing this allows us to drastically cut down on the overall bundle size, and onl
 
 **ES Modules** are much more compatible with this process. How you structure your exports also plays a big role in whether a module can be tree-shaken or not.
 
-## Reading List:
+## Reference Material:
 
-- https://github.com/facebook/create-react-app/issues/10892
+- https://github.com/sindresorhus/meta/discussions/15
+- https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 - https://gist.github.com/joepie91/bca2fda868c1e8b2c2caf76af7dfcad3#gistcomment-3969223
+- https://github.com/facebook/create-react-app/issues/10892
+- https://github.com/nodejs/modules/issues/509
+- https://redfin.engineering/node-modules-at-war-why-commonjs-and-es-modules-cant-get-along-9617135eeca1
+- https://kentcdodds.com/blog/misunderstanding-es6-modules-upgrading-babel-tears-and-a-solution
+- https://2ality.com/2014/09/es6-modules-final.html
+- https://blog.logrocket.com/how-to-use-ecmascript-modules-with-node-js/
+- https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#gistcomment-3992076
+- https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#gistcomment-3850849
+- https://nodejs.org/api/packages.html#packages_dual_package_hazard
+- https://github.com/microsoft/TypeScript/issues/46452
+- https://github.com/vercel/next.js/issues/17806
+
+- https://sokra.github.io/interop-test/
+
+  - https://twitter.com/wsokra/status/1329088911528714244
+
+- https://github.com/standard-things/esm
+
+## TODO:
+
+- Use of `esm` to import ESM in CJS (provide an example)
+
+## Things to cover
+
+- Brief history / why bundling
+- Dependency resolution / graph
+- `import` = static (expose variable bindings) and async
+- `require` = dynamic (function call, expose object `module.exports`) and sync
+- `import`'s must live at the root level
+- `import`'s also get hoisted, so can be written anywhere in the code (as long as they're at root level)
+- `require` on the other hand is resolved at runtime, which means that it's only evaluated in the place in code where it's called (this is also why it can be called conditionally)
+- `import` can take in only a string literal, whereas `require` accepts any JS expression
+- CommonJS doesn't know what's going to be loaded ahead of time (since `require` is dynamic)
+- With ESM you can statically analyze and tree-shake code
+
+- With classic scripts (ie. `<script src="app.js" />`) everything is in the global context (`window` object)
+- IIFE's were the first attempt to modularize JS code (vars declared within a function are scoped to that function)
+- Tools exist to run CommonJS modules in browsers (ex. `browserify`), which make it behave the same way they do in Node
+
+## Why is it difficult to move away from CommonJS?
+
+- Node was built on it
+- It's everywhere
+- Lots of large codebases still using it
+
+## Interoperability Concerns
+
+Info accumulated from the following sources:
+
+- [Rollup GitHub Issue #481](https://github.com/rollup/plugins/issues/481)
+- [Rollup GitHub Issue #658](https://github.com/rollup/plugins/pull/658)
+- [Babel GitHub Isse #12363](https://github.com/babel/babel/issues/12363)
+- [Rollup Docs](https://rollupjs.org/guide/en/#outputinterop)
+
+### ESM that was transpiled to CJS
+
+> The problem here is to maintain isomorphic behaviour between the original ES module and the CJS module. Named exports are handled mostly correctly when using the "NodeJS with named imports" pattern (except we do not throw for missing exports) however the default export should not be `module.exports` but `module.exports.default`. This is incompatible with the previously listed interop patterns.
+>
+> At the moment most tools implement a runtime detection pattern for this by adding an `__esModule` property to `module.exports` to signify this is a transpiled ES module. Then the algorithm when getting the default import is
+>
+> - If this property is present, use `module.exports.default` as the default export
+> - Otherwise use `module.exports`
+
+**NOTE:** If the entry point doesn't contain any hint it's a compiled ES module, it gets imported as a normal CommonJS module, which doesn't have a default export.
+
+### Using CJS in ESM
+
+One of the biggest differences
+
+## Module Scope
+
+The way modules are loaded is different between browsers and server environment (ie. NodeJS).
+
+Browser loads modules as "stateful singletons" - meaning that the same module will share its state anywhere it's imported in the application for that session.
+
+> "When you import a module, you're not getting a piece of code that you're running, you get reference to an object in memory"
+
+[source](https://youtu.be/j1s_3zytAcM?t=1740)
+
+In a Node.js environment, however, modules are loaded as instances - and as such, each instance has its own state, not shared with any of the other instances of the same module.
+
+## Talking Points
+
+- [output.preserveModules](https://rollupjs.org/guide/en/#outputpreservemodules)
+-
+
+## Issue with MUX bundle
+
+The root of the problem in issue [#2071](https://github.com/manulife-innersource/mux-core/issues/2071) was that `prop-types` was not included in the list of `peerDependencies` in `package.json`, even though it is used internally by the library (meaning that MUX needs that lib to be present in `node_modules` to work properly).
+
+In our Rollup config, we specify a list of `external` modules by pulling the names from `dependencies` and `peerDependencies` in `package.json`, which tells Rollup to not transform any of those modules and not include them in our final bundle. But as I mentioned above, `prop-types` was not included in that list. So, Rollup assumed that the code for `prop-types` needed to be included in the bundle, and would run it through the list of plugins, which includes `@rollup/plugin-commonjs`. This plugin takes CommonJS code and transforms into ES Module format, so that it can be included in the bundle. Problem with this, however, is that we don't need this to happen. The `prop-types` library is already published in the correct format, so there is no need to do this within our bundle (and include it, additionally). By doing that, we are introducing a potential for errors to happen. Which is exactly what happened with this issue.
+
+The particular of what exactly happened are the follows:
+
+- the `prop-types` package wasn't marked as "external", thus being included in the bundle (and as such, having the transformations applied)
+- we have `exports: "named"` option set in Rollup config, since all of MUX modules are named exports (by design)
+- however, this didn't take into account the presence of `prop-types` in that list, which is a CommonJS module (since that's what it's published as)
+- when `output.exports` is set to `"named"`, Rollup creates a CommonJS module where the exports are an object with the `default` property
