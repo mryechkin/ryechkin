@@ -9,6 +9,7 @@ import { getMdxSource } from '@/lib/mdx';
 const videos = [
   {
     title: 'ESLint + Prettier shared config for Next.js',
+    date: '2021-05-15',
     href: 'https://youtu.be/tsPXN4mJGSc',
     summary:
       'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
@@ -17,6 +18,7 @@ const videos = [
   },
   {
     title: 'HeadlessUI Slideover',
+    date: '2021-04-20',
     href: 'https://youtu.be/7GAvtWmVRSY',
     summary:
       'In this video we look at how to update the existing implementation of the Tailwind UI Slide Over component that I showed in an earlier video, with the ready-made React component that is now available out of the box from Tailwind UI.',
@@ -25,6 +27,7 @@ const videos = [
   },
   {
     title: 'Icon Library with SVGR and Rollup',
+    date: '2021-02-23',
     href: 'https://youtu.be/v0ZLEy1SE-A',
     summary:
       'Learn how to build your own SVG icon component library for React! In this video, we use SVGR and Rollup to make a publishable NPM package, with components generated directly from your SVG files.',
@@ -33,6 +36,7 @@ const videos = [
   },
   {
     title: 'Accessible SlideOver with Tailwind UI and React-Aria',
+    date: '2021-01-21',
     href: 'https://youtu.be/9EqJ-xgmIHc',
     summary:
       'In this video I show you everything you need to build the "Slide Over" from Tailwind UI as a fully accessible React component, using Tailwind CSS, React-Aria and Framer Motion.',
@@ -64,7 +68,7 @@ export default function Home({ data, posts, source }) {
         </div>
       </div>
       <div className="mx-auto items-center justify-center">
-        <Prose className="lg:max-w-3xl lg:text-center">
+        <Prose className="text-center lg:max-w-3xl">
           <MDXRemote {...source} />
         </Prose>
         <Separator />

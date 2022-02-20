@@ -10,7 +10,7 @@ export default function NotFound() {
         <div className="flex items-center justify-center p-8">
           <FaExclamationTriangle className="h-10 w-10 text-rose-500 dark:text-rose-400" />
         </div>
-        <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl sm:tracking-tight lg:text-6xl">
+        <h1 className="mt-4 text-4xl font-bold sm:text-5xl sm:tracking-tight lg:text-6xl">
           Page Not Found.
         </h1>
         <p className="mx-auto mt-6 max-w-5xl text-base lg:text-lg">

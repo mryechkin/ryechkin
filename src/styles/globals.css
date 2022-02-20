@@ -16,7 +16,7 @@ html {
   }
 
   a:not(.retro-shadow), input[type="button"]:not(.retro-shadow) {
-    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-sky-accent cursor-pointer;
+    @apply cursor-pointer focus:outline-none focus:ring focus:ring-inset focus:ring-sky-300;
   }
 
   nav a, .nav-link {
@@ -28,24 +28,35 @@ html {
   }
 
   .accent {
-    @apply dark:text-white text-black underline underline-offset-4 decoration-2 decoration-dotted dark:decoration-amber-400 decoration-violet-400 font-semibold;
+     @apply font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-blue-700 dark:from-pink-200 dark:to-blue-200;
   }
 
-  .accent-no-deco {
-    @apply dark:text-white text-black font-semibold;
+  .accent-underline {
+    @apply font-medium text-gray-700 underline dark:text-white underline-offset-4 decoration-2 decoration-dotted dark:decoration-yellow-400 decoration-amber-400;
   }
 
   .custom-focus {
-    @apply focus:outline-none focus:ring focus:ring-inset focus:ring-sky-accent focus:rounded-md cursor-pointer;
+    @apply cursor-pointer focus:outline-none focus:ring focus:ring-inset focus:ring-sky-300 focus:rounded-md;
   }
 
   .custom-focus-offset {
-    @apply focus:outline-none focus:ring focus:ring-sky-accent focus:rounded-md cursor-pointer;
+    @apply cursor-pointer focus:outline-none focus:ring focus:ring-sky-300 focus:rounded-md;
   }
 
+  .note {
+    @apply p-2 bg-white border-2 border-indigo-500 border-dotted dark:bg-gray-800;
+  }
+
+  .note > p {
+    margin: 0;
+  }
+
+  .note strong {
+    @apply accent text-transparent !important;
+  }
 
   .retro {
-    @apply text-blue-300 dark:text-amber-50 selection:text-indigo-50 dark:selection:text-gray-800 font-black tracking-tight;
+    @apply font-black tracking-tight text-blue-300 dark:text-amber-50 selection:text-indigo-50 dark:selection:text-gray-800;
     text-shadow: 3px 2px 0px #4F46E5, 5px 4px 0px #C7D2FE;
   }
 
@@ -78,22 +89,22 @@ html {
   }
 
   .title {
-    @apply text-transparent bg-gradient-to-r bg-clip-text dark:from-yellow-300 from-yellow-500 dark:to-cyan-400 to-cyan-500 dark:via-pink-400 via-pink-500 py-2 text-5xl font-black tracking-tight;
+    @apply py-2 text-5xl font-black tracking-tight retro;
   }
 }
 
 @layer components {
   .prose {
-    @apply dark:text-gray-50 text-gray-500;
+    @apply text-gray-500 dark:text-gray-50;
   }
   .prose a {
-    @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-accent underline-offset-2 text-gray-800 dark:text-gray-50 font-semibold !important;
+    @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
   .prose blockquote {
-    @apply dark:text-indigo-200 text-gray-600;
+    @apply text-gray-600 dark:text-indigo-200;
   }
   .prose code {
-    @apply dark:text-indigo-200 text-gray-700;
+    @apply text-gray-700 dark:text-indigo-200;
   }
   .prose h1 {
     @apply retro relative text-center !important;
@@ -102,7 +113,7 @@ html {
     @apply leading-tight !important;
   }
   .prose h2, .prose h3 {
-    @apply inline-flex my-4 font-extrabold tracking-tight text-gray-700 dark:text-rose-50 !important;
+    @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose h4 {
     @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
@@ -114,7 +125,7 @@ html {
     @apply text-sm lg:text-base !important;
   }
   .prose strong {
-    @apply dark:text-white text-gray-800;
+    @apply font-medium text-gray-700 dark:text-white;
   }
 }
 

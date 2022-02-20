@@ -7,7 +7,7 @@ export default function Blog({ posts }) {
       <SEO title="Blog" />
       <Prose>
         <h1 className="retro py-2 text-5xl">Blog</h1>
-        <div>
+        <div className="text-center lg:max-w-3xl">
           I write about modern web development, design systems and stuff I&apos;ve
           recently learned, used, or just simply find interesting.
         </div>

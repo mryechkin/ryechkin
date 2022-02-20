@@ -1,13 +1,15 @@
 /**
  * Custom theme for Prism, inspired by Monokai (Light + Dark Mode)
+ *
  * Author: Mykhaylo Ryechkin
+ * GitHub: https://github.com/mryechkin
  */
 
 /* Light Mode */
 code[class*="language-"],
 pre[class*="language-"] {
   --attr-name: #6366F1;
-  --attr-value: #60A5FA;
+  --attr-value: #8b5cf6;
   --bg: #F9FAFB;
   --border: #C7D2FE;
   --box-shadow: #E5E7EB;
@@ -22,14 +24,14 @@ pre[class*="language-"] {
 /* Dark Mode */
 html[class="dark"] code[class*="language-"],
 html[class="dark"] pre[class*="language-"] {
-  --attr-name: #A3E635;
-  --attr-value: #FDE68A;
+  --attr-name: #e879f9;
+  --attr-value: #818cf8;
   --bg: #1F2937;
   --border: #312E81;
   --box-shadow: #374151;
   --color: #F3F4F6;
   --comment: #6B7280;
-  --keyword: #67E8F9;
+  --keyword: #68c6d3;
   --parameter: #FB923C;
   --punctuation: #D946EF;
   --tag: #A5B4FC;

@@ -44,12 +44,10 @@ Supabase provides several different authentication mechanisms out of the box:
 
 In this tutorial we'll be using **Email** authentication, with ability to reset forgotten password.
 
-<p className="note">
-  Just want the code? GitHub repo available{' '}
-  <ExternalLink href="https://github.com/mryechkin/nextjs-supabase-auth">
-    here
-  </ExternalLink>
-</p>
+<div className="note">
+  Just want the code? GitHub repo available
+  [here](https://github.com/mryechkin/nextjs-supabase-auth)
+</div>
 
 ## Supabase Client
 
@@ -98,12 +96,12 @@ of the box will be a big time saver.
 In this tutorial, we'll take a look at everything you need to use this component in your
 own application, as well as some ways to customize it to your needs.
 
-<p className="note">
-  <b>NOTE:</b> At the timing of writing this post, Supabase UI is in early development
+<div className="note">
+  **NOTE:** At the timing of writing this post, Supabase UI is in early development
   stages, so the API and some features may still change in the full release. For example,
   theming is not currently supported, and is the reason we'll need to perform some
   workarounds later on.
-</p>
+</div>
 
 ## Supabase Setup
 
@@ -132,7 +130,7 @@ Make sure to keep these on hand, as we'll need them later on.
 ## Next.js Project Setup
 
 For this tutorial, we'll be using [Next.js](https://nextjs.org/) and the
-[TailwindCSS](https://www.tailwindcss.com/) starter template 🚀
+[Tailwind CSS](https://www.tailwindcss.com/) starter template 🚀
 
 To do that, run:
 
@@ -210,17 +208,17 @@ import Head from 'next/head';
 
 export default function Layout({ children }) {
   return (
-    <div className="flex flex-col items-center justify-center py-2 min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
         <title>Next.js with Supabase Auth</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-1 flex-col items-center justify-center px-8 w-full text-center sm:px-20">
+      <main className="flex w-full flex-1 flex-col items-center justify-center px-8 text-center sm:px-20">
         <h1 className="text-5xl font-bold sm:text-6xl">
-          Next.js with <span className="text-green-400 font-black">Supabase</span>
+          Next.js with <span className="font-black text-green-400">Supabase</span>
         </h1>
-        <div className="inline-flex flex-col mt-8 w-full max-w-sm space-y-8">
+        <div className="mt-8 inline-flex w-full max-w-sm flex-col space-y-8">
           {children}
         </div>
       </main>
@@ -229,13 +227,11 @@ export default function Layout({ children }) {
 }
 ```
 
-<p className="note">
-  <b>TIP:</b> Enable{' '}
-  <ExternalLink href="https://nextjs.org/docs/advanced-features/module-path-aliases">
-    absolute import paths and module aliases
-  </ExternalLink>{' '}
-  in Next.js for shorter imports, like `@/components` etc.
-</p>
+<div className="note">
+  **TIP:** Enable [absolute import paths and module
+  aliases](https://nextjs.org/docs/advanced-features/module-path-aliases) in Next.js for
+  shorter imports, like `@/components` etc.
+</div>
 
 We've also abstracted some CSS classes that will be used throughout the app in the `styles/globals.css` file (using Tailwind):
 
@@ -247,15 +243,15 @@ We've also abstracted some CSS classes that will be used throughout the app in t
 
 @layer base {
   h2 {
-    @apply py-4 text-gray-800 text-4xl font-black;
+    @apply py-4 text-4xl font-black text-gray-800;
   }
 
   .button {
-    @apply custom-focus px-8 py-2 text-green-400 hover:text-white focus:text-white font-bold focus:bg-green-400 hover:bg-green-400 bg-white border-2 border-green-400 rounded-full;
+    @apply custom-focus rounded-full border-2 border-green-400 bg-white px-8 py-2 font-bold text-green-400 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:text-white;
   }
 
   .button-inverse {
-    @apply custom-focus px-8 py-2 hover:text-green-400 focus:text-green-400 text-white font-bold bg-green-400 focus:bg-white hover:bg-white border-2 focus:border-green-400 hover:border-green-400 border-white rounded-full;
+    @apply custom-focus rounded-full border-2 border-white bg-green-400 px-8 py-2 font-bold text-white hover:border-green-400 hover:bg-white hover:text-green-400 focus:border-green-400 focus:bg-white focus:text-green-400;
   }
 
   .custom-focus {
@@ -263,11 +259,11 @@ We've also abstracted some CSS classes that will be used throughout the app in t
   }
 
   .heading {
-    @apply text-gray-700 text-lg font-semibold;
+    @apply text-lg font-semibold text-gray-700;
   }
 
   .highlight {
-    @apply ml-1 p-2 font-mono bg-gray-100 rounded-lg;
+    @apply ml-1 rounded-lg bg-gray-100 p-2 font-mono;
   }
 }
 ```
@@ -911,7 +907,6 @@ But don't fret! It's quite easy to work around this limitation in the meantime.
 We can set styling of UI elements in **Supabase UI** by targeting their CSS classes, and
 extend them in our `src/styles/globals.css` file with Tailwind, and our existing custom classes:
 
-<!-- prettier-ignore -->
 ```css
 /* src/styles/globals.css */
 /* ... */
@@ -928,14 +923,14 @@ extend them in our `src/styles/globals.css` file with Tailwind, and our existing
 }
 
 .sbui-typography-link {
-  @apply custom-focus text-green-400 font-bold rounded-full !important;
+  @apply custom-focus rounded-full font-bold text-green-400 !important;
 }
 ```
 
-<p className="note">
-  Note the use of <code>!important</code> here, as we need these styles to be the top-most
+<div className="note">
+  Note the use of `!important` here, as we need these styles to be the top-most
   specificity.
-</p>
+</div>
 
 This will ensure that the input fields, buttons and text links in the **Auth** component use
 the same styling as the rest of our application. We're also making it a bit more accessible

@@ -43,7 +43,7 @@ export default function Snippets({ delay = 100 }) {
           </div>
         </div>
       )}
-      <div className="accent-no-deco py-8 text-3xl font-light tracking-wider">
+      <div className="py-8 text-3xl font-medium tracking-wider text-gray-700 dark:text-white">
         y = cos(x<sup>2</sup>)
       </div>
       <Button

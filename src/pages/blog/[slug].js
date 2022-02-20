@@ -43,16 +43,10 @@ export default function Post({ postData, source }) {
           },
         }}
       />
-      <div className="prose w-full max-w-full lg:prose-lg">
+      <div className="prose prose-sm w-full max-w-full sm:prose-base lg:prose-lg">
         <h1 className="retro">{postData.title}</h1>
         <div className="z-10 inline-flex w-full flex-col items-center justify-center text-center text-sm text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
           <DateDisplay date={postData.date} showIcon />
-          <ExternalLink
-            href={postData.author?.url}
-            icon={<FaTwitter className="inline-block h-6 w-6 pl-1 text-sky-accent" />}
-          >
-            {postData.author?.name}
-          </ExternalLink>
         </div>
         <div className="mx-auto mt-8 max-w-xl shadow-md">
           <Image

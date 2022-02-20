@@ -4,15 +4,18 @@ import { MDXRemote } from 'next-mdx-remote';
 import { Layout, SEO, Separator, Tags } from '@/components';
 import { getDataBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
+import { yearsToDate } from '@/lib/utils';
 
 export default function About({ data, source }) {
+  const experience = yearsToDate('05/01/2009');
+
   return (
     <Layout slug="about">
       <SEO title={data.title} />
       <div className="prose mx-auto max-w-full lg:prose-lg">
         <h1>About Me</h1>
         <div className="flex items-start justify-between">
-          <div className="lg:pr-4">
+          <div className="text-center lg:pr-4 lg:text-left ">
             <div className="lg:hidden">
               <Image
                 src="/assets/hammock-wide.jpg"
@@ -22,7 +25,7 @@ export default function About({ data, source }) {
                 priority
               />
             </div>
-            <MDXRemote {...source} />
+            <MDXRemote {...source} scope={{ experience }} />
             <Tags
               className="justify-center"
               list={[

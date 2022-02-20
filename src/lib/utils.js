@@ -1,3 +1,5 @@
+import { differenceInYears, parse } from 'date-fns';
+
 export function generateArray(size = 1000, increment = 1, from = -10, to = 10) {
   const result = [];
   let curr = from;
@@ -38,4 +40,9 @@ export function toBase64(str) {
   return typeof window === 'undefined'
     ? Buffer.from(str).toString('base64')
     : window.btoa(str);
+}
+
+export function yearsToDate(targetDate) {
+  const date = parse(targetDate, 'MM/dd/yyyy', new Date());
+  return differenceInYears(new Date(), date);
 }

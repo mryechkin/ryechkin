@@ -13,7 +13,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
   return (
     <div className="min-h-screen w-full overflow-hidden bg-gradient-to-r from-yellow-300 via-cyan-400 to-pink-500 pt-2">
       <div className="relative flex min-h-[var(--min-height)] flex-col justify-between bg-gradient-to-br from-white via-indigo-50 to-gray-50 dark:from-gray-800 dark:via-indigo-900 dark:to-gray-900 sm:justify-around">
-        <header className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 pb-4 pt-2 sm:px-6 md:px-8">
+        <header className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 pt-2 pb-4 sm:px-6 md:px-8">
           <div className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter sm:py-4 sm:text-4xl">
             <Avatar className="mr-6 flex" setConfetti={setHeaderConfetti} />
             <Link href="/">

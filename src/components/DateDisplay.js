@@ -5,16 +5,14 @@ import { format, parseISO } from 'date-fns';
 export default function DateDisplay({ className, date: dateString, showIcon }) {
   const date = parseISO(dateString);
   return (
-    <div
-      className={cn(
-        'inline-flex items-center justify-center bg-white py-1 dark:bg-transparent',
-        className
-      )}
-    >
+    <div className={cn('inline-flex justify-center py-1', className)}>
       {showIcon && (
         <BiCalendar className="mr-2 h-4 w-4 text-blue-400 dark:text-indigo-300" />
       )}
-      <time className="font-semibold text-gray-800 dark:text-white" dateTime={dateString}>
+      <time
+        className="font-normal text-gray-700 dark:text-gray-100"
+        dateTime={dateString}
+      >
         {format(date, 'LLLL d, yyyy')}
       </time>
     </div>
