@@ -9,14 +9,14 @@
 code[class*="language-"],
 pre[class*="language-"] {
   --attr-name: #6366F1;
-  --attr-value: #8b5cf6;
+  --attr-value: #d946ef;
   --bg: #F9FAFB;
   --border: #C7D2FE;
   --box-shadow: #E5E7EB;
   --color: #1F2937;
   --comment: #9CA3AF;
   --keyword: #0EA5E9;
-  --parameter: #EF4444;
+  --parameter: #a855f7;
   --punctuation: #C026D3;
   --tag: #EC4899;
 }
@@ -32,7 +32,7 @@ html[class="dark"] pre[class*="language-"] {
   --color: #F3F4F6;
   --comment: #6B7280;
   --keyword: #68c6d3;
-  --parameter: #FB923C;
+  --parameter: #a855f7;
   --punctuation: #D946EF;
   --tag: #A5B4FC;
 }
