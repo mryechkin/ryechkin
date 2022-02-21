@@ -101,7 +101,16 @@ html {
     @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
   .prose blockquote {
-    @apply text-gray-600 dark:text-indigo-200;
+    @apply p-2 not-italic text-gray-600 bg-white border-2 border-indigo-500 border-dotted dark:text-indigo-200 dark:bg-gray-800;
+  }
+  .prose blockquote > p {
+    margin: 0;
+  }
+  .prose blockquote > p::before {
+    display: none;
+  }
+  .prose blockquote > p::after {
+    display: none;
   }
   .prose code {
     @apply text-gray-700 dark:text-indigo-200;
