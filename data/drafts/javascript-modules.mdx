@@ -1,6 +1,6 @@
 ---
 title: 'JavaScript Module Ecosystem'
-date: '2021-12-01'
+date: '2022-02-22'
 summary: 'Overview of the JavaScript module ecosystem.'
 canonical: 'https://misha.wtf/blog/javascript-modules'
 tags: ['JavaScript', 'ESM', 'CommonJS']
@@ -12,30 +12,32 @@ author:
 
 ## Intro
 
-In this post, we will take a look at one of the most fundamentals areas of JavaScript - its module system. We work with JavaScript modules on the daily basis, and it's important to understand their behaviour so that we don't get caught off-guard with some of the specifics.
+Whether we wanted it or not, we ~~stepped into a war with the Cabal~~ use tools like [Browserify](https://browserify.org/), [Webpack](https://webpack.js.org), [Rollup](https://rollupjs.org) and others as part of our modern web development toolchain - but do you know why?
+
+In this post, we take a look at one of the core areas of JavaScript - the **module ecosystem**, and why tools mentioned above are _required_ (you'll get this terrible dadjoke later).
 
 ## Brief History
 
-Before we dive into what modules are, let's take brief look at some JavaScript history.
+For most of its early life, "the web" (ie. browsers) had only one way to load script files - via plain `<script>` tags:
 
-For most of its life, the web had only one way to load script files - via plain `<script>` tags:
-
-```jsx
-<script src="hi.js"></script>
+```js
 <script src="hello.js"></script>
+<script src="world.js"></script>
 ```
 
-This is now what we refer to as **classic** scripts. In classic scripts, all scope is shared (ie. global). There is also no explicit way to specify dependency between files, so order of `<script>` tags very much matters. As you can guess, things get really messy, really quickly!
+This is now what we refer to as "classic" scripts. In classic scripts, all scope is shared (ie. it's global, via the `window` object). There is also no explicit way to specify dependency between files, so order of `<script>` tags matters very much. You need to be careful about the order in which files are imported, and be mindful of subsequent changes in them. As you imagine, things can get really messy, really quickly.
 
-Over time, various tools started to emerge to help solve some of those limitations. Nowadays, JavaScript bundlers like [Webpack](https://webpack.js.org/), [Rollup](https://www.rollupjs.org/), [Parcel](https://parceljs.org/) or [esbuild](https://esbuild.github.io/) are pretty much a standard in most modern JavaScript tech stacks. These bundlers generate the final application (or library) bundle, and allow us to use JavaScript modules.
+Over time, tools started to emerge to help solve some of those limitations. Nowadays, bundlers like [Webpack](https://webpack.js.org/), [Rollup](https://www.rollupjs.org/), [Parcel](https://parceljs.org/) or [esbuild](https://esbuild.github.io/) are pretty much a standard in most modern JavaScript tech stacks. These tools generate the final application (or library) bundle, while enabling us to use JavaScript modules to organize our code.
 
-Why do we even need code bundling, you may ask? In high-latency environments (like the browser), it's faster to send one large file, rather than many small ones. But more importantly, bundling enables us to utilize JavaScript modules in our code.
+Why do we even need code bundling, you may ask?
+
+In high-latency environments (like the browser), it's faster to send one large file, rather than many small ones. Unlike in a server environment, where modules are co-located on the same filesystem, and can be accessed virtually instantly. This plays a key role in some of the differences between module formats which we'll look at later.
 
 ## So what are modules anyway?
 
 Modules are essentially a way to organize code in JavaScript. They let us write code in one file that explicitly depends on (or is a dependency of) code in another file.
 
-When browsers / Node load modules, they build a map of all the modules that are used in the project. This process is called **module resolution**, and the map of modules is often referred to as a **module graph**.
+When browsers / Node load modules, they build a map of all the modules that are used in the project. This process is called **module resolution**, and the map of modules is often referred to as a **module graph**. You know that massive black hole named `node_modules`? Yeah, that's part of this process if you're on Node.
 
 ## Module Specifiers
 
@@ -54,26 +56,32 @@ These are called **module specifiers**. Some differences exist, depending on the
 Module specifiers can be either full or relative URL's:
 
 ```js
-import { other } from 'https://some.cdn.com/some/module.js';
-```
+// Full URL
+import { foo } from 'https://your.cdn.com/some/module.js';
 
-```js
-import { something } from './module.js';
+// Relative URL
+import { foo } from './module.js';
 ```
 
 They can also be "bare" (ie. without specifying file extensions):
 
 ```js
-import { something } from 'module';
+import { foo } from './module';
 ```
 
-**NOTE:** this bare specifier is not supported natively in browsers yet
+**NOTE:** this bare specifier is not yet supported in browsers
 
 ## Module Scope
 
 The way modules are loaded is different between browsers and server environments (ie. Node).
 
-Browsers load modules as **stateful singletons** - meaning that the same module will share its state anywhere it's imported in the application for that session.
+Browser loads modules as **stateful singletons** - meaning that the same module will share its state anywhere it's imported in the application, for the duration of that session.
+
+A good mental model to help understand this better is:
+
+> "When you import a module, you're not getting a piece of code that you're running, you get a reference to an object in memory".
+
+(from [Frontend First Podcast Episode #100](https://youtu.be/j1s_3zytAcM?t=1740) with [Sam Selikoff](https://twitter.com/samselikoff) and [Ryan Toronto](https//twitter.com/ryanto) - their discussion helped a great deal in understanding these concepts, highly recommend a listen!)
 
 In a Node environment, however, modules are loaded as **instances** - and as such, each instance has its own state, not shared with any of the other instances of the same module.
 
@@ -81,7 +89,7 @@ In a Node environment, however, modules are loaded as **instances** - and as suc
 
 There are several different module formats:
 
-- **ES Modules** (or **ESM**)
+- **ES6 Modules** (or **ESM**)
 - **CommonJS** (or **CJS**)
 - **AMD**
 - **UMD**
@@ -91,17 +99,19 @@ Why so many?
 
 First, there are different JavaScript runtime environments. We have the **browser** with its various implementations (Chrome, Firefox, Safari, etc), and then we have the **server**, with runtimes like [Node](https://nodejs.org/) and [Deno](https://deno.land/t).
 
-For a long time, there wasn't a single, agreed-upon standard between those environments in terms of how to deal with modules. There were concurrent attempts at solving the problem (even JS standards are _async_, how meta!) - and as a result, the module formats abov have emerged.
+For a long time, there wasn't a single, agreed-upon standard between those environments in terms of how to deal with modules. There were concurrent attempts at solving the problem (even JS standards are _async_, how meta!) - and as a result, the module formats above have emerged.
 
-Eventually, module format was standardized by the [TC39](https://tc39.es/) committee, with **ES Modules** (or **ESM**) becoming the standard going forward. It, along with the other popular format **CommonJS** (or **CJS**), are the two formats you are most likely to come across and work with today.
+Eventually, module format was standardized by the [TC39](https://tc39.es/) committee, with **ES6 Modules** (or **ESM**) becoming the standard going forward. It, along with the other popular format **CommonJS** (or **CJS**), are the two formats you are most likely to come across and work with today.
 
 Let's take a bit more in-depth look at both.
 
-### ES Modules (ESM)
+### ES6 Modules (ESM)
 
 **ESM** is the standard established and governed by the [TC39](https://tc39.es/) committee. It is the modern standard for JavaScript modules going forward, and is supported natively by all major browsers, as well as newer versions of Node (15+). For Node 14 and below, ESM can be enabled with the help of 3rd party libraries (more on that later).
 
-ESM uses `.js` and `.mjs` extensions (browser and Node, respectively), and utilizes `import` keyword for importing, and `export` for exporting. It also exposes either "default" or "named" exports:
+ESM uses `.js` and `.mjs` extensions (browser and Node, respectively), and utilizes `import` keyword for importing, and `export` for exporting.
+
+When exporting from ESM, you can have either **default** or **named** exports:
 
 ```js
 // foo.js
@@ -112,7 +122,11 @@ export const bar = 'baz';
 
 // default export
 export default foo;
+```
 
+Importing ESM works similarly, where you have both default and named imports:
+
+```js
 // index.js
 import foo, { bar } from './foo.js';
 
@@ -120,9 +134,11 @@ console.log(foo); // "foo";
 console.log(bar); // "baz";
 ```
 
-To import **named** exports, put them inside the curly braces (ie. `{ bar }`), whereas default imports go outside the curly braces.
+To import **named** exports, put them inside the curly braces (ie. `import { bar } from ...`), whereas **default** imports go outside the curly braces (`import foo from ...`).
 
-Due to the nature of ES Modules, code written in it can be statically analyzed and "tree-shaken", so that no extra unused JavaScript is included in the bundle.
+Due to the nature of ESM, code written in it can also be statically analyzed and "tree-shaken", so that no extra unused JavaScript is included in the bundle.
+
+> **"Tree-shaking"** or what is also known as "dead code elimination" is a process through which tools such as **Webpack** and **Rollup** do static analysis of your code, and try to determine which modules aren't utilized. Doing this allows us to drastically cut down on the overall bundle size, and only include what's actually needed to run the app / library. ESM is much more compatible with this process.
 
 Some other characteristics and rules of ESM:
 
@@ -131,13 +147,13 @@ Some other characteristics and rules of ESM:
 - `import` specifier can only accept a string literal (ie. it can't be dynamically generated)
 - `import`'s also get hoisted, so can be written anywhere in the code
 
-To load an ES Module in a browser, we need to specify `type` as `"module"` in the script tag:
+To load an ESM in a browser, we need to specify `type` as `"module"` in the script tag:
 
 ```jsx
 <script type="module" src="/some-module.js"></script>
 ```
 
-When loading in Node, there are several ways to ensure ESM is used:
+When loading in Node, there are several ways to target ESM:
 
 - Set `type` field to `"module"` in the `package.json` of the project
 - Using the `.mjs` file extension
@@ -145,50 +161,48 @@ When loading in Node, there are several ways to ensure ESM is used:
 
 ### CommonJS (CJS)
 
-**CJS** is a module system that originated in [Node](https://nodejs.org/). It uses `module.exports` keyword for exporting, and the `require` keyword for importing:
+CommonJS (or **CJS**) is a module system that originated in [Node](https://nodejs.org/). It has been the prevalent format in the Node ecosystem, and is still used by many libraries today.
+
+CJS uses `module.exports` keyword for exporting, and the `require` keyword for importing:
 
 ```js
 // foo.js
 module.exports = {
   bar: 'baz';
 };
+```
 
+```js
 // index.js
 const foo = require('./foo.js');
 console.log(foo.bar); // "baz"
 ```
 
-CommonJS uses `.js` and `.cjs` file extensions, and it **cannot** be loaded directly in a browser. For that exist specific tools (such as [Browserify](https://browserify.org/)) that allow us to run CommonJS code in a browser environment.
+It uses `.js` and `.cjs` file extensions, and it **cannot** be loaded directly in a browser. For that exist specific tools (such as [Browserify](https://browserify.org/)) that allow us to run CommonJS code in a browser environment.
 
-CJS modules are loaded dynamically, at runtime. They use the `require` keyword, which can accept JavaScript expressions (ie. it's dynamic). However, because of that, JavaScript tools can't know what's going to be loaded ahead of time. This makes CJS modules **not tree-shakeable**, often resulting in bigger bundles.
+Unlike ES6 Modules which are loaded **asynchronously**, CommonJS module resolution is **synchronous**. Remember how we talked about server environments having virtually no latency for module loading? This is why.
 
-Some other characteristics of CJS to be aware of:
-
-- Module specifier is a function call (`require(...)`) and is synchronous (ie. blocking)
-- Module resolution is synchronous
-- Exposes object `module.exports`
+Due to this low latency, CJS modules are loaded dynamically, at runtime. The module specifier is a function, which can accept JavaScript expressions (ie. `require` is dynamic). However, because of that, JavaScript tools can't know what's going to be loaded ahead of time. This makes CJS modules not tree-shakeable, often resulting in bigger bundles.
 
 ## Interoperability
 
-With all the differences between the module formats we've seen so far (we've only covered 2), and the different environments they can be used in, it's evident why there is such a strong need for a **single** uniform module specification.
+With all the differences between the module formats we've seen so far (we've only covered 2), and the different environments they can be used in, it's evident why there is such a strong need for a **single** uniform module specification. Now let us ask a question:
 
-Now let us ask a question: **"What happens if you want to use a CJS module inside an ESM one? Or the other way around?"**
+**"What happens if you want to use a CJS module inside an ESM one? Or the other way around?"**
 
-And the answer is - natively, you can't. Bundlers and transpilers such as **Babel**, **Webpack**, **Rollup** etc. have been doing a decent job of ensuring compatibility between the different formats and runtimes, however some [edge cases](https://github.com/rollup/plugins/issues/481) and [issues](https://github.com/babel/babel/issues/12363) still exist today.
+And the short answer is, it depends. Browsers don't support this natively. For that we have our tooling come to the rescue again. Bundlers and transpilers such as **Babel**, **Webpack**, **Rollup** etc. have been doing a decent job of ensuring compatibility between the different formats and runtimes, however some [edge cases](https://github.com/rollup/plugins/issues/481) and [issues](https://github.com/babel/babel/issues/12363) still exist today.
 
-You might also be wondering: **"Why is it difficult to move away from CommonJS?"**
+In Part 2 of this series, we'll take a closer look at how some of this interoperability behaves.
+
+You might also be wondering, if there are so many issues with interoperability...
+
+**"Why is it difficult to move away from CommonJS?"**
 
 First, it's _everywhere_. It's still the main format used in Node, and has been for years (Node only recently started supporting ESM).
 
 Second, it's a lengthy process. Lots of large (and popular) codebases and tools still use and heavily rely on it. So while there may be a single unified format down the road (ESM), it is not an overnight change, and will take some time for the entire ecosystem to migrate to it.
 
 There are some folks who are eager to help [move the ecosystem forward](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), though others are [against the idea](https://gist.github.com/joepie91/bca2fda868c1e8b2c2caf76af7dfcad3) altogether. Both sides present valuable arguments, and the discussions are worth checking out.
-
-## Tree Shaking
-
-**"Tree-shaking"** or what is also known as **"dead code elimination"** is a process through which tools such as **Webpack** and **Rollup** do static analysis of your code, and try to determine which modules aren't utilized. Doing this allows us to drastically cut down on the overall bundle size, and only include what's actually needed to run the app / library.
-
-ESM is much more compatible with this process. How you structure your exports also plays a big role in whether a module can be tree-shaken or not.
 
 ## Reference Material:
 
@@ -206,6 +220,8 @@ ESM is much more compatible with this process. How you structure your exports al
 - https://nodejs.org/api/packages.html#packages_dual_package_hazard
 - https://github.com/microsoft/TypeScript/issues/46452
 - https://github.com/vercel/next.js/issues/17806
+- https://blog.jscrambler.com/a-quick-introduction-into-es6-modules
+- https://ponyfoo.com/articles/es6#modules
 
 - https://esbuild.github.io/content-types/#default-interop
 
@@ -265,22 +281,6 @@ Info accumulated from the following sources:
 
 **NOTE:** If the entry point doesn't contain any hint it's a compiled ES module, it gets imported as a normal CommonJS module, which doesn't have a default export.
 
-### Using CJS in ESM
-
-One of the biggest differences
-
-## Module Scope
-
-The way modules are loaded is different between browsers and server environment (ie. NodeJS).
-
-Browser loads modules as "stateful singletons" - meaning that the same module will share its state anywhere it's imported in the application for that session.
-
-> "When you import a module, you're not getting a piece of code that you're running, you get reference to an object in memory"
-
-[source](https://youtu.be/j1s_3zytAcM?t=1740)
-
-In a Node.js environment, however, modules are loaded as instances - and as such, each instance has its own state, not shared with any of the other instances of the same module.
-
 ## Talking Points
 
 - [output.preserveModules](https://rollupjs.org/guide/en/#outputpreservemodules)
@@ -298,3 +298,298 @@ The particular of what exactly happened are the follows:
 - we have `exports: "named"` option set in Rollup config, since all of MUX modules are named exports (by design)
 - however, this didn't take into account the presence of `prop-types` in that list, which is a CommonJS module (since that's what it's published as)
 - when `output.exports` is set to `"named"`, Rollup creates a CommonJS module where the exports are an object with the `default` property
+
+**(README.md from the `module` repo below):**
+
+## JavaScript Modules
+
+If you're doing web development today, you've probably heard of tools like Browserify, Webpack, [Rollup](https://rollupjs.org) (and more recently esbuild and Rome). And if you haven't, it's almost guaranteed that you've at least used them (knowingly or not) as part of your favourite development toolkit.
+
+We use these tools on the daily basis, but do we even know why? In this post, we will take a look at some of the core concepts and behaviour of modules in JavaScript, and why tools like [Rollup](https://rollupjs.org) are _required_ :insert-dad-joke-here:
+
+## Module Scope
+
+The way modules are loaded is different between browsers and server environments (ie. Node).
+
+Browser loads modules as "stateful singletons" - meaning that the same module will share its state anywhere it's imported in the application, for the duration of that session.
+
+A good mental model to help understand this better is:
+
+> "When you import a module, you're not getting a piece of code that you're running, you get a reference to an object in memory".
+
+(from [Frontend First Podcast Episode #100](https://youtu.be/j1s_3zytAcM?t=1740) with [Sam Selikoff](https://twitter.com/samselikoff) and [Ryan Toronto](https//twitter.com/ryanto) - their discussion helped a great deal in understanding these concepts, highly recommend a listen!)
+
+In a Node environment, however, modules are loaded as instances - and as such, each instance has its own state, not shared with any of the other instances of the same module.
+
+## Interoperability
+
+Before we continue with the rest of the configuration, let's talk about an important concept - the concept of "interoperability".
+
+To illustrate this, let's say we want to bundle the following code, and target a CommonJS environment (or `cjs`, as we'll see below):
+
+```js
+import external_default, * as external from 'external';
+console.log(external_default, external.namedExport, external);
+```
+
+It's important to note that for tools like [Rollup](https://rollupjs.org), the following:
+
+```js
+import * as external from 'external';
+console.log(external.namedExport);
+```
+
+is completely equivalent to
+
+```js
+import { namedExport } from 'external';
+console.log(namedExport);
+```
+
+and will produce the same code. In the example above however, the namespace object itself is passed to a global function as well, which means we need it as a properly formed object.
+
+The problem happens when `node_modules/zapatos/db.mjs` (an ESM file) imports `node_modules/zapatos/db.js` (a CommonJS file). I think the underlying issue is #532, which is already tracked. Basically there are two conflicting approaches for handling importing a CommonJS file into an ESM file. Some JavaScript tools do this one way and other JavaScript tools do this another way. It's a big mess.
+
+The way node works is that the default export is always equal to the value of the CommonJS file's module.exports property without any exceptions. Some other JavaScript tools (but not node) support CommonJS files that have been converted from ESM format to CommonJS format. These ones are marked by setting module.`exports.__esModule` to true. For these modules, all properties on module.exports behave like named exports as if the file was in ESM format. And if there is no module.exports.default property, then there is no export named default.
+
+So this should be considered a bug in esbuild in that the behavior isn't matching node. But it's not super straightforward to fix this because a trivial fix would break esbuild's ESM-to-CommonJS transform which esbuild relies on internally. Webpack has an approach where they try to support both of these behaviors and use heuristics to determine which approach to apply when. I assume esbuild will have to do something like that.
+
+## Notes
+
+- `import` = static (expose variable bindings) and async
+- `require` = dynamic (function call, expose object `module.exports`) and sync
+- `import`'s must live at the root level
+- `import`'s also get hoisted, so can be written anywhere in the code (as long as they're at root level)
+- `require` on the other hand is resolved at runtime, which means that it's only evaluated in the place in code where it's called (this is also why it can be called conditionally)
+- `import` can take in only a string literal, whereas `require` accepts any JS expression
+- CommonJS doesn't know what's going to be loaded ahead of time (since `require` is dynamic)
+- With ESM you can statically analyze and tree-shake code
+
+- With classic scripts (ie. `<script src="app.js" />`) everything is in the global context (`window` object)
+- IIFE's were the first attempt to modularize JS code (vars declared within a function are scoped to that function)
+- Tools exist to run CommonJS modules in browsers (ex. `browserify`), which make it behave the same way they do in Node
+
+## Demo
+
+With the above in mind, let's take a look at some examples to help us wrap our heads around the above a bit more.
+
+We'll run a few simple examples of typical module usage, in both ESM and CommonJS contexts, using **Node 16** (`16.13.2`) runtime.
+
+There are two ways in Node to run code as either ESM or CJS:
+
+1. Specifying `type` field in `package.json` as either `module` (for ESM), or `commonjs` (for CJS), and keeping file extensions as `.js`
+2. Setting file extension to `.mjs` for ESM, and `.js` for CJS modules, and omitting `type` field in `package.json` altogether (Node will run `.mjs` files as ES Modules)
+
+Either method works. Let's get started!
+
+First, let's create a folder for our project, and initialize it with NPM:
+
+```bash
+$ mkdir modules-example
+$ npm init -y
+```
+
+Then in the root of the project, create a folder `src` and a simple `lib` module. Note that we will have both CommonJS and ES Module formats for demonstration purposes, denoted by `cjs` and `esm` in the filesnames respectively.
+
+**CommonJS (CJS):**
+
+```js
+// src/lib.cjs.js
+const user = { name: 'Human', location: 'Planet Earth' };
+
+const greet = () => `Hello, ${user.name} from ${user.location}!`;
+
+module.exports = { user, greet };
+```
+
+Alternatively, you could also write the above as:
+
+```js
+// src/lib.cjs.js
+exports.user = { name: 'Human', location: 'Planet Earth' };
+exports.greet = () => `Hello, ${user.name} from ${user.location}!`;
+```
+
+**ES Module (ESM):**
+
+```js
+// src/lib.esm.js
+const user = { name: 'Human', location: 'Planet Earth' };
+
+const greet = () => `Hello, ${user.name} from ${user.location}!`;
+
+export default { user, greet };
+```
+
+Next, let's create the main `index.js` file. This will essentially be our "app" where we'll import the `lib` module. We'll take a look at the different ways the two formats behave, depending on what environment you're running in.
+
+### ESM in ESM
+
+For the first example, we will import the default export from the ESM `lib` module:
+
+```js
+// src/index.js
+import lib from './lib.esm.js'; // ESM
+
+console.log(lib);
+```
+
+Make sure that `type="module"` is set in your `package.json`, and then run:
+
+```bash
+$ node src/index.js
+```
+
+We'll get the following output:
+
+```bash
+{
+  user: { name: 'Human', location: 'Planet Earth' },
+  greet: [Function: greet]
+}
+```
+
+Now, change the import to use the CJS format instead:
+
+```js
+// src/index.js
+import lib from './lib.cjs.js'; // CommonJS
+```
+
+Runnng it again, we now get an error:
+
+```bash
+import lib from './lib.cjs.js';
+       ^^^^
+SyntaxError: The requested module './lib.cjs.js' does not provide an export named 'default'
+```
+
+Now, this happens because CommonJS doesn't have a concept of a "default" export, unlike ES Modules. To circumvent this, we'll need to import the entire namespace:
+
+```js
+// src/index.js
+import * as lib from './lib.cjs.js';
+```
+
+But.. not so fast! If you try to run that now, you will get a new error:
+
+```bash
+module.exports = { user, greet };
+^
+
+ReferenceError: module is not defined
+```
+
+Node tries to import `lib.cjs.js` (which is a CommonJS module) while itself running in "module" mode (set via `package.json`). So, we need to tell Node to run in CJS mode by setting type to `"commonjs"` in `package.json`:
+
+```json
+{
+  "type": "commonjs"
+}
+```
+
+We will also need to use the `require` keyword for our imports now, as we are running using CommonJS module system:
+
+```js
+// src/index.js
+const lib = require('./lib.cjs.js');
+```
+
+And now, our output is as expected:
+
+```bash
+{
+  user: { name: 'Human', location: 'Planet Earth' },
+  greet: [Function: greet]
+}
+```
+
+So that's great, but now we need to maintain two separate copies of our code - one in ESM format, and the other in CJS - not to mention having to write completely different import syntax depending on which package we're importing.
+
+Wouldn't it be so much better if we could just write our code in our preferred format, and then have something generate the other missing format(s) for us?
+
+This is where **Rollup** comes into play.
+
+## Rollup
+
+Rollup is a JavaScript module bundler. In this example, we will use it to bundle our source code, and make it compatible with all JS runtimes.
+
+### Installation
+
+First, you will need to install Rollup and some plugins:
+
+```bash
+$ npm i -D rollup @rollup/plugin-commonjs
+```
+
+Then, let's add a script in our `package.json` to run Rollup:
+
+```json
+// package.json
+{
+  "scripts": {
+    "build": "rollup -c"
+  }
+}
+```
+
+This will run Rollup using the default config option, which uses `rollup.config.js` file by default. Let's create that next.
+
+### Configuration
+
+Rollup options can be specified via CLI, but it's much better to set those via the `rollup.config.js` file. Let's go ahead and create that in the root of our project, and set some configuration options:
+
+```js
+// rollup.config.js
+import commonjs from '@rollup/plugin-commonjs';
+
+export default {
+  input: 'src/index.js',
+  output: [
+    {
+      file: 'dist/index.cjs.js',
+      format: 'cjs',
+    },
+    {
+      file: 'dist/index.esm.js',
+      format: 'esm',
+    },
+  ],
+  plugins: [commonjs()],
+};
+```
+
+Now, if we run the build: `npm run build`, we'll see that there is a new folder created called `dist`, with two folders within it: `cjs` and `esm`. These two folders contain output from Rollup, which is our compiled code for CommonJS and ES Module environments, respectively.
+
+Now, if we update our `index.js` to point to this newly generated code:
+
+```js
+// src/index.js
+import lib from '../dist/esm/lib.cjs.js';
+```
+
+and run it again, we get the same output as before (using the original ESM file):
+
+```
+{
+  user: { name: 'World', location: 'Planet Earth' },
+  greet: [Function: greet]
+}
+```
+
+## Reference Material
+
+The following sources were used to compile the information presented in this post:
+
+- [ES Modules: Interoperability with CommonJS (Node.js docs)](https://nodejs.org/api/esm.html#esm_interoperability_with_commonjs)
+- [Output Interop option (Rollup docs)](https://rollupjs.org/guide/en/#outputinterop)
+- [Discussion and overview of (nearly) all current interop issues + ideas how to move forward (Rollup #481)](https://github.com/rollup/plugins/issues/481)
+- [CommonJS Node.js Default Interop Case (Rollup #635)](https://github.com/rollup/plugins/issues/635)
+- [Better interop between native Node.js modules and compiled modules (Babel #12363)](https://github.com/babel/babel/issues/12363)
+- [Node.js default interop case (esbuild #532)](https://github.com/evanw/esbuild/issues/532)
+- [feat(commonjs): Add support for circular dependencies (Rollup PR #658)](https://github.com/rollup/plugins/pull/658)
+- [Dual package hazard (Node.js docs)](https://nodejs.org/api/packages.html#packages_dual_package_hazard)
+- [Webpack 5 Changelog](https://github.com/webpack/changelog-v5#nested-tree-shaking)
+- [JavaScript File Format Differences (jkrems' gist)](https://gist.github.com/jkrems/b14894e0b8efde10aa10a28c652d3541)
+- [ESM-CJS Interop Test](https://sokra.github.io/interop-test/)
+- [EvanW's explanation of ESM + CJS interop (esbuild #909)](https://github.com/evanw/esbuild/issues/909#issuecomment-789636462)
