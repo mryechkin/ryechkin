@@ -28,11 +28,11 @@ html {
   }
 
   .accent {
-     @apply font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-blue-700 dark:from-pink-200 dark:to-blue-200;
+     @apply font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-800 to-sky-900 dark:from-pink-200 dark:to-blue-200;
   }
 
   .accent-underline {
-    @apply font-medium text-gray-700 underline dark:text-white underline-offset-4 decoration-2 decoration-dotted dark:decoration-yellow-400 decoration-amber-400;
+    @apply font-semibold text-gray-700 underline dark:text-white underline-offset-8 decoration-2 decoration-dotted dark:decoration-yellow-400 decoration-amber-400;
   }
 
   .custom-focus {
@@ -101,7 +101,7 @@ html {
     @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
   .prose blockquote {
-    @apply p-2 not-italic text-gray-600 bg-white border-2 border-indigo-500 border-dotted dark:text-indigo-200 dark:bg-gray-800;
+    @apply p-2 not-italic font-normal text-gray-800 bg-white border-2 border-indigo-500 border-dotted dark:text-gray-50 dark:bg-gray-800;
   }
   .prose blockquote > p {
     margin: 0;

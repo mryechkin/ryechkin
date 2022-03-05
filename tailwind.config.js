@@ -9,10 +9,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'pattern-dark': "url('/assets/pattern-dark.svg')",
-        'pattern-dark-sm': "url('/assets/pattern-dark-sm.svg')",
-        'pattern-light': "url('/assets/pattern-light.svg')",
-        'pattern-light-sm': "url('/assets/pattern-light-sm.svg')",
+        'pattern-dark': "url('/assets/graph-paper-dark.svg')",
+        'pattern-light': "url('/assets/graph-paper-light.svg')",
       },
       boxShadow: {
         link: '0 -6px 0 0 var(--colors-sky10) inset',
