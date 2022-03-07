@@ -11,7 +11,18 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
   const [headerConfetti, setHeaderConfetti] = useConfetti();
 
   return (
-    <div className="w-full min-h-screen pt-2 overflow-hidden bg-gradient-to-r from-yellow-300 via-cyan-400 to-pink-500">
+    <div className="w-full min-h-screen pt-2 overflow-hidden bg-blue-600">
+      <div className="flex items-center justify-center w-full h-2 text-center bg-yellow-300">
+        <a
+          className="h-2 text-[0.4rem] font-extrabold uppercase text-blue-600"
+          href="https://donate.redcross.ca/page/100227/donate/1?locale=en-CA"
+          title="Donate to the Ukraine Humanitarian Crisis Appeal"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Слава Україні!
+        </a>
+      </div>
       <div className="relative flex min-h-[var(--min-height)] flex-col justify-between bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark sm:justify-around">
         <header className="w-screen bg-gradient-to-b from-gray-50 via-gray-50 to-transparent dark:from-gray-800 dark:via-gray-800 dark:to-transparent">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 pt-2 pb-4 mx-auto flex-nowrap sm:px-6 md:px-8">
