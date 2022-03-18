@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  --min-height: calc(100vh - 1rem);
+  --min-height: calc(100vh - 2rem);
 }
 
 @layer base {
