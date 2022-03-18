@@ -23,7 +23,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
           #StandWithUkraine
         </a>
       </div>
-      <div className="relative flex min-h-[var(--min-height)] flex-col justify-between bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark sm:justify-around">
+      <div className="relative flex min-h-[var(--min-height)] flex-col justify-between bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
         <header className="w-screen bg-gradient-to-b from-gray-50 via-gray-50 to-transparent dark:from-gray-800 dark:via-gray-800 dark:to-transparent">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 pt-2 pb-4 mx-auto flex-nowrap sm:px-6 md:px-8">
             <div className="flex items-center justify-between py-2 text-2xl font-bold tracking-tighter sm:py-4 sm:text-4xl">
