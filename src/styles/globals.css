@@ -97,7 +97,7 @@ html {
   .prose {
     @apply text-gray-500 dark:text-gray-50;
   }
-  .prose a {
+  .prose a:not(.anchor) {
     @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
   .prose blockquote {
@@ -121,11 +121,8 @@ html {
   .prose-lg h1 {
     @apply leading-tight !important;
   }
-  .prose h2, .prose h3 {
-    @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
-  }
-  .prose h4 {
-    @apply inline-flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
+  .prose h2, .prose h3, .prose h4 {
+    @apply flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose hr {
     @apply my-8 sm:my-10 !important;
@@ -135,6 +132,19 @@ html {
   }
   .prose strong {
     @apply font-medium text-gray-700 dark:text-white;
+  }
+
+  .prose .anchor {
+    @apply absolute ml-[-1em] invisible w-full max-w-4xl no-underline cursor-pointer;
+  }
+
+  .prose .anchor:after {
+    @apply no-underline text-sky-300;
+    content: "#";
+  }
+
+  .prose *:hover > .anchor {
+    @apply sm:visible;
   }
 }
 

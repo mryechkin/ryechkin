@@ -1,9 +1,9 @@
-import { FaTwitter } from 'react-icons/fa';
+import { RiSeparator, RiTwitterLine as Twitter } from 'react-icons/ri';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { DateDisplay, ExternalLink, Layout, SEO } from '@/components';
+import { Counter, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -43,15 +43,30 @@ export default function Post({ postData, source }) {
           },
         }}
       />
-      <div className="prose prose-sm w-full max-w-full sm:prose-base lg:prose-lg">
+      <div className="w-full max-w-full prose-sm prose sm:prose-base lg:prose-lg">
         <h1 className="retro">{postData.title}</h1>
-        <div className="z-10 inline-flex w-full flex-col items-center justify-center text-center text-sm text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
-          <DateDisplay date={postData.date} showIcon />
+        <div className="z-10 inline-flex flex-col items-center justify-center w-full text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
+          <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
+            <ExternalLink
+              alt={postData.author?.name}
+              href={postData.author?.url}
+              icon={<Twitter className="inline-block w-6 h-6 pl-1 text-blue-500" />}
+            >
+              {postData.author?.name}
+            </ExternalLink>
+            <span className="hidden md:block" aria-hidden="true">
+              <RiSeparator className="w-4 h-4 text-blue-500" />
+            </span>
+            <DateDisplay date={postData.date} showIcon />
+          </div>
+          <div className="hidden md:flex">
+            <Counter slug={`blog/${postData.slug}`} />
+          </div>
         </div>
-        <div className="mx-auto mt-8 max-w-xl shadow-md">
+        <div className="max-w-xl mx-auto mt-8 shadow-md">
           <Image
             src={`/blog/${postData.slug}/cover.png`}
-            className="rounded-lg bg-gray-900"
+            className="bg-gray-900 rounded-lg"
             layout="responsive"
             height={627}
             width={1200}

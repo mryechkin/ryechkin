@@ -15,8 +15,23 @@ const strong = (props) => (
   </span>
 );
 
+function CustomLink(props) {
+  const { children, href } = props;
+  const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+
+  if (isInternalLink) {
+    return (
+      <Link href={href}>
+        <a {...props}>{children}</a>
+      </Link>
+    );
+  }
+
+  return <ExternalLink {...props} />;
+}
+
 const MDX = {
-  a: ExternalLink,
+  a: CustomLink,
   hr: Separator,
   Caption,
   ExternalLink,
