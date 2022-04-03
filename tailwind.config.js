@@ -11,6 +11,8 @@ module.exports = {
       backgroundImage: {
         'pattern-dark': "url('/assets/graph-paper-dark.svg')",
         'pattern-light': "url('/assets/graph-paper-light.svg')",
+        'circuit-dark': "url('/assets/circuit-board-dark.svg')",
+        'circuit-light': "url('/assets/circuit-board-light.svg')",
       },
       boxShadow: {
         link: '0 -6px 0 0 var(--colors-sky10) inset',

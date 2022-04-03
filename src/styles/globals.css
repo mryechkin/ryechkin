@@ -127,15 +127,16 @@ html {
   .prose hr {
     @apply my-8 sm:my-10 !important;
   }
-  .prose pre {
-    @apply text-sm lg:text-base !important;
+  .prose pre[class*="language-"] {
+    @apply text-sm mt-0 lg:text-base !important;
   }
+
   .prose strong {
     @apply font-medium text-gray-700 dark:text-white;
   }
 
   .prose .anchor {
-    @apply absolute ml-[-1em] invisible w-full max-w-4xl no-underline cursor-pointer;
+    @apply absolute ml-[-0.875em] invisible w-full max-w-4xl no-underline cursor-pointer;
   }
 
   .prose .anchor:after {
@@ -144,7 +145,11 @@ html {
   }
 
   .prose *:hover > .anchor {
-    @apply sm:visible;
+    @apply visible;
+  }
+
+  .prose .rehype-code-title {
+    @apply bg-[#E5E7EB] dark:bg-[#374151] p-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300;
   }
 }
 

@@ -1,6 +1,7 @@
 import mdxPrism from 'mdx-prism';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeSlug from 'rehype-slug';
 
 export async function getMdxSource(post) {
@@ -8,8 +9,8 @@ export async function getMdxSource(post) {
     mdxOptions: {
       remarkPlugins: [],
       rehypePlugins: [
-        mdxPrism,
         rehypeSlug,
+        rehypeCodeTitles,
         [
           rehypeAutolinkHeadings,
           {
@@ -17,6 +18,7 @@ export async function getMdxSource(post) {
             properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
           },
         ],
+        mdxPrism,
       ],
     },
     scope: post.data,

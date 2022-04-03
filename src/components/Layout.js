@@ -35,7 +35,6 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
               </Link>
             </div>
             <div className="flex items-center justify-center">
-              <DarkModeToggle className="mr-2 md:mr-4 lg:hidden" />
               <Menu />
               <DarkModeToggle className="hidden lg:ml-4 lg:block" />
             </div>
@@ -45,7 +44,7 @@ export default function Layout({ children, confetti = false, slug = 'index' }) {
           <Confetti active={confetti || headerConfetti} config={{ spread: 360 }} />
         </div>
         <main className="w-full overflow-hidden max-w-none">
-          <div className="max-w-5xl px-4 mx-auto sm:px-6 md:px-8">{children}</div>
+          <div className="max-w-5xl px-6 mx-auto md:px-8">{children}</div>
         </main>
         <Footer
           className="bg-gradient-to-b from-transparent via-gray-50 to-gray-50 dark:from-transparent dark:via-gray-800 dark:to-gray-900"
