@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html {
+  @apply scroll-smooth;
   --min-height: calc(100vh - 2rem);
 }
 
@@ -19,7 +20,7 @@ html {
     @apply cursor-pointer focus:outline-none focus:ring focus:ring-inset focus:ring-sky-300;
   }
 
-  nav a, .nav-link {
+  nav:not(.toc) a, .nav-link {
     @apply transition-all hover:shadow-link shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
   }
 
@@ -28,7 +29,7 @@ html {
   }
 
   .accent {
-     @apply font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-orange-500 dark:from-blue-300 dark:to-yellow-300;
+     @apply font-semibold text-indigo-600 dark:text-yellow-300;
   }
 
   .accent-underline {
@@ -149,7 +150,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply bg-[#E5E7EB] dark:bg-[#374151] p-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300;
+    @apply bg-[#C7D2FE] dark:bg-[#312E81] border border-[#C7D2FE] dark:border-[#312E81] p-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300;
   }
 }
 

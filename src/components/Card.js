@@ -25,7 +25,12 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
               <HiOutlineExternalLink className="flex-shrink-0 inline-block ml-2" />
             )}
           </div>
-          {item.date && <DateDisplay className="mt-2 text-sm" date={item.date} />}
+          <div className="flex items-center justify-start gap-2">
+            {item.date && <DateDisplay className="mt-2 text-sm" date={item.date} />}
+            {item.readingTime?.text && (
+              <span className="mt-2 text-sm">({item.readingTime.text})</span>
+            )}
+          </div>
           {item.tags?.length && (
             <div className="flex flex-wrap items-center justify-start">
               {item.tags.map((tag) => (

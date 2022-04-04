@@ -1,3 +1,4 @@
+import rehypeToc from '@jsdevtools/rehype-toc';
 import mdxPrism from 'mdx-prism';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -18,6 +19,7 @@ export async function getMdxSource(post) {
             properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
           },
         ],
+        rehypeToc,
         mdxPrism,
       ],
     },

@@ -1,5 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as BackgroundPattern } from './BackgroundPattern';
+export { default as BackToTop } from './BackToTop';
 export { default as Badges } from './Badges';
 export { default as Card } from './Card';
 export { default as Counter } from './Counter';
@@ -23,5 +24,6 @@ export { default as Prose } from './Prose';
 export { default as RickRoll } from './RickRoll';
 export { default as SEO } from './SEO';
 export { default as Separator } from './Separator';
+export { default as SlideOver } from './SlideOver';
 export { default as Tags } from './Tags';
 export { default as Videos } from './Videos';

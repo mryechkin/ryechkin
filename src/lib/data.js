@@ -3,6 +3,7 @@ import { join } from 'path';
 
 import { parseISO } from 'date-fns';
 import matter from 'gray-matter';
+import readingTime from 'reading-time';
 
 const dataDirectory = join(process.cwd(), 'data');
 const postsDirectory = join(process.cwd(), 'data/posts');
@@ -13,7 +14,14 @@ export function getDataBySlug(slug, directory = dataDirectory) {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  return { data: { ...data, slug: realSlug }, content };
+  return {
+    data: {
+      ...data,
+      readingTime: readingTime(fileContents),
+      slug: realSlug,
+    },
+    content,
+  };
 }
 
 export function getPostBySlug(slug) {
@@ -23,10 +31,9 @@ export function getPostBySlug(slug) {
 export function getAllPosts() {
   const slugs = fs.readdirSync(postsDirectory);
   const posts = slugs.map((slug) => getPostBySlug(slug));
-  const data = posts.sort(
+  return posts.sort(
     (a, b) =>
       // sort by date
       parseISO(b.data.date) - parseISO(a.data.date)
   );
-  return data;
 }

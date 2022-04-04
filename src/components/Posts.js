@@ -3,7 +3,7 @@ import Card from './Card';
 export default function Posts({ data }) {
   return data?.length
     ? data.map((post) => {
-        const { date, summary, slug, tags, title } = post.data;
+        const { date, readingTime, summary, slug, tags, title } = post.data;
         return (
           <Card
             key={slug}
@@ -11,6 +11,7 @@ export default function Posts({ data }) {
               href: `/blog/${slug}`,
               imageUrl: `/blog/${slug}/cover.png`,
               date,
+              readingTime,
               summary,
               tags,
               title,

@@ -25,6 +25,9 @@ module.exports = {
       fontFamily: {
         sans: ['Heebo', ...defaultTheme.fontFamily.sans],
       },
+      fontSize: {
+        xxs: '0.5rem',
+      },
       keyframes: {
         slow: {
           '0%, 100%': { transform: 'rotate(-2deg)' },

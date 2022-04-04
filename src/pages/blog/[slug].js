@@ -1,9 +1,9 @@
-import { RiSeparator, RiTwitterLine as Twitter } from 'react-icons/ri';
+import { FaTwitter as Twitter } from 'react-icons/fa';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Counter, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
+import { BackToTop, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
@@ -45,23 +45,25 @@ export default function Post({ postData, source }) {
       />
       <div className="w-full max-w-full prose-sm prose sm:prose-base lg:prose-lg">
         <h1 className="retro">{postData.title}</h1>
-        <div className="z-10 inline-flex flex-col items-center justify-center w-full text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
+        <div className="z-10 inline-flex flex-col items-center justify-center w-full gap-2 text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
           <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-            <ExternalLink
-              alt={postData.author?.name}
-              href={postData.author?.url}
-              icon={<Twitter className="inline-block w-6 h-6 pl-1 text-blue-500" />}
-            >
-              {postData.author?.name}
-            </ExternalLink>
-            <span className="hidden md:block" aria-hidden="true">
-              <RiSeparator className="w-4 h-4 text-blue-500" />
-            </span>
             <DateDisplay date={postData.date} showIcon />
+            {postData.readingTime?.text && (
+              <div className="">{postData.readingTime.text}</div>
+            )}
           </div>
-          <div className="hidden md:flex">
-            <Counter slug={`blog/${postData.slug}`} />
-          </div>
+          <ExternalLink
+            alt={postData.author?.name}
+            href={postData.author?.url}
+            icon={
+              <Twitter
+                aria-hidden="true"
+                className="ml-2 inline-block h-5 w-5 text-[#1d9bef]"
+              />
+            }
+          >
+            {postData.author?.name}
+          </ExternalLink>
         </div>
         <div className="max-w-xl mx-auto mt-8 shadow-md">
           <Image
@@ -77,6 +79,9 @@ export default function Post({ postData, source }) {
         <article className="z-10 py-4 text-gray-800 dark:text-gray-50 md:pt-8">
           <MDXRemote {...source} />
         </article>
+        <div className="flex items-center justify-center p-2">
+          <BackToTop />
+        </div>
       </div>
     </Layout>
   );
