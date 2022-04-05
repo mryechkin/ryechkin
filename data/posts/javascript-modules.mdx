@@ -7,7 +7,7 @@ tags: ['JavaScript', 'Tooling', 'ESM', 'CommonJS']
 seo: ['JavaScript', 'Modules', 'Module System', 'Node.js', 'CommonJS', 'CJS', 'ESM']
 author:
   name: 'Mykhaylo Ryechkin'
-  url: 'https://twitter.com/misha_wtf'
+  url: 'https://twitter.com/mryechkin'
 ---
 
 ## Intro
@@ -96,7 +96,7 @@ Browser loads modules as **stateful singletons** - meaning that the same module 
 
 > **"When you import a module, you're not getting a piece of code that you're running, you get a reference to an object in memory"**
 
-(shoutout to [Sam Selikoff](https://twitter.com/samselikoff) and [Ryan Toronto](https//twitter.com/ryanto) from [Frontend First Podcast](https://frontendfirst.fm/) whose discussion in [Episode #100](https://youtu.be/j1s_3zytAcM?t=1740) helped a great deal in understanding these concepts)
+(shoutout to [Sam Selikoff](https://twitter.com/samselikoff) and [Ryan Toronto](https://twitter.com/ryanto) from [Frontend First Podcast](https://frontendfirst.fm/) whose discussion in [Episode #100](https://youtu.be/j1s_3zytAcM?t=1740) helped a great deal in understanding these concepts)
 
 In a Node environment, however, modules are loaded as **instances**. This means that each imported module instance in your app has its own state, not shared with any of the other instances of the same module - so you no longer have a **global** module state.
 
@@ -223,7 +223,7 @@ Due to this low latency, CJS modules are loaded dynamically, at runtime. The mod
 const { thing } = require(isTrue ? './a.js' : './b.js');
 ```
 
-However, this has certain tradeoffs. For instance, JavaScript tools can't know what's going to be loaded ahead of time. This unfortunately makes CommonJS modules not compatible with tree-shaking. It's much less of a concern on the server - since you're not sending code to the client - and if we rememeber that the CJS module format originated in Node, then it make sense why this format wouldn't concern itself with that.
+However, this has certain tradeoffs. For instance, JavaScript tools can't know what's going to be loaded ahead of time. This unfortunately makes CommonJS modules not compatible with tree-shaking. It's much less of a concern on the server - since you're not sending code to the client - and if we remember that the CJS module format originated in Node, then it make sense why this format wouldn't concern itself with that.
 
 ## Interoperability
 

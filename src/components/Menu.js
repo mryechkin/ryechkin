@@ -51,7 +51,7 @@ export default function Menu() {
         <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
       </motion.button>
       <SlideOver className="lg:hidden" open={isOpen} setOpen={setIsOpen}>
-        <div className="flex flex-col items-center justify-between flex-1 h-full">
+        <div className="flex flex-col items-center justify-around flex-1 h-full">
           <div className="font-light tracking-wider text-gray-700 uppercase dark:text-gray-300">
             <span className="font-extrabold">Misha</span>.WTF
           </div>

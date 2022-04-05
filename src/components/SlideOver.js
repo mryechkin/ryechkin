@@ -9,7 +9,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
       <Dialog
         as="div"
         static
-        className={cn('fixed inset-0 overflow-hidden', className)}
+        className={cn('fixed inset-0 z-50 overflow-hidden', className)}
         open={open}
         onClose={setOpen}
       >
@@ -35,7 +35,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="relative w-screen max-w-xs bg-gray-50 bg-circuit-light dark:bg-gray-800 dark:bg-circuit-dark">
+              <div className="relative w-screen max-w-xs bg-gray-100 border-l border-gray-200 dark:border-gray-900 dark:bg-gray-800">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-400"
@@ -45,7 +45,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 flex">
+                  <div className="absolute top-0 right-0 z-30 flex">
                     <button
                       type="button"
                       className="p-2 text-gray-300 rounded-md custom-focus hover:text-white"
@@ -56,8 +56,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex flex-col h-full overflow-y-scroll shadow-xl">
-                  <div className="h-14 bg-gray-50 dark:bg-gray-800" />
+                <div className="flex flex-col items-center justify-center h-full overflow-y-auto shadow-xl">
                   {title && (
                     <div className="px-4 sm:px-6">
                       <Dialog.Title className="text-lg font-medium text-gray-900">
@@ -65,10 +64,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
                       </Dialog.Title>
                     </div>
                   )}
-                  <div className="relative h-full bg-gradient-to-b from-gray-50 via-transparent to-gray-50 dark:from-gray-800 dark:via-transparent dark:to-gray-800">
-                    {children}
-                  </div>
-                  <div className="px-8 h-14 bg-gray-50 dark:bg-gray-800" />
+                  <div className="relative h-full">{children}</div>
                 </div>
               </div>
             </Transition.Child>

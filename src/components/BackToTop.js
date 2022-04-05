@@ -31,7 +31,7 @@ export default function BackToTop({ className }) {
       >
         <BiUpArrowCircle className="w-6 h-6" />
       </motion.button>
-      <span ariaHidden className="font-black tracking-widest uppercase text-xxs">
+      <span aria-hidden="true" className="font-black tracking-widest uppercase text-xxs">
         Back to top
       </span>
     </div>

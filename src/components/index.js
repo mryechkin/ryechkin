@@ -7,7 +7,6 @@ export { default as Counter } from './Counter';
 export { default as DarkModeToggle } from './DarkModeToggle';
 export { default as DateDisplay } from './DateDisplay';
 export { default as ExternalLink } from './ExternalLink';
-export { default as Footer } from './Footer';
 export { default as GoogleAnalytics } from './GoogleAnalytics';
 export { default as GradientContainer } from './GradientContainer';
 export { default as Highlight } from './Highlight';

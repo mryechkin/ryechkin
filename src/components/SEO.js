@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 
-export default function SEO({ description, title, openGraph, canonical }) {
-  const fullTitle = `Mykhaylo Ryechkin | ${title}`;
+export default function SEO({ description, image, title, openGraph, canonical }) {
+  const fullTitle = `${title} - Mykhaylo Ryechkin`;
 
   // const options = {
   //   bg: 'white',
@@ -23,14 +23,16 @@ export default function SEO({ description, title, openGraph, canonical }) {
       <Head>
         <meta
           name="og:image"
-          content="https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100"
+          content={
+            image || 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100'
+          }
         />
         <meta name="twitter:title" content={fullTitle} />
       </Head>
       <NextSeo
         description={description}
         title={title}
-        titleTemplate="Mykhaylo Ryechkn | "
+        titleTemplate="%s - Mykhaylo Ryechkn"
         defaultTitle="Mykhaylo Ryechkin"
         canonical={canonical}
         openGraph={
@@ -38,7 +40,9 @@ export default function SEO({ description, title, openGraph, canonical }) {
             title: fullTitle,
             images: [
               {
-                url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
+                url:
+                  image ||
+                  'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
                 width: 1200,
                 height: 627,
                 alt: 'Mykhaylo Ryechkin',

@@ -1,7 +1,16 @@
 import { FiSmile } from 'react-icons/fi';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Card, Layout, PeaceSign, Posts, Prose, SEO, Separator } from '@/components';
+import {
+  Card,
+  Counter,
+  Layout,
+  PeaceSign,
+  Posts,
+  Prose,
+  SEO,
+  Separator,
+} from '@/components';
 import { getAllPosts, getDataBySlug } from '@/lib/data';
 import { useConfetti } from '@/lib/hooks';
 import { getMdxSource } from '@/lib/mdx';
@@ -51,8 +60,8 @@ export default function Home({ data, posts, source }) {
   return (
     <Layout confetti={confetti}>
       <SEO title={data.title} />
-      <div className="inline-flex w-full items-end justify-center">
-        <div className="w-full max-w-3xl flex-shrink-0 font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
+      <div className="inline-flex items-end justify-center w-full">
+        <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 text-yellow-500 dark:text-yellow-300">
               Hey
@@ -63,11 +72,11 @@ export default function Home({ data, posts, source }) {
               />
               I&apos;m
             </span>
-            <span className="retro ml-1 inline-flex sm:ml-2">Mykhaylo.</span>
+            <span className="inline-flex ml-1 retro sm:ml-2">Mykhaylo.</span>
           </span>
         </div>
       </div>
-      <div className="mx-auto items-center justify-center">
+      <div className="items-center justify-center mx-auto">
         <Prose className="text-center lg:max-w-3xl">
           <MDXRemote {...source} />
         </Prose>
@@ -82,12 +91,15 @@ export default function Home({ data, posts, source }) {
           ))}
         </div>
         <Separator />
-        <div className="inline-flex w-full items-center justify-center">
+        <div className="inline-flex items-center justify-center w-full">
           Thanks for stopping by
           <span className="pl-2 text-2xl text-blue-400 dark:text-rose-400">
             <FiSmile />
           </span>
         </div>
+      </div>
+      <div className="flex items-center justify-center pt-12">
+        <Counter slug="index" />
       </div>
     </Layout>
   );

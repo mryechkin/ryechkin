@@ -3,22 +3,24 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { BackToTop, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
+import { BackToTop, Counter, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
 import { getAllPosts, getPostBySlug } from '@/lib/data';
 import { getMdxSource } from '@/lib/mdx';
 
 export default function Post({ postData, source }) {
   const fullTitle = `Mykhaylo Ryechkin | ${postData.title}`;
   const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${postData.slug}%2Fcover.png&w=1200&q=100`;
+  const slug = `blog/${postData.slug}`;
 
   return (
-    <Layout hideKylo slug={`blog/${postData.slug}`}>
+    <Layout hideKylo slug={slug}>
       <Head>
         <title>{fullTitle}</title>
         <meta name="og:image" content={image} />
         <meta name="twitter:title" content={fullTitle} />
       </Head>
       <SEO
+        image={image}
         title={postData.title}
         description={postData.summary}
         canonical={postData.canonical}
@@ -81,6 +83,9 @@ export default function Post({ postData, source }) {
         </article>
         <div className="flex items-center justify-center p-2">
           <BackToTop />
+        </div>
+        <div className="flex items-center justify-center py-8">
+          <Counter slug={slug} />
         </div>
       </div>
     </Layout>
