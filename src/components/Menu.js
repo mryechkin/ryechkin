@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { MenuAlt4Icon } from '@heroicons/react/outline';
-import cn from 'classnames';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+} from '@chakra-ui/react';
+import { MenuAlt4Icon, XCircleIcon } from '@heroicons/react/outline';
+import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 import DarkModeToggle from './DarkModeToggle';
-import SlideOver from './SlideOver';
 import Social from './Social';
 
 const links = [
-  { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
 ];
@@ -20,7 +26,7 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
     <nav
       aria-label={ariaLabel}
       className={cn(
-        'flex items-center justify-center lg:flex lg:flex-row lg:space-x-4',
+        'flex items-center justify-center lg:flex lg:flex-row lg:space-x-2',
         className
       )}
     >
@@ -37,6 +43,8 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
+
   return (
     <>
       <motion.button
@@ -50,24 +58,40 @@ export default function Menu() {
       >
         <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
       </motion.button>
-      <SlideOver open={isOpen} setOpen={setIsOpen}>
-        <div className="flex flex-col items-center justify-around flex-1 h-full">
-          <div className="font-light tracking-wider text-gray-700 uppercase dark:text-gray-300">
-            <span className="font-extrabold">Misha</span>.WTF
-          </div>
-          <Image
-            src="/assets/avatar.jpg"
-            width={56}
-            height={56}
-            className="rounded-full"
-            aria-hidden
-          />
-          <Nav className="flex-col lg:flex-col" />
-          <Social />
-          <DarkModeToggle />
-        </div>
-      </SlideOver>
-      <Nav className="hidden" />
+      <Drawer
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        placement="right"
+        size="full"
+        isFullHeight
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton size="lg" mt="10" mr="4">
+            <XCircleIcon className="w-8 h-8 text-rose-400" aria-hidden="true" />
+          </DrawerCloseButton>
+          <DrawerBody bg={theme === 'light' ? 'gray.100' : 'gray.800'}>
+            <div className="flex flex-col items-center justify-center flex-1 h-full gap-8 text-xl sm:gap-12 md:gap-14">
+              <Link href="/">
+                <a className="p-2 text-xl font-normal text-gray-800 uppercase rounded-md dark:text-gray-50">
+                  <span className="font-black">Misha</span>.WTF
+                </a>
+              </Link>
+              <Image
+                src="/assets/avatar.jpg"
+                width={56}
+                height={56}
+                className="rounded-full"
+                aria-hidden
+              />
+              <Nav className="flex-col text-base lg:flex-col" />
+              <Social />
+              <DarkModeToggle />
+            </div>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+      <Nav className="hidden text-xl" />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/data';
 
 export default function Blog({ posts }) {
   return (
-    <Layout slug="blog">
+    <Layout>
       <SEO title="Blog" />
       <Prose>
         <h1 className="py-2 text-5xl retro">Blog</h1>

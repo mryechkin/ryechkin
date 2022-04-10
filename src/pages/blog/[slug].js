@@ -13,7 +13,7 @@ export default function Post({ postData, source }) {
   const slug = `blog/${postData.slug}`;
 
   return (
-    <Layout hideKylo slug={slug}>
+    <Layout>
       <Head>
         <title>{fullTitle}</title>
         <meta name="og:image" content={image} />
@@ -47,9 +47,9 @@ export default function Post({ postData, source }) {
       />
       <div className="w-full max-w-full prose-sm prose dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{postData.title}</h1>
-        <div className="z-10 inline-flex flex-col items-center justify-center w-full gap-2 text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
-          <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-            <DateDisplay date={postData.date} showIcon />
+        <div className="z-10 inline-flex flex-col items-center justify-center w-full gap-4 text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
+          <div className="flex items-center justify-center gap-2 flex-nowrap">
+            <DateDisplay date={postData.date} />
             {postData.readingTime?.text && (
               <div className="">{postData.readingTime.text}</div>
             )}
@@ -69,7 +69,7 @@ export default function Post({ postData, source }) {
         </div>
         <div className="max-w-xl mx-auto mt-8 shadow-md">
           <Image
-            src={`/blog/${postData.slug}/cover.png`}
+            src={`/${slug}/cover.png`}
             className="bg-gray-900 rounded-lg"
             layout="responsive"
             height={627}

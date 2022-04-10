@@ -27,7 +27,7 @@ html[class="dark"] pre[class*="language-"] {
   --attr-name: #e879f9;
   --attr-value: #818cf8;
   --bg: #1F2937;
-  --border: #312E81;
+  --border: #3730A3;
   --box-shadow: #374151;
   --color: #F3F4F6;
   --comment: #6B7280;
@@ -38,15 +38,8 @@ html[class="dark"] pre[class*="language-"] {
 }
 
 pre[class*="language-"] > code {
-  --border-width: 0;
-  --codeblock-padding: 0.5em 0.5em;
-}
-
-@media (min-width: 1024px) {
-  pre[class*="language-"] > code {
-    --border-width: 5px;
-    --codeblock-padding: 0.5em 1em;
-  }
+  --border-width: 2px;
+  --codeblock-padding: 0.5em 1em;
 }
 
 code[class*="language-"],
@@ -77,8 +70,7 @@ pre[class*="language-"] {
 }
 pre[class*="language-"] > code {
   position: relative;
-  border-left: var(--border-width) solid var(--border);
-  box-shadow: 0 0 0 0 var(--border), 0 0 0 1px var(--box-shadow);
+  border: var(--border-width) solid var(--border);
   background-color: var(--bg);
   background-image: linear-gradient(
     transparent 50%,

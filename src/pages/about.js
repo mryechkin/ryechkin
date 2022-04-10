@@ -39,7 +39,7 @@ export default function About({ data, source }) {
               ]}
             />
           </div>
-          <div className="flex-shrink-0 hidden pt-4 sm:w-52 lg:inline-flex lg:w-56">
+          <div className="flex-shrink-0 hidden pt-4 sm:w-48 lg:inline-flex lg:w-52">
             <Image
               src="/assets/hammock.jpg"
               alt="About me"

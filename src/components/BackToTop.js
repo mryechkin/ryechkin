@@ -16,7 +16,7 @@ export default function BackToTop({ className }) {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2 text-rose-400 dark:text-indigo-500">
+    <div className="flex flex-col items-center justify-center gap-2 text-rose-400 dark:text-blue-500">
       <motion.button
         aria-label="Back to top"
         type="button"

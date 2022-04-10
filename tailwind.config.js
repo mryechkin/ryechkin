@@ -15,12 +15,12 @@ module.exports = {
         'circuit-light': "url('/assets/circuit-board-light.svg')",
       },
       boxShadow: {
-        link: '0 -6px 0 0 var(--colors-sky10) inset',
-        underline: '0 -2px 0 0 var(--colors-sky10) inset',
+        link: '0 -6px 0 0 #7dd3fc inset',
+        underline: '0 -2px 0 0 #7dd3fc inset',
       },
       colors: {
         pink: colors.fuchsia,
-        'sky-accent': 'var(--colors-sky10)',
+        'sky-accent': '#7dd3fc',
       },
       fontFamily: {
         sans: ['Heebo', ...defaultTheme.fontFamily.sans],

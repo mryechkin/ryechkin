@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import DateDisplay from './DateDisplay';
-import Pill from './Pill';
+import Tags from './Tags';
 
 export default function Card({ item, isExternal = false, isVideo = false }) {
   if (!item) return null;
@@ -13,12 +13,12 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
   return (
     <Link href={item.href} passHref>
       <motion.a
-        className="grid max-h-full grid-flow-row grid-cols-5 grid-rows-2 mt-6 overflow-hidden border-2 border-pink-500 rounded-lg group retro-shadow overflow-ellipsis bg-gray-50 hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:hover:border-cyan-300 dark:focus:border-cyan-300 md:max-h-64 md:grid-flow-col md:grid-rows-1"
+        className="grid max-h-full grid-flow-row grid-cols-5 grid-rows-2 mt-6 overflow-hidden border-2 border-pink-500 rounded-lg retro-shadow group overflow-ellipsis bg-gray-50 hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:hover:border-cyan-300 dark:focus:border-cyan-300 md:max-h-64 md:grid-flow-col md:grid-rows-1"
         whileFocus={{ y: -3 }}
         whileHover={{ y: -3 }}
         whileTap={{ y: 0 }}
       >
-        <div className="flex flex-col items-start justify-start col-span-5 p-4 md:col-span-3">
+        <div className="flex flex-col items-start justify-start col-span-5 gap-4 p-4 md:col-span-3">
           <div className="inline-flex items-center justify-start text-lg font-bold text-left accent-underline flex-nowrap overflow-ellipsis group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl">
             <span className="line-clamp-1">{item.title}</span>
             {isExternal && (
@@ -26,22 +26,14 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
             )}
           </div>
           <div className="flex items-center justify-start gap-2">
-            {item.date && <DateDisplay className="mt-2 text-sm" date={item.date} />}
+            {item.date && <DateDisplay className="text-sm" date={item.date} />}
             {item.readingTime?.text && (
-              <span className="mt-2 text-sm">({item.readingTime.text})</span>
+              <span className="text-sm">({item.readingTime.text})</span>
             )}
           </div>
-          {item.tags?.length && (
-            <div className="flex flex-wrap items-center justify-start">
-              {item.tags.map((tag) => (
-                <Pill key={tag} css={{ marginTop: '$4', marginRight: '$2' }}>
-                  {tag}
-                </Pill>
-              ))}
-            </div>
-          )}
+          {item.tags?.length && <Tags list={item.tags} />}
           {item.summary && (
-            <p className="mt-4 text-left overflow-ellipsis line-clamp-4 md:line-clamp-3">
+            <p className="text-left overflow-ellipsis line-clamp-4 md:line-clamp-3">
               {item.summary}
             </p>
           )}

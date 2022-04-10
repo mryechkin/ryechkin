@@ -21,11 +21,7 @@ html {
   }
 
   nav:not(.toc) a, .nav-link {
-    @apply transition-all hover:shadow-link shadow-underline p-2 focus:rounded-md text-gray-800 dark:text-gray-50 no-underline text-xl font-semibold !important;
-  }
-
-  footer nav a, footer .nav-link {
-    @apply text-sm !important;
+    @apply p-2 font-bold text-gray-800 no-underline transition-all hover:shadow-link shadow-underline focus:rounded-md dark:text-gray-50;
   }
 
   .accent {
@@ -111,7 +107,7 @@ html {
     @apply focus:no-underline focus:rounded-md hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
   .prose blockquote {
-    @apply p-2 not-italic font-normal text-gray-800 bg-white border border-l-8 border-rose-400 dark:border-indigo-500 dark:text-gray-50 dark:bg-gray-800;
+    @apply rounded-md p-2 not-italic font-normal text-gray-800 bg-white border-2 border-l-[12px] border-rose-400 dark:border-blue-500 dark:text-gray-50 dark:bg-gray-900;
   }
   .prose blockquote p {
     margin: 0;
@@ -159,7 +155,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply bg-[#C7D2FE] dark:bg-[#312E81] border border-[#C7D2FE] dark:border-[#312E81] p-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300;
+    @apply bg-[#C7D2FE] dark:bg-[#3730A3] border border-[#C7D2FE] dark:border-[#3730A3] p-1 text-xs font-semibold text-indigo-700 dark:text-indigo-200;
   }
 }
 

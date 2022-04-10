@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/solid';
 import { motion, useCycle } from 'framer-motion';
-import { Button } from 'wtf-design-system';
 
 import { useInterval } from '@/lib/hooks';
 import { generateArray } from '@/lib/utils';
@@ -46,16 +45,14 @@ export default function AnimatedPath({ delay = 100 }) {
       <div className="py-8 text-3xl font-medium tracking-wider text-gray-700 dark:text-white">
         y = cos(x<sup>2</sup>)
       </div>
-      <Button
-        css={{
-          marginTop: '$8',
-        }}
+      <button
+        type="button"
         onClick={() => {
           setIsActive(!isActive);
         }}
       >
         {isActive ? 'Stop' : 'Animate'}
-      </Button>
+      </button>
     </div>
   );
 }

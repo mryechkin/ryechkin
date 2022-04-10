@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { ChakraProvider } from '@chakra-ui/react';
 import { MDXProvider } from '@mdx-js/react';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
-import { darkTheme, globalStyles, Provider as WTFProvider } from 'wtf-design-system';
 
 // eslint-disable-next-line import/order
 import SEO from '../../next-seo.config';
@@ -17,18 +17,15 @@ import { usePanelbear } from '@/lib/analytics';
 export const siteTitle = 'Mykhaylo Ryechkin';
 
 export default function App({ Component, pageProps }) {
-  globalStyles();
-
   usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID);
 
   return (
-    <WTFProvider>
+    <ChakraProvider>
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
         disableTransitionOnChange
         enableSystem={false}
-        value={{ light: 'light', dark: darkTheme.className }}
       >
         <MDXProvider components={MDX}>
           <Head>
@@ -45,6 +42,6 @@ export default function App({ Component, pageProps }) {
           </div>
         </MDXProvider>
       </ThemeProvider>
-    </WTFProvider>
+    </ChakraProvider>
   );
 }

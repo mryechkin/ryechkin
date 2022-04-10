@@ -3,7 +3,8 @@
   "rules": {
     "no-unused-vars": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    "import/order": "warn",
-    "prettier/prettier": "off"
+    "import/order": "off",
+    "prettier/prettier": "off",
+    "react/function-component-definition": "off"
   }
 }
