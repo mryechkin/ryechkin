@@ -9,12 +9,6 @@ import PostImage from './PostImage';
 import RickRoll from './RickRoll';
 import Separator from './Separator';
 
-const strong = (props) => (
-  <span className="accent" {...props}>
-    {props.children}
-  </span>
-);
-
 function CustomLink(props) {
   const { children, href } = props;
   const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
@@ -41,7 +35,6 @@ const MDX = {
   PeaceSign,
   PostImage,
   RickRoll,
-  strong,
 };
 
 export default MDX;
