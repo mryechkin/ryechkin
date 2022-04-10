@@ -65,6 +65,15 @@ html {
     text-shadow: 3px 2px 0px #ec4899, 5px 4px 0px #fbbf24;
   }
 
+  .retro-thin {
+    @apply font-black tracking-tight text-indigo-600 dark:text-yellow-300 selection:text-indigo-50 dark:selection:text-gray-800;
+    text-shadow: 3px 2px 0px #C7D2FE;
+  }
+
+  .dark .retro-thin {
+    text-shadow: 3px 2px 0px #ec4899;
+  }
+
   .retro-shadow {
     box-shadow: 6px 6px 0px #C7D2FE;
   }
