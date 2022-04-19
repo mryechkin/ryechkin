@@ -73,7 +73,7 @@ export default function Menu() {
           <DrawerBody bg={theme === 'light' ? 'gray.100' : 'gray.800'}>
             <div className="flex flex-col items-center justify-center flex-1 h-full gap-8 text-xl sm:gap-12 md:gap-14">
               <Link href="/">
-                <a className="p-2 text-xl font-normal text-gray-800 uppercase rounded-md dark:text-gray-50">
+                <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50">
                   <span className="font-black">Misha</span>.WTF
                 </a>
               </Link>

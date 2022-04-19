@@ -28,19 +28,19 @@ export default function Layout({ className, children, confetti = false }) {
         </a>
       </div>
       <div className="relative flex min-h-[var(--min-height)] flex-col justify-between bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
-        <header className="w-screen bg-gray-100 border-b border-gray-200 dark:border-gray-900 dark:bg-gray-800">
+        <header className="w-screen bg-gray-100 border-b border-gray-200 bg-opacity-5 filter backdrop-blur-sm dark:border-gray-900 dark:bg-gray-800 dark:bg-opacity-5 dark:backdrop-blur-sm">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 py-2 mx-auto flex-nowrap lg:px-2">
             <div className="items-center justify-between hidden gap-2 font-bold tracking-tighter lg:flex">
               <Avatar className="flex" setConfetti={setHeaderConfetti} />
               <Link href="/">
-                <a className="p-2 text-xl font-normal text-gray-800 uppercase rounded-md dark:text-gray-50 lg:text-3xl">
+                <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 lg:text-3xl">
                   <span className="font-black">Misha</span>.WTF
                 </a>
               </Link>
             </div>
             <Avatar className="flex lg:hidden" setConfetti={setHeaderConfetti} />
             <Link href="/">
-              <a className="p-2 text-xl font-normal text-gray-800 uppercase rounded-md dark:text-gray-50 lg:hidden lg:text-3xl">
+              <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 lg:hidden lg:text-3xl">
                 <span className="font-black">Misha</span>.WTF
               </a>
             </Link>
@@ -53,14 +53,17 @@ export default function Layout({ className, children, confetti = false }) {
           </div>
         </header>
         <div className="fixed flex items-center justify-center w-full">
-          <Confetti active={confetti || headerConfetti} config={{ spread: 360 }} />
+          <Confetti
+            active={confetti || headerConfetti}
+            config={{ colors: ['#2563eb', '#fde047'], spread: 360 }}
+          />
         </div>
         <main className="w-full overflow-hidden max-w-none">
           <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>{children}</div>
         </main>
         <footer
           className={cn(
-            'w-screen border-t border-gray-200 bg-gray-100 dark:border-gray-900 dark:bg-gray-800',
+            'w-screen border-t border-gray-200 bg-gray-100 bg-opacity-5 filter backdrop-blur-sm dark:border-gray-900 dark:bg-gray-800 dark:bg-opacity-5 dark:backdrop-blur-sm',
             className
           )}
         >

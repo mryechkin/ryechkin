@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Caption from './Caption';
+import CodeBlock from './CodeBlock';
 import ExternalLink from './ExternalLink';
 import PeaceSign from './PeaceSign';
 import PostImage from './PostImage';
@@ -28,6 +29,7 @@ const MDX = {
   a: CustomLink,
   hr: Separator,
   Caption,
+  CodeBlock,
   ExternalLink,
   FiSmile,
   Image,

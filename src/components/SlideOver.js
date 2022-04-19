@@ -30,7 +30,7 @@ export default function SlideOver({ className, open, setOpen, title, children })
                       <div className="flex items-center ml-3 h-7">
                         <button
                           type="button"
-                          className="p-2 rounded-md custom-focus"
+                          className="p-2 custom-focus"
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>

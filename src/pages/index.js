@@ -1,19 +1,18 @@
 import { FiSmile } from 'react-icons/fi';
-import { MDXRemote } from 'next-mdx-remote';
 
 import {
   Card,
   Counter,
+  HeroContainer,
   Layout,
-  PeaceSign,
   Posts,
   Prose,
+  RickRoll,
   SEO,
   Separator,
 } from '@/components';
-import { getAllPosts, getDataBySlug } from '@/lib/data';
+import { getAllPosts } from '@/lib/data';
 import { useConfetti } from '@/lib/hooks';
-import { getMdxSource } from '@/lib/mdx';
 
 const videos = [
   {
@@ -54,23 +53,17 @@ const videos = [
   },
 ];
 
-export default function Home({ data, posts, source }) {
+export default function Home({ posts }) {
   const [confetti, setConfetti] = useConfetti();
 
   return (
     <Layout confetti={confetti}>
-      <SEO title={data.title} />
+      <SEO />
       <div className="inline-flex items-end justify-center w-full">
         <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 text-yellow-500 dark:text-yellow-300">
-              Hey
-              <PeaceSign
-                className="p-2"
-                innerClassName="h-6 w-6 sm:w-10 sm:h-10"
-                setConfetti={setConfetti}
-              />
-              I&apos;m
+              Hey, I&apos;m
             </span>
             <span className="inline-flex ml-1 retro sm:ml-2">Mykhaylo.</span>
           </span>
@@ -78,7 +71,17 @@ export default function Home({ data, posts, source }) {
       </div>
       <div className="items-center justify-center mx-auto">
         <Prose className="text-center lg:max-w-3xl">
-          <MDXRemote {...source} />
+          <HeroContainer title="intro">
+            <div className="text-center lg:max-w-3xl">
+              I&apos;m a front-end software engineer based in{' '}
+              <span className="whitespace-nowrap">
+                <strong>Kitchener, Canada</strong> 🇨🇦
+              </span>
+              <br />
+              I write code for a living, drink more coffee than I probably should, and
+              listen to a lot of electronic music in the process <RickRoll />
+            </div>
+          </HeroContainer>
         </Prose>
         <Separator />
         <h1 className="title">Latest Posts</h1>
@@ -107,14 +110,8 @@ export default function Home({ data, posts, source }) {
 
 export async function getStaticProps() {
   const posts = getAllPosts();
-  const home = getDataBySlug('index');
-  const source = await getMdxSource(home);
 
   return {
-    props: {
-      data: home.data,
-      posts,
-      source,
-    },
+    props: { posts },
   };
 }
