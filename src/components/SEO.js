@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 
 export default function SEO({ description, image, title, openGraph, canonical }) {
-  const fullTitle = `${title} - Mykhaylo Ryechkin`;
+  const fullTitle = title ? `${title} - Mykhaylo Ryechkin` : 'Mykhaylo Ryechkin';
 
   // const options = {
   //   bg: 'white',
@@ -30,7 +30,9 @@ export default function SEO({ description, image, title, openGraph, canonical })
         <meta name="twitter:title" content={fullTitle} />
       </Head>
       <NextSeo
-        description={description}
+        description={
+          description || 'UI development, design systems, and all things modern web.'
+        }
         title={title}
         titleTemplate="%s - Mykhaylo Ryechkn"
         defaultTitle="Mykhaylo Ryechkin"

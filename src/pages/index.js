@@ -58,18 +58,18 @@ export default function Home({ posts }) {
 
   return (
     <Layout confetti={confetti}>
-      <SEO />
-      <div className="inline-flex items-end justify-center w-full">
-        <div className="flex-shrink-0 w-full max-w-3xl font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
+      <SEO title="Home" />
+      <div className="inline-flex w-full items-end justify-center">
+        <div className="w-full max-w-3xl flex-shrink-0 font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
           <span className="flex flex-wrap items-center justify-center">
             <span className="flex items-center justify-center p-2 text-yellow-500 dark:text-yellow-300">
               Hey, I&apos;m
             </span>
-            <span className="inline-flex ml-1 retro sm:ml-2">Mykhaylo.</span>
+            <span className="retro ml-1 inline-flex sm:ml-2">Mykhaylo.</span>
           </span>
         </div>
       </div>
-      <div className="items-center justify-center mx-auto">
+      <div className="mx-auto items-center justify-center">
         <Prose className="text-center lg:max-w-3xl">
           <HeroContainer title="intro">
             <div className="text-center lg:max-w-3xl">
@@ -94,7 +94,7 @@ export default function Home({ posts }) {
           ))}
         </div>
         <Separator />
-        <div className="inline-flex items-center justify-center w-full">
+        <div className="inline-flex w-full items-center justify-center">
           Thanks for stopping by
           <span className="pl-2 text-2xl text-blue-400 dark:text-rose-400">
             <FiSmile />

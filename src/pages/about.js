@@ -11,8 +11,8 @@ export default function About({ data, source }) {
 
   return (
     <Layout slug="about">
-      <SEO title={data.title} />
-      <div className="max-w-full mx-auto prose lg:prose-lg">
+      <SEO title={data.title} description={data.description} />
+      <div className="prose mx-auto max-w-full lg:prose-lg">
         <h1>About Me</h1>
         <HeroContainer className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
@@ -40,7 +40,7 @@ export default function About({ data, source }) {
                 ]}
               />
             </div>
-            <div className="flex-shrink-0 hidden lg:inline-flex lg:w-72">
+            <div className="hidden flex-shrink-0 lg:inline-flex lg:w-72">
               <Image
                 src="/assets/hammock.jpg"
                 alt="About me"
