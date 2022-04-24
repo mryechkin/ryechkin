@@ -26,7 +26,7 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
     <nav
       aria-label={ariaLabel}
       className={cn(
-        'flex items-center justify-center lg:flex lg:flex-row lg:space-x-2',
+        'flex items-center justify-center md:flex md:flex-row md:space-x-2',
         className
       )}
     >
@@ -48,7 +48,7 @@ export default function Menu() {
   return (
     <>
       <motion.button
-        className="block p-2 custom-focus lg:hidden"
+        className="block p-2 custom-focus md:hidden"
         type="button"
         aria-label="Menu"
         whileFocus={{ scale: 1.1 }}
@@ -84,7 +84,7 @@ export default function Menu() {
                 className="rounded-full"
                 aria-hidden
               />
-              <Nav className="flex-col text-base lg:flex-col" />
+              <Nav className="flex-col text-base md:flex-col" />
               <Social />
               <DarkModeToggle />
             </div>

@@ -17,7 +17,6 @@ export { default as Layout } from './Layout';
 export { default as MDX } from './MDX';
 export { default as Menu } from './Menu';
 export { default as More } from './More';
-export { default as Navigation } from './Navigation';
 export { default as PeaceSign } from './PeaceSign';
 export { default as Pill } from './Pill';
 export { default as Posts } from './Posts';

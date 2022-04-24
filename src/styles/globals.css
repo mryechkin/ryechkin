@@ -4,7 +4,6 @@
 
 html {
   @apply scroll-smooth;
-  --min-height: calc(100vh - 2rem);
 }
 
 @layer base {
@@ -30,6 +29,10 @@ html {
 
   .accent-underline {
     @apply font-semibold text-gray-700 underline dark:text-white underline-offset-8 decoration-2 decoration-dotted dark:decoration-yellow-400 decoration-amber-400;
+  }
+
+  .blurred-backdrop {
+    @apply bg-gray-50 bg-opacity-80 filter backdrop-blur dark:bg-gray-800 dark:bg-opacity-80 dark:backdrop-blur-sm;
   }
 
   .custom-focus {
