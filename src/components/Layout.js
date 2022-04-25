@@ -6,13 +6,12 @@ import Link from 'next/link';
 
 import Avatar from './Avatar';
 import DarkModeToggle from './DarkModeToggle';
-import HomeButton from './HomeButton';
 import Menu, { Nav } from './Menu';
 import Social from './Social';
 
 import { useConfetti } from '@/lib/hooks';
 
-const SCROLL_THRESHOLD = 96;
+const SCROLL_THRESHOLD = 80;
 
 export default function Layout({ className, children, confetti = false }) {
   const [headerConfetti, setHeaderConfetti] = useConfetti();
@@ -57,20 +56,14 @@ export default function Layout({ className, children, confetti = false }) {
         </div>
         <div className="w-screen border-b border-gray-200 blurred-backdrop dark:border-gray-900">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 py-2 mx-auto flex-nowrap md:px-2">
-            <div className="items-center justify-between hidden gap-2 font-bold tracking-tighter md:flex">
-              <Avatar className="flex" setConfetti={setHeaderConfetti} />
+            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter">
+              <Avatar setConfetti={setHeaderConfetti} />
               <Link href="/">
-                <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:text-3xl">
-                  <span className="font-black">Misha</span>.WTF
+                <a className="hidden p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:block ">
+                  <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
                 </a>
               </Link>
             </div>
-            <Avatar className="flex md:hidden" setConfetti={setHeaderConfetti} />
-            <Link href="/">
-              <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:hidden md:text-3xl">
-                <span className="font-black">Misha</span>.WTF
-              </a>
-            </Link>
             <div className="relative flex items-center justify-center">
               <Menu />
               <div className="hidden w-full min-w-[4rem] items-center justify-center md:flex">

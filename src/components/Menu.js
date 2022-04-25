@@ -1,20 +1,10 @@
-import { useState } from 'react';
-import {
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerOverlay,
-} from '@chakra-ui/react';
+import { Popover } from '@headlessui/react';
 import { MenuAlt4Icon, XCircleIcon } from '@heroicons/react/outline';
 import cn from 'classnames/dedupe';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 
 import DarkModeToggle from './DarkModeToggle';
-import Social from './Social';
+import HeroContainer from './HeroContainer';
 
 const links = [
   { name: 'About', href: '/about' },
@@ -33,7 +23,9 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
       {links.map((item) => (
         <div key={item.name} className="flex w-full px-5 py-2">
           <Link href={item.href}>
-            <a className="w-full text-center nav-link">{item.name}</a>
+            <a className="nav-link w-full text-center !font-semibold uppercase">
+              {item.name}
+            </a>
           </Link>
         </div>
       ))}
@@ -41,57 +33,32 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
   );
 }
 
-export default function Menu() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useTheme();
-
+export default function AppMenu() {
   return (
-    <>
-      <motion.button
-        className="block p-2 custom-focus md:hidden"
-        type="button"
-        aria-label="Menu"
-        whileFocus={{ scale: 1.1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
-      </motion.button>
-      <Drawer
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        placement="right"
-        size="full"
-        isFullHeight
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton size="lg" mt="10" mr="4">
-            <XCircleIcon className="w-8 h-8 text-rose-400" aria-hidden="true" />
-          </DrawerCloseButton>
-          <DrawerBody bg={theme === 'light' ? 'gray.100' : 'gray.800'}>
-            <div className="flex flex-col items-center justify-center flex-1 h-full gap-8 text-xl sm:gap-12 md:gap-14">
-              <Link href="/">
-                <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50">
-                  <span className="font-black">Misha</span>.WTF
-                </a>
-              </Link>
-              <Image
-                src="/assets/avatar.jpg"
-                width={56}
-                height={56}
-                className="rounded-full"
-                aria-hidden
-              />
-              <Nav className="flex-col text-base md:flex-col" />
-              <Social />
-              <DarkModeToggle />
-            </div>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+    <Popover className="relative">
+      <Popover.Button className="block p-2 custom-focus md:hidden">
+        {({ open }) =>
+          open ? (
+            <XCircleIcon className="w-8 h-8 text-rose-400" />
+          ) : (
+            <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
+          )
+        }
+      </Popover.Button>
+      <Popover.Panel className="absolute right-0">
+        <HeroContainer>
+          <div className="flex flex-col items-center justify-center flex-1 h-full gap-8">
+            <Link href="/">
+              <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50">
+                <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
+              </a>
+            </Link>
+            <Nav className="flex-col text-base md:flex-col" />
+            <DarkModeToggle />
+          </div>
+        </HeroContainer>
+      </Popover.Panel>
       <Nav className="hidden text-xl" />
-    </>
+    </Popover>
   );
 }

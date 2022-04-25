@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import * as Chakra from '@chakra-ui/react';
 import { useTheme } from 'next-themes';
 import darkTheme from 'prism-react-renderer/themes/vsDark';
 import lightTheme from 'prism-react-renderer/themes/vsLight';
@@ -25,7 +24,7 @@ const CopyHeader = ({ code, title = 'jsx', message = 'Copied!' }) => {
 };
 
 const scope = {
-  ...Chakra,
+  // Add external components here
 };
 
 const CodeBlock = ({ code, noInline = false }) => {
