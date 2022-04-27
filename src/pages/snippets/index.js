@@ -5,20 +5,21 @@ export default function Snippets() {
     <Layout>
       <CodeBlock
         code={`
-<Stack direction='row' spacing={4} align='center'>
-  <Button colorScheme='teal' variant='solid'>
-    Button
-  </Button>
-  <Button colorScheme='teal' variant='outline'>
-    Button
-  </Button>
-  <Button colorScheme='teal' variant='ghost'>
-    Button
-  </Button>
-  <Button colorScheme='teal' variant='link'>
-    Button
-  </Button>
-</Stack>
+() => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="flex items-center justify-center bg-indigo-600">
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        className="p-2 m-4 border-2 rounded-md"
+        onClick={() => setCount(count + 1)}
+      >
+        {count}
+      </motion.button>
+    </div>
+  );
+};
 `}
       />
     </Layout>
