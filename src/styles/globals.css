@@ -131,7 +131,7 @@ html {
     @apply leading-tight !important;
   }
   .prose h2, .prose h3, .prose h4 {
-    @apply flex my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
+    @apply my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
   .prose hr {
     @apply my-8 sm:my-10 !important;
@@ -145,12 +145,16 @@ html {
   }
 
   .prose .anchor {
-    @apply absolute ml-[-0.875em] invisible w-full max-w-4xl no-underline cursor-pointer;
+    @apply absolute invisible px-1 ml-1 no-underline cursor-pointer;
   }
 
   .prose .anchor:after {
-    @apply no-underline text-sky-300;
+    @apply font-bold text-gray-400 no-underline;
     content: "#";
+  }
+
+  .prose .anchor:hover:after {
+    @apply text-sky-300;
   }
 
   .prose *:hover > .anchor {
