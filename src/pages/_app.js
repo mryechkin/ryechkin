@@ -8,7 +8,6 @@ import { ThemeProvider } from 'next-themes';
 import SEO from '../../next-seo.config';
 
 import '@/styles/globals.css';
-import '@/styles/prism.css';
 
 import { GoogleAnalytics, MDX } from '@/components';
 import { usePanelbear } from '@/lib/analytics';

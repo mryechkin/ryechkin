@@ -2,17 +2,17 @@ import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { Counter, HeroContainer, Layout, SEO, Separator, Tags } from '@/components';
-import { getDataBySlug } from '@/lib/data';
-import { getMdxSource } from '@/lib/mdx';
+import { getMdx, getRawFile, getReadingTime } from '@/lib/data';
 import { yearsToDate } from '@/lib/utils';
 
-export default function About({ data, source }) {
+export default function About({ source }) {
   const experience = yearsToDate('05/01/2009');
+  const { frontmatter } = source;
 
   return (
     <Layout slug="about">
-      <SEO title={data.title} description={data.description} />
-      <div className="prose mx-auto max-w-full lg:prose-lg">
+      <SEO title={frontmatter.title} description={frontmatter.description} />
+      <div className="max-w-full mx-auto prose lg:prose-lg">
         <h1>About Me</h1>
         <HeroContainer className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
@@ -40,7 +40,7 @@ export default function About({ data, source }) {
                 ]}
               />
             </div>
-            <div className="hidden flex-shrink-0 lg:inline-flex lg:w-72">
+            <div className="flex-shrink-0 hidden lg:inline-flex lg:w-72">
               <Image
                 src="/assets/hammock.jpg"
                 alt="About me"
@@ -61,13 +61,19 @@ export default function About({ data, source }) {
 }
 
 export async function getStaticProps() {
-  const post = getDataBySlug('about');
-  const source = await getMdxSource(post);
+  const fileContents = getRawFile('/data/about.mdx');
+  const data = await getMdx(fileContents);
 
   return {
     props: {
-      data: post.data,
-      source,
+      source: {
+        ...data,
+        frontmatter: {
+          ...data.frontmatter,
+          readingTime: getReadingTime(data),
+          slug: 'about',
+        },
+      },
     },
   };
 }

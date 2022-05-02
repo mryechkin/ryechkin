@@ -36,6 +36,12 @@ export function generateImage(width, height) {
   </svg>`;
 }
 
+export function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 export function toBase64(str) {
   return typeof window === 'undefined'
     ? Buffer.from(str).toString('base64')

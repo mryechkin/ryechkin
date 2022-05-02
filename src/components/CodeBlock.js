@@ -7,13 +7,13 @@ import prettier from 'prettier/standalone';
 import darkTheme from 'prism-react-renderer/themes/vsDark';
 import lightTheme from 'prism-react-renderer/themes/vsLight';
 
-import useClipboard from '@/hooks/useClipboard';
+import { useClipboard } from '@/hooks';
 
 const CopyHeader = ({ code, onFormat, title = 'jsx', message = 'Copied!' }) => {
   const { hasCopied, onCopy } = useClipboard(code);
 
   return (
-    <div className="flex w-full items-center justify-between py-2 text-xs font-semibold uppercase">
+    <div className="flex items-center justify-between w-full py-2 text-xs font-semibold uppercase">
       {title && <span className="font-mono font-normal text-gray-400">{title}</span>}
       <div className="flex items-center justify-center gap-2">
         <button
@@ -83,7 +83,7 @@ const CodeBlock = ({ code, noInline = false }) => {
         theme={syntaxTheme}
         noInline={noInline}
       >
-        <div className="rounded border-2 border-indigo-200 bg-gray-100 p-4 dark:border-indigo-600 dark:bg-gray-800">
+        <div className="p-4 bg-gray-100 border-2 border-indigo-200 rounded dark:border-indigo-600 dark:bg-gray-800">
           <LivePreview />
         </div>
         <div className="py-4">

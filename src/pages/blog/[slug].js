@@ -1,16 +1,16 @@
-import { FaTwitter as Twitter } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { BackToTop, Counter, DateDisplay, ExternalLink, Layout, SEO } from '@/components';
-import { getAllPosts, getPostBySlug } from '@/lib/data';
-import { getMdxSource } from '@/lib/mdx';
+import { BackToTop, Counter, DateDisplay, Layout, SEO } from '@/components';
+import { getAllPosts, getHeadings, getMdx, getRawFile, getReadingTime } from '@/lib/data';
 
-export default function Post({ postData, source }) {
-  const fullTitle = `Mykhaylo Ryechkin | ${postData.title}`;
-  const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${postData.slug}%2Fcover.png&w=1200&q=100`;
-  const slug = `blog/${postData.slug}`;
+export default function Post({ source }) {
+  const { frontmatter } = source;
+  const fullTitle = `Mykhaylo Ryechkin | ${frontmatter.title}`;
+  const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${frontmatter.slug}%2Fcover.png&w=1200&q=100`;
+  const slug = `blog/${frontmatter.slug}`;
 
   return (
     <Layout>
@@ -21,13 +21,13 @@ export default function Post({ postData, source }) {
       </Head>
       <SEO
         image={image}
-        title={postData.title}
-        description={postData.summary}
-        canonical={postData.canonical}
+        title={frontmatter.title}
+        description={frontmatter.summary}
+        canonical={frontmatter.canonical}
         openGraph={{
-          title: postData.title,
-          description: postData.summary,
-          url: postData.canonical,
+          title: frontmatter.title,
+          description: frontmatter.summary,
+          url: frontmatter.canonical,
           images: [
             {
               url: image,
@@ -38,34 +38,29 @@ export default function Post({ postData, source }) {
           ],
           type: 'article',
           article: {
-            publishedTime: postData.date,
-            authors: [postData.author?.name],
-            tags: postData.seo,
+            publishedTime: frontmatter.date,
+            authors: [frontmatter.author?.name],
+            tags: frontmatter.seo,
             image,
           },
         }}
       />
       <div className="w-full max-w-full prose-sm prose dark:prose-invert sm:prose-base lg:prose-lg">
-        <h1 className="retro">{postData.title}</h1>
+        <h1 className="retro">{frontmatter.title}</h1>
         <div className="z-10 inline-flex flex-col items-center justify-center w-full gap-4 text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
-          <div className="flex items-center justify-center gap-2 flex-nowrap">
-            <DateDisplay date={postData.date} />
-            {postData.readingTime?.text && (
-              <div className="">{postData.readingTime.text}</div>
-            )}
+          <DateDisplay data={frontmatter} />
+          <div className="flex items-center justify-center gap-2">
+            {frontmatter.author?.name}
+            <a
+              alt={frontmatter.author?.name}
+              className="simple-link"
+              href={frontmatter.author?.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter className="h-6 w-6 text-[#1d9bef]" />
+            </a>
           </div>
-          <ExternalLink
-            alt={postData.author?.name}
-            href={postData.author?.url}
-            icon={
-              <Twitter
-                aria-hidden="true"
-                className="ml-2 inline-block h-5 w-5 text-[#1d9bef]"
-              />
-            }
-          >
-            {postData.author?.name}
-          </ExternalLink>
         </div>
         <div className="max-w-xl mx-auto mt-8 shadow-md">
           <Image
@@ -93,13 +88,21 @@ export default function Post({ postData, source }) {
 }
 
 export async function getStaticProps({ params }) {
-  const post = getPostBySlug(params.slug);
-  const source = await getMdxSource(post);
+  const source = getRawFile(`/data/posts/${params.slug}.mdx`);
+  const data = await getMdx(source);
+  const headings = await getHeadings(source);
 
   return {
     props: {
-      postData: post.data,
-      source,
+      headings,
+      source: {
+        ...data,
+        frontmatter: {
+          ...data.frontmatter,
+          readingTime: getReadingTime(source),
+          slug: params.slug,
+        },
+      },
     },
   };
 }

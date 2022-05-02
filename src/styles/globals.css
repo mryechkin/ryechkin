@@ -106,38 +106,53 @@ html {
   .prose {
     @apply text-gray-500 dark:text-gray-50;
   }
-  .prose a:not(.anchor) {
+
+  .prose a:not(.anchor):not(.toc-link):not(.simple-link) {
     @apply focus:no-underline hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
   }
+
   .prose blockquote {
     @apply p-2 not-italic font-normal text-gray-800 bg-yellow-50 border-2 border-l-[0.75rem] border-yellow-300 dark:border-blue-600 dark:text-gray-50 dark:bg-blue-900;
   }
+
   .prose blockquote p {
     margin: 0;
   }
+
   .prose blockquote p::before {
     display: none;
   }
+
   .prose blockquote p::after {
     display: none;
   }
+
   .prose code {
     @apply text-gray-700 dark:text-indigo-200;
   }
+
   .prose h1 {
     @apply retro relative text-center !important;
   }
+
   .prose-lg h1 {
     @apply leading-tight !important;
   }
+
   .prose h2, .prose h3, .prose h4 {
     @apply my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
+
   .prose hr {
     @apply my-8 sm:my-10 !important;
   }
-  .prose pre[class*="language-"] {
-    @apply text-sm mt-0 lg:text-base !important;
+
+  .prose pre {
+    @apply my-0 rounded-none;
+  }
+
+  .prose pre code {
+    @apply text-sm;
   }
 
   .prose strong {

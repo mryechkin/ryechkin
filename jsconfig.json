@@ -4,7 +4,7 @@
     "paths": {
       "@/components": ["src/components/index.js"],
       "@/components/*": ["src/components/*"],
-      "@/hooks/*": ["src/hooks/*"],
+      "@/hooks": ["src/hooks/index.js"],
       "@/lib/*": ["src/lib/*"],
       "@/utils": ["src/utils/index.js"],
       "@/styles/*": ["src/styles/*"]

@@ -2,38 +2,94 @@ import fs from 'fs';
 import { join } from 'path';
 
 import { parseISO } from 'date-fns';
+import GithubSlugger from 'github-slugger';
 import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
 import readingTime from 'reading-time';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeCodeTitles from 'rehype-code-titles';
+import rehypeSlug from 'rehype-slug';
+import remarkEmoji from 'remark-emoji';
+import remarkGfm from 'remark-gfm';
 
-const dataDirectory = join(process.cwd(), 'data');
-const postsDirectory = join(process.cwd(), 'data/posts');
-
-export function getDataBySlug(slug, directory = dataDirectory) {
-  const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = join(directory, `${realSlug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
-
-  return {
-    data: {
-      ...data,
-      readingTime: readingTime(fileContents),
-      slug: realSlug,
-    },
-    content,
-  };
+export function getRawFile(path) {
+  const fullPath = join(process.cwd(), path);
+  return fs.readFileSync(fullPath, 'utf8');
 }
 
-export function getPostBySlug(slug) {
-  return getDataBySlug(slug, postsDirectory);
+export function getReadingTime(source) {
+  if (!source) {
+    return null;
+  }
+  const { text } = readingTime(source);
+  return text;
 }
 
 export function getAllPosts() {
-  const slugs = fs.readdirSync(postsDirectory);
-  const posts = slugs.map((slug) => getPostBySlug(slug));
+  const posts = fs
+    .readdirSync(join(process.cwd(), 'data/posts'))
+    // Only include md(x) files
+    .filter((path) => /\.mdx?$/.test(path))
+    .map((filename) => {
+      const source = getRawFile(`/data/posts/${filename}`);
+      const slug = filename.replace(/\.mdx?$/, '');
+      // Using gray-matter here as we don't need the entire MDX, just frontmatter
+      const { data } = matter(source);
+      return {
+        data: {
+          ...data,
+          readingTime: getReadingTime(source),
+          slug,
+        },
+        source,
+      };
+    });
+
   return posts.sort(
     (a, b) =>
       // sort by date
       parseISO(b.data.date) - parseISO(a.data.date)
   );
+}
+
+export async function getMdx(source) {
+  return serialize(source, {
+    mdxOptions: {
+      remarkPlugins: [remarkEmoji, remarkGfm],
+      rehypePlugins: [
+        rehypeSlug,
+        rehypeCodeTitles,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: 'append',
+            properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
+          },
+        ],
+      ],
+    },
+    parseFrontmatter: true,
+  });
+}
+
+/**
+ * Extracts headings from MDX files (levels H2 and above)
+ * @param {string} source - File source
+ * @return {Array.<object>}
+ */
+export async function getHeadings(source) {
+  const slugger = new GithubSlugger();
+
+  // Get each line individually, and filter out anything that isn't a heading
+  const headingLines = source.split('\n').filter((line) => line.match(/^###*\s/));
+
+  // Transform the string '## Some text' into an object of shape '{ text: 'Some text', level: 2 }'
+  return headingLines.map((raw) => {
+    const heading = raw.split(' ');
+    const level = heading[0]?.length;
+    const text = raw.replace(/^###*\s/, '');
+    const id = slugger.slug(text);
+
+    return { text, level, id };
+  });
 }

@@ -13,8 +13,8 @@ import { useConfetti } from '@/lib/hooks';
 
 const SCROLL_THRESHOLD = 80;
 
-export default function Layout({ className, children, confetti = false }) {
-  const [headerConfetti, setHeaderConfetti] = useConfetti();
+export default function Layout({ className, children }) {
+  const [confetti, setConfetti] = useConfetti();
   const year = new Date().getFullYear();
   const { scrollY } = useViewportScroll();
   const [showHeader, setShowHeader] = useState(true);
@@ -57,7 +57,7 @@ export default function Layout({ className, children, confetti = false }) {
         <div className="w-screen border-b border-gray-200 blurred-backdrop dark:border-gray-900">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 py-2 mx-auto flex-nowrap md:px-2">
             <div className="flex items-center justify-between gap-2 font-bold tracking-tighter">
-              <Avatar setConfetti={setHeaderConfetti} />
+              <Avatar setConfetti={setConfetti} />
               <Link href="/">
                 <a className="hidden p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:block ">
                   <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
@@ -75,7 +75,7 @@ export default function Layout({ className, children, confetti = false }) {
       </motion.header>
       <div className="fixed flex items-center justify-center w-full top-12">
         <Confetti
-          active={confetti || headerConfetti}
+          active={confetti}
           config={{ colors: ['#2563eb', '#fde047'], spread: 360 }}
         />
       </div>

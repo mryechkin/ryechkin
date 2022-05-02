@@ -9,7 +9,7 @@ import copy from 'copy-to-clipboard';
  * @return {boolean}
  */
 export default function useClipboard(text, options = {}) {
-  const { timeout = 3000 } = options;
+  const { timeout = 2000 } = options;
   const [hasCopied, setHasCopied] = useState(false);
 
   const onCopy = useCallback(() => {

@@ -7,8 +7,8 @@ import DarkModeToggle from './DarkModeToggle';
 import HeroContainer from './HeroContainer';
 
 const links = [
-  { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
+  { name: 'About', href: '/about' },
 ];
 
 export function Nav({ className, ariaLabel = 'Navigation' }) {
@@ -36,20 +36,20 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
 export default function AppMenu() {
   return (
     <Popover className="relative">
-      <Popover.Button className="custom-focus block p-2 md:hidden">
+      <Popover.Button className="block p-2 custom-focus md:hidden">
         {({ open }) =>
           open ? (
-            <XCircleIcon className="h-8 w-8 text-rose-400" />
+            <XCircleIcon className="w-8 h-8 text-rose-400" />
           ) : (
-            <MenuAlt4Icon className="h-8 w-8 text-sky-300" />
+            <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
           )
         }
       </Popover.Button>
       <Popover.Panel className="absolute right-0 mr-1">
         <HeroContainer>
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-8">
+          <div className="flex flex-col items-center justify-center flex-1 h-full gap-8">
             <Link href="/">
-              <a className="p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50">
+              <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50">
                 <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
               </a>
             </Link>

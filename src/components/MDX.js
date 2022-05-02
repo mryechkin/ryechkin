@@ -9,6 +9,7 @@ import PeaceSign from './PeaceSign';
 import PostImage from './PostImage';
 import RickRoll from './RickRoll';
 import Separator from './Separator';
+import SyntaxHighlighter from './SyntaxHighlighter';
 
 function CustomLink(props) {
   const { children, href } = props;
@@ -36,6 +37,7 @@ const MDX = {
   Link,
   PeaceSign,
   PostImage,
+  pre: SyntaxHighlighter,
   RickRoll,
 };
 
