@@ -21,6 +21,7 @@ export { default as More } from './More';
 export { default as PeaceSign } from './PeaceSign';
 export { default as Pill } from './Pill';
 export { default as Posts } from './Posts';
+export { Col, Hide, Row, Show } from './Primitives';
 export { default as Prose } from './Prose';
 export { default as RickRoll } from './RickRoll';
 export { default as SEO } from './SEO';

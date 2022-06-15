@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import copy from 'copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 /**
  * Copies contents to clipboard
@@ -10,19 +10,19 @@ import copy from 'copy-to-clipboard';
  */
 export default function useClipboard(text, options = {}) {
   const { timeout = 2000 } = options;
-  const [hasCopied, setHasCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const onCopy = useCallback(() => {
-    const didCopy = copy(text);
-    setHasCopied(didCopy);
+  const copy = useCallback(() => {
+    const didCopy = copyToClipboard(text);
+    setCopied(didCopy);
   }, [text]);
 
   useEffect(() => {
     let timeoutId;
 
-    if (hasCopied) {
+    if (copied) {
       timeoutId = window.setTimeout(() => {
-        setHasCopied(false);
+        setCopied(false);
       }, timeout);
     }
 
@@ -31,7 +31,7 @@ export default function useClipboard(text, options = {}) {
         window.clearTimeout(timeoutId);
       }
     };
-  }, [timeout, hasCopied]);
+  }, [timeout, copied]);
 
-  return { value: text, onCopy, hasCopied };
+  return { value: text, copy, copied };
 }

@@ -12,7 +12,7 @@ const variants = {
   stop: { x: [0, 0] },
 };
 
-export default function KyloRen({ setConfetti }) {
+export default function KyloRen({ setConfetti = () => {} }) {
   const [spinning, setSpinning] = useState(false);
   const { theme } = useTheme();
   const { pressProps } = usePress({
@@ -27,7 +27,7 @@ export default function KyloRen({ setConfetti }) {
       aria-label="Kylo Ren"
       id="kylo-ren"
       type="button"
-      className="flex w-16 cursor-pointer select-none items-center justify-center rounded p-1"
+      className="custom-focus-offset flex w-16 cursor-pointer select-none items-center justify-center rounded-full p-1 focus:rounded-full"
       animate={spinning ? 'rotate' : 'stop'}
       variants={variants}
       whileFocus={{ scale: 1.1 }}
