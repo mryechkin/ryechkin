@@ -10,19 +10,19 @@ import copyToClipboard from 'copy-to-clipboard';
  */
 export default function useClipboard(text, options = {}) {
   const { timeout = 2000 } = options;
-  const [copied, setCopied] = useState(false);
+  const [hasCopied, setHasCopied] = useState(false);
 
-  const copy = useCallback(() => {
+  const onCopy = useCallback(() => {
     const didCopy = copyToClipboard(text);
-    setCopied(didCopy);
+    setHasCopied(didCopy);
   }, [text]);
 
   useEffect(() => {
     let timeoutId;
 
-    if (copied) {
+    if (hasCopied) {
       timeoutId = window.setTimeout(() => {
-        setCopied(false);
+        setHasCopied(false);
       }, timeout);
     }
 
@@ -31,7 +31,7 @@ export default function useClipboard(text, options = {}) {
         window.clearTimeout(timeoutId);
       }
     };
-  }, [timeout, copied]);
+  }, [timeout, hasCopied]);
 
-  return { value: text, copy, copied };
+  return { value: text, onCopy, hasCopied };
 }

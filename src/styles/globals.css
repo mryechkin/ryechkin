@@ -16,7 +16,7 @@ html {
   }
 
   a:not(.retro-shadow), input[type="button"]:not(.retro-shadow) {
-    @apply cursor-pointer focus:outline-none focus:ring focus:ring-inset focus:ring-sky-300;
+    @apply cursor-pointer focus:outline-none focus:ring focus:ring-sky-300;
   }
 
   nav:not(.toc) a, .nav-link {

@@ -29,9 +29,9 @@ export default function Layout({ className, children }) {
   return (
     <div className="relative flex flex-col justify-between w-full min-h-screen overflow-hidden bg-left-top bg-repeat bg-gray-50 bg-pattern-light bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
       <motion.header
-        className="fixed z-30"
+        className="fixed z-10"
         initial="show"
-        transition={{ duration: 0.2, type: 'tween' }}
+        transition={{ duration: 0.3, type: 'tween' }}
         variants={{
           show: {
             y: 0,

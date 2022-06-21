@@ -10,7 +10,7 @@ export default function Badges({ className, data, onClick }) {
 
   if (onClick)
     return (
-      <div className={cn('z-10 flex flex-wrap items-center justify-center', className)}>
+      <div className={cn('flex flex-wrap items-center justify-center', className)}>
         {data?.map((badge) => (
           <span
             {...pressProps}
@@ -29,7 +29,7 @@ export default function Badges({ className, data, onClick }) {
     );
 
   return (
-    <div className={cn('z-10 flex flex-wrap items-center justify-center', className)}>
+    <div className={cn('flex flex-wrap items-center justify-center', className)}>
       {data?.map((badge) => (
         <span
           key={badge}

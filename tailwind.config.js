@@ -23,7 +23,7 @@ module.exports = {
         'sky-accent': '#7dd3fc',
       },
       fontFamily: {
-        sans: ['Heebo', ...defaultTheme.fontFamily.sans],
+        sans: ['Libre Franklin', '-apple-system', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         xxs: '0.5rem',

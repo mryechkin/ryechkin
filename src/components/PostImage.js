@@ -48,10 +48,10 @@ export default function PostImage({ className, src, width, height, caption = '' 
           alt={caption}
         />
       </button>
+      {caption && <Caption>{caption}</Caption>}
       <Modal open={open} setOpen={setOpen}>
         <img src={src} className="rounded-lg" alt={caption} />
       </Modal>
-      {caption && <Caption>{caption}</Caption>}
     </div>
   );
 }
