@@ -1,3 +1,38 @@
+---
+title: Code Editor
+---
+
+### Code
+
+```jsx:index.js
+import CodeBlock from './CodeBlock';
+
+const BoxExample = `
+() => {
+  return (
+    <Box
+      css={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        p: "4",
+      }}
+    >
+      <KyloRen />
+    </Box>
+  );
+};
+`;
+
+export default function CodeEditor() {
+  return <CodeBlock code={BoxExample} />;
+}
+```
+
+<p></p>
+
+```jsx:CodeBlock.js
 import React from 'react';
 import { SiPrettier } from 'react-icons/si';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
@@ -118,3 +153,28 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
 };
 
 export default CodeBlock;
+```
+
+<hr />
+
+### Demo
+
+And here's what it looks like!
+
+```jsx live
+() => {
+  return (
+    <Box
+      css={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: '4',
+      }}
+    >
+      <KyloRen />
+    </Box>
+  );
+};
+```

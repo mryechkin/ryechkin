@@ -1,3 +1,4 @@
+import React from 'react';
 import { FiSmile } from 'react-icons/fi';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -37,8 +38,11 @@ const MDX = {
   Link,
   PeaceSign,
   PostImage,
-  pre: SyntaxHighlighter,
+  pre: (props) =>
+    props.live ? <CodeBlock {...props} /> : <SyntaxHighlighter {...props} />,
   RickRoll,
+  Separator,
+  ...React,
 };
 
 export default MDX;

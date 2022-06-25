@@ -11,6 +11,7 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeSlug from 'rehype-slug';
 import remarkEmoji from 'remark-emoji';
 import remarkGfm from 'remark-gfm';
+import { remarkMdxCodeMeta } from 'remark-mdx-code-meta';
 
 export function getRawFile(path) {
   const fullPath = join(process.cwd(), path);
@@ -52,21 +53,53 @@ export function getAllPosts() {
   );
 }
 
-export async function getMdx(source) {
+export function getAllSnippets() {
+  const snippets = fs
+    .readdirSync(join(process.cwd(), 'data/snippets'))
+    // Only include md(x) files
+    .filter((path) => /\.mdx?$/.test(path))
+    .map((filename) => {
+      const source = getRawFile(`/data/snippets/${filename}`);
+      const slug = filename.replace(/\.mdx?$/, '');
+      // Using gray-matter here as we don't need the entire MDX, just frontmatter
+      const { data } = matter(source);
+      return {
+        data: {
+          ...data,
+          slug,
+        },
+        source,
+      };
+    });
+
+  return snippets.sort(
+    (a, b) =>
+      // sort by date
+      parseISO(b.data.date) - parseISO(a.data.date)
+  );
+}
+
+export async function getMdx(source, addAnchors = true) {
+  let rehypePlugins = [rehypeCodeTitles];
+
+  if (addAnchors) {
+    rehypePlugins = [
+      ...rehypePlugins,
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
+        },
+      ],
+    ];
+  }
+
   return serialize(source, {
     mdxOptions: {
-      remarkPlugins: [remarkEmoji, remarkGfm],
-      rehypePlugins: [
-        rehypeSlug,
-        rehypeCodeTitles,
-        [
-          rehypeAutolinkHeadings,
-          {
-            behavior: 'append',
-            properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
-          },
-        ],
-      ],
+      remarkPlugins: [remarkMdxCodeMeta, remarkEmoji, remarkGfm],
+      rehypePlugins,
     },
     parseFrontmatter: true,
   });
