@@ -1,4 +1,5 @@
 import React from 'react';
+import { SiPrettier } from 'react-icons/si';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import cn from 'classnames/dedupe';
 import * as Framer from 'framer-motion';
@@ -12,14 +13,14 @@ import styled from 'styled-components';
 import Avatar from './Avatar';
 import BackToTop from './BackToTop';
 import Badges from './Badges';
+import Button from './Button';
 import Card from './Card';
+import CopyButton from './CopyButton';
 import Counter from './Counter';
 import DarkModeToggle from './DarkModeToggle';
 import ExternalLink from './ExternalLink';
 import KyloRen from './KyloRen';
 import { Box, Col, Hide, Row, Show } from './Primitives';
-
-import { useClipboard } from '@/hooks';
 
 const scope = {
   Avatar,
@@ -41,7 +42,6 @@ const scope = {
 };
 
 const CodeBlock = ({ code, noInline = false }) => {
-  const { copied, copy } = useClipboard(code);
   const [isMounted, setIsMounted] = React.useState(false);
   const [editorCode, setEditorCode] = React.useState(code.trim());
   const { theme } = useTheme();
@@ -59,11 +59,13 @@ const CodeBlock = ({ code, noInline = false }) => {
 
   const formatCode = () => {
     setEditorCode((currentCode) =>
-      prettier.format(currentCode, {
-        parser: 'babel',
-        plugins: [babelParser],
-        trailingComma: 'es5',
-      })
+      prettier
+        .format(currentCode, {
+          parser: 'babel',
+          plugins: [babelParser],
+          trailingComma: 'es5',
+        })
+        .slice(0, -1)
     );
   };
 
@@ -77,14 +79,14 @@ const CodeBlock = ({ code, noInline = false }) => {
 
   if (isMounted && code) {
     return (
-      <div className="flex w-full flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <LiveProvider
           code={editorCode}
           theme={syntaxTheme}
           scope={scope}
           noInline={noInline}
         >
-          <LivePreview className="w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-gray-900/50" />
+          <LivePreview className="w-full p-2 rounded-md bg-white/50 backdrop-blur-lg dark:bg-gray-900/50" />
           <div
             className={cn(
               'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
@@ -94,28 +96,18 @@ const CodeBlock = ({ code, noInline = false }) => {
               }
             )}
           >
-            <div className="absolute top-3 right-3 flex items-center justify-center gap-2">
-              <button
-                className="custom-focus-offset min-w-[4rem] select-none rounded-md border-2 border-indigo-200 bg-gray-50 px-4 py-1 text-xs font-bold uppercase text-indigo-600 hover:border-sky-400 hover:text-sky-400 dark:border-indigo-600 dark:bg-gray-800 dark:text-indigo-200 dark:hover:border-sky-300 dark:hover:text-sky-300"
-                onClick={formatCode}
-                type="button"
-              >
-                Format
-              </button>
-              <button
-                type="button"
-                onClick={copy}
-                className="custom-focus-offset min-w-[4rem] select-none rounded-md border-2 border-indigo-200 bg-gray-50 px-4 py-1 text-xs font-bold uppercase text-indigo-600 hover:border-sky-400 hover:text-sky-400 dark:border-indigo-600 dark:bg-gray-800 dark:text-indigo-200 dark:hover:border-sky-300 dark:hover:text-sky-300"
-              >
-                {copied ? 'Copied' : 'Copy'}
-              </button>
+            <div className="absolute flex items-center justify-center gap-2 top-3 right-3">
+              <Button aria-label="Format code" title="Format code" onClick={formatCode}>
+                <SiPrettier />
+              </Button>
+              <CopyButton code={code} />
             </div>
-            <div className="text-xs font-bold uppercase text-gray-400">
+            <div className="text-xs font-bold text-gray-400 uppercase">
               Editable Example
             </div>
             <LiveEditor onChange={onChange} className="w-full p-2" />
           </div>
-          <LiveError className="mt-4 w-full bg-red-600 p-2 text-white" />
+          <LiveError className="w-full p-2 mt-4 text-white bg-red-600" />
         </LiveProvider>
       </div>
     );

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import cn from 'classnames/dedupe';
 import { useTheme } from 'next-themes';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import darkTheme from 'prism-react-renderer/themes/dracula';
 import lightTheme from 'prism-react-renderer/themes/github';
 
-import CopyHeader from '@/components/CopyHeader';
+import CopyButton from '@/components/CopyButton';
 
 const SyntaxHighlighter = ({ children }) => {
   const [mounted, setMounted] = useState(false);
@@ -28,7 +27,7 @@ const SyntaxHighlighter = ({ children }) => {
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="relative font-mono border border-indigo-200 group dark:border-indigo-600">
-          <CopyHeader
+          <CopyButton
             className="absolute right-0 mt-1.5 mr-1.5 sm:mt-2 sm:mr-2"
             code={code}
             title={language}

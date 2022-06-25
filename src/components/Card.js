@@ -15,7 +15,7 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
   return (
     <Link href={item.href} passHref>
       <motion.a
-        className="grid max-h-full grid-flow-row grid-cols-5 grid-rows-2 mt-6 overflow-hidden border-2 border-pink-500 rounded-lg retro-shadow group overflow-ellipsis bg-gray-50 hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:hover:border-cyan-300 dark:focus:border-cyan-300 md:max-h-64 md:grid-flow-col md:grid-rows-1"
+        className="grid max-h-full grid-flow-row grid-cols-5 grid-rows-2 mt-6 overflow-hidden border-2 border-pink-500 rounded-lg group overflow-ellipsis bg-gray-50 shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300 md:max-h-64 md:grid-flow-col md:grid-rows-1"
         whileFocus={{ y: -3 }}
         whileHover={{ y: -3 }}
         whileTap={{ y: 0 }}

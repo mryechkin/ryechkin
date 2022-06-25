@@ -4,7 +4,7 @@ export { default as BackToTop } from './BackToTop';
 export { default as Badges } from './Badges';
 export { default as Card } from './Card';
 export { default as CodeBlock } from './CodeBlock';
-export { default as CopyHeader } from './CopyHeader';
+export { default as CopyButton } from './CopyButton';
 export { default as Counter } from './Counter';
 export { default as DarkModeToggle } from './DarkModeToggle';
 export { default as DateDisplay } from './DateDisplay';

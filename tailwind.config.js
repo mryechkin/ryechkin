@@ -17,6 +17,10 @@ module.exports = {
       boxShadow: {
         link: '0 -6px 0 0 #7dd3fc inset',
         underline: '0 -2px 0 0 #7dd3fc inset',
+        retro: '6px 6px 0px #C7D2FE',
+        'retro-dark': '6px 6px 0px #3730A3',
+        neon: '2px 2px 0px #C7D2FE',
+        'neon-dark': '2px 2px 0px #3730A3',
       },
       colors: {
         pink: colors.fuchsia,

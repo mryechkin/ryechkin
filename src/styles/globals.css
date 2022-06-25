@@ -15,7 +15,7 @@ html {
     @apply focus:no-underline hover:no-underline !important;
   }
 
-  a:not(.retro-shadow), input[type="button"]:not(.retro-shadow) {
+  a:not(.shadow-retro), input[type="button"]:not(.shadow-retro) {
     @apply cursor-pointer focus:outline-none focus:ring focus:ring-sky-300;
   }
 
@@ -71,14 +71,6 @@ html {
 
   .dark .retro-thin {
     text-shadow: 3px 2px 0px #ec4899;
-  }
-
-  .retro-shadow {
-    box-shadow: 6px 6px 0px #C7D2FE;
-  }
-
-  .dark .retro-shadow {
-    box-shadow: 6px 6px 0px #3730A3;
   }
 
   .social-github {

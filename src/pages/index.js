@@ -33,7 +33,7 @@ export default function Home({ posts }) {
       </div>
       <div className="items-center justify-center mx-auto">
         <Prose className="text-center lg:max-w-3xl">
-          <HeroContainer title="intro">
+          <HeroContainer>
             <div className="text-center lg:max-w-3xl">
               I&apos;m a front-end software engineer based in{' '}
               <span className="whitespace-nowrap">
