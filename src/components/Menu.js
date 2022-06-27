@@ -8,6 +8,7 @@ import HeroContainer from './HeroContainer';
 
 const links = [
   { name: 'Blog', href: '/blog' },
+  { name: 'Videos', href: '/videos' },
   { name: 'About', href: '/about' },
 ];
 
@@ -33,7 +34,7 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
   );
 }
 
-export default function AppMenu() {
+export default function Menu() {
   return (
     <Popover className="relative">
       <Popover.Button className="block p-2 custom-focus md:hidden">
@@ -48,11 +49,6 @@ export default function AppMenu() {
       <Popover.Panel className="absolute right-0 mr-1">
         <HeroContainer>
           <div className="flex flex-col items-center justify-center flex-1 h-full gap-8">
-            <Link href="/">
-              <a className="p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50">
-                <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
-              </a>
-            </Link>
             <Nav className="flex-col text-base md:flex-col" />
             <DarkModeToggle />
           </div>

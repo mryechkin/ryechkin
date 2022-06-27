@@ -22,10 +22,10 @@ export default function Blog({ posts }) {
           </div>
         </HeroContainer>
       </Prose>
-      <div className="pb-4 mt-8">
+      <Separator />
+      <div className="pb-4 my-8">
         <Posts data={posts} />
       </div>
-      <Separator />
       <div className="flex items-center justify-center py-8">
         <Counter slug="blog" />
       </div>

@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
           </Head>
           <DefaultSeo {...SEO} />
           <GoogleAnalytics />
-          <div className="text-gray-500 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-900 dark:text-gray-50">
+          <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-900">
             <Component {...pageProps} />
           </div>
         </MDXProvider>

@@ -53,6 +53,8 @@ const data = [
   },
 ];
 
-export default function Videos() {
+export default function Videos({ preview }) {
+  if (preview) return <Card key={data[0].imageUrl} item={data[0]} isExternal isVideo />;
+
   return data.map((item) => <Card key={item.imageUrl} item={item} isExternal isVideo />);
 }

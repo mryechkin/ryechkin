@@ -1,45 +1,23 @@
-import { useState } from 'react';
-import { usePress } from 'react-aria';
-import { motion } from 'framer-motion';
+import cn from 'classnames/dedupe';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-const variants = {
-  rotate: {
-    rotate: [0, 360],
-    transition: { duration: 1.2, repeat: Infinity, ease: 'linear' },
-  },
-  stop: { x: [0, 0] },
-};
-
-export default function KyloRen({ setConfetti = () => {} }) {
-  const [spinning, setSpinning] = useState(false);
+export default function KyloRen({ className }) {
   const { theme } = useTheme();
-  const { pressProps } = usePress({
-    onPress: () => {
-      setSpinning(!spinning);
-      setConfetti(true);
-    },
-  });
 
-  return (
-    <motion.button
-      aria-label="Kylo Ren"
-      id="kylo-ren"
-      type="button"
-      className="custom-focus-offset flex w-16 cursor-pointer select-none items-center justify-center rounded-full p-1 focus:rounded-full"
-      animate={spinning ? 'rotate' : 'stop'}
-      variants={variants}
-      whileFocus={{ scale: 1.1 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      {...pressProps}
-    >
-      {theme === 'light' ? (
-        <Image src="/assets/kyloren.svg" height="64" width="64" alt="Kylo Ren" />
-      ) : (
-        <Image src="/assets/kyloren-inverse.svg" height="64" width="64" alt="Kylo Ren" />
-      )}
-    </motion.button>
+  return theme === 'light' ? (
+    <Image src="/assets/kyloren.svg" height="32" width="32" alt="Kylo Ren" />
+  ) : (
+    <Image src="/assets/kyloren-inverse.svg" height="32" width="32" alt="Kylo Ren" />
   );
+
+  // return (
+  //   <span
+  //     aria-hidden="true"
+  //     id="kylo-ren"
+  //     className={cn('w-8 select-none rounded-full p-1 focus:rounded-full', className)}
+  //   >
+  //     {}
+  //   </span>
+  // );
 }

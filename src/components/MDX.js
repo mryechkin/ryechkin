@@ -6,11 +6,13 @@ import Link from 'next/link';
 import Caption from './Caption';
 import CodeBlock from './CodeBlock';
 import ExternalLink from './ExternalLink';
+import KyloRen from './KyloRen';
 import PeaceSign from './PeaceSign';
 import PostImage from './PostImage';
 import RickRoll from './RickRoll';
 import Separator from './Separator';
 import SyntaxHighlighter from './SyntaxHighlighter';
+import Tags from './Tags';
 
 function CustomLink(props) {
   const { children, href } = props;
@@ -35,6 +37,7 @@ const MDX = {
   ExternalLink,
   FiSmile,
   Image,
+  KyloRen,
   Link,
   PeaceSign,
   PostImage,
@@ -42,6 +45,7 @@ const MDX = {
     props.live ? <CodeBlock {...props} /> : <SyntaxHighlighter {...props} />,
   RickRoll,
   Separator,
+  Tags,
   ...React,
 };
 

@@ -56,14 +56,19 @@ export default function Layout({ className, children }) {
         </div>
         <div className="w-screen border-b border-gray-200 blurred-backdrop dark:border-gray-900">
           <div className="flex items-center justify-between w-full max-w-5xl px-4 py-2 mx-auto flex-nowrap md:px-2">
-            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter">
+            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:flex-grow-0">
               <Avatar setConfetti={setConfetti} />
               <Link href="/">
-                <a className="hidden p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:block ">
+                <a className="hidden p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:block">
                   <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
                 </a>
               </Link>
             </div>
+            <Link href="/">
+              <a className="p-2 text-base font-normal text-gray-800 uppercase dark:text-gray-50 sm:text-lg md:hidden">
+                <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
+              </a>
+            </Link>
             <div className="relative flex items-center justify-center">
               <Menu />
               <div className="hidden w-full min-w-[4rem] items-center justify-center md:flex">

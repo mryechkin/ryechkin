@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { usePress } from 'react-aria';
 import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { trackRickRoll } from '@/lib/analytics';
 import { useHits } from '@/lib/hooks';

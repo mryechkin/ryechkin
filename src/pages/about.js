@@ -27,18 +27,6 @@ export default function About({ source }) {
                 />
               </div>
               <MDXRemote {...source} scope={{ experience }} />
-              <Tags
-                className="justify-center pb-4"
-                list={[
-                  'React',
-                  'Next.js',
-                  'Supabase',
-                  'Rollup',
-                  'Storybook',
-                  'Styled Components',
-                  'Tailwind',
-                ]}
-              />
             </div>
             <div className="flex-shrink-0 hidden lg:inline-flex lg:w-72">
               <Image
@@ -51,7 +39,6 @@ export default function About({ source }) {
             </div>
           </div>
         </HeroContainer>
-        <Separator />
       </div>
       <div className="flex items-center justify-center pt-8">
         <Counter slug="blog" />

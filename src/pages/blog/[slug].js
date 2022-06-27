@@ -47,21 +47,7 @@ export default function Post({ source }) {
       />
       <div className="w-full max-w-full prose-sm prose dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{frontmatter.title}</h1>
-        <div className="inline-flex flex-col items-center justify-center w-full gap-4 text-sm text-center text-gray-600 dark:text-gray-200 sm:flex-row sm:justify-evenly">
-          <DateDisplay data={frontmatter} />
-          <div className="flex items-center justify-center gap-2">
-            {frontmatter.author?.name}
-            <a
-              alt={frontmatter.author?.name}
-              className="simple-link"
-              href={frontmatter.author?.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTwitter className="h-6 w-6 text-[#1d9bef]" />
-            </a>
-          </div>
-        </div>
+        <DateDisplay data={frontmatter} />
         <div className="max-w-xl mx-auto mt-8 shadow-md">
           <Image
             src={`/${slug}/cover.png`}
