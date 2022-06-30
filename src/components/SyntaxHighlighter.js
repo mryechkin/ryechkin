@@ -26,7 +26,7 @@ const SyntaxHighlighter = ({ children }) => {
       theme={theme === 'dark' ? darkTheme : lightTheme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <div className="relative font-mono border border-indigo-200 group dark:border-indigo-600">
+        <div className="group relative border border-indigo-200 font-mono dark:border-indigo-600">
           <CopyButton
             className="absolute right-0 mt-1.5 mr-1.5 sm:mt-2 sm:mr-2"
             code={code}

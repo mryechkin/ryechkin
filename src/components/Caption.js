@@ -10,7 +10,7 @@ export default function Caption({ children, className, hideIcon = false }) {
       )}
     >
       {!hideIcon && (
-        <HiOutlineDocumentText className="mr-2 h-4 w-4 flex-shrink-0 text-indigo-400 dark:text-indigo-300" />
+        <HiOutlineDocumentText className="mr-2 h-4 w-4 shrink-0 text-indigo-400 dark:text-indigo-300" />
       )}
       {children}
     </div>

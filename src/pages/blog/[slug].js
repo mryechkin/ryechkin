@@ -1,4 +1,3 @@
-import { FaTwitter } from 'react-icons/fa';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
@@ -45,13 +44,13 @@ export default function Post({ source }) {
           },
         }}
       />
-      <div className="w-full max-w-full prose-sm prose dark:prose-invert sm:prose-base lg:prose-lg">
+      <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{frontmatter.title}</h1>
         <DateDisplay data={frontmatter} />
-        <div className="max-w-xl mx-auto mt-8 shadow-md">
+        <div className="mx-auto mt-8 max-w-xl shadow-md">
           <Image
             src={`/${slug}/cover.png`}
-            className="bg-gray-900 rounded-lg"
+            className="rounded-lg bg-gray-900"
             layout="responsive"
             height={627}
             width={1200}

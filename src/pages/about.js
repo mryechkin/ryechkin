@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Counter, HeroContainer, Layout, SEO, Separator, Tags } from '@/components';
+import { Counter, HeroContainer, Layout, SEO } from '@/components';
 import { getMdx, getRawFile, getReadingTime } from '@/lib/data';
 import { yearsToDate } from '@/lib/utils';
 
@@ -12,7 +12,7 @@ export default function About({ source }) {
   return (
     <Layout slug="about">
       <SEO title={frontmatter.title} description={frontmatter.description} />
-      <div className="max-w-full mx-auto prose lg:prose-lg">
+      <div className="prose mx-auto max-w-full lg:prose-lg">
         <h1>About Me</h1>
         <HeroContainer className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
@@ -28,7 +28,7 @@ export default function About({ source }) {
               </div>
               <MDXRemote {...source} scope={{ experience }} />
             </div>
-            <div className="flex-shrink-0 hidden lg:inline-flex lg:w-72">
+            <div className="hidden shrink-0 lg:inline-flex lg:w-72">
               <Image
                 src="/assets/hammock.jpg"
                 alt="About me"

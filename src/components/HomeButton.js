@@ -16,7 +16,7 @@ export default function HomeButton({ className }) {
         whileTap={{ scale: 0.9 }}
       >
         <span className="sr-only">Home</span>
-        <HomeIcon className="w-6 h-6 lg:h-8 lg:w-8" aria-hidden="true" />
+        <HomeIcon className="h-6 w-6 lg:h-8 lg:w-8" aria-hidden="true" />
       </motion.a>
     </Link>
   );

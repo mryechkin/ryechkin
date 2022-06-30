@@ -5,7 +5,7 @@ export default function TableOfContents({ className, headings }) {
     <div className={cn('flex flex-col items-center justify-center', className)}>
       <ul className="list-none">
         {headings.map((heading) => (
-          <li className="!mt-0 !mb-0">
+          <li className="!my-0">
             <a
               className={cn('toc-link text-xs no-underline hover:text-sky-300', {
                 'font-bold': heading.level === 2,

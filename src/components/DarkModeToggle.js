@@ -31,9 +31,9 @@ export default function DarkModeToggle({ className }) {
       {...pressProps}
     >
       {theme === 'light' ? (
-        <CgSun className="w-6 h-6 text-rose-400" />
+        <CgSun className="h-6 w-6 text-rose-400" />
       ) : (
-        <IoMoon className="w-6 h-6 text-indigo-500" />
+        <IoMoon className="h-6 w-6 text-indigo-500" />
       )}
     </motion.button>
   );

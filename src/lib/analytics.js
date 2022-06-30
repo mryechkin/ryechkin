@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import * as Panelbear from '@panelbear/panelbear-js';
 import { useRouter } from 'next/router';

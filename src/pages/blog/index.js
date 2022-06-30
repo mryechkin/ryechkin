@@ -14,7 +14,7 @@ export default function Blog({ posts }) {
     <Layout>
       <SEO title="Blog" />
       <Prose>
-        <h1 className="py-2 text-5xl retro">Blog</h1>
+        <h1 className="retro py-2 text-5xl">Blog</h1>
         <HeroContainer>
           <div className="text-center lg:max-w-3xl">
             I write about modern web development, design systems and stuff I&apos;ve
@@ -23,7 +23,7 @@ export default function Blog({ posts }) {
         </HeroContainer>
       </Prose>
       <Separator />
-      <div className="pb-4 my-8">
+      <div className="my-8 pb-4">
         <Posts data={posts} />
       </div>
       <div className="flex items-center justify-center py-8">

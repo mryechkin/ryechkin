@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 

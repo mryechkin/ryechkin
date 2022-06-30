@@ -14,7 +14,7 @@ export default function Blog({ snippets }) {
     <Layout>
       <SEO title="Snippets" />
       <Prose>
-        <h1 className="py-2 text-5xl retro">Snippets</h1>
+        <h1 className="retro py-2 text-5xl">Snippets</h1>
         <HeroContainer>
           <div className="text-center lg:max-w-3xl">
             <p>
@@ -26,7 +26,7 @@ export default function Blog({ snippets }) {
         </HeroContainer>
       </Prose>
       <Separator />
-      <div className="max-w-lg mx-auto">
+      <div className="mx-auto max-w-lg">
         {snippets?.length
           ? snippets.map((snippet) => {
               const { summary, slug, tags, title } = snippet.data;

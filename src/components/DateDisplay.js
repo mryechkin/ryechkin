@@ -16,7 +16,7 @@ export default function DateDisplay({ className, data }) {
         <>
           <span className="font-black">&middot;</span>
           <div className="flex items-center justify-center gap-2">
-            <IoMdBook className="w-6 h-6 font-light text-indigo-600 dark:text-indigo-400" />
+            <IoMdBook className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
             {readingTime}
           </div>
         </>
@@ -25,7 +25,7 @@ export default function DateDisplay({ className, data }) {
         <>
           <span className="font-black">&middot;</span>
           <div className="flex items-center justify-center gap-2">
-            <MdOutlineCameraRoll className="w-6 h-6 font-light text-indigo-600 dark:text-indigo-400" />
+            <MdOutlineCameraRoll className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
             {duration}
           </div>
         </>

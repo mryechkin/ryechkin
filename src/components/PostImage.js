@@ -27,7 +27,7 @@ export default function PostImage({ className, src, width, height, caption = '' 
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
+    <div className="flex w-full flex-col items-center justify-center">
       <button
         className={cn(
           'custom-focus-offset mx-auto my-4 w-full max-w-xl cursor-pointer rounded-lg shadow',

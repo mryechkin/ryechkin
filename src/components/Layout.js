@@ -27,7 +27,7 @@ export default function Layout({ className, children }) {
   }, [scrollY]);
 
   return (
-    <div className="relative flex flex-col justify-between w-full min-h-screen overflow-hidden bg-left-top bg-repeat bg-gray-50 bg-pattern-light bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
+    <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
       <motion.header
         className="fixed z-10"
         initial="show"
@@ -42,10 +42,10 @@ export default function Layout({ className, children }) {
         }}
         animate={showHeader ? 'show' : 'hide'}
       >
-        <div className="w-full h-4 bg-blue-600" />
-        <div className="flex items-center justify-center w-full h-4 text-center bg-yellow-300">
+        <div className="h-4 w-full bg-blue-600" />
+        <div className="flex h-4 w-full items-center justify-center bg-yellow-300 text-center">
           <a
-            className="h-4 text-xs font-bold tracking-wider text-blue-600 uppercase"
+            className="h-4 text-xs font-bold uppercase tracking-wider text-blue-600"
             href="https://stand-with-ukraine.pp.ua/"
             title="Donate to support Ukraine #StandWithUkraine"
             target="_blank"
@@ -54,18 +54,18 @@ export default function Layout({ className, children }) {
             #StandWithUkraine
           </a>
         </div>
-        <div className="w-screen border-b border-gray-200 blurred-backdrop dark:border-gray-900">
-          <div className="flex items-center justify-between w-full max-w-5xl px-4 py-2 mx-auto flex-nowrap md:px-2">
-            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:flex-grow-0">
+        <div className="blurred-backdrop w-screen border-b border-gray-200 dark:border-gray-900">
+          <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
+            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
               <Avatar setConfetti={setConfetti} />
               <Link href="/">
-                <a className="hidden p-2 text-xl font-normal text-gray-800 uppercase dark:text-gray-50 md:block">
+                <a className="hidden p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50 md:block">
                   <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
                 </a>
               </Link>
             </div>
             <Link href="/">
-              <a className="p-2 text-base font-normal text-gray-800 uppercase dark:text-gray-50 sm:text-lg md:hidden">
+              <a className="p-2 text-base font-normal uppercase text-gray-800 dark:text-gray-50 sm:text-lg md:hidden">
                 <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
               </a>
             </Link>
@@ -78,13 +78,13 @@ export default function Layout({ className, children }) {
           </div>
         </div>
       </motion.header>
-      <div className="fixed flex items-center justify-center w-full top-12">
+      <div className="fixed top-12 flex w-full items-center justify-center">
         <Confetti
           active={confetti}
           config={{ colors: ['#2563eb', '#fde047'], spread: 360 }}
         />
       </div>
-      <main className="w-full mt-24 overflow-hidden max-w-none">
+      <main className="mt-24 w-full max-w-none overflow-hidden">
         <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>{children}</div>
       </main>
       <footer
@@ -93,12 +93,12 @@ export default function Layout({ className, children }) {
           className
         )}
       >
-        <div className="w-full max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
-          <div className="relative flex flex-col items-center justify-center w-full mt-4 gap-y-4 sm:flex-row sm:justify-between">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mt-4 flex w-full flex-col items-center justify-center gap-y-4 sm:flex-row sm:justify-between">
             <Social />
             <Nav className="text-sm" aria-label="Bottom navigation" />
           </div>
-          <div className="flex flex-wrap items-center justify-center flex-grow-0 py-6 text-xs tracking-tight text-gray-800 dark:text-white sm:py-8">
+          <div className="flex grow-0 flex-wrap items-center justify-center py-6 text-xs tracking-tight text-gray-800 dark:text-white sm:py-8">
             <span>&copy; {year}</span>
             <span className="ml-1 font-semibold tracking-wide">Mykhaylo Ryechkin</span>.
             <span className="ml-1 font-normal">All rights reserved.</span>

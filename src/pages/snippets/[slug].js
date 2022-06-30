@@ -32,7 +32,7 @@ export default function Snippets({ source }) {
         <title>{fullTitle}</title>
         <meta name="twitter:title" content={fullTitle} />
       </Head>
-      <div className="w-full max-w-full prose-sm prose dark:prose-invert sm:prose-base lg:prose-lg">
+      <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">Snippets</h1>
         <h2>{frontmatter.title}</h2>
         <article className="py-4 text-gray-800 dark:text-gray-50 md:pt-8">

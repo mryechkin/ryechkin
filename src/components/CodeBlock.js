@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { SiPrettier } from 'react-icons/si';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
@@ -81,14 +83,14 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
 
   if (isMounted && code) {
     return (
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex w-full flex-col items-center justify-center">
         <LiveProvider
           code={editorCode}
           theme={syntaxTheme}
           scope={scope}
           noInline={noInline}
         >
-          <LivePreview className="w-full p-2 rounded-md bg-white/50 backdrop-blur-lg dark:bg-gray-900/50" />
+          <LivePreview className="w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-gray-900/50" />
           <div
             className={cn(
               'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
@@ -98,18 +100,18 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
               }
             )}
           >
-            <div className="absolute flex items-center justify-center gap-2 top-3 right-3">
+            <div className="absolute top-3 right-3 flex items-center justify-center gap-2">
               <Button aria-label="Format code" title="Format code" onClick={formatCode}>
                 <SiPrettier />
               </Button>
               <CopyButton code={code} />
             </div>
-            <div className="text-xs font-bold text-gray-400 uppercase">
+            <div className="text-xs font-bold uppercase text-gray-400">
               Editable Example
             </div>
             <LiveEditor onChange={onChange} className="w-full p-2" />
           </div>
-          <LiveError className="w-full p-2 mt-4 text-white bg-red-600" />
+          <LiveError className="mt-4 w-full bg-red-600 p-2 text-white" />
         </LiveProvider>
       </div>
     );

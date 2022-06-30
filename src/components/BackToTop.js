@@ -29,9 +29,9 @@ export default function BackToTop({ className }) {
         whileTap={{ scale: 0.9 }}
         {...pressProps}
       >
-        <BiUpArrowCircle className="w-6 h-6" />
+        <BiUpArrowCircle className="h-6 w-6" />
       </motion.button>
-      <span aria-hidden="true" className="font-black tracking-widest uppercase text-xxs">
+      <span aria-hidden="true" className="text-xxs font-black uppercase tracking-widest">
         Back to top
       </span>
     </div>

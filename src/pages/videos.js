@@ -13,7 +13,7 @@ export default function VideosPage() {
     <Layout>
       <SEO title="Videos" />
       <Prose>
-        <h1 className="py-2 text-5xl retro">Videos</h1>
+        <h1 className="retro py-2 text-5xl">Videos</h1>
         <HeroContainer>
           <div className="text-center lg:max-w-3xl">
             <p>
@@ -30,7 +30,7 @@ export default function VideosPage() {
         </HeroContainer>
       </Prose>
       <Separator />
-      <div className="pb-4 my-8">
+      <div className="my-8 pb-4">
         <Videos />
       </div>
       <div className="flex items-center justify-center py-8">

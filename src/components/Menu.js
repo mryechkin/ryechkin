@@ -37,18 +37,18 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
 export default function Menu() {
   return (
     <Popover className="relative">
-      <Popover.Button className="block p-2 custom-focus md:hidden">
+      <Popover.Button className="custom-focus block p-2 md:hidden">
         {({ open }) =>
           open ? (
-            <XCircleIcon className="w-8 h-8 text-rose-400" />
+            <XCircleIcon className="h-8 w-8 text-rose-400" />
           ) : (
-            <MenuAlt4Icon className="w-8 h-8 text-sky-300" />
+            <MenuAlt4Icon className="h-8 w-8 text-sky-300" />
           )
         }
       </Popover.Button>
       <Popover.Panel className="absolute right-0 mr-1">
         <HeroContainer>
-          <div className="flex flex-col items-center justify-center flex-1 h-full gap-8">
+          <div className="flex h-full flex-1 flex-col items-center justify-center gap-8">
             <Nav className="flex-col text-base md:flex-col" />
             <DarkModeToggle />
           </div>
