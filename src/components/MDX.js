@@ -1,9 +1,10 @@
 import React from 'react';
 import { FiSmile } from 'react-icons/fi';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Link from 'next/link';
 
 import Caption from './Caption';
+import Card from './Card';
 import CodeBlock from './CodeBlock';
 import ExternalLink from './ExternalLink';
 import KyloRen from './KyloRen';
@@ -33,6 +34,7 @@ const MDX = {
   a: CustomLink,
   hr: Separator,
   Caption,
+  Card,
   CodeBlock,
   ExternalLink,
   FiSmile,

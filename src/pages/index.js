@@ -45,7 +45,7 @@ export default function Home({ posts }) {
               <div className="mt-2 flex items-center justify-center">
                 <Link href="/about">
                   <a>
-                    Find out <strong>more</strong> &rarr;
+                    More <strong>about me</strong> &rarr;
                   </a>
                 </Link>
               </div>
@@ -53,22 +53,22 @@ export default function Home({ posts }) {
           </HeroContainer>
         </Prose>
         <Separator />
-        <h1 className="title">Latest Post</h1>
+        <h1 className="title">Latest Posts</h1>
         <Posts data={posts} preview />
-        <div className="mt-4 flex items-center justify-end">
+        <div className="my-8 flex items-center justify-center sm:justify-end">
           <Link href="/blog">
             <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
-              <strong>Read</strong> all posts &rarr;
+              See <strong>all posts</strong> &rarr;
             </a>
           </Link>
         </div>
         <Separator />
         <h1 className="title">Latest Video</h1>
         <Videos preview />
-        <div className="mt-4 flex items-center justify-end">
+        <div className="my-8 flex items-center justify-center sm:justify-end">
           <Link href="/videos">
             <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
-              <strong>Watch</strong> all videos &rarr;
+              See <strong>all videos</strong> &rarr;
             </a>
           </Link>
         </div>

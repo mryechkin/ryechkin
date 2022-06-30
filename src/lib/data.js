@@ -28,25 +28,33 @@ export function getReadingTime(source) {
 
 export function getAllPosts() {
   const posts = fs
-    .readdirSync(join(process.cwd(), 'data/posts'))
+    .readdirSync(join(process.cwd(), 'src/data/posts'))
     // Only include md(x) files
-    .filter((path) => /\.mdx?$/.test(path))
-    .map((filename) => {
-      const source = getRawFile(`/data/posts/${filename}`);
-      const slug = filename.replace(/\.mdx?$/, '');
-      // Using gray-matter here as we don't need the entire MDX, just frontmatter
-      const { data } = matter(source);
-      return {
+    .filter((path) => /\.mdx?$/.test(path));
+
+  const filteredPosts = [];
+
+  posts.forEach((fileName) => {
+    const source = getRawFile(`/src/data/posts/${fileName}`);
+    const slug = fileName.replace(/\.mdx?$/, '');
+
+    // Using gray-matter here as we don't need the entire MDX, just frontmatter
+    const { data } = matter(source);
+
+    // Only include drafts when in local dev
+    if (data.published || process.env.NEXT_PUBLIC_APP_ENV === 'local') {
+      filteredPosts.push({
         data: {
           ...data,
           readingTime: getReadingTime(source),
           slug,
         },
         source,
-      };
-    });
+      });
+    }
+  });
 
-  return posts.sort(
+  return filteredPosts.sort(
     (a, b) =>
       // sort by date
       parseISO(b.data.date) - parseISO(a.data.date)
@@ -55,11 +63,11 @@ export function getAllPosts() {
 
 export function getAllSnippets() {
   const snippets = fs
-    .readdirSync(join(process.cwd(), 'data/snippets'))
+    .readdirSync(join(process.cwd(), 'src/data/snippets'))
     // Only include md(x) files
     .filter((path) => /\.mdx?$/.test(path))
     .map((filename) => {
-      const source = getRawFile(`/data/snippets/${filename}`);
+      const source = getRawFile(`/src/data/snippets/${filename}`);
       const slug = filename.replace(/\.mdx?$/, '');
       // Using gray-matter here as we don't need the entire MDX, just frontmatter
       const { data } = matter(source);

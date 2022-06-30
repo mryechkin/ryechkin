@@ -8,7 +8,13 @@ import Link from 'next/link';
 import DateDisplay from './DateDisplay';
 import Tags from './Tags';
 
-export default function Card({ item, isExternal = false, isVideo = false }) {
+export default function Card({
+  className,
+  item,
+  hideCover = false,
+  isExternal = false,
+  isVideo = false,
+}) {
   if (!item) return null;
 
   const { date, duration, href, imageUrl, readingTime, summary, tags, title } = item;
@@ -17,8 +23,9 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
     <Link href={href} passHref>
       <motion.a
         className={cn(
-          'custom-focus-offset group mt-6 grid max-h-full grid-flow-row grid-cols-5 overflow-hidden text-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
-          { 'sm:grid-rows-2 md:max-h-64 md:grid-flow-col md:grid-rows-1': imageUrl }
+          'not-prose custom-focus-offset group mt-6 grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
+          { 'sm:grid-rows-2 md:max-h-64 md:grid-flow-col md:grid-rows-1': imageUrl },
+          className
         )}
         whileFocus={{ y: -3 }}
         whileHover={{ y: -3 }}
@@ -45,7 +52,7 @@ export default function Card({ item, isExternal = false, isVideo = false }) {
             </p>
           )}
         </div>
-        {imageUrl && (
+        {!hideCover && imageUrl && (
           <div className="col-span-5 hidden px-4 pb-4 sm:block md:col-span-2 md:pt-4">
             <div className="relative flex h-full w-full items-center justify-center">
               <Image

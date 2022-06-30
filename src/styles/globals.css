@@ -8,27 +8,29 @@ html {
 
 @layer base {
   body {
-    @apply font-sans text-gray-700 dark:text-gray-50 dark:selection:text-indigo-900 dark:selection:bg-indigo-300 selection:bg-indigo-700 selection:text-indigo-100;
+    @apply font-sans text-gray-700 selection:bg-indigo-700 selection:text-indigo-100 dark:text-gray-50 dark:selection:bg-indigo-300 dark:selection:text-indigo-900;
   }
 
   a {
-    @apply focus:no-underline hover:no-underline !important;
+    @apply hover:no-underline focus:no-underline !important;
   }
 
-  a:not(.shadow-retro), input[type="button"]:not(.shadow-retro) {
+  a:not(.shadow-retro),
+  input[type='button']:not(.shadow-retro) {
     @apply cursor-pointer focus:outline-none focus:ring focus:ring-sky-300;
   }
 
-  nav:not(.toc) a, .nav-link {
-    @apply p-2 font-bold text-gray-800 no-underline transition-all hover:shadow-link shadow-underline dark:text-gray-50;
+  nav:not(.toc) a,
+  .nav-link {
+    @apply p-2 font-bold text-gray-800 no-underline shadow-underline transition-all hover:shadow-link dark:text-gray-50;
   }
 
   .accent {
-     @apply font-semibold text-indigo-600 dark:text-yellow-300;
+    @apply font-semibold text-indigo-600 dark:text-yellow-300;
   }
 
   .accent-underline {
-    @apply font-semibold text-gray-700 underline dark:text-white underline-offset-8 decoration-2 decoration-dotted dark:decoration-yellow-400 decoration-amber-400;
+    @apply font-semibold text-gray-700 underline decoration-amber-400 decoration-dotted decoration-2 underline-offset-8 dark:text-white dark:decoration-yellow-400;
   }
 
   .blurred-backdrop {
@@ -44,7 +46,7 @@ html {
   }
 
   .note {
-    @apply p-2 bg-white border-2 border-indigo-500 border-dotted dark:bg-gray-800;
+    @apply border-2 border-dotted border-indigo-500 bg-white p-2 dark:bg-gray-800;
   }
 
   .note > p {
@@ -56,8 +58,8 @@ html {
   }
 
   .retro {
-    @apply font-black tracking-tight text-blue-300 dark:text-amber-50 selection:text-indigo-50 dark:selection:text-gray-800;
-    text-shadow: 3px 2px 0px #4F46E5, 5px 4px 0px #C7D2FE;
+    @apply font-black tracking-tight text-blue-300 selection:text-indigo-50 dark:text-amber-50 dark:selection:text-gray-800;
+    text-shadow: 3px 2px 0px #4f46e5, 5px 4px 0px #c7d2fe;
   }
 
   .dark .retro {
@@ -65,8 +67,8 @@ html {
   }
 
   .retro-thin {
-    @apply font-black tracking-tight text-indigo-600 dark:text-yellow-300 selection:text-indigo-50 dark:selection:text-gray-800;
-    text-shadow: 3px 2px 0px #C7D2FE;
+    @apply font-black tracking-tight text-indigo-600 selection:text-indigo-50 dark:text-yellow-300 dark:selection:text-gray-800;
+    text-shadow: 3px 2px 0px #c7d2fe;
   }
 
   .dark .retro-thin {
@@ -74,23 +76,23 @@ html {
   }
 
   .social-github {
-    @apply dark:hover:text-gray-600 dark:hover:bg-white hover:text-[#24292e] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+    @apply text-xl text-gray-400 hover:text-[#24292e] dark:text-gray-100 dark:hover:bg-white dark:hover:text-gray-600 sm:text-3xl;
   }
 
   .social-linkedin {
-    @apply dark:hover:text-[#0a66c2] hover:text-[#0a66c2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+    @apply text-xl text-gray-400 hover:text-[#0a66c2] dark:text-gray-100 dark:hover:text-[#0a66c2] sm:text-3xl;
   }
 
   .social-twitter {
-    @apply dark:hover:text-[#1da1f2] hover:text-[#1da1f2] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+    @apply text-xl text-gray-400 hover:text-[#1da1f2] dark:text-gray-100 dark:hover:text-[#1da1f2] sm:text-3xl;
   }
 
   .social-youtube {
-    @apply dark:hover:text-[#ff0000] hover:text-[#ff0000] dark:text-gray-100 text-gray-400 text-xl sm:text-3xl;
+    @apply text-xl text-gray-400 hover:text-[#ff0000] dark:text-gray-100 dark:hover:text-[#ff0000] sm:text-3xl;
   }
 
   .title {
-    @apply py-2 text-5xl font-black tracking-tight retro;
+    @apply retro py-2 text-5xl font-black tracking-tight;
   }
 }
 
@@ -99,15 +101,16 @@ html {
     @apply text-gray-700 dark:text-gray-50;
   }
 
-  .prose a:not(.anchor):not(.toc-link):not(.simple-link) {
-    @apply focus:no-underline hover:underline-offset-4 transition-all underline decoration-2 decoration-sky-300 underline-offset-2 text-gray-800 dark:text-gray-50 font-medium !important;
+  .prose a:not(.not-prose):not(.anchor):not(.toc-link):not(.simple-link) {
+    @apply font-medium text-gray-800 underline decoration-sky-300 decoration-2 underline-offset-2 transition-all hover:underline-offset-4 focus:no-underline dark:text-gray-50 !important;
   }
 
   .prose blockquote {
-    @apply p-2 not-italic font-normal text-gray-800 bg-yellow-50 border-2 border-l-[0.75rem] border-yellow-300 dark:border-blue-600 dark:text-gray-50 dark:bg-blue-900;
+    @apply border border-l-[0.75rem] border-yellow-300 bg-yellow-50 p-2 font-normal not-italic text-gray-800 dark:border-blue-600 dark:bg-blue-900 dark:text-gray-50;
   }
 
   .prose blockquote p {
+    @apply text-gray-900 dark:text-white;
     margin: 0;
   }
 
@@ -131,7 +134,9 @@ html {
     @apply leading-tight !important;
   }
 
-  .prose h2, .prose h3, .prose h4 {
+  .prose h2,
+  .prose h3,
+  .prose h4 {
     @apply my-4 font-bold tracking-tight text-gray-700 dark:text-rose-50 !important;
   }
 
@@ -152,12 +157,12 @@ html {
   }
 
   .prose .anchor {
-    @apply absolute invisible px-1 ml-1 no-underline cursor-pointer;
+    @apply invisible absolute ml-1 cursor-pointer px-1 no-underline;
   }
 
   .prose .anchor:after {
     @apply font-bold text-gray-400 no-underline;
-    content: "#";
+    content: '#';
   }
 
   .prose .anchor:hover:after {
@@ -169,7 +174,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply bg-[#C7D2FE] dark:bg-[#6366f1] border border-[#C7D2FE] dark:border-[#6366f1] py-1 px-2 text-xs font-semibold text-indigo-800 dark:text-indigo-100;
+    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-gray-900 dark:text-indigo-200;
   }
 }
 

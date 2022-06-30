@@ -2,10 +2,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { BackToTop, Counter, DateDisplay, Layout, SEO } from '@/components';
+import { BackToTop, Counter, DateDisplay, Layout, SEO, Tags } from '@/components';
 import { getAllPosts, getHeadings, getMdx, getRawFile, getReadingTime } from '@/lib/data';
 
-export default function Post({ source }) {
+export default function Post({ source = {} }) {
   const { frontmatter } = source;
   const fullTitle = `Mykhaylo Ryechkin | ${frontmatter.title}`;
   const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${frontmatter.slug}%2Fcover.png&w=1200&q=100`;
@@ -20,13 +20,13 @@ export default function Post({ source }) {
       </Head>
       <SEO
         image={image}
-        title={frontmatter.title}
-        description={frontmatter.summary}
-        canonical={frontmatter.canonical}
+        title={frontmatter?.title}
+        description={frontmatter?.summary}
+        canonical={frontmatter?.canonical}
         openGraph={{
-          title: frontmatter.title,
-          description: frontmatter.summary,
-          url: frontmatter.canonical,
+          title: frontmatter?.title,
+          description: frontmatter?.summary,
+          url: frontmatter?.canonical,
           images: [
             {
               url: image,
@@ -37,17 +37,23 @@ export default function Post({ source }) {
           ],
           type: 'article',
           article: {
-            publishedTime: frontmatter.date,
-            authors: [frontmatter.author?.name],
-            tags: frontmatter.seo,
+            publishedTime: frontmatter?.date,
+            authors: [frontmatter?.author?.name],
+            tags: frontmatter?.seo,
             image,
           },
         }}
       />
       <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{frontmatter.title}</h1>
+        {frontmatter?.tags?.length && (
+          <Tags
+            className="my-6 w-full items-center justify-center"
+            list={frontmatter?.tags}
+          />
+        )}
         <DateDisplay data={frontmatter} />
-        <div className="mx-auto mt-8 max-w-xl shadow-md">
+        <div className="mx-auto mt-8 max-w-3xl shadow-md">
           <Image
             src={`/${slug}/cover.png`}
             className="rounded-lg bg-gray-900"
@@ -73,7 +79,12 @@ export default function Post({ source }) {
 }
 
 export async function getStaticProps({ params }) {
-  const source = getRawFile(`/data/posts/${params.slug}.mdx`);
+  const source = getRawFile(`/src/data/posts/${params.slug}.mdx`);
+
+  if (!source) {
+    return { props: {}, notFound: true };
+  }
+
   const data = await getMdx(source);
   const headings = await getHeadings(source);
 

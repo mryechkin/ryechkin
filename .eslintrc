@@ -1,5 +1,6 @@
 {
-  "extends": ["acme", "plugin:@next/next/recommended"],
+  "extends": ["acme", "plugin:@next/next/recommended", "plugin:tailwindcss/recommended"],
+  "plugins": ["tailwindcss"],
   "rules": {
     "no-unused-vars": "warn",
     "react-hooks/exhaustive-deps": "warn",

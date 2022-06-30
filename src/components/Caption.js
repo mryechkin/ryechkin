@@ -5,7 +5,7 @@ export default function Caption({ children, className, hideIcon = false }) {
   return (
     <div
       className={cn(
-        'flex items-start justify-center text-sm text-gray-600 dark:text-gray-200',
+        'flex items-center justify-center text-sm text-gray-600 dark:text-gray-200',
         className
       )}
     >

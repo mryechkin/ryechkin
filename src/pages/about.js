@@ -48,7 +48,7 @@ export default function About({ source }) {
 }
 
 export async function getStaticProps() {
-  const fileContents = getRawFile('/data/about.mdx');
+  const fileContents = getRawFile('/src/data/about.mdx');
   const data = await getMdx(fileContents);
 
   return {

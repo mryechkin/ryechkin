@@ -8,6 +8,7 @@ import { ThemeProvider as StyledProvider } from 'styled-components';
 // eslint-disable-next-line import/order
 import SEO from '../../next-seo.config';
 
+import '@/styles/fonts.css';
 import '@/styles/globals.css';
 
 import { GoogleAnalytics, MDX } from '@/components';

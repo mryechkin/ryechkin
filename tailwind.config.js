@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
+/** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
@@ -27,7 +28,9 @@ module.exports = {
         'sky-accent': '#7dd3fc',
       },
       fontFamily: {
-        sans: ['Libre Franklin', '-apple-system', ...defaultTheme.fontFamily.sans],
+        sans: ['Libre Franklin', ...defaultTheme.fontFamily.sans],
+        serif: ['Libre Franklin', ...defaultTheme.fontFamily.serif],
+        mono: ['Fira Code', ...defaultTheme.fontFamily.mono],
       },
       fontSize: {
         xxs: '0.5rem',

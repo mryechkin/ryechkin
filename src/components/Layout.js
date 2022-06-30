@@ -46,7 +46,7 @@ export default function Layout({ className, children }) {
         <div className="flex h-4 w-full items-center justify-center bg-yellow-300 text-center">
           <a
             className="h-4 text-xs font-bold uppercase tracking-wider text-blue-600"
-            href="https://stand-with-ukraine.pp.ua/"
+            href="https://war.ukraine.ua/"
             title="Donate to support Ukraine #StandWithUkraine"
             target="_blank"
             rel="noreferrer"

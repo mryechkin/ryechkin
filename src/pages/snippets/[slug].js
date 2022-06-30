@@ -4,24 +4,6 @@ import { MDXRemote } from 'next-mdx-remote';
 import { Counter, Layout } from '@/components';
 import { getAllSnippets, getMdx, getRawFile } from '@/lib/data';
 
-const BoxExample = `
-() => {
-  return (
-    <Box
-      css={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        p: "4",
-      }}
-    >
-      <KyloRen />
-    </Box>
-  );
-};
-`;
-
 export default function Snippets({ source }) {
   const { frontmatter } = source;
   const fullTitle = `Mykhaylo Ryechkin | ${frontmatter.title}`;
@@ -47,7 +29,7 @@ export default function Snippets({ source }) {
 }
 
 export async function getStaticProps({ params }) {
-  const source = getRawFile(`/data/snippets/${params.slug}.mdx`);
+  const source = getRawFile(`/src/data/snippets/${params.slug}.mdx`);
   const data = await getMdx(source, false);
 
   return {

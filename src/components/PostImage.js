@@ -23,14 +23,22 @@ const shimmer = (w, h) => `
 const toBase64 = (str) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-export default function PostImage({ className, src, width, height, caption = '' }) {
+export default function PostImage({
+  className,
+  src,
+  width,
+  height,
+  small,
+  caption = '',
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <button
         className={cn(
-          'custom-focus-offset mx-auto my-4 w-full max-w-xl cursor-pointer rounded-lg shadow',
+          'custom-focus-offset mx-auto my-4 w-full cursor-pointer rounded-lg shadow',
+          small ? 'max-w-2xl' : 'max-w-5xl',
           className
         )}
         type="button"

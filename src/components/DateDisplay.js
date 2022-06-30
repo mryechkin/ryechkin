@@ -8,7 +8,12 @@ export default function DateDisplay({ className, data }) {
   const dateISO = parseISO(date);
 
   return (
-    <div className={cn('flex flex-wrap items-center justify-center gap-2', className)}>
+    <div
+      className={cn(
+        'flex items-center justify-center gap-2 whitespace-nowrap',
+        className
+      )}
+    >
       <time className="inline-flex justify-center py-1" dateTime={date}>
         {format(dateISO, 'LLLL d, yyyy')}
       </time>

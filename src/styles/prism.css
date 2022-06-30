@@ -6,47 +6,47 @@
  */
 
 /* Light Mode */
-code[class*="language-"],
-pre[class*="language-"] {
-  --attr-name: #6366F1;
+code[class*='language-'],
+pre[class*='language-'] {
+  --attr-name: #6366f1;
   --attr-value: #d946ef;
-  --bg: #F9FAFB;
-  --border: #C7D2FE;
-  --box-shadow: #E5E7EB;
-  --color: #1F2937;
-  --comment: #9CA3AF;
-  --keyword: #0EA5E9;
+  --bg: #f9fafb;
+  --border: #c7d2fe;
+  --box-shadow: #e5e7eb;
+  --color: #1f2937;
+  --comment: #9ca3af;
+  --keyword: #0ea5e9;
   --parameter: #a855f7;
-  --punctuation: #C026D3;
-  --tag: #EC4899;
+  --punctuation: #c026d3;
+  --tag: #ec4899;
 }
 
 /* Dark Mode */
-html[class="dark"] code[class*="language-"],
-html[class="dark"] pre[class*="language-"] {
+html[class='dark'] code[class*='language-'],
+html[class='dark'] pre[class*='language-'] {
   --attr-name: #e879f9;
   --attr-value: #818cf8;
-  --bg: #1F2937;
+  --bg: #1f2937;
   --border: #6366f1;
   --box-shadow: #374151;
-  --color: #F3F4F6;
-  --comment: #6B7280;
+  --color: #f3f4f6;
+  --comment: #6b7280;
   --keyword: #68c6d3;
   --parameter: #a855f7;
-  --punctuation: #D946EF;
-  --tag: #A5B4FC;
+  --punctuation: #d946ef;
+  --tag: #a5b4fc;
 }
 
-pre[class*="language-"] > code {
+pre[class*='language-'] > code {
   --border-width: 2px;
   --codeblock-padding: 0.5em 1em;
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   color: var(--color);
   background: 0 0;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -62,41 +62,38 @@ pre[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none;
 }
-pre[class*="language-"] {
+pre[class*='language-'] {
   position: relative;
   margin: 0.5em 0;
   overflow: visible;
   padding: 0;
 }
-pre[class*="language-"] > code {
+pre[class*='language-'] > code {
   position: relative;
   border: var(--border-width) solid var(--border);
   background-color: var(--bg);
-  background-image: linear-gradient(
-    transparent 50%,
-    rgba(69, 142, 209, 0.04) 50%
-  );
+  background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
   background-size: 3em 3em;
   background-origin: content-box;
   background-attachment: local;
   color: var(--color) !important;
 }
-code[class*="language-"] {
+code[class*='language-'] {
   max-height: inherit;
   height: inherit;
   padding: var(--codeblock-padding) !important;
   display: block;
   overflow: auto;
 }
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
   background-color: var(--bg);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin-bottom: 1em;
 }
-:not(pre) > code[class*="language-"] {
+:not(pre) > code[class*='language-'] {
   position: relative;
   padding: 0.2em;
   border-radius: 0.3em;
@@ -105,9 +102,9 @@ pre[class*="language-"] {
   display: inline;
   white-space: normal;
 }
-pre[class*="language-"]:after,
-pre[class*="language-"]:before {
-  content: "";
+pre[class*='language-']:after,
+pre[class*='language-']:before {
+  content: '';
   z-index: -2;
   display: block;
   position: absolute;
@@ -123,7 +120,7 @@ pre[class*="language-"]:before {
   -o-transform: rotate(-2deg);
   transform: rotate(-2deg);
 }
-pre[class*="language-"]:after {
+pre[class*='language-']:after {
   right: 0.75em;
   left: auto;
   -webkit-transform: rotate(2deg);
@@ -219,22 +216,22 @@ pre[class*="language-"]:after {
   opacity: 0.7;
 }
 @media screen and (max-width: 767px) {
-  pre[class*="language-"]:after,
-  pre[class*="language-"]:before {
+  pre[class*='language-']:after,
+  pre[class*='language-']:before {
     bottom: 14px;
     box-shadow: none;
   }
 }
-pre[class*="language-"].line-numbers.line-numbers {
+pre[class*='language-'].line-numbers.line-numbers {
   padding-left: 0;
 }
-pre[class*="language-"].line-numbers.line-numbers code {
+pre[class*='language-'].line-numbers.line-numbers code {
   padding-left: 3.8em;
 }
-pre[class*="language-"].line-numbers.line-numbers .line-numbers-rows {
+pre[class*='language-'].line-numbers.line-numbers .line-numbers-rows {
   left: 0;
 }
-pre[class*="language-"][data-line] {
+pre[class*='language-'][data-line] {
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 0;
