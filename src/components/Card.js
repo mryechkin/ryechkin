@@ -19,6 +19,10 @@ export default function Card({
 
   const { date, duration, href, imageUrl, readingTime, summary, tags, title } = item;
 
+  const externalProps = isExternal
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+
   return (
     <Link href={href} passHref>
       <motion.a
@@ -30,6 +34,7 @@ export default function Card({
         whileFocus={{ y: -3 }}
         whileHover={{ y: -3 }}
         whileTap={{ y: 0 }}
+        {...externalProps}
       >
         <div
           className={cn('col-span-5 flex flex-col items-center justify-start gap-4 p-4', {

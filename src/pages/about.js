@@ -12,7 +12,7 @@ export default function About({ source }) {
   return (
     <Layout slug="about">
       <SEO title={frontmatter.title} description={frontmatter.description} />
-      <div className="prose mx-auto max-w-full lg:prose-lg">
+      <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
         <h1>About Me</h1>
         <HeroContainer className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
