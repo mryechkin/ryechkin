@@ -37,7 +37,7 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
 export default function Menu() {
   return (
     <Popover className="relative">
-      <Popover.Button className="custom-focus block p-2 md:hidden">
+      <Popover.Button className="custom-focus block p-2 md:hidden" aria-label="Menu">
         {({ open }) =>
           open ? (
             <XCircleIcon className="h-8 w-8 text-rose-400" />

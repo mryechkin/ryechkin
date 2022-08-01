@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { Counter, HeroContainer, Layout, SEO } from '@/components';
@@ -20,7 +20,8 @@ export default function About({ source }) {
               <div className="lg:hidden">
                 <Image
                   src="/assets/hammock-wide.jpg"
-                  alt="About me"
+                  alt="Photo in a hammock"
+                  className="rounded"
                   width={1200}
                   height={360}
                   priority
@@ -31,7 +32,8 @@ export default function About({ source }) {
             <div className="hidden shrink-0 lg:inline-flex lg:w-72">
               <Image
                 src="/assets/hammock.jpg"
-                alt="About me"
+                alt="Photo in a hammock"
+                className="rounded"
                 width={480}
                 height={960}
                 priority

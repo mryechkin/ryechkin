@@ -54,7 +54,30 @@ const data = [
 ];
 
 export default function Videos({ preview }) {
-  if (preview) return <Card key={data[0].imageUrl} item={data[0]} isExternal isVideo />;
+  if (data && data.length) {
+    return (
+      <div className="flex flex-wrap items-start justify-center gap-4">
+        {data.map((item, i) => {
+          if ((i === 0 && preview) || !preview) {
+            return <Card key={item.imageUrl} item={item} isExternal isVideo />;
+          }
+          if (preview && i < 3) {
+            return (
+              <Card
+                className="w-full md:w-[calc(50%-1rem)]"
+                key={item.imageUrl}
+                item={item}
+                hideCover
+                isExternal
+                isVideo
+              />
+            );
+          }
+          return null;
+        })}
+      </div>
+    );
+  }
 
-  return data.map((item) => <Card key={item.imageUrl} item={item} isExternal isVideo />);
+  return null;
 }

@@ -1,5 +1,5 @@
+import Image from 'next/future/image';
 import Head from 'next/head';
-import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { BackToTop, Counter, DateDisplay, Layout, SEO, Tags } from '@/components';
@@ -57,7 +57,6 @@ export default function Post({ source = {} }) {
           <Image
             src={`/${slug}/cover.png`}
             className="rounded-lg bg-gray-900"
-            layout="responsive"
             height={627}
             width={1200}
             quality={100}

@@ -174,7 +174,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-gray-900 dark:text-indigo-200;
+    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-gray-800 dark:text-indigo-200;
   }
 }
 

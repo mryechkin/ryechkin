@@ -13,7 +13,6 @@ export default function Posts({ data, preview }) {
             if ((i === 0 && preview) || !preview) {
               return (
                 <Card
-                  className="w-full"
                   key={slug}
                   item={{
                     href: `/blog/${slug}`,
@@ -30,13 +29,23 @@ export default function Posts({ data, preview }) {
 
             if (preview && i < 3) {
               return (
-                <div className="prose flex w-full max-w-full flex-col items-start justify-between rounded-lg border border-indigo-200 bg-gray-50 py-2 px-4 dark:border-indigo-800 dark:bg-gray-900 sm:flex-row sm:items-center">
-                  <Link href={`/blog/${slug}`}>
-                    <a className="pr-2">{title}</a>
-                  </Link>
-                  <div className="">
-                    <DateDisplay data={post.data} />
+                <div
+                  key={slug}
+                  className="w-full max-w-full rounded-lg border border-indigo-200 bg-gray-50 py-2 px-4 dark:border-indigo-800 dark:bg-gray-900"
+                >
+                  <div className="prose flex w-full max-w-full flex-col items-start justify-between sm:flex-row sm:items-center">
+                    <Link href={`/blog/${slug}`}>
+                      <a className="pr-2">{title}</a>
+                    </Link>
+                    <div className="">
+                      <DateDisplay data={post.data} />
+                    </div>
                   </div>
+                  {summary && (
+                    <p className="mt-4 text-ellipsis text-left text-gray-600 line-clamp-4 dark:text-gray-200 md:line-clamp-3">
+                      {summary}
+                    </p>
+                  )}
                 </div>
               );
             }
