@@ -1,10 +1,10 @@
 {
-  "extends": ["acme", "plugin:@next/next/recommended", "plugin:tailwindcss/recommended"],
-  "plugins": ["tailwindcss"],
+  "extends": ["acme", "plugin:@next/next/recommended"],
   "rules": {
     "no-unused-vars": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "import/order": "off",
-    "react/function-component-definition": "off"
+    "react/function-component-definition": "off",
+    "simple-import-sort/imports": "off"
   }
 }

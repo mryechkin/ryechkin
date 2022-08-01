@@ -2,7 +2,14 @@ import Image from 'next/future/image';
 import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { BackToTop, Counter, DateDisplay, Layout, SEO, Tags } from '@/components';
+import BackToTop from '@/components/BackToTop';
+import Counter from '@/components/Counter';
+import DateDisplay from '@/components/DateDisplay';
+import Layout from '@/components/Layout';
+import MDX from '@/components/MDX';
+import SEO from '@/components/SEO';
+import Tags from '@/components/Tags';
+
 import { getAllPosts, getHeadings, getMdx, getRawFile, getReadingTime } from '@/lib/data';
 
 export default function Post({ source = {} }) {
@@ -64,7 +71,7 @@ export default function Post({ source = {} }) {
           />
         </div>
         <article className="py-4 text-gray-800 dark:text-gray-50 md:pt-8">
-          <MDXRemote {...source} />
+          <MDXRemote {...source} components={MDX} />
         </article>
         <div className="flex items-center justify-center p-2">
           <BackToTop />

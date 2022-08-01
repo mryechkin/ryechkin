@@ -1,7 +1,12 @@
 import Image from 'next/future/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Counter, HeroContainer, Layout, SEO } from '@/components';
+import Counter from '@/components/Counter';
+import HeroContainer from '@/components/HeroContainer';
+import Layout from '@/components/Layout';
+import MDX from '@/components/MDX';
+import SEO from '@/components/SEO';
+
 import { getMdx, getRawFile, getReadingTime } from '@/lib/data';
 import { yearsToDate } from '@/lib/utils';
 
@@ -27,7 +32,7 @@ export default function About({ source }) {
                   priority
                 />
               </div>
-              <MDXRemote {...source} scope={{ experience }} />
+              <MDXRemote {...source} components={MDX} scope={{ experience }} />
             </div>
             <div className="hidden shrink-0 lg:inline-flex lg:w-72">
               <Image

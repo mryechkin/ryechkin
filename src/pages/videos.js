@@ -1,12 +1,10 @@
-import {
-  Counter,
-  HeroContainer,
-  Layout,
-  Prose,
-  SEO,
-  Separator,
-  Videos,
-} from '@/components';
+import Counter from '@/components/Counter';
+import HeroContainer from '@/components/HeroContainer';
+import Layout from '@/components/Layout';
+import Prose from '@/components/Prose';
+import SEO from '@/components/SEO';
+import Separator from '@/components/Separator';
+import Videos from '@/components/Videos';
 
 export default function VideosPage() {
   return (

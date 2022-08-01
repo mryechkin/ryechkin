@@ -29,14 +29,14 @@ export function getReadingTime(source) {
 export function getAllPosts() {
   const posts = fs
     .readdirSync(join(process.cwd(), 'src/data/posts'))
-    // Only include md(x) files
-    .filter((path) => /\.mdx?$/.test(path));
+    // Only include mdx files
+    .filter((path) => /\.mdx$/.test(path));
 
   const filteredPosts = [];
 
   posts.forEach((fileName) => {
     const source = getRawFile(`/src/data/posts/${fileName}`);
-    const slug = fileName.replace(/\.mdx?$/, '');
+    const slug = fileName.replace(/\.mdx$/, '');
 
     // Using gray-matter here as we don't need the entire MDX, just frontmatter
     const { data } = matter(source);
@@ -65,7 +65,7 @@ export function getAllSnippets() {
   const snippets = fs
     .readdirSync(join(process.cwd(), 'src/data/snippets'))
     // Only include md(x) files
-    .filter((path) => /\.mdx?$/.test(path))
+    .filter((path) => /\.mdx$/.test(path))
     .map((filename) => {
       const source = getRawFile(`/src/data/snippets/${filename}`);
       const slug = filename.replace(/\.mdx?$/, '');

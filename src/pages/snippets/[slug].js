@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
 
-import { Counter, Layout } from '@/components';
+import Counter from '@/components/Counter';
+import Layout from '@/components/Layout';
+import MDX from '@/components/MDX';
+
 import { getAllSnippets, getMdx, getRawFile } from '@/lib/data';
 
 export default function Snippets({ source }) {
@@ -18,7 +21,7 @@ export default function Snippets({ source }) {
         <h1 className="retro">Snippets</h1>
         <h2>{frontmatter.title}</h2>
         <article className="py-4 text-gray-800 dark:text-gray-50 md:pt-8">
-          <MDXRemote {...source} />
+          <MDXRemote {...source} components={MDX} />
         </article>
         <div className="flex items-center justify-center py-8">
           <Counter slug={slug} />

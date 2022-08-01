@@ -58,13 +58,13 @@ export default function Layout({ className, children }) {
           <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
             <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
               <Avatar setConfetti={setConfetti} />
-              <Link href="/">
+              <Link href="/" prefetch={false}>
                 <a className="hidden p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50 md:block">
                   <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
                 </a>
               </Link>
             </div>
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a className="p-2 text-base font-normal uppercase text-gray-800 dark:text-gray-50 sm:text-lg md:hidden">
                 <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
               </a>

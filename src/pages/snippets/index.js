@@ -1,12 +1,11 @@
-import {
-  Card,
-  Counter,
-  HeroContainer,
-  Layout,
-  Prose,
-  SEO,
-  Separator,
-} from '@/components';
+import Card from '@/components/Card';
+import Counter from '@/components/Counter';
+import HeroContainer from '@/components/HeroContainer';
+import Layout from '@/components/Layout';
+import Prose from '@/components/Prose';
+import SEO from '@/components/SEO';
+import Separator from '@/components/Separator';
+
 import { getAllSnippets } from '@/lib/data';
 
 export default function Blog({ snippets }) {

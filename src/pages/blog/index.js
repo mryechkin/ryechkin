@@ -1,12 +1,11 @@
-import {
-  Counter,
-  HeroContainer,
-  Layout,
-  Posts,
-  Prose,
-  SEO,
-  Separator,
-} from '@/components';
+import Counter from '@/components/Counter';
+import HeroContainer from '@/components/HeroContainer';
+import Layout from '@/components/Layout';
+import Posts from '@/components/Posts';
+import Prose from '@/components/Prose';
+import SEO from '@/components/SEO';
+import Separator from '@/components/Separator';
+
 import { getAllPosts } from '@/lib/data';
 
 export default function Blog({ posts }) {

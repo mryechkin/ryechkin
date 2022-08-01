@@ -6,8 +6,4 @@ module.exports = {
       allowFutureImage: true,
     },
   },
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
 };

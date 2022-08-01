@@ -1,7 +1,7 @@
 import { FaExclamationTriangle } from 'react-icons/fa';
 import Link from 'next/link';
 
-import { Layout } from '@/components';
+import Layout from '@/components/Layout';
 
 export default function NotFound() {
   return (
@@ -16,7 +16,7 @@ export default function NotFound() {
         <p className="mx-auto mt-6 max-w-5xl text-base lg:text-lg">
           These aren&apos;t the droids you&apos;re looking for.
         </p>
-        <Link href="/">
+        <Link href="/" prefetch={false}>
           <a>← Home</a>
         </Link>
       </div>

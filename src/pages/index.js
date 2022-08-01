@@ -1,17 +1,16 @@
 import { FiSmile } from 'react-icons/fi';
 import Link from 'next/link';
 
-import {
-  Counter,
-  HeroContainer,
-  Layout,
-  Posts,
-  Prose,
-  RickRoll,
-  SEO,
-  Separator,
-  Videos,
-} from '@/components';
+import Counter from '@/components/Counter';
+import HeroContainer from '@/components/HeroContainer';
+import Layout from '@/components/Layout';
+import Posts from '@/components/Posts';
+import Prose from '@/components/Prose';
+import RickRoll from '@/components/RickRoll';
+import SEO from '@/components/SEO';
+import Separator from '@/components/Separator';
+import Videos from '@/components/Videos';
+
 import { getAllPosts } from '@/lib/data';
 import { useConfetti } from '@/lib/hooks';
 
@@ -43,7 +42,7 @@ export default function Home({ posts }) {
               I write code for a living, drink more coffee than I probably should, and
               listen to a lot of electronic music in the process <RickRoll />
               <div className="mt-2 flex items-center justify-center">
-                <Link href="/about">
+                <Link href="/about" prefetch={false}>
                   <a>
                     More <strong>about me</strong> &rarr;
                   </a>
@@ -56,7 +55,7 @@ export default function Home({ posts }) {
         <h1 className="title">Latest Posts</h1>
         <Posts data={posts} preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link href="/blog">
+          <Link href="/blog" prefetch={false}>
             <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
               See <strong>all posts</strong> &rarr;
             </a>
@@ -66,7 +65,7 @@ export default function Home({ posts }) {
         <h1 className="title">Latest Video</h1>
         <Videos preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link href="/videos">
+          <Link href="/videos" prefetch={false}>
             <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
               See <strong>all videos</strong> &rarr;
             </a>
