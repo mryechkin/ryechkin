@@ -28,10 +28,9 @@ export default function Card({
       <Link href={href} passHref>
         <motion.a
           className={cn(
-            'not-prose custom-focus-offset group mt-6 grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
+            'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
             {
-              'sm:grid-rows-2 md:max-h-64 md:grid-flow-col md:grid-rows-1':
-                imageUrl && !hideCover,
+              'md:max-h-64 md:grid-flow-col': imageUrl && !hideCover,
             }
           )}
           whileFocus={{ y: -3 }}
@@ -47,8 +46,8 @@ export default function Card({
               }
             )}
           >
-            <div className="inline-flex flex-nowrap items-center justify-start text-ellipsis text-left text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl">
-              <span className="line-clamp-2 md:line-clamp-1">
+            <div className="inline-flex flex-nowrap items-center justify-start text-ellipsis text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl">
+              <span className="text-center line-clamp-2 md:text-left">
                 {title}
                 {isExternal && (
                   <HiOutlineExternalLink className="ml-2 inline-block shrink-0" />
@@ -56,7 +55,7 @@ export default function Card({
               </span>
             </div>
             {date && <DateDisplay data={{ date, duration, readingTime }} />}
-            {tags?.length && <Tags list={tags} />}
+            {tags?.length && <Tags className="justify-center" list={tags} />}
             {summary && (
               <p className="text-ellipsis text-left line-clamp-4 md:line-clamp-3">
                 {summary}

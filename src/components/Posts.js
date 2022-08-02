@@ -5,7 +5,7 @@ import DateDisplay from './DateDisplay';
 
 export default function Posts({ data, preview }) {
   return (
-    <div className="flex flex-col items-start justify-center gap-6">
+    <div className="mt-4 flex flex-col items-start justify-center gap-6">
       {data?.length
         ? data.map((post, i) => {
             const { date, readingTime, summary, slug, tags, title } = post.data;
@@ -33,7 +33,7 @@ export default function Posts({ data, preview }) {
                   key={slug}
                   className="w-full max-w-full rounded-lg border border-indigo-200 bg-gray-50 py-2 px-4 dark:border-indigo-800 dark:bg-gray-900"
                 >
-                  <div className="prose flex w-full max-w-full flex-col items-start justify-between sm:flex-row sm:items-center">
+                  <div className="prose flex w-full max-w-full flex-col items-center justify-between sm:flex-row">
                     <Link href={`/blog/${slug}`}>
                       <a className="pr-2">{title}</a>
                     </Link>

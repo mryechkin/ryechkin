@@ -62,7 +62,7 @@ export default function Home({ posts }) {
           </Link>
         </div>
         <Separator />
-        <h1 className="title">Latest Video</h1>
+        <h1 className="title">Latest Videos</h1>
         <Videos preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
           <Link href="/videos" prefetch={false}>

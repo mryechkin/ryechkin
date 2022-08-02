@@ -56,7 +56,7 @@ const data = [
 export default function Videos({ preview }) {
   if (data && data.length) {
     return (
-      <div className="flex flex-wrap items-start justify-center gap-4">
+      <div className="mt-4 flex flex-wrap items-start justify-center gap-6">
         {data.map((item, i) => {
           if ((i === 0 && preview) || !preview) {
             return <Card key={item.imageUrl} item={item} isExternal isVideo />;
@@ -64,7 +64,7 @@ export default function Videos({ preview }) {
           if (preview && i < 3) {
             return (
               <Card
-                className="w-full md:w-[calc(50%-1rem)]"
+                className="w-full md:w-[calc(50%-12px)]"
                 key={item.imageUrl}
                 item={item}
                 hideCover
