@@ -1,56 +1,33 @@
-import Link from 'next/link';
-
 import Card from './Card';
-import DateDisplay from './DateDisplay';
 
-export default function Posts({ data, preview }) {
+export default function Posts({ data, preview, count = 4 }) {
   return (
-    <div className="mt-4 flex flex-col items-start justify-center gap-6">
+    <div className="mt-4 flex flex-wrap items-start justify-start gap-6">
       {data?.length
         ? data.map((post, i) => {
+            if (i > count) {
+              return null;
+            }
+
             const { date, readingTime, summary, slug, tags, title } = post.data;
+            const isPreview = (i === 0 && preview) || !preview;
 
-            if ((i === 0 && preview) || !preview) {
-              return (
-                <Card
-                  key={slug}
-                  item={{
-                    href: `/blog/${slug}`,
-                    imageUrl: `/blog/${slug}/cover.png`,
-                    date,
-                    readingTime,
-                    summary,
-                    tags,
-                    title,
-                  }}
-                />
-              );
-            }
-
-            if (preview && i < 3) {
-              return (
-                <div
-                  key={slug}
-                  className="w-full max-w-full rounded-lg border border-indigo-200 bg-gray-50 py-2 px-4 dark:border-indigo-800 dark:bg-gray-900"
-                >
-                  <div className="prose flex w-full max-w-full flex-col items-center justify-between sm:flex-row">
-                    <Link href={`/blog/${slug}`}>
-                      <a className="pr-2">{title}</a>
-                    </Link>
-                    <div className="">
-                      <DateDisplay data={post.data} />
-                    </div>
-                  </div>
-                  {summary && (
-                    <p className="mt-4 text-ellipsis text-left text-gray-600 line-clamp-4 dark:text-gray-200 md:line-clamp-3">
-                      {summary}
-                    </p>
-                  )}
-                </div>
-              );
-            }
-
-            return null;
+            return (
+              <Card
+                className={!isPreview && 'w-full grow md:w-[calc(50%-12px)]'}
+                hideCover={!isPreview}
+                key={slug}
+                item={{
+                  href: `/blog/${slug}`,
+                  imageUrl: `/blog/${slug}/cover.png`,
+                  date,
+                  readingTime,
+                  summary,
+                  tags,
+                  title,
+                }}
+              />
+            );
           })
         : null}
     </div>

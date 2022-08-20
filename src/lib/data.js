@@ -41,8 +41,8 @@ export function getAllPosts() {
     // Using gray-matter here as we don't need the entire MDX, just frontmatter
     const { data } = matter(source);
 
-    // Only include drafts when in local dev
-    if (data.published || process.env.NEXT_PUBLIC_APP_ENV === 'local') {
+    // Only include published posts
+    if (data.published) {
       filteredPosts.push({
         data: {
           ...data,

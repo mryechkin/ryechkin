@@ -1,0 +1,246 @@
+---
+title: Using NPM Programatically
+date: '2022-08-20'
+published: true
+summary: Learn how to run NPM commands programatically, and extract the exact installed versions of your project's dependencies
+canonical: https://misha.wtf/blog/using-npm-programatically
+tags: ['NPM', 'Node', 'CLI', 'Scripts', 'package.json']
+seo: ['NPM', 'Node', 'CLI', 'Scripts', 'package.json']
+author:
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
+---
+
+## Intro
+
+Did you know that you can run `npm` commands programatically, giving you access to their output? For example, if you wanted to get the _exact_ version of a 3rd-party package installed in your `node_modules` and display it somewhere in your app?
+
+In this post, I'll show you how to do just that, and how I've recently utilized this in a project.
+
+## Background
+
+In my day job, as part of our design system library ecosystem, we're building an internal code sandbox (think of it as a mix between [Seek OSS Playroom](https://github.com/seek-oss/playroom) and [QuickPaste](https://quickpaste.net/)). It allows our users try the components from our component library (let's call it `@wtf-ds/core`) and any other supplementary React code right there in the browser, without having to create a new project in their own environment.
+
+## The Requirements
+
+One of the features we were looking to add was a way to display the currently installed versions of the dependencies that users have access to, somewhere in the UI. The sandbox automatically includes `react`, `styled-components` and several component library packages in the browser editor, and users should have a way to know what specific versions of those packages they're working with.
+
+It may be tempting to just pull this information from `package.json` at first:
+
+```js
+import package from 'package.json';
+
+const sc = package.dependencies['styled-components'];
+```
+
+However, we quickly run into a problem.
+
+Most of the time, the version specified in `package.json` won't be exact. It can be either the caret notation (ie. `^5.3.3`), or the tilda (`~5.3.3`), or perhaps just `latest`. This doesn't exactly give us what we want. An approximate version number is better than _nothing_ - of course - but it's also not as useful as the exact one would be.
+
+> For example, whenever there's a new version of `styled-components` released (eg. `5.3.5`), and you do a fresh `npm install`, the `^5.3.3` notation won't accurately reflect the actual, currently installed version.
+
+We can't rely on the value inside `package.json`. So how do we solve this?
+
+Well, if we were looking for this info ad-hoc, we could simply run the `npm list` command in the terminal:
+
+```sh
+npm list styled-components
+```
+
+which gives us **all** instances of this package in our `node_modules`, including any nested dependencies:
+
+```sh
+wtf-ds@ ~/Projects/wtf-ds
+└─┬ @wtf-ds/core@1.0.0 -> ./packages/core
+  ├─┬ babel-plugin-styled-components@2.0.7
+  │ └── styled-components@5.3.5 deduped
+  └── styled-components@5.3.5
+```
+
+We could reduce this down by adding the `--depth=0` flag:
+
+```sh
+npm list --depth=0 styled-components
+```
+
+which now gives us just the top-level instances, ie. what we need:
+
+```sh
+wtf-ds@ ~/Projects/wtf-ds
+└─┬ @wtf-ds/core@1.0.0 -> ./packages/core
+  └── styled-components@5.3.5
+```
+
+As you can see above, our `package.json` has `styled-components` set to `^5.3.3` but the actual installed version is `5.3.5` (latest at the time of writing this). This is the version we'd like our users to see, so we can't use the caret notation - we need a way to show this version instead.
+
+## The Solution
+
+Turns out, you can run `npm` commands programatically! 🤯
+
+This means that we can now run those `npm list` commands from within a Node script, and store the output in a simple JSON file - which can then be accessed in our React code.
+
+To do this, you will need a [promisified](https://nodejs.org/api/util.html#utilpromisifyoriginal) version of the [exec](https://nodejs.org/api/child_process.html#child_processexeccommand-options-callback) method from `child_process`, which then lets you run whatever command, and have access to its output (in our case it's `npm list`).
+
+So, I've created a seperate script (called `dependencies.js`) which parses the output of those commands for each package, and saves that information in a `dependencies.json` file. This file is then imported in our [Next.js](https://nextjs.org) app, and the values displayed in the sandbox UI.
+
+To ensure that this file is always up-to-date, it can be run as a `postinstall` script in `package.json`:
+
+```json
+{
+  "scripts": {
+    "postinstall": "node scripts/dependencies.js"
+  }
+}
+```
+
+The script itself is as follows:
+
+```js:scripts/dependencies.js
+const fs = require('fs');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+const package = require('../package.json');
+
+const dependencies = Object.keys(packageData.dependencies).map((dep) => dep);
+
+let promises = [];
+
+if (dependencies && dependencies.length) {
+  const filteredList = ['@wtf-ds/core', 'react', 'styled-components'];
+
+  promises = filteredList.map(async (name) => {
+    const { stdout } = await exec(`npm list --depth=0 ${name} | grep ${name}`);
+
+    const idx = stdout.indexOf(name);
+    const version = stdout.substring(idx + name.length + 1).replace('\n', '');
+
+    return { name, version };
+  });
+}
+
+Promise.all(promises).then((result) => {
+  const data = JSON.stringify(result, null, 2);
+  fs.writeFileSync('dependencies.json', data);
+});
+```
+
+So, what's happening here?
+
+First, we create a "promisified" version of `exec` by wrapping it with `util.promisify()`:
+
+```js
+const fs = require('fs');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+```
+
+Then we read our package info from `package.json`, and create an array of our dependency names:
+
+```js
+const package = require('../package.json');
+
+const dependencies = Object.keys(packageData.dependencies).map((dep) => dep);
+```
+
+Then, we filter out only the packages we're interested in:
+
+```js
+const filteredList = ['@wtf-ds/core', 'react', 'styled-components'];
+```
+
+This will ensure that we're only showing the relevant packages to our users. Because our "promisified" `exec` method returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object, and we need one for each of the packages (above), we will need to store these promises in an array that can be resolved later:
+
+```js
+promises = filteredList.map(async (name) => {
+  // ... each of the relevant dependencies
+});
+```
+
+And now for the ✨magic✨
+
+For each of the packages in the above array, we run the `npm list` command:
+
+```js
+const { stdout } = await exec(`npm list --depth=0 ${name} | grep ${name}`);
+```
+
+This gives us the currently installed version, and the output can be accessed via the `stdout` variable:
+
+```sh
+  └── styled-components@5.3.5
+```
+
+Since we only care about the version number, and not everything else in the output, we can parse it and get just the version number itself:
+
+```js
+promises = filteredList.map(async (name) => {
+  const { stdout } = await exec(`npm list --depth=0 ${name} | grep ${name}`);
+
+  const idx = stdout.indexOf(name);
+  const version = stdout.substring(idx + name.length + 1).replace('\n', '');
+
+  return { name, version };
+});
+```
+
+There's probably a more elegant way to do this with regex, but I will leave that for you to optimize 😉
+
+With our array of promises ready, all that's left is to resolve them. We do this by using `Promise.all()`:
+
+```js
+Promise.all(promises).then((result) => {
+  const data = JSON.stringify(result, null, 2);
+  fs.writeFileSync('dependencies.json', data);
+});
+```
+
+This gives us the result, which is the `data` that we'd like to store in our JSON file. The resulting output will look something like this:
+
+```json:dependencies.json
+[
+  {
+    "name": "@wtf-ds/core",
+    "version": "1.0.0"
+  },
+  {
+    "name": "react",
+    "version": "18.2.0"
+  },
+  {
+    "name": "styled-components",
+    "version": "5.3.5"
+  }
+]
+```
+
+We can now import this in our React code, and display the relevant data on the UI
+
+> Note that you'll need to specify the `json` [import assertion](https://v8.dev/features/import-assertions) here to import this as a [JSON module](https://github.com/tc39/proposal-json-modules)
+
+```jsx
+import dependencies from 'dependencies.json' assert { type: 'json' };
+
+export default function Dependencies() {
+  return (
+    <ul>
+      {dependencies.map((dep) => (
+        <li>
+          <b>{dep.name}</b>: {dep.version}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+<PostImage
+  src={`/blog/using-npm-programatically/ui.png`}
+  alt="UI"
+  width={920}
+  height={320}
+/>
+
+And that's it! 🎉 This is a fairly simple use case, but as you can see we've only scratched the surface here, and hopefully this gives you an idea of what's possible.
+
+The full script is also available as a gist [here](https://gist.github.com/mryechkin/a80a22bb2651bde70c9aa2fb4d925bc5).

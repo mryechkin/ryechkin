@@ -1,0 +1,527 @@
+---
+title: Rollup React Starter Lib
+date: '2022-08-19'
+published: false
+summary:
+canonical: https://misha.wtf/blog/rollup-library-starter
+tags:
+seo:
+author:
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
+---
+
+## Intro
+
+Do you need to build a React (or just plain ol' JavaScript) library, but don't know where to start? Worried about your code being compatible with all runtime environments, given all the interoperability concerns? And with so many build tools around, not sure which one to use?
+
+Fret not, you've come to the right place!
+
+In this post we'll take a look at how to structure the foundation of a JavaScript library project, and build a dual-module package (ESM + CommonJS) using [Rollup](https://rollupjs.org), ready to be published to NPM.
+
+## Overview
+
+Our project will be quite simple - but the basic structure of the modules applies no matter how complex the library gets. By the end of this we will have a library bundle that can run in all JavaScript environments, comprised of two module formats: **ES Modules** (or **ESM**) and **CommonJS**.
+
+> Want to learn more about the different module formats? Check out my [article]()!
+
+To help achieve this, we'll be using a module bundler called [Rollup](https://rollupjs.org). More on it later.
+
+Our library will be a React project, but all of these steps apply for plain JavaScript projects as well (minus a few plugins). Let's get started!
+
+## Project Setup
+
+First, init your project using `npm init`. You should have a `package.json` now that looks something like this:
+
+```json
+// ./package.json
+{
+  "name": "rollup-library-starter",
+  "version": "1.0.0",
+  "description": "Starter template for building JS libraries using Rollup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mykhaylo Ryechkin",
+  "license": "MIT"
+}
+```
+
+You'll also want to add a `.gitignore` file:
+
+```
+.DS_Store
+dist
+node_modules
+```
+
+### Folder Structure
+
+Our project files will live inside an `src` folder. How you structure it from there is ultimately up to you, and will differ from library to library, but the basic principles still apply. If you follow the conventions recommended here, you should be able to structure your project however needed.
+
+The example project's structure will look something like this:
+
+```
+src/
+├── components/
+│   ├── Button/
+│   │   ├── Button.js
+│   │   └── index.js
+│   ├── Text/
+│   │   ├── Text.js
+│   │   └── index.js
+│   └── index.js
+├── utils/
+│   └── index.js
+└── index.js
+```
+
+The main thing to remember is you will need a root-level `index.js` file:
+
+```js
+// ./src/index.js
+export * from './components';
+export * from './utils';
+```
+
+Here, we're importing everything from the `components` and `utils` folders (each having their own `index.js` file), and re-exporting those same modules. This way, our root-level `index.js` file will export everything in our library.
+
+(**NOTE:** If any of this is unfamiliar nomenclature, I highly recommend reading the [article](https://www.misha.wtf/blog/javascript-modules) mentioned earlier first, before proceeding)
+
+### Modules
+
+Our library will expose each module as a **named** module, ie:
+
+```js
+import { Button, Text } from 'rollup-library-starter';
+```
+
+To make things easier to maintain, we're putting each module and the related files in its own folder, using the same name as the module (ie. `src/components/Button` and `src/components/Text`).
+
+We can then further group these modules by category and put all related modules in the same folder (ie. `src/components`). Each folder also needs to have its own `index.js` file as well:
+
+```js
+// ./src/components/index.js
+export { default as Button } from './Button';
+export { default as Text } from './Text';
+```
+
+Here we're importing the `default` exports of the `Button` and `Text` modules, and re-exporting them as `Button` and `Text` (respectively).
+
+Inside each of our `Button` and `Text` folders, we have the main `index.js` files, as well as separate component files (`Button.js` and `Text.js`):
+
+```jsx
+// ./src/components/Button/Button.js
+export const VARIANT = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+};
+
+export default function Button(props) {
+  const { children } = props;
+  return (
+    <button type="button" {...props}>
+      {children}
+    </button>
+  );
+}
+```
+
+```jsx
+// ./src/components/Button/index.js
+import Button, { VARIANT } from './Button';
+
+export default Object.assign(Button, {
+  VARIANT,
+});
+```
+
+Notice the little trick we're doing inside the component `index.js` file above:
+
+```
+export default Object.assign(Button, {
+  VARIANT,
+});
+```
+
+Here we're assigning `VARIANT` as a property on the main `Button` component using [Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign), which will let us use `VARIANT` without having to import it explicitly:
+
+```jsx
+import { Button } from 'rollup-library-starter';
+// ...
+<Button variant={Button.VARIANT.PRIMARY}>
+```
+
+This pattern allows us to group related code that normally would be imported together anyway, reducing some verbosity in our import statements.
+
+The `Text` component is slightly simpler, with just one main **default** export, which is then re-exported inside `index.js`:
+
+```jsx
+// ./src/components/Text/Text.js
+export default function Text({ children }) {
+  return <div style={{ fontSize: '2.5rem', fontFamily: 'monospace' }}>{children}</div>;
+}
+```
+
+```js
+// ./src/components/Text/index.js
+import Text from './Text';
+
+export default Text;
+```
+
+And finally, In our `utils` folder, we have a single `index.js` file, with a sample function `Greet` exported as a **named** export:
+
+```js
+// ./src/utils/index.js
+export const Greet = (text) => console.log(`Hello ${text}.`);
+```
+
+To export all these modules at the root, make sure they're included in the `index.js` file at the top of the `src` folder, as we saw earlier:
+
+```js
+// ./src/index.js
+export * from './components';
+export * from './utils';
+```
+
+For reference, you can find all of these files in the example repo [here](https://github.com/mryechkin/rollup-library-starter).
+
+## Adding Dependencies
+
+Now that we have our base library setup, let's install all the necessary tooling.
+
+As mentioned earlier, we'll be using [Rollup](https://rollupjs.org) as our tool of choice. According to their docs:
+
+> Rollup is a **module bundler** for JavaScript which compiles small pieces of code into something larger and more complex, such as a library or application. It uses the new standardized format for code modules included in the ES6 revision of JavaScript, instead of previous idiosyncratic solutions such as CommonJS and AMD. ES modules let you freely and seamlessly combine the most useful individual functions from your favorite libraries. This will eventually be possible natively everywhere, but Rollup lets you do it today.
+
+Rollup has an extensive plugin ecosystem, which provides lots of flexibility in adding specific functionality for a variety of use cases (check out the awesome curated list [here](https://github.com/rollup/awesome)). At the same time, it can be daunting to figure out which exact plugins are needed, and the goal of this article is to provide some guidance on what's needed for a majority of bundles that you'll be building.
+
+We will install everything that will be required for our bundle first, and then go through each dependency as we configure the steps.
+
+We'll be using [Babel](https://babeljs.io/) to transpile our code into JavaScript that all current and older browsers and environments will understand. For this, install `@babel/runtime` as a dependency. This will be our only production dependency, and will let Rollup bundle some of the helper functions required for backwards compatibility:
+
+```sh
+npm i @babel/runtime
+```
+
+Next, we need to install a few other Babel plugins, as well as Rollup itself and a number of its plugins. These should all be `devDependencies`, so make sure to add the `-D` flag:
+
+```sh
+npm i -D rollup rollup-plugin-analyzer @rollup/plugin-alias @rollup/plugin-babel @rollup/plugin-commonjs @rollup/plugin-image @rollup/plugin-node-resolve @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react
+```
+
+And lastly, since we're using React in our library, we'll also need to specify `react` and `react-dom` as peer dependencies in `package.json`:
+
+```json
+// ./package.json
+{
+  // ...
+  "peerDependencies": {
+    "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0"
+  }
+}
+```
+
+This will ensure that our library doesn't try to include its own copy of React when it's installed, and will rely on the consuming application to provide it instead. We'll configure Rollup to not bundle this into our final library bundle.
+
+## Rollup Configuration
+
+To get started with Rollup, we'll need to create a [configuration file](https://rollupjs.org/guide/en/#using-config-files) at the root of our project, where we specify all the options for bundling, plugins, presets, etc. This file will be the bulk of our work.
+
+Our library is written using the modern **ESM** module syntax, however we want our code to be executable in all JavaScript environments. In order to support this, we will ship two distinctly separate bundles as part of our library package: **ESM** and **CommonJS** (or CJS).
+
+Rollup will handle all the transpilation of our code from ESM to CJS, and generate two separate bundles for each format. This will make our library package consumable in both server (Node) and browser environments. We will also need to modify our `package.json` to support this, but all in due time.
+
+**NOTE:** it's worthwhile to keep in mind the [dual package hazard](https://nodejs.org/api/packages.html#dual-package-hazard), which is explained in the official Node docs.
+
+First, let's create a file called `rollup.config.js` at the root of our project. We will import all the packages and plugins, and then break down what each of them does:
+
+```js
+// ./rollup.config.js
+import path from 'path';
+
+import alias from '@rollup/plugin-alias';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import analyze from 'rollup-plugin-analyzer';
+
+import pkg from './package.json';
+
+const config = {
+  // Rollup options go here
+};
+
+export default config;
+```
+
+The `config` is where we'll be setting all the different [options](https://rollupjs.org/guide/en/#big-list-of-options), as well as plugins and Babel presets.
+
+We will be generating two bundles, and there are some common output options shared between the two. Let's add these as a variable:
+
+```js
+// ./rollup.config.js
+// ...
+const outputOptions = {
+  exports: 'named',
+  preserveModules: true,
+  banner: `/*
+ * Rollup Library Starter
+ * https://github.com/mryechkin/rollup-library-starter
+ * (c) Mykhaylo Ryechkin (@mryechkin)
+ */`,
+};
+```
+
+Here, we're setting the `exports` option to "named", because we're exporting everything as named exports. This is intentional, as there can be [issues](https://github.com/rollup/rollup/issues/1961#issuecomment-423037881) with mixing both default and named patterns of exports at the root of your package, when exporting to CommonJS format. Rollup will also throw a warning when you do that.
+
+The `preserveModules` option will tell Rollup to create separate chunks for all modules, using the original module names as file names. This is needed in order for tools like Webpack 5 to be able to successfully [tree-shake](https://rollupjs.org/guide/en/#tree-shaking) unused imports, when consuming our library. We ran into this issue with our component library at Manulife, when we originally moved to Rollup. Enabling this option eliminated issues with tree-shaking for our users, and this pattern has worked well for us since.
+
+Lastly, and completely optional, we can add a `banner` to each of the generated files. This is a good way to provide some info about our library, and add author attribution.
+
+> For all available options, check out the big list of options [here](https://rollupjs.org/guide/en/#big-list-of-options).
+
+With these options defined, let's now provide the entry point for our package. This will be the root-level `index.js` file, which if you recall containts all of our available modules exported as "named". We will also set our `output` options as well:
+
+```js
+// ./rollup.config.js
+// ...
+const config = {
+  input: 'src/index.js',
+  output: [
+    {
+      dir: 'dist/esm',
+      format: 'esm',
+      ...outputOptions,
+    },
+    {
+      dir: 'dist/cjs',
+      format: 'cjs',
+      ...outputOptions,
+    },
+  ],
+};
+```
+
+Our `output` option is an array of objects, one for each of the bundles we'd like to build. First, we have the `esm` format, which outputs to the `dist/esm` folder. And then there's the `cjs` one, with output in the `dist/cjs` folder. All other shared `outputOptions` are provided for both.
+
+Next, we need to tell Rollup which of the modules used in our code are `external` to our library. Together with [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve), this ensures that Rollup doesn't bundle those dependencies into our final bundle. The function `makeExternalPredicate()` generates the list of package names specified in `dependencies` and `peerDependencies` in `package.json`. All credit for this and a big thank you goes out to [Mateusz Burzyński](https://github.com/Andarist) for providing it in [this issue](https://github.com/rollup/rollup-plugin-babel/issues/148#issuecomment-399696316):
+
+```js
+// ./rollup.config.js
+// ...
+const makeExternalPredicate = (externalArr) => {
+  if (externalArr.length === 0) {
+    return () => false;
+  }
+  const pattern = new RegExp(`^(${externalArr.join('|')})($|/)`);
+  return (id) => pattern.test(id);
+};
+
+const config = [
+  {
+    // ...
+    external: makeExternalPredicate([
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {}),
+    ]),
+  },
+];
+```
+
+Next up, we have the `plugins` array, and it specifies which Rollup plugins to run.
+
+The first plugin we're using is [@rollup/plugin-alias](https://www.npmjs.com/package/@rollup/plugin-alias), which enables us to use absolute import paths for `src` (or any other path you want to configure):
+
+```js
+// ./rollup.config.js
+// ...
+const config = [
+  {
+    // ...
+    plugins: [
+      alias({
+        entries: {
+          src: path.resolve(projectRootDir, 'src'),
+          internals: path.resolve(projectRootDir, 'internals'),
+        },
+      }),
+    ],
+  },
+];
+```
+
+Next, we have `@rollup/plugin-node-resolve`, which allows Rollup to resolve external modules from `node_modules`:
+
+```js
+// ./rollup.config.js
+// ...
+import nodeResolve from '@rollup/plugin-node-resolve';
+// ...
+const config = [
+  {
+    // ...
+    plugins: [
+      // ...
+      nodeResolve(),
+    ],
+  },
+];
+```
+
+Then there's `@rollup/plugin-commonjs` which converts 3rd-party CommonJS modules into ES6 code, so that they can be included in our Rollup bundle:
+
+```js
+// ./rollup.config.js
+// ...
+import commonjs from '@rollup/plugin-commonjs';
+// ...
+const config = [
+  {
+    // ...
+    plugins: [
+      // ...
+      commonjs({ include: ['node_modules/**'] }),
+    ],
+  },
+];
+```
+
+Next, we need to enable Babel for code transpilation. We do that by passing [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel) as a plugin, and then specifying the `@babel/plugin-transform-runtime` Babel plugin:
+
+```js
+// ./rollup.config.js
+// ...
+const config = [
+  // ...
+  plugins: [
+    // ...
+    babel({
+      plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]]
+    })
+  ],
+];
+```
+
+The `@babel/plugin-transform-runtime` plugin enables re-use of Babel's injected helper code, to help reduce the final bundle size. To quote the plugin's [docs](https://babeljs.io/docs/en/babel-plugin-transform-runtime):
+
+> Babel uses very small helpers for common functions such as \_extend. By default this will be added to every file that requires it. This duplication is sometimes unnecessary, especially when your application is spread out over multiple files.
+
+The version of Babel runtime is pulled from `package.json` by reading the `dependencies`:
+
+```js
+// ./rollup.config.js
+// ...
+const babelRuntimeVersion = pkg.dependencies['@babel/runtime'].replace(/^[^0-9]*/, '');
+// ...
+const config = [
+  // ...
+];
+```
+
+We're also telling the Rollup Babel plugin how to handle Babel helper code via `babelHelpers` (it is recommended to use the "runtime" option for bundling libraries with Rollup), as well as not to touch anything imported from `node_modules` by setting the `exclude` option:
+
+```js
+// ./rollup.config.js
+// ...
+const config = [
+  plugins: [
+    // ...
+    babel({
+      babelHelpers: 'runtime',
+      exclude: /node_modules/,
+      plugins: [
+        // ...
+      ],
+    })
+  ],
+];
+```
+
+Now, we also need to specify a few presets so that we can use latest JavaScript features, as well as enable React support. These are [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env) and [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react), respectively:
+
+```js
+// ./rollup.config.js
+// ...
+const config = [
+  plugins: [
+    // ...
+    babel({
+      // ...
+      presets: [
+        ['@babel/preset-env', { targets: 'defaults' }],
+        ['@babel/preset-react', { runtime: 'automatic' }],
+      ],
+    })
+  ],
+];
+```
+
+With Babel configuration out of the way, we only have one thing left to configure - and that's [rollup-plugin-analyzer](https://github.com/doesdev/rollup-plugin-analyzer). This plugin will print out some useful info about our generated bundle upon sucessfull builds:
+
+```js
+// ./rollup.config.js
+// ...
+const config = [
+  plugins: [
+    // ...
+    analyze({
+      hideDeps: true,
+      limit: 0,
+      summaryOnly: true,
+    }),
+  ],
+];
+
+export default config;
+```
+
+And we're done configuring Rollup! 🎉
+
+> The full configuration file can be found [here](https://github.com/mryechkin/rollup-library-starter/blob/main/rollup.config.js) for reference
+
+And remember, this configuration is meant to be a foundation for your library, but is by no means the end-all-be-all solution. It's meant to give you a starting point, but there's lots more you can do here with all the plugins available in the ecosystem.
+
+## Configuring Package File
+
+With Rollup configuration done, we can now move on to configuring our `package.json` file.
+
+First, let's add a `build` script, so that we can actually run Rollup:
+
+```json
+// ./package.json
+{
+  // ...
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "rollup -c"
+  }
+}
+```
+
+This will run Rollup using the configuration we defined in `rollup.config.js`. Since this file is at the root level, we don't need to specify it explicitly.
+
+When Rollup is done generating our bundle, we've configured the output to be in the `dist` folder. And since we've configured our library to have a root-level `index.js`, we can use this file as the [entry point](https://nodejs.org/api/packages.html#package-entry-points) of our package. Since we're publishing a dual-module package, we will need to specify these entry points separately for each of the formats, ESM and CJS.
+
+For CommonJS, set the `main` field to point to the CJS bundle:
+
+```json
+// ./package.json
+{
+  // ...
+  "main": "./dist/cjs/index.js"
+}
+```
+
+Then do the same for ES Modules, by pointing the `module` field to the ESM bundle:
+
+```json
+// ./package.json
+{
+  // ...
+  "module": "./dist/esm/index.js"
+}
+```

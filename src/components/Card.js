@@ -55,7 +55,7 @@ export default function Card({
               </span>
             </div>
             {date && <DateDisplay data={{ date, duration, readingTime }} />}
-            {tags?.length && <Tags className="justify-center" list={tags} />}
+            {tags?.length > 0 && <Tags className="justify-center" list={tags} />}
             {summary && (
               <p className="text-ellipsis text-left line-clamp-4 md:line-clamp-3">
                 {summary}
