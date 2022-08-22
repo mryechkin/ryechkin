@@ -30,7 +30,7 @@ export default function Card({
           className={cn(
             'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
             {
-              'md:max-h-64 md:grid-flow-col': imageUrl && !hideCover,
+              'md:grid-flow-col': imageUrl && !hideCover,
             }
           )}
           whileFocus={{ y: -3 }}
