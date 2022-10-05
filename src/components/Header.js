@@ -62,7 +62,7 @@ export default function Header({ setConfetti }) {
       <div className="blurred-backdrop w-screen border-b border-gray-200 dark:border-gray-900">
         <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
           <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
-            <Avatar setConfetti={setConfetti} />
+            <Avatar setConfetti={setConfetti} tabIndex="-1" />
             <Link href="/" prefetch={false}>
               <a className="hidden p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50 md:block">
                 <span className="mr-1 font-black">Mykhaylo</span>Ryechkin

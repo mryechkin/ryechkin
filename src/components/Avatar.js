@@ -3,7 +3,7 @@ import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/future/image';
 
-export default function Avatar({ className, setConfetti }) {
+export default function Avatar({ className, setConfetti, ...rest }) {
   const { pressProps } = usePress({
     onPress: async () => {
       if (setConfetti) setConfetti(true);
@@ -22,6 +22,7 @@ export default function Avatar({ className, setConfetti }) {
       whileFocus={{ scale: 1.1 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
+      {...rest}
       {...pressProps}
     >
       <Image
