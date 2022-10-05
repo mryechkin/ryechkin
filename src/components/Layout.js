@@ -1,83 +1,18 @@
-import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
 import cn from 'classnames/dedupe';
-import { motion, useScroll } from 'framer-motion';
-import Link from 'next/link';
-
-import Avatar from './Avatar';
-import DarkModeToggle from './DarkModeToggle';
-import Menu, { Nav } from './Menu';
+import Header from './Header';
+import { Nav } from './Menu';
 import Social from './Social';
 
 import { useConfetti } from '@/lib/hooks';
 
-const SCROLL_THRESHOLD = 80;
-
 export default function Layout({ className, children }) {
   const [confetti, setConfetti] = useConfetti();
   const year = new Date().getFullYear();
-  const { scrollY } = useScroll();
-  const [showHeader, setShowHeader] = useState(true);
-
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      if (latest < 0) return;
-      setShowHeader(latest - scrollY.getPrevious() <= 0 || latest < SCROLL_THRESHOLD);
-    });
-  }, [scrollY]);
 
   return (
     <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-gray-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-gray-800 dark:bg-pattern-dark">
-      <motion.header
-        className="fixed z-10"
-        initial="show"
-        transition={{ duration: 0.3, type: 'tween' }}
-        variants={{
-          show: {
-            y: 0,
-          },
-          hide: {
-            y: '-100%',
-          },
-        }}
-        animate={showHeader ? 'show' : 'hide'}
-      >
-        <div className="h-4 w-full bg-blue-600" />
-        <div className="flex h-4 w-full items-center justify-center bg-yellow-300 text-center">
-          <a
-            className="h-4 text-xs font-bold uppercase tracking-wider text-blue-600"
-            href="https://war.ukraine.ua/"
-            title="Donate to support Ukraine #StandWithUkraine"
-            target="_blank"
-            rel="noreferrer"
-          >
-            #StandWithUkraine
-          </a>
-        </div>
-        <div className="blurred-backdrop w-screen border-b border-gray-200 dark:border-gray-900">
-          <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
-            <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
-              <Avatar setConfetti={setConfetti} />
-              <Link href="/" prefetch={false}>
-                <a className="hidden p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50 md:block">
-                  <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
-                </a>
-              </Link>
-            </div>
-            <Link href="/" prefetch={false}>
-              <a className="p-2 text-base font-normal uppercase text-gray-800 dark:text-gray-50 sm:text-lg md:hidden">
-                <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
-              </a>
-            </Link>
-            <div className="relative flex items-center justify-center">
-              <Menu />
-              <div className="hidden w-full min-w-[4rem] items-center justify-center md:flex">
-                <DarkModeToggle />
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.header>
+      <Header setConfetti={setConfetti} />
       <div className="fixed top-12 flex w-full items-center justify-center">
         <Confetti
           active={confetti}
