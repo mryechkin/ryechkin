@@ -27,7 +27,7 @@ export const useHits = (slug = 'index') => {
   };
 };
 
-// Credits: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+// Credit: https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 export const useInterval = (callback, delay) => {
   const savedCallback = useRef();
 
@@ -58,12 +58,13 @@ export const useConfetti = () => {
   return [confetti, setConfetti];
 };
 
-export const usePrevious = (value) => {
-  const ref = useRef();
+// Credit: Sam Selikoff (https://youtu.be/aV2YJuxQ2vo?t=1252)
+export const usePrevious = (state) => {
+  const [tuple, setTuple] = useState([null, state]);
 
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
+  if (tuple[1] !== state) {
+    setTuple([tuple[1], state]);
+  }
 
-  return ref.current;
+  return tuple[0];
 };

@@ -106,7 +106,7 @@ html {
   }
 
   .prose blockquote {
-    @apply border border-l-[0.75rem] border-yellow-300 bg-yellow-50 p-2 font-normal not-italic text-gray-800 dark:border-blue-600 dark:bg-blue-900 dark:text-gray-50;
+    @apply border-l-[0.5rem] border-indigo-300 bg-indigo-50 p-2 font-normal not-italic text-gray-800 backdrop-blur dark:border-indigo-600 dark:bg-slate-900/80 dark:text-gray-50;
   }
 
   .prose blockquote p {

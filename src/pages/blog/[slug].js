@@ -62,6 +62,7 @@ export default function Post({ source = {} }) {
         <DateDisplay data={frontmatter} />
         <div className="mx-auto mt-8 max-w-3xl shadow-md">
           <Image
+            alt={frontmatter.title}
             src={`/${slug}/cover.png`}
             className="rounded-lg bg-gray-900"
             height={627}

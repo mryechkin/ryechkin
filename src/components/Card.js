@@ -46,8 +46,13 @@ export default function Card({
               }
             )}
           >
-            <div className="inline-flex flex-nowrap items-center justify-start text-ellipsis text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl">
-              <span className="text-center line-clamp-2 md:text-left">
+            <div
+              className={cn(
+                'inline-flex w-full flex-nowrap items-center justify-center text-ellipsis text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl',
+                { 'md:justify-center': hideCover, 'md:justify-start': !hideCover }
+              )}
+            >
+              <span className="text-center line-clamp-2">
                 {title}
                 {isExternal && (
                   <HiOutlineExternalLink className="ml-2 inline-block shrink-0" />

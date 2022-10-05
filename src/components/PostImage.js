@@ -29,6 +29,7 @@ export default function PostImage({
   width,
   height,
   small,
+  alt,
   caption = '',
 }) {
   const [open, setOpen] = useState(false);
@@ -53,12 +54,12 @@ export default function PostImage({
           quality={100}
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`}
-          alt={caption}
+          alt={alt || caption}
         />
       </button>
       {caption && <Caption>{caption}</Caption>}
       <Modal open={open} setOpen={setOpen}>
-        <img src={src} className="rounded-lg" alt={caption} />
+        <img src={src} className="rounded-lg" alt={alt || caption} />
       </Modal>
     </div>
   );

@@ -11,7 +11,7 @@ const Button = forwardRef((props, ref) => {
       ref={ref}
       type="button"
       className={cn(
-        'flex items-center justify-center rounded-md border border-indigo-200 bg-white p-1 text-sm font-semibold text-indigo-600 hover:border-sky-400 hover:text-sky-400 dark:border-indigo-600 dark:bg-gray-900 dark:text-indigo-200 dark:hover:border-sky-300 dark:hover:text-sky-300 sm:p-2',
+        'flex items-center justify-center rounded-md border border-indigo-200 bg-white/80 p-1 text-sm font-semibold text-indigo-600 backdrop-blur hover:border-sky-400 hover:text-sky-400 dark:border-indigo-600 dark:bg-gray-800/80 dark:text-indigo-200 dark:hover:border-sky-300 dark:hover:text-sky-300 sm:p-2',
         className
       )}
       whileFocus={{ scale: 1.1 }}

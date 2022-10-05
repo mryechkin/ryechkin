@@ -23,7 +23,7 @@ export default function RickRoll() {
   });
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode="wait">
       <motion.span className="inline-flex" layout>
         {!rickrolled && (
           <motion.button

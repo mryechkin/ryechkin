@@ -29,7 +29,7 @@ export default function VideosPage() {
       </Prose>
       <Separator />
       <div className="my-8 pb-4">
-        <Videos />
+        <Videos sorted />
       </div>
       <div className="flex items-center justify-center py-8">
         <Counter slug="videos" />

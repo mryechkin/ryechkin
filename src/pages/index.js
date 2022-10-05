@@ -44,7 +44,7 @@ export default function Home({ posts }) {
               <div className="mt-2 flex items-center justify-center">
                 <Link href="/about" prefetch={false}>
                   <a>
-                    More <strong>about me</strong> &rarr;
+                    <strong>About Me</strong> &rarr;
                   </a>
                 </Link>
               </div>
@@ -62,7 +62,7 @@ export default function Home({ posts }) {
           </Link>
         </div>
         <Separator />
-        <h1 className="title">Latest Videos</h1>
+        <h1 className="title">Popular Videos</h1>
         <Videos preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
           <Link href="/videos" prefetch={false}>

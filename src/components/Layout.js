@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
 import cn from 'classnames/dedupe';
-import { motion, useViewportScroll } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import Link from 'next/link';
 
 import Avatar from './Avatar';
@@ -16,7 +16,7 @@ const SCROLL_THRESHOLD = 80;
 export default function Layout({ className, children }) {
   const [confetti, setConfetti] = useConfetti();
   const year = new Date().getFullYear();
-  const { scrollY } = useViewportScroll();
+  const { scrollY } = useScroll();
   const [showHeader, setShowHeader] = useState(true);
 
   useEffect(() => {

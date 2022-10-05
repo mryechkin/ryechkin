@@ -1,26 +1,8 @@
+import { parseISO } from 'date-fns';
+
 import Card from './Card';
 
-const data = [
-  {
-    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
-    date: '2022-05-20',
-    duration: '43:18',
-    href: 'https://youtu.be/Ld3W9aaNx1g',
-    summary:
-      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
-    imageUrl: '/thumbs/live-code-editor.jpg',
-    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
-  },
-  {
-    title: 'ESLint + Prettier shared config for Next.js',
-    date: '2021-05-15',
-    duration: '20:07',
-    href: 'https://youtu.be/tsPXN4mJGSc',
-    summary:
-      'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
-    imageUrl: '/thumbs/eslint-prettier-config.jpg',
-    tags: ['ESLint', 'Prettier', 'Next.js'],
-  },
+const VIDEOS = [
   {
     title: 'HeadlessUI Slideover',
     date: '2021-04-20',
@@ -42,6 +24,16 @@ const data = [
     tags: ['Rollup', 'SVGR', 'Libraries'],
   },
   {
+    title: 'ESLint + Prettier shared config for Next.js',
+    date: '2021-05-15',
+    duration: '20:07',
+    href: 'https://youtu.be/tsPXN4mJGSc',
+    summary:
+      'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
+    imageUrl: '/thumbs/eslint-prettier-config.jpg',
+    tags: ['ESLint', 'Prettier', 'Next.js'],
+  },
+  {
     title: 'Accessible SlideOver with Tailwind UI and React-Aria',
     date: '2021-01-21',
     duration: '53:36',
@@ -51,33 +43,53 @@ const data = [
     imageUrl: '/thumbs/accessible-slideover.jpg',
     tags: ['React Aria', 'Tailwind UI', 'Accessibility', 'a11y'],
   },
+  {
+    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
+    date: '2022-05-20',
+    duration: '43:18',
+    href: 'https://youtu.be/Ld3W9aaNx1g',
+    summary:
+      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
+    imageUrl: '/thumbs/live-code-editor.jpg',
+    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
+  },
 ];
 
-export default function Videos({ preview }) {
-  if (data && data.length) {
-    return (
-      <div className="mt-4 flex flex-wrap items-start justify-center gap-6">
-        {data.map((item, i) => {
-          if ((i === 0 && preview) || !preview) {
-            return <Card key={item.imageUrl} item={item} isExternal isVideo />;
-          }
-          if (preview && i < 3) {
-            return (
-              <Card
-                className="w-full md:w-[calc(50%-12px)]"
-                key={item.imageUrl}
-                item={item}
-                hideCover
-                isExternal
-                isVideo
-              />
-            );
-          }
-          return null;
-        })}
-      </div>
-    );
+function sortByDate(data) {
+  return [...data].sort(
+    (a, b) =>
+      // sort by date
+      parseISO(b.date) - parseISO(a.date)
+  );
+}
+
+export default function Videos({ preview, sorted }) {
+  let videos = VIDEOS;
+
+  if (sorted) {
+    videos = sortByDate(VIDEOS);
   }
 
-  return null;
+  return (
+    <div className="mt-4 flex flex-wrap items-start justify-center gap-6">
+      {videos.map((item, i) => {
+        if ((i === 0 && preview) || !preview) {
+          return <Card key={item.imageUrl} item={item} isExternal isVideo />;
+        }
+        if (preview && i < 3) {
+          return (
+            <Card
+              className="w-full grow md:w-[calc(50%-12px)]"
+              key={item.imageUrl}
+              item={item}
+              hideCover
+              isExternal
+              isVideo
+            />
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
 }
