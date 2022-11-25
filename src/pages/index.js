@@ -1,5 +1,6 @@
 import { FiSmile } from 'react-icons/fi';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Counter from '@/components/Counter';
 import HeroContainer from '@/components/HeroContainer';
@@ -33,42 +34,56 @@ export default function Home({ posts }) {
       <div className="mx-auto items-center justify-center">
         <Prose className="mt-4 text-center lg:max-w-3xl">
           <HeroContainer>
-            <div className="text-center lg:max-w-3xl">
-              I&apos;m a front-end software engineer based in{' '}
-              <span className="whitespace-nowrap">
-                <strong>Canada</strong> 🇨🇦
-              </span>
-              <br />
-              I write code for a living, drink more coffee than I probably should, and
-              listen to a lot of electronic music in the process <RickRoll />
-              <div className="mt-2 flex items-center justify-center">
-                <Link href="/about" prefetch={false}>
-                  <a>
+            <div className="flex flex-col items-center justify-between md:flex-row lg:max-w-3xl">
+              <div className="flex flex-col gap-4 pr-0 md:pr-4 md:text-left">
+                <div className="inline-block">
+                  I&apos;m a <span className="font-semibold">✨ UX Engineer ✨</span>{' '}
+                  based in{' '}
+                  <span className="whitespace-nowrap">
+                    <span className="font-semibold">Canada</span>.
+                  </span>
+                </div>
+                <div className="inline-block">
+                  I write code for a living, drink more coffee than I probably should, and
+                  listen to a lot of electronic music in the process. <RickRoll />
+                </div>
+                <div className="mt-2 flex items-center justify-center md:justify-end">
+                  <Link href="/about" prefetch={false}>
                     <strong>About Me</strong> &rarr;
-                  </a>
-                </Link>
+                  </Link>
+                </div>
               </div>
+              <Image
+                src="/assets/headshot-pixelated.jpg"
+                className="!my-0 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
+                width={392}
+                height={392}
+              />
             </div>
           </HeroContainer>
         </Prose>
         <Separator />
         <h1 className="title">Latest Posts</h1>
-        <Posts data={posts} preview />
+        <Posts data={posts} limit={4} preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link href="/blog" prefetch={false}>
-            <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
-              See <strong>all posts</strong> &rarr;
-            </a>
+          <Link
+            href="/blog"
+            prefetch={false}
+            className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
+          >
+            See <strong>all posts</strong> &rarr;
           </Link>
         </div>
         <Separator />
         <h1 className="title">Popular Videos</h1>
         <Videos preview />
         <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link href="/videos" prefetch={false}>
-            <a className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300">
-              See <strong>all videos</strong> &rarr;
-            </a>
+          <Link
+            href="/videos"
+            prefetch={false}
+            className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
+          >
+            See <strong>all videos</strong> &rarr;
           </Link>
         </div>
         <div className="mt-8 inline-flex w-full items-center justify-center">

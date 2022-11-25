@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiSmile } from 'react-icons/fi';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -40,8 +40,8 @@ function CustomLink(props) {
 
   if (isInternalLink) {
     return (
-      <Link href={href} prefetch={false}>
-        <a {...props}>{children}</a>
+      <Link href={href} prefetch={false} {...props}>
+        {children}
       </Link>
     );
   }

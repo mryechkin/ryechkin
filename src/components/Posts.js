@@ -1,21 +1,21 @@
 import Card from './Card';
 
-export default function Posts({ data, preview, count = 4 }) {
+export default function Posts({ data, preview, limit }) {
   return (
     <div className="mt-4 flex flex-wrap items-start justify-start gap-6">
       {data?.length
         ? data.map((post, i) => {
-            if (i > count) {
-              return null;
+            if (i > limit) {
+              return null; // Only show up to a `limit` of posts
             }
 
             const { date, readingTime, summary, slug, tags, title } = post.data;
-            const isPreview = (i === 0 && preview) || !preview;
+            const hideCover = preview && i > 0;
 
             return (
               <Card
-                className={!isPreview && 'w-full grow md:w-[calc(50%-12px)]'}
-                hideCover={!isPreview}
+                className={hideCover && 'w-full grow md:w-[calc(50%-12px)]'}
+                hideCover={hideCover}
                 key={slug}
                 item={{
                   href: `/blog/${slug}`,

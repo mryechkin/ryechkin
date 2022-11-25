@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
 import Counter from '@/components/Counter';
@@ -22,7 +22,7 @@ export default function About({ source }) {
         <HeroContainer className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
             <div className="text-center lg:pr-4 lg:text-left ">
-              <div className="lg:hidden">
+              <div className="not-prose pb-8 lg:hidden">
                 <Image
                   src="/assets/hammock-wide.jpg"
                   alt="Photo in a hammock"
@@ -34,7 +34,7 @@ export default function About({ source }) {
               </div>
               <MDXRemote {...source} components={MDX} scope={{ experience }} />
             </div>
-            <div className="hidden shrink-0 lg:inline-flex lg:w-72">
+            <div className="not-prose hidden shrink-0 lg:inline-flex lg:w-72">
               <Image
                 src="/assets/hammock.jpg"
                 alt="Photo in a hammock"

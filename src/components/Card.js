@@ -2,7 +2,7 @@ import { FaYoutube } from 'react-icons/fa';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import DateDisplay from './DateDisplay';
@@ -25,7 +25,7 @@ export default function Card({
 
   return (
     <div className={cn('w-full', className)}>
-      <Link href={href} passHref>
+      <Link href={href} passHref legacyBehavior>
         <motion.a
           className={cn(
             'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
@@ -52,7 +52,7 @@ export default function Card({
                 { 'md:justify-center': hideCover, 'md:justify-start': !hideCover }
               )}
             >
-              <span className="text-center line-clamp-2">
+              <span className={cn('w-full line-clamp-2', { 'text-center': hideCover })}>
                 {title}
                 {isExternal && (
                   <HiOutlineExternalLink className="ml-2 inline-block shrink-0" />

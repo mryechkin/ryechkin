@@ -17,7 +17,7 @@ export default function NotFound() {
           These aren&apos;t the droids you&apos;re looking for.
         </p>
         <Link href="/" prefetch={false}>
-          <a>← Home</a>
+          &larr; Home
         </Link>
       </div>
     </Layout>

@@ -23,10 +23,12 @@ export function Nav({ className, ariaLabel = 'Navigation' }) {
     >
       {links.map((item) => (
         <div key={item.name} className="flex w-full px-5 py-2">
-          <Link href={item.href} prefetch={false}>
-            <a className="nav-link w-full text-center !font-semibold uppercase">
-              {item.name}
-            </a>
+          <Link
+            href={item.href}
+            prefetch={false}
+            className="nav-link w-full text-center !font-semibold uppercase"
+          >
+            {item.name}
           </Link>
         </div>
       ))}

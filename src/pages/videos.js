@@ -13,16 +13,11 @@ export default function VideosPage() {
       <Prose>
         <h1 className="retro py-2 text-5xl">Videos</h1>
         <HeroContainer>
-          <div className="text-center lg:max-w-3xl">
+          <div className="text-center lg:max-w-3xl [&>p]:my-1">
+            <p>Here you will find some of my coding tutorials.</p>
             <p>
-              Here you will find some of the coding tutorials that I&apos;ve recorded.
-            </p>
-            <p>
-              Most of these are things I&apos;ve recently learned, and wanted to share
-              with others while it was fresh in my mind.
-            </p>
-            <p>
-              As they say, the best way to learn something is to teach it to someone else.
+              Most of these are things I&apos;ve had to learn at some point, and wanted to
+              share with others while it was fresh in my mind.
             </p>
           </div>
         </HeroContainer>
