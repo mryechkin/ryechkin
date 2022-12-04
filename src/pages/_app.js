@@ -3,14 +3,14 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 
+import { usePanelbear } from 'src/lib/analytics';
+import theme from 'src/lib/theme';
+
 // eslint-disable-next-line import/order
 import SEO from '../../next-seo.config';
 
-import '@/styles/fonts.css';
-import '@/styles/globals.css';
-
-import { usePanelbear } from '@/lib/analytics';
-import theme from '@/lib/theme';
+import 'src/styles/fonts.css';
+import 'src/styles/globals.css';
 
 export const siteTitle = 'Mykhaylo Ryechkin';
 

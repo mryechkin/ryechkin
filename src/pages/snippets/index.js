@@ -1,12 +1,11 @@
-import Card from '@/components/Card';
-import Counter from '@/components/Counter';
-import HeroContainer from '@/components/HeroContainer';
-import Layout from '@/components/Layout';
-import Prose from '@/components/Prose';
-import SEO from '@/components/SEO';
-import Separator from '@/components/Separator';
-
-import { getAllSnippets } from '@/lib/data';
+import Card from 'src/components/Card';
+import Counter from 'src/components/Counter';
+import HeroContainer from 'src/components/HeroContainer';
+import Layout from 'src/components/Layout';
+import Prose from 'src/components/Prose';
+import SEO from 'src/components/SEO';
+import Separator from 'src/components/Separator';
+import { getAllSnippets } from 'src/lib/data';
 
 export default function Blog({ snippets }) {
   return (

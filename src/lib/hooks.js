@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 
-import { getHits, updateHits } from '@/lib/api';
+import { getHits, updateHits } from 'src/lib/api';
 
 export const useHits = (slug = 'index') => {
   const [init, setInit] = useState(false);

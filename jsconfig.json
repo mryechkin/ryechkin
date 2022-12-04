@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/components": ["src/components/index.js"],
-      "@/hooks": ["src/hooks/index.js"]
+      "src/*": ["src/*"],
+      "src/components": ["src/components/index.js"],
+      "src/hooks": ["src/hooks/index.js"]
     }
   }
 }

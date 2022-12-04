@@ -1,10 +1,11 @@
 import Confetti from 'react-dom-confetti';
 import cn from 'classnames/dedupe';
+
+import { useConfetti } from 'src/lib/hooks';
+
 import Header from './Header';
 import { Nav } from './Menu';
 import Social from './Social';
-
-import { useConfetti } from '@/lib/hooks';
 
 export default function Layout({ className, children }) {
   const [confetti, setConfetti] = useConfetti();

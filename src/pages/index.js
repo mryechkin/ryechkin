@@ -1,19 +1,18 @@
 import { FiSmile } from 'react-icons/fi';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
-import Counter from '@/components/Counter';
-import HeroContainer from '@/components/HeroContainer';
-import Layout from '@/components/Layout';
-import Posts from '@/components/Posts';
-import Prose from '@/components/Prose';
-import RickRoll from '@/components/RickRoll';
-import SEO from '@/components/SEO';
-import Separator from '@/components/Separator';
-import Videos from '@/components/Videos';
-
-import { getAllPosts } from '@/lib/data';
-import { useConfetti } from '@/lib/hooks';
+import Counter from 'src/components/Counter';
+import HeroContainer from 'src/components/HeroContainer';
+import Layout from 'src/components/Layout';
+import Posts from 'src/components/Posts';
+import Prose from 'src/components/Prose';
+import RickRoll from 'src/components/RickRoll';
+import SEO from 'src/components/SEO';
+import Separator from 'src/components/Separator';
+import Videos from 'src/components/Videos';
+import { getAllPosts } from 'src/lib/data';
+import { useConfetti } from 'src/lib/hooks';
 
 export default function Home({ posts }) {
   const [confetti] = useConfetti();

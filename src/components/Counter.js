@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { HiOutlineGlobeAlt } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
 
-import { useHits } from '@/lib/hooks';
+import { useHits } from 'src/lib/hooks';
 
 export default function Counter({ className, slug = 'index' }) {
   const { data, init, increment } = useHits(slug);

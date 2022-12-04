@@ -4,7 +4,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import darkTheme from 'prism-react-renderer/themes/dracula';
 import lightTheme from 'prism-react-renderer/themes/github';
 
-import CopyButton from '@/components/CopyButton';
+import CopyButton from './CopyButton';
 
 const SyntaxHighlighter = ({ children }) => {
   const [mounted, setMounted] = useState(false);

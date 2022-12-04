@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { supabase } from 'src/lib/supabase';
 
 export const getHits = async (slug) => {
   const { data, error } = await supabase.from('hits').select('id, count').eq('id', slug);

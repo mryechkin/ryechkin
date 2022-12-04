@@ -1,8 +1,8 @@
 import React from 'react';
 import { FiSmile } from 'react-icons/fi';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 
 import ExternalLink from './ExternalLink';
 import Spinner from './Spinner';

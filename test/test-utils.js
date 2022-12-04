@@ -4,7 +4,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'next-themes';
 
-import { MDX } from '@/components';
+import MDX from 'src/components/MDX';
 
 function AllTheProviders({ children }) {
   return (

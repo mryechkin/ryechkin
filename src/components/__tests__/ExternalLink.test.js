@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import ExternalLink from '@/components/ExternalLink';
+import ExternalLink from 'src/components/ExternalLink';
 
 describe('Component Tests - ExternalLink', () => {
   it('should render the external icon', () => {

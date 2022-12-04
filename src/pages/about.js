@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import Counter from '@/components/Counter';
-import HeroContainer from '@/components/HeroContainer';
-import Layout from '@/components/Layout';
-import MDX from '@/components/MDX';
-import SEO from '@/components/SEO';
-
-import { getMdx, getRawFile, getReadingTime } from '@/lib/data';
-import { yearsToDate } from '@/lib/utils';
+import Counter from 'src/components/Counter';
+import HeroContainer from 'src/components/HeroContainer';
+import Layout from 'src/components/Layout';
+import MDX from 'src/components/MDX';
+import SEO from 'src/components/SEO';
+import { getMdx, getRawFile, getReadingTime } from 'src/lib/data';
+import { yearsToDate } from 'src/lib/utils';
 
 export default function About({ source }) {
   const experience = yearsToDate('05/01/2009');

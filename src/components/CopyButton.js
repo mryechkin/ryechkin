@@ -1,8 +1,8 @@
 import { FiCheck, FiCopy } from 'react-icons/fi';
 
-import Button from './Button';
+import { useClipboard } from 'src/hooks';
 
-import { useClipboard } from '@/hooks';
+import Button from './Button';
 
 const CopyButton = ({ code, ...props }) => {
   const { hasCopied, onCopy } = useClipboard(code);

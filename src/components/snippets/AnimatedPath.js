@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/solid';
 import { motion, useCycle } from 'framer-motion';
 
-import { useInterval } from '@/lib/hooks';
-import { generateArray } from '@/lib/utils';
+import { useInterval } from 'src/lib/hooks';
+import { generateArray } from 'src/lib/utils';
 
 export default function AnimatedPath({ delay = 100 }) {
   const x = generateArray(1000, 1, -15, 15);

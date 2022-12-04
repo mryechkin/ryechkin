@@ -4,8 +4,8 @@ import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { trackRickRoll } from '@/lib/analytics';
-import { useHits } from '@/lib/hooks';
+import { trackRickRoll } from 'src/lib/analytics';
+import { useHits } from 'src/lib/hooks';
 
 export default function RickRoll() {
   const [rickrolled, setRickRolled] = useState(false);

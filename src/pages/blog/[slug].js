@@ -1,16 +1,21 @@
-import Image from 'next/image';
 import Head from 'next/head';
+import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
-import BackToTop from '@/components/BackToTop';
-import Counter from '@/components/Counter';
-import DateDisplay from '@/components/DateDisplay';
-import Layout from '@/components/Layout';
-import MDX from '@/components/MDX';
-import SEO from '@/components/SEO';
-import Tags from '@/components/Tags';
-
-import { getAllPosts, getHeadings, getMdx, getRawFile, getReadingTime } from '@/lib/data';
+import BackToTop from 'src/components/BackToTop';
+import Counter from 'src/components/Counter';
+import DateDisplay from 'src/components/DateDisplay';
+import Layout from 'src/components/Layout';
+import MDX from 'src/components/MDX';
+import SEO from 'src/components/SEO';
+import Tags from 'src/components/Tags';
+import {
+  getAllPosts,
+  getHeadings,
+  getMdx,
+  getRawFile,
+  getReadingTime,
+} from 'src/lib/data';
 
 export default function Post({ source = {} }) {
   const { frontmatter } = source;
@@ -51,7 +56,7 @@ export default function Post({ source = {} }) {
           },
         }}
       />
-      <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
+      <div className="prose-sm prose w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{frontmatter.title}</h1>
         {frontmatter?.tags?.length && (
           <Tags
