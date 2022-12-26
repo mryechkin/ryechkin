@@ -1,5 +1,4 @@
 import { FaYoutube } from 'react-icons/fa';
-import { HiOutlineExternalLink } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -52,14 +51,21 @@ export default function Card({
                 { 'md:justify-center': hideCover, 'md:justify-start': !hideCover }
               )}
             >
-              <span className={cn('w-full line-clamp-2', { 'text-center': hideCover })}>
-                {title}
-                {isExternal && (
-                  <HiOutlineExternalLink className="ml-2 inline-block shrink-0" />
+              <span
+                className={cn(
+                  'w-full text-center line-clamp-2',
+                  !hideCover && 'md:text-start'
                 )}
+              >
+                {title}
               </span>
             </div>
-            {date && <DateDisplay data={{ date, duration, readingTime }} />}
+            {date && (
+              <DateDisplay
+                data={{ date, duration, readingTime }}
+                isExternal={isExternal}
+              />
+            )}
             {tags?.length > 0 && <Tags className="justify-center" list={tags} />}
             {summary && (
               <p className="text-ellipsis text-left line-clamp-4 md:line-clamp-3">
@@ -68,14 +74,13 @@ export default function Card({
             )}
           </div>
           {!hideCover && imageUrl && (
-            <div className="col-span-5 hidden px-4 pb-4 sm:block md:col-span-2 md:pt-4">
+            <div className="col-span-5 hidden px-4 pb-4 md:col-span-2 md:block md:pt-4">
               <div className="relative flex h-full w-full items-center justify-center">
                 <Image
-                  className="w-full rounded-lg bg-gray-900"
+                  className="aspect-video w-full rounded-lg bg-gray-900 object-cover"
                   src={imageUrl}
                   alt={title}
-                  width={1200}
-                  height={627}
+                  fill
                 />
                 {isVideo && (
                   <FaYoutube className="absolute h-32 w-32 text-white opacity-60 group-hover:opacity-90 group-focus:opacity-90" />

@@ -1,9 +1,10 @@
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import { IoMdBook } from 'react-icons/io';
 import { MdOutlineCameraRoll } from 'react-icons/md';
 import cn from 'classnames/dedupe';
 import { format, parseISO } from 'date-fns';
 
-export default function DateDisplay({ className, data }) {
+export default function DateDisplay({ className, data, isExternal }) {
   const { date, duration, readingTime } = data;
   const dateISO = parseISO(date);
 
@@ -33,6 +34,12 @@ export default function DateDisplay({ className, data }) {
             <MdOutlineCameraRoll className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
             {duration}
           </div>
+        </>
+      )}
+      {isExternal && (
+        <>
+          <span className="font-black">&middot;</span>
+          <HiOutlineExternalLink className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
         </>
       )}
     </div>

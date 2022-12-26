@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 import cn from 'classnames';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import Caption from './Caption';
 import Modal from './Modal';

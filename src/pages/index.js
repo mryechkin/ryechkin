@@ -36,20 +36,18 @@ export default function Home({ posts }) {
             <div className="flex flex-col items-center justify-between md:flex-row lg:max-w-3xl">
               <div className="flex flex-col gap-4 pr-0 md:pr-4 md:text-left">
                 <div className="inline-block">
-                  I&apos;m a <span className="font-semibold">✨ UX Engineer ✨</span>{' '}
-                  based in{' '}
-                  <span className="whitespace-nowrap">
-                    <span className="font-semibold">Canada</span>.
-                  </span>
+                  I&apos;m a <span className="font-semibold">UX Engineer</span> based in{' '}
+                  <span className="font-semibold">Canada</span>.
                 </div>
                 <div className="inline-block">
                   I write code for a living, drink more coffee than I probably should, and
                   listen to a lot of electronic music in the process. <RickRoll />
                 </div>
-                <div className="mt-2 flex items-center justify-center md:justify-end">
-                  <Link href="/about" prefetch={false}>
-                    <strong>About Me</strong> &rarr;
+                <div className="mt-2 flex items-center justify-center gap-2 md:justify-start">
+                  <Link href="/about" prefetch={false} className="font-bold">
+                    About Me
                   </Link>
+                  &rarr;
                 </div>
               </div>
               <Image

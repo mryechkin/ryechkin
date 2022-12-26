@@ -1,3 +1,4 @@
+import Balancer from 'react-wrap-balancer';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
@@ -56,8 +57,10 @@ export default function Post({ source = {} }) {
           },
         }}
       />
-      <div className="prose-sm prose w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
-        <h1 className="retro">{frontmatter.title}</h1>
+      <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
+        <h1 className="retro">
+          <Balancer>{frontmatter.title}</Balancer>
+        </h1>
         {frontmatter?.tags?.length && (
           <Tags
             className="my-6 w-full items-center justify-center"
@@ -65,18 +68,18 @@ export default function Post({ source = {} }) {
           />
         )}
         <DateDisplay data={frontmatter} />
-        <div className="mx-auto mt-8 max-w-3xl shadow-md">
+        <div className="mx-auto mt-8 max-w-2xl shadow-md">
           <Image
             alt={frontmatter.title}
             src={`/${slug}/cover.png`}
-            className="rounded-lg bg-gray-900"
-            height={627}
+            className="rounded-lg bg-gray-900 object-cover"
             width={1200}
-            quality={100}
+            height={627}
+            quality={90}
             priority
           />
         </div>
-        <article className="py-4 text-gray-800 dark:text-gray-50 md:pt-8">
+        <article className="pb-4 text-gray-800 dark:text-gray-50">
           <MDXRemote {...source} components={MDX} />
         </article>
         <div className="flex items-center justify-center p-2">
