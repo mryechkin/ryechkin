@@ -8,7 +8,7 @@ html {
 
 @layer base {
   body {
-    @apply font-sans text-gray-700 selection:bg-indigo-700 selection:text-indigo-100 dark:text-gray-50 dark:selection:bg-indigo-300 dark:selection:text-indigo-900;
+    @apply font-sans text-gray-700 selection:bg-black selection:text-sky-200 dark:text-gray-50 dark:selection:bg-sky-200 dark:selection:text-black;
   }
 
   a {
@@ -35,6 +35,10 @@ html {
 
   .blurred-backdrop {
     @apply bg-gray-50 bg-opacity-80 filter backdrop-blur dark:bg-gray-800 dark:bg-opacity-80 dark:backdrop-blur-sm;
+  }
+
+  .button-outline {
+    @apply border border-indigo-100 hover:border-indigo-300 dark:border-indigo-800 hover:dark:border-indigo-600;
   }
 
   .custom-focus {
@@ -174,7 +178,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-gray-800 dark:text-indigo-200;
+    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
   }
 }
 

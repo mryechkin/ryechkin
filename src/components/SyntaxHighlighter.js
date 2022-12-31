@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import darkTheme from 'prism-react-renderer/themes/dracula';
 import lightTheme from 'prism-react-renderer/themes/github';
+import darkTheme from 'prism-react-renderer/themes/nightOwl';
 
 import CopyButton from './CopyButton';
 

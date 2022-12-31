@@ -31,10 +31,10 @@ export default function SEO({ description, image, title, openGraph, canonical })
       </Head>
       <NextSeo
         description={
-          description || 'UI development, design systems, and all things modern web.'
+          description || 'UX engineering, design systems, and all things modern web.'
         }
         title={title}
-        titleTemplate="%s - Mykhaylo Ryechkn"
+        titleTemplate="%s - Mykhaylo Ryechkin"
         defaultTitle="Mykhaylo Ryechkin"
         canonical={canonical}
         openGraph={
