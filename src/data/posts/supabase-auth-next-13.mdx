@@ -1,0 +1,1188 @@
+---
+title: 'Authentication in Next.js with Supabase and Next 13'
+date: '2023-01-25'
+published: true
+summary: 'How to setup authentication in your Next.js app, using Supabase and the new Auth Helpers. Updated for Supabase v2 and Next 13.'
+canonical: https://misha.wtf/blog/supabase-auth-next-13
+tags: ['Next.js', 'Supabase', 'Authentication']
+seo: ['Vercel', 'Next.js', 'NextJS', 'Supabase', 'Auth', 'Authentication']
+author:
+  name: 'Mykhaylo Ryechkin'
+  url: 'https://twitter.com/mryechkin'
+---
+
+## Intro
+
+Awhile back I wrote an [article](/blog/nextjs-supabase-auth) on using [Supabase](https://supabase.com/) to implement user authentication in a [Next.js](https://nextjs.org) app. As it often goes in the world of open-source web, things evolve quickly and a lot can change in just over a year, and so is the case with Supabase.
+
+In this post, I would like to bring you an updated guide on implementing user auth with Supabase and Next.js in **2023**.
+
+> **NOTE:** Make sure to read the [original post](/blog/nextjs-supabase-auth) first if you haven't yet, as we'll be building on the main concepts covered there. Code for the Supabase **v1** implementation can be found under the `v1` branch in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth/tree/v1).
+
+## What's New?
+
+So, what all has changed? Let's start with the big stuff.
+
+### Next 13
+
+In October 2022, Next.js team announced [Next 13](https://nextjs.org/blog/next-13), and with it came the new [`app` directory](https://beta.nextjs.org/docs/app-directory-roadmap) architecture.
+
+Though officially still in beta (as of January 2023), the `app` directory offers a great new way of architecting our apps, and introduces new features like [nested layouts](https://beta.nextjs.org/docs/routing/pages-and-layouts#layouts) and support for React [Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html).
+
+I wanted to explore how this new paradigm would work with Supabase, and try some of the capabilities in a familiar project. Happy to say that this exploration went well, and we'll go over one approach of using the new `app` architecture in this guide.
+
+### Supabase v2
+
+Next up, Supabase released [v2](https://supabase.com/blog/supabase-js-v2) of their JavaScript client library ([supabase-js](https://github.com/supabase/supabase-js)), which brought with it a number of developer experience type improvements, and streamlined how we use some of the API's. A number of methods were also deprecated in this new release, which we'll cover later in this guide.
+
+### Supabase Auth Helpers
+
+In addition to the new version of the client library, Supabase also introduced new [Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers) earlier this year, which is a collection of libraries and framework-specific utilities for working with user authentication in Supabase.
+
+These utilities eliminate the need to keep writing the same boilerplate code over and over (e.g. initializing Supabase client, setting cookies, etc.), and let us focus on our application code instead. We'll be utilizing their [Next.js helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) library in our project.
+
+### Supabase UI (Deprecated)
+
+Lastly, the `Auth` component from the **Supabase UI** library which we were using to render our auth screens, and handle all the related flows and UI logic (Sign In, Sign Up, Reset Password, etc.) **has been deprecated**. Components from the original [@supabase/ui](https://github.com/supabase/ui) package were moved into the main [Supabase](https://github.com/supabase/supabase) repo, and the package is now deprecated.
+
+The [Auth](https://ui.supabase.io/components/auth) component itself now has a new name "**Auth UI**", and lives in its own separate [repo](https://github.com/supabase/auth-ui). Though originally intending to use it, as I began migrating the code I've found this new component to not work quite as well as I'd hoped, getting in the way more than helping. For that reason, I've decided to abandon it in this guide, and build one instead.
+
+Fortunately, building a component like this from scratch isn't all that difficult thanks to libraries like [Formik](https://formik.org/), so we'll use that to help us handle all of our form logic. This has the added benefit of giving us full control of the auth flow, and the ability to customize the form UI however we'd like, without being limited by Supabase's customization options.
+
+## Project Setup
+
+In the interest of saving some time, we'll start with the project from the [original post](/blog/nextjs-supabase-auth), as we do end up re-using a bunch of existing code.
+
+The code for that is in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth/tree/v1) for your reference. If you're doing this for the first time, clone the `v1` branch as your starting point.
+
+### Updating Dependencies
+
+First things first, we'll need to update [Supabase](https://github.com/supabase/supabase-js) to the latest version (**v2**), and install [Formik](https://github.com/jaredpalmer/formik) (+ related dependencies) and the [Next.js Auth Helpers](https://github.com/supabase/auth-helpers):
+
+```bash
+npm install @supabase/supabase-js@latest @supabase/auth-helpers-nextjs classnames formik yup
+```
+
+We'll also utilize Tailwind's [Forms Plugin](https://github.com/tailwindlabs/tailwindcss-forms) to make it easier to style our `Auth` component, so let's install that as well:
+
+```bash
+npm install -D @tailwindcss/forms
+```
+
+You can also remove `@supabase/ui`, since we won't be using it anymore:
+
+```bash
+npm uninstall @supabase/ui
+```
+
+With dependencies updated, we'll need to configure Next to use the new `app` directory (make sure you're on version 13 or above). To enable this, add (or update) `next.config.js` in the project's root folder:
+
+```js:next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
+};
+
+module.exports = nextConfig;
+```
+
+This will allow us to start moving some of our existing code from the `pages` directory to the `app` folder. Note that putting the `app` folder under `src` also works, which is how the previous project was setup.
+
+> Make sure to [read more](https://beta.nextjs.org/docs/routing/fundamentals) about the new `app` directory if you aren't familiar with the new features.
+
+### Updating Tailwind Config
+
+Last thing we need to do is specify the `@tailwindcss/forms` plugin in our Tailwind config file:
+
+```jsx:tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+const forms = require('@tailwindcss/forms');
+
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'media',
+  plugins: [forms],
+};
+```
+
+### Supabase API keys
+
+To use Supabase, we'll need to have our Supabase API key and URL setup.
+
+If you haven't already, create an `.env` file and specify the corresponding values from Supabase [dashboard](https://app.supabase.io) (refer to the [previous post](/blog/nextjs-supabase-auth#supabase-setup) for more details):
+
+```yaml:.env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+### Supabase Client
+
+With API keys setup, let's now create the Supabase Client so that we can interact with Supabase API's. We'll be using the **Next.js Auth Helpers** library installed earlier for this.
+
+In order to support both the new Server Components and the Client Components, we'll need to have two different kinds of a Supabase Client:
+
+- **Browser** Client: for use with Client Components in the browser, for example within a `useEffect`
+- **Server Component** Client: for use specifically with Server Components
+
+Following the [setup instructions](https://supabase.com/docs/guides/auth/auth-helpers/nextjs-server-components), create two files - `supabase-browser.js` and `supabase-server.js` - one for each type of client. We'll put these in the `src/lib` folder:
+
+```
+src
+└── lib/
+    ├── supabase-browser.js
+    └── supabase-server.js
+```
+
+#### Browser Client
+
+```jsx:src/lib/supabase-browser.js
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+
+const supabase = createBrowserSupabaseClient();
+
+export default supabase;
+```
+
+#### Server Component Client
+
+```jsx:src/lib/supabase-server.js
+import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { cookies, headers } from 'next/headers';
+
+export default () =>
+  createServerComponentSupabaseClient({
+    headers,
+    cookies,
+  });
+```
+
+Note that this needs to export a function, as the `headers` and `cookies` are not populated with values until the Server Component is requesting data (according to [Supabase docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs-server-components#creating-a-supabase-client)).
+
+With the clients setup, we can now import them in our pages and components to interact with Supabase.
+
+E.g. in a **Client Component**:
+
+```jsx
+import supabase from 'src/lib/supabase-browser';
+
+function ClientComponent() {
+  useEffect(() => {
+    async function getData() {
+      const { data } = await supabase.auth.getSession();
+      // ...
+    }
+    getData();
+  }, []);
+  // ...
+}
+```
+
+E.g. in a **Server Component**:
+
+```jsx
+import createClient from 'src/lib/supabase-server';
+
+async function ServerComponent() {
+  const supabase = createClient();
+
+  const { data } = await supabase.auth.getSession();
+
+  // ...
+}
+```
+
+## Application Structure
+
+The overall page structure and routes will largely remain [the same as before](/blog/nextjs-supabase-auth#application-structure), so we'll get to re-use a bunch of existing code. The biggest change will be moving all page code from the `pages` folder to the new `app` directory. As we do that, we'll also need to refactor some things to align with this new paradigm.
+
+Our project folder structure will look like the following:
+
+```
+└── src/
+    ├── app/
+    │   ├── profile/
+    │   │   └── page.js
+    │   ├── head.js
+    │   ├── layout.js
+    │   └── page.js
+    ├── components/
+    │   ├── Auth/
+    │   │   ├── index.js
+    │   │   ├── ResetPassword.js
+    │   │   ├── SignIn.js
+    │   │   ├── SignUp.js
+    │   │   └── UpdatePassword.js
+    │   └── AuthProvider.js
+    └── middleware.js
+```
+
+Let's go through what each of these are.
+
+### Pages and Routes
+
+#### Home: `/`
+
+This is the main **Home** page, showing the `Auth` component if no session is found (ie. user needs to sign-in), or a link to the **Profile** page if there is an active session with a valid user.
+
+This page also handles the "Update Password" flow, and will be redirected to from the link in the reset password email sent by Supabase (this URL is configurable in case you'd like to use a different route).
+
+Previously in [src/pages/index.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/pages/index.js), this page will now be in `src/app/page.js`.
+
+#### Profile: `/profile`
+
+This is an authenticated-only **Profile** page, showing some basic user info for the current user. If no session is found, it will redirect to `/`.
+
+Previously in [src/pages/profile.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/pages/profile.js), this page code will now be in `src/app/profile/page.js`.
+
+And that's it as far as page routes go.
+
+Note that in Next 13, pages are [Server Components](https://beta.nextjs.org/docs/rendering/server-and-client-components) by default, but can be set to [Client Components](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components) via the `'use client'` directive. More on this and how it impacts our code a bit later.
+
+### Root Layout
+
+In the previous solution, we built our own [Layout](https://github.com/mryechkin/nextjs-supabase-auth/tree/v1/src/components/Layout.js) component, and used it as the top-level wrapper for each individual page, ie:
+
+```jsx
+import Layout from 'src/components/Layout';
+
+export default function Home() {
+  return <Layout>{/** Page content */}</Layout>;
+}
+```
+
+With Next 13 and the `app` directory, this can now be done using [shared layouts](https://beta.nextjs.org/docs/routing/pages-and-layouts) ✨
+
+Since we only have a single layout shared across the whole app, we can just create a single root `layout.js` file in `src/app`, which will be shared by all children routes and pages. We'll call this `RootLayout`.
+
+Using the existing [Layout](https://github.com/mryechkin/nextjs-supabase-auth/tree/v1/src/components/Layout.js) component as our starting point, create `src/app/layout.js` and paste the following (feel free to adjust styling as needed):
+
+```jsx:src/app/layout.js
+import 'src/styles/globals.css';
+
+export default async function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <div className="flex min-h-screen flex-col items-center justify-center py-2">
+          <main className="flex w-full flex-1 shrink-0 flex-col items-center justify-center px-8 text-center sm:px-20">
+            <h1 className="mb-12 text-5xl font-bold sm:text-6xl">
+              Next.js with <span className="font-black text-green-400">Supabase</span>
+            </h1>
+            {children}
+          </main>
+        </div>
+      </body>
+    </html>
+  );
+}
+```
+
+Note how we need to include `<html>` and `<body>` tags here as well. If you'd like to think of it in terms of the old `pages` directory, the root `layout.js` essentially combines the concepts of `_app.js` and `document.js` together into one.
+
+One big benefit of a root layout is that state is preserved on route changes, and the layout doesn't unnecessarily rerender. Layouts can also be nested, though we won't be needing that in this project.
+
+**IMPORTANT:** Root layout is a Server Component by default, and can **NOT** be set to a Client Component. Any parts of your layout that require interactivity will need to be moved into separate Client Components (which can be marked with the `'use client'` directive).
+
+> Read more on this in ["moving Client Components to the leaves"](https://beta.nextjs.org/docs/rendering/server-and-client-components#moving-client-components-to-the-leaves) in Next.js beta docs for additional information.
+
+### Auth Provider
+
+To handle our auth-related logic on the client side, we need an [AuthProvider](/blog/nextjs-supabase-auth#authentication-provider), which is essentially a React [context](https://reactjs.org/docs/context.html) provider.
+
+This component is a top-level wrapper in our application, providing things like `user` and `session` objects, `signOut` method and a `useAuth` hook to its children components.
+
+Previously found in the [`src/lib/auth.js`](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/lib/auth.js) file in the original implementation, we'll move this to `src/components/AuthProvider.js` to keep our folder and naming structure consistent. For now, keep all of the existing code - we'll update it as we go along.
+
+In the original implementation, this component was used in the `_app.js`:
+
+```jsx:src/pages/_app.js
+function MyApp({ Component, pageProps }) {
+  return (
+    <AuthProvider supabase={supabase}>
+      <Component {...pageProps} />
+    </AuthProvider>
+  );
+}
+```
+
+With the move to `app` directory, we'll need to find it a new home. Considering that this will be shared by all pages, the best place for it is in the `RootLayout`.
+
+Update `src/app/layout.js` with the following:
+
+```jsx:src/app/layout.js
+import { AuthProvider } from 'src/components/AuthProvider';
+
+import 'src/styles/globals.css';
+
+export default async function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {/* ... */}
+        <AuthProvider>{children}</AuthProvider>
+        {/* ... */}
+      </body>
+    </html>
+  );
+}
+```
+
+One important thing to note from Next.js [beta docs](https://beta.nextjs.org/docs/rendering/server-and-client-components#context):
+
+> In Next.js 13, context is fully supported within Client Components, but it cannot be created or consumed directly within Server Components. This is because Server Components have no React state (since they're not interactive), and context is primarily used for rerendering interactive components deep in the tree after some React state has been updated.
+
+Given the above, we'll need to make `AuthProvider` a Client Component, since it uses React context.
+
+To do this, add `'use client'` at the very top of the `src/components/AuthProvider.js` file:
+
+```js:src/components/AuthProvider.js
+'use client';
+
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+
+// ...
+
+export const AuthProvider = (props) => {
+  // ...
+}
+```
+
+Note that even though `AuthProvider` is now a Client Component, it can still be imported and used in the `RootLayout` (which is a Server Component).
+
+### Middleware
+
+Next.js [middleware](https://nextjs.org/docs/advanced-features/middleware) is used to run code before a request is completed, and can be configured to run that code only on specific routes. From Supabase docs we learn that:
+
+> Since we don't have access to set cookies or headers from Server Components, we need to create a Middleware Supabase client and refresh the user's session by calling `getSession()`. Any Server Component route that uses a Supabase client must be added to this middleware's `matcher` array. Without this, the Server Component may try to make a request to Supabase with an expired `access_token`.
+
+So, we'll need to add Next.js middleware in our app. Create a `middleware.js` file at the root of our `src` folder, and add the following:
+
+```jsx:src/middleware.js
+import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
+
+export async function middleware(req) {
+  const res = NextResponse.next();
+
+  const supabase = createMiddlewareSupabaseClient({ req, res });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  return res;
+}
+
+export const config = {
+  matcher: ['/profile'],
+};
+```
+
+Here we're using the `createMiddlewareSupabaseClient()` function from the **Next.js Auth Helpers** to create a middleware Supabase client, and we're also configuring the `matcher` array to run this code on the `/profile` route, as that's the only route using Server Components in our case. If you have additional routes utilizing Server Components, you'll need to specify them here as well.
+
+## Migrating to Supabase v2
+
+With the core of our `app` code now in place, it's time to make some updates.
+
+There were a few methods deprecated in Supabase v2, so we'll need to update how we use those in our `AuthProvider`.
+
+### Session Listener
+
+If you recall, we have a `useEffect` inside our `AuthProvider` that retrieves the current session, as well as an event listener for any auth events fired by Supabase client.
+
+The methods for these have changed in Supabase **v2**, so we'll need to update how they're used.
+
+First, remove the deprecated `session()` method and use [getSession()](https://supabase.com/docs/reference/javascript/auth-getsession) instead.
+
+> Because this new method returns a Promise, we need to call it from within an async function in our `useEffect`.
+
+Create an async `getActiveSession` method, and invoke it from within the `useEffect`. In the `AuthProvider` component, update the `useEffect` from this:
+
+```jsx:src/components/AuthProvider.js
+useEffect(() => {
+  const activeSession = supabase.auth.session();
+  setSession(activeSession);
+  setUser(activeSession?.user ?? null);
+  // ...
+}, []);
+```
+
+to this:
+
+```jsx:src/components/AuthProvider.js
+useEffect(() => {
+  async function getActiveSession() {
+    const {
+      data: { session: activeSession },
+    } = await supabase.auth.getSession();
+    setSession(activeSession);
+    setUser(activeSession?.user ?? null);
+  }
+  getActiveSession();
+  // ...
+}, []);
+```
+
+Next, we need to update the `onAuthStateChange` handler.
+
+To get the `authListener` for our effect cleanup, we now need to read it from `data.subscription` in the returned object:
+
+```jsx:src/components/AuthProvider.jsx
+useEffect(() => {
+  // ...
+  const {
+    data: { subscription: authListener },
+  } = supabase.auth.onAuthStateChange((event, currentSession) => {
+    setSession(currentSession);
+    setUser(currentSession?.user ?? null);
+  });
+  // ...
+  return () => {
+    authListener?.unsubscribe();
+  };
+}, []);
+```
+
+### Managing Cookies
+
+The `setAuthCookie` and `getUserByCookie` methods have also been deprecated. Recommended solution for managing cookies in Next.js is now the [Next.js Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) library, which we had installed earlier. We'll be using that alongside Next.js middleware (more on that below).
+
+This means that we won't need to manually create or delete a cookie whenever auth state changes, and the `/api/auth` API routes are no longer required. We can delete `pages/api/auth` altogether, and remove the fetch call to `/api/auth` in our `onAuthStateChange` handler as well:
+
+```jsx:src/components/AuthProvider.js
+useEffect(() => {
+  // ...
+  const { data: authListener } = supabase.auth.onAuthStateChange(
+    (event, currentSession) => {
+      // fetch('/api/auth', {
+      //   method: 'POST',
+      //   headers: new Headers({ 'Content-Type': 'application/json' }),
+      //   credentials: 'same-origin',
+      //   body: JSON.stringify({ event, session: currentSession }),
+      // }).then((res) => res.json());
+    }
+  );
+  //...
+}, []);
+```
+
+The `useEffect` in `AuthProvider` should now look like this:
+
+```jsx:src/components/AuthProvider.js
+//...
+useEffect(() => {
+    async function getActiveSession() {
+      const {
+        data: { session: activeSession },
+      } = await supabase.auth.getSession();
+      setSession(activeSession);
+      setUser(activeSession?.user ?? null);
+    }
+    getActiveSession();
+
+    const {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange((event, currentSession) => {
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
+
+      switch (event) {
+        case EVENTS.PASSWORD_RECOVERY:
+          setView(VIEWS.UPDATE_PASSWORD);
+          break;
+        case EVENTS.SIGNED_OUT:
+        case EVENTS.USER_UPDATED:
+          setView(VIEWS.SIGN_IN);
+          break;
+        default:
+      }
+    });
+
+    return () => {
+      authListener?.unsubscribe();
+    };
+  }, []);
+// ...
+```
+
+### Auth Component
+
+With Supabase setup, and `AuthProvider` updated to use Supabase **v2**, it's time to build our authentications forms. This is what will replace the [Auth](https://ui.supabase.io/components/auth) component from the (now deprecated) [Supabase UI](https://github.com/supabase/ui) library.
+
+Let's make each form an individual component:
+
+- **Sign In**: `SignIn.js`
+- **Sign Up**: `SignUp.js`
+- **Reset Password**: `ResetPassword.js`
+- **Update Password**: `UpdatePassword.js`
+
+Then, create a parent `Auth` component that will display the corresponding screen based on the current `view`:
+
+```jsx:src/components/Auth/index.js
+'use client';
+
+import { useAuth, VIEWS } from 'src/components/AuthProvider';
+
+import ResetPassword from './ResetPassword';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import UpdatePassword from './UpdatePassword';
+
+const Auth = ({ view: initialView }) => {
+  let { view } = useAuth();
+
+  if (initialView) {
+    view = initialView;
+  }
+
+  switch (view) {
+    case VIEWS.UPDATE_PASSWORD:
+      return <UpdatePassword />;
+    case VIEWS.FORGOTTEN_PASSWORD:
+      return <ResetPassword />;
+    case VIEWS.SIGN_UP:
+      return <SignUp />;
+    default:
+      return <SignIn />;
+  }
+};
+
+export default Auth;
+```
+
+Here, we're checking the value of `view` from our `AuthProvider` via the `useAuth()` hook, and display the corresponding component for the given auth flow. The `Auth` component also accepts an optional `view` prop, in case we need to manually override it (as is the case with "Update Password" flow, but more on that later).
+
+The individual forms all follow the same basic structure, which looks like this for **Sign In**:
+
+```jsx:src/components/Auth/SignIn.js
+'use client';
+
+import { useState } from 'react';
+import cn from 'classnames';
+import { Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
+import { useAuth, VIEWS } from 'src/components/AuthProvider';
+import supabase from 'src/lib/supabase-browser';
+
+const SignInSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
+
+const SignIn = () => {
+  const { setView } = useAuth();
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  async function signIn(formData) {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (error) {
+      setErrorMsg(error.message);
+    }
+  }
+
+  return (
+    <div className="card">
+      <h2 className="w-full text-center">Sign In</h2>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={SignInSchema}
+        onSubmit={signIn}
+      >
+        {({ errors, touched }) => (
+          <Form className="column w-full">
+            <label htmlFor="email">Email</label>
+            <Field
+              className={cn('input', errors.email && touched.email && 'bg-red-50')}
+              id="email"
+              name="email"
+              placeholder="jane@acme.com"
+              type="email"
+            />
+            {errors.email && touched.email ? (
+              <div className="text-red-600">{errors.email}</div>
+            ) : null}
+
+            <label htmlFor="email">Password</label>
+            <Field
+              className={cn('input', errors.password && touched.password && 'bg-red-50')}
+              id="password"
+              name="password"
+              type="password"
+            />
+            {errors.password && touched.password ? (
+              <div className="text-red-600">{errors.password}</div>
+            ) : null}
+
+            <button
+              className="link w-full"
+              type="button"
+              onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)}
+            >
+              Forgot your password?
+            </button>
+
+            <button className="button-inverse w-full" type="submit">
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+      {errorMsg && <div className="text-red-600">{errorMsg}</div>}
+      <button
+        className="link w-full"
+        type="button"
+        onClick={() => setView(VIEWS.SIGN_UP)}
+      >
+        Don&apos;t have an account? Sign Up.
+      </button>
+    </div>
+  );
+};
+
+export default SignIn;
+```
+
+Here, we're using [Formik](https://formik.org) to build out the form, and [Yup](https://github.com/jquense/yup) for schema validation (as [recommended](https://formik.org/docs/guides/validation#validationschema) by Formik). The same pattern is applied for all forms.
+
+> Check out the full **Formik** [tutorial](https://formik.org/docs/tutorial) for more details on how it works.
+
+Similarly, the remaining auth flows are also implemented:
+
+- [SignUp.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/main/src/components/Auth/SignUp.js)
+- [ResetPassword.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/main/src/components/Auth/ResetPassword.js)
+- [UpdatePassword.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/main/src/components/Auth/UpdatePassword.js)
+
+Check out the linked files for reference.
+
+We'll put all these in the `src/components/Auth` folder, where `index.js` is the parent `Auth` component, and then each individual form is a separate component file:
+
+```
+src/
+└── components/
+    └── Auth/
+        ├── index.js
+        ├── ResetPassword.js
+        ├── SignIn.js
+        ├── SignUp.js
+        └── UpdatePassword.js
+```
+
+> Code for the complete `Auth` component can be found in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth/blob/main/src/components/Auth/) for your reference.
+
+## Updating Pages
+
+With the new `Auth` component in place, it's time to update our page code.
+
+### Home
+
+Our **Home** page will use the original code from [src/pages/index.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/pages/index.js) as the starting point. And there really isn't much to change!
+
+- We're still using the `useAuth` hook, and reading `view`, `user` and `signOut` from it
+- Thanks to the new shared layout, we don't need the `Layout` wrapper anymore
+- The `Auth` component API is a bit simplified, as it doesn't require the Supabase client to be passed to it anymore (that's done internally in the component)
+- The imports for `AuthProvider` and `Auth` will also need to be updated
+
+With all said, the `Home` page should look something like this:
+
+```jsx:src/app/page.js
+import Link from 'next/link';
+
+import Auth from 'src/components/Auth';
+import { useAuth, VIEWS } from 'src/components/AuthProvider';
+
+export default function Home() {
+  const { user, view, signOut } = useAuth();
+
+  if (view === VIEWS.UPDATE_PASSWORD) {
+    return <Auth view={view} />;
+  }
+
+  if (user) {
+    return (
+      <div className="card">
+        <h2>Welcome!</h2>
+        <code className="highlight">{user.role}</code>
+        <Link className="button" href="/profile">
+          Go to Profile
+        </Link>
+        <button type="button" className="button-inverse" onClick={signOut}>
+          Sign Out
+        </button>
+      </div>
+    );
+  }
+
+  return <Auth view={view} />;
+}
+```
+
+As before, we are showing the `Auth` component if no `user` is found in the current session, or a simple authenticated view with a link to `/profile` and a **Sign Out** button otherwise.
+
+Note also that we are rendering the `Auth` component first if the `view` is `UPDATE_PASSWORD`, which means that a user has been redirected to here after clicking the link in Supabase **Reset Password** email.
+
+> **NOTE:** It's important that this is returned for the `UPDATE_PASSWORD` view regardless if there's an active `user`, as the email link passes an `access_token` along with the URL and Supabase client creates a `session` with this token. So we're basically in an "authenticated" state during the Update Password flow, and if we check for a `user` first, the home page will always show the authenticated view without giving our user ability to update their password.
+
+This is essentially the same behaviour as we had in the [original solution](/blog/nextjs-supabase-auth#reset-password), but updated to use the new `Auth` component.
+
+Now, if we try to run the app and go to the Home page in its current state, we'll get an error like this:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/webpack-error.png`}
+  alt="Home page: Error"
+  width={1600}
+  height={1120}
+  small
+/>
+
+As mentioned earlier, in Next 13 pages are [Server Components](https://beta.nextjs.org/docs/rendering/server-and-client-components) by default when using the `app` dir. This means that our `AuthProvider`, which is a [Client Component](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components), cannot be consumed within the **Home** page in its current state.
+
+If we look at the error a bit closer we'll see that the `useAuth` hook is the culprit:
+
+```jsx
+const { user, view, signOut } = useAuth();
+```
+
+To fix this, we need to make `Home` a Client Component. As before, add `'use client'` at the very top of the `src/app/page.js` file:
+
+```jsx:src/app/page.js
+'use client';
+
+import Link from 'next/link';
+
+import Auth from 'src/components/Auth';
+import { useAuth, VIEWS } from 'src/components/AuthProvider';
+
+export default function Home() {
+  // ...
+}
+```
+
+Now if we run the app again, we should see the `Auth` component rendered:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/sign-in.png`}
+  alt="Home page: Sign In view"
+  width={1600}
+  height={1450}
+  small
+/>
+
+Clicking on "Forgot password" or "Sign Up" text will set `view` to the corresponding screen (this is implemented internally in the `Auth` component, by calling `setView` from the `AuthProvider`).
+
+Let's go ahead and either **Sign In** or **Sign Up**. These flows behave [the same as before](/blog/nextjs-supabase-auth#authentication-flows), and if successful we should see the authenticated part of our **Home** page:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/home.png`}
+  alt="Home page: Authenticated view"
+  width={1600}
+  height={1300}
+  small
+/>
+
+The view rerendered because `Home` page is a **Client Component** and is nested within the `AuthProvider` (also a Client Component). As we had [previously done](/blog/nextjs-supabase-auth#handling-auth-state-change), the `onAuthStateChange` listener will listen for auth event changes, and [update the `view`](/blog/nextjs-supabase-auth#switching-auth-views) in the state, thereby triggering a rerender in relevant components (the `Home` page in this case).
+
+### Profile
+
+For the **Profile** page, we'll be starting off with [src/pages/index.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/pages/index.js) as our base.
+
+We'll keep this page as a **Server Component** (default in Next 13), which means that we can call API's and server-side methods directly in the component. So any calls made within `getServerSideProps` before can now be done directly in the component.
+
+This is also where we use the Supabase **Server Component** client we had created in `src/lib/supabase-server`.
+
+Add the following to `src/app/profile/page.js`:
+
+```jsx:src/app/profile/page.js
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+
+import createClient from 'src/lib/supabase-server';
+
+export default async function Profile() {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/');
+  }
+
+  return (
+    <div className="card">
+      <h2>User Profile</h2>
+      <code className="highlight">{user.email}</code>
+      <div className="heading">Last Signed In:</div>
+      <code className="highlight">{new Date(user.last_sign_in_at).toUTCString()}</code>
+      <Link className="button" href="/">
+        Go Home
+      </Link>
+    </div>
+  );
+}
+```
+
+Let's break this down a bit.
+
+As noted earlier, the `getUserByCookie` method was deprecated. We can now [get the current user](https://supabase.com/docs/reference/javascript/auth-getuser) with the `getUser()` method:
+
+```jsx:src/app/profile/page.js
+export default async function Profile() {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  // ...
+}
+```
+
+Notice that because `getUser()` is an async method, we need to make `Profile` and asynchronous component as well. Keep this in mind as we continue.
+
+Next, we check if there's a valid `user`, and if there isn't - redirect user back to **Home** using the [redirect](https://beta.nextjs.org/docs/api-reference/redirect) function from Next.js. This keeps the **Profile** page protected, and only allow authenticated users to access it.
+
+> **NOTE:** `redirect()` can only be called as part of rendering and not as part of event handlers ([source](https://github.com/vercel/next.js/issues/42556#issuecomment-1328859648)). This means you can't use `redirect` within a button's `onClick` handler, for example.
+
+Let's run our app, and make sure everything works as expected. If signed in, we should see our **Profile** page:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/profile-1.png`}
+  alt="Profile"
+  width={1600}
+  height={1288}
+  small
+/>
+
+Everything works great!
+
+But let's say we want to add a "Sign Out" button:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/profile-2.png`}
+  alt="Profile"
+  width={1600}
+  height={1468}
+  small
+/>
+
+This button will need an `onClick` handler, which means that we can't use it directly in the `Profile` as that's a **Server Component**. We'll need to make this button into a separate **Client Component**, which can then be imported and used in the `Profile`.
+
+Let's put this tiny component in `src/components/SignOut.js`. Upon clicking the button, it'll call the `signOut()` method from our `AuthProvider`:
+
+```jsx:src/components/SignOut.js
+'use client';
+
+import { useAuth } from './AuthProvider';
+
+export default function SignOut() {
+  const { signOut } = useAuth();
+
+  async function handleSignOut() {
+    const { error } = await signOut();
+
+    if (error) {
+      console.error('ERROR signing out:', error);
+    }
+  }
+
+  return (
+    <button type="button" className="button-inverse" onClick={handleSignOut}>
+      Sign Out
+    </button>
+  );
+}
+```
+
+Then add it to the **Profile** page:
+
+```jsx:src/app/profile/page.js
+import SignOut from 'src/components/SignOut';
+
+export default async function Profile() {
+  // ...
+  return (
+    <div className="card">
+      {/** ... */}
+      <Link className="button" href="/">
+        Go Home
+      </Link>
+      <SignOut />
+    </div>
+  );
+}
+```
+
+Now when user presses the button, they'll be signed out and `session` cleared. But there's one problem.
+
+You see, since `Profile` is a **Server Component**, any updates in the `AuthProvider` state don't cause it to rerender. This also means that any changes in Supabase auth state (ie. user signing out) don't trigger a rerender either, and so our UI doesn't reflect the change in the auth state. We need a different way of handling this, compared to **Client Components**.
+
+## Syncing-up Server and Client states
+
+Our problem is that after a user signs out, our UI (ie. the rendered **Server Component**) and server state are no longer in sync. In order for them to be in sync, we need to rerender our page.
+
+One way of doing that is to simply reload the page. In fact, if you reload the browser on `/profile` again, it should redirect you back to **Home**, as intended. Understandably, we shouldn't be relying solely on users manually refreshing their browser window to update our UI state.
+
+Thanks to the new router in Next 13, we can use the [useRouter](https://beta.nextjs.org/docs/api-reference/use-router) hook and call the `router.refresh()` method to trigger a route refresh when there is no longer a valid user in the session.
+
+But how do we know if the session is no longer valid on the server side? A-ha! For this, we'll need to check whether our client and server sessions match.
+
+In the `AuthProvider`, add the following:
+
+```jsx:src/components/AuthProvider.js
+// ...
+import { useRouter } from 'next/navigation';
+
+export const AuthProvider = (props) => {
+  // ...
+  const router = useRouter();
+
+  useEffect(() => {
+    // ...
+    const {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange((event, currentSession) => {
+      if (currentSession?.access_token !== accessToken) {
+        router.refresh();
+      }
+    });
+    // ...
+  });
+  // ...
+}
+```
+
+Now, whenever the auth state changes, we're checking if the current session's `access_token` (on the client) matches the one on the server. If it does not, we trigger a `router.refresh()` and our UI state will be updated. The server's access token will be passed as the `accessToken` prop.
+
+So, where should this access token come from? Well, considering that we need to pass it to the `AuthProvider` and it needs to be done server-side, we need to fetch it in our `RootLayout`.
+
+Add the following to `src/app/layout.js`:
+
+```jsx:src/app/layout.js
+import createClient from 'src/lib/supabase-server';
+
+// ...
+
+export default async function RootLayout({ children }) {
+  const supabase = createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || null;
+
+  return (
+    <html lang="en">
+      {/** ... */}
+      <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+      {/** ... */}
+    </html>
+  );
+}
+```
+
+This will read the current server-side `session` and pass its `access_token` as the `accessToken` prop to the `AuthProvider`. Now the auth listener will have something to compare the client-side session to.
+
+We also don't want our `RootLayout` to get cached, so we'll need to change the default [revalidation](https://beta.nextjs.org/docs/data-fetching/revalidating) behaviour in Next 13 by setting the [revalidate](https://beta.nextjs.org/docs/api-reference/segment-config#revalidate) option to `0`.
+
+Add the following to `src/app/layout.js`:
+
+```jsx:src/app/layout.js
+// ...
+export const revalidate = 0;
+```
+
+This will ensure that every time a new route is loaded, our `session` data in `RootLayout` will always be up-to-date.
+
+Now if go back to the **Profile** page, and click "Sign Out", we should be redirected to **Home** page.
+
+## Adding loading state
+
+You may have noticed that when going to **Profile** for the first time, it takes a little bit of time to load. Let's exaggerate it by adding a simple `sleep` util in our `Profile` and `await` it:
+
+```jsx:src/app/profile/page.js
+// ...
+const sleep = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+export default async function Profile() {
+  // ...
+  await sleep(2000);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  // ...
+}
+```
+
+This will add a 2-second delay to the `getUser()` call. Now that is really noticeable. Let's make this better.
+
+In Next 13, there is a new concept of a [Loading UI](https://beta.nextjs.org/docs/routing/loading-ui), which adds an **instant loading state** with the help of [React Suspense](https://beta.reactjs.org/apis/react/Suspense).
+
+Using it couldn't be any simpler. Just add a `loading.js` file wherever you'd like to create an instant loading state, and specify the UI to show.
+
+For our **Profile**, let's add the following to `src/app/profile/loading.js`:
+
+```jsx:src/app/profile/loading.js
+export default function Loading() {
+  return <div className="card h-72">Loading...</div>;
+}
+```
+
+Now, when you reload the page (or go to `/profile` from the home page), you should see the loading UI almost immediately:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/loading.png`}
+  alt="Loading UI"
+  width={1600}
+  height={1088}
+  small
+/>
+
+And now that we've verified it works as expected, let's not forget to remove that `sleep` call from our **Profile** page:
+
+```jsx:src/app/profile/page.js
+// ...
+export default async function Profile() {
+  const supabase = createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/');
+  }
+
+  return (
+    // ...
+  );
+}
+```
+
+## Flash of unauthenticated state
+
+Almost done! But before we wrap up, there is one other thing left to fix.
+
+Right now, if we have a valid `session` and reload the **Home** page, we'll still see a brief flash of unauthenticated state:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/sign-in-flash.gif`}
+  alt="Flash of Sign In screen"
+  width={1600}
+  height={1440}
+  small
+/>
+
+This happens because on the very first render the `Home` page (which remember is a **Client Component**) doesn't yet have any `session` data from the `AuthProvider`, so it returns the `<Auth>` component:
+
+```jsx:src/app/page.js
+export default function Home() {
+  const { initial, user, view, signOut } = useAuth();
+  // ...
+  return <Auth view={view} />;
+}
+```
+
+This, of course, is desired behaviour when there is no user data found. But we know that our `session` data has a valid user - it just so happens to not be available on the first render, since we fetch that data inside a `useEffect` in our `AuthProvider`.
+
+To fix this, we need to be able to differentiate between an "initial" state of our app on the client side - before we check if there's a valid session - and after. This way we'll know whether a valid `session` truly doesn't exist, or just hasn't had a chance to load yet.
+
+Now, if `Home` was a **Server Component**, then we could simply `await` the result of `getSession()` (like we do in the `RootLayout`) and place a Suspense boundary to show a loading state (like we did for the **Profile** above). But because `Home` is a **Client Component**, that won't work.
+
+You see, root-level `await` is not supported in client-side components, and so we can't "suspend" our **Home** page until the `session` data is available like we do with **Profile**. React team is working on an [RFC](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md) and a new [use](https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md#example-use-in-client-components-and-hooks) hook that will allow us to conditionally wait for data to load, but it's not quite ready yet. Its use (pardon the pun) is also [not recommended](https://beta.nextjs.org/docs/data-fetching/fetching#use-in-client-components) by Next itself, as it may cause multiple re-renders in Client Components. Considering all that, we'll need to find an alternative way.
+
+There are a few ways we could solve this. For example, we could move the "authenticated" portion of our **Home** page to a new route altogether (e.g. `/home`), thereby completely separating the "unathenticated" state. But that would involve a bunch of refactoring of the code we already wrote, and ideally would like to avoid that for this guide. So in the interest of time, we'll go with a bit more "old school" approach.
+
+One simple way to fix this is to add another state variable in our `AuthProvider` that will simply tell us whether our app is loading for the first time or not. We can set its value to `true` initially, and once we do the first call to `supabase.auth.getSession()` we can set it to `false`, indicating that our app has loaded the data.
+
+In the `AuthProvider`, create an `initial` state, and make sure its value is provided:
+
+```jsx:src/components/AuthProvider.js
+// ...
+export const AuthProvider = (props) => {
+  const [initial, setInitial] = useState(true);
+  // ...
+  useEffect(() => {
+    async function getActiveSession() {
+      const {
+        data: { session: activeSession },
+      } = await supabase.auth.getSession();
+      // ...
+      setInitial(false);
+    }
+    getActiveSession();
+    // ...
+  }, []);
+  // ...
+  const value = useMemo(() => {
+    return {
+      initial,
+      session,
+      user,
+      view,
+      setView,
+      signOut: () => supabase.auth.signOut(),
+    };
+  }, [initial, session, user, view]);
+
+  return <AuthContext.Provider value={value} {...rest} />;
+}
+```
+
+Now we can read `initial` using the `useAuth` hook in our **Home** page, and while it's value is `true`, show our loading state instead of returning the `<Auth>` component:
+
+```jsx:src/app/page.js
+// ...
+export default function Home() {
+  const { initial, user, view, signOut } = useAuth();
+
+  if (initial) {
+    return <div className="card h-72">Loading...</div>;
+  }
+  // ...
+  return <Auth view={view} />;
+}
+```
+
+And now if we reload our **Home** page, we should see the same kind of loading state that we have in **Profile**:
+
+<PostImage
+  src={`/blog/supabase-auth-next-13/home-loading.gif`}
+  alt="Home Page loading"
+  width={1600}
+  height={1440}
+  small
+/>
+
+This is a quick and easy way of dealing with this problem, but by no means the only way. Ideally we'd like to use Suspense for this, but until React lands on a more established pattern for it in client-side components, we're not going to focus on it too much. For the time being, this solves our immediate problem in this scenario.
+
+## Wrap Up
+
+Well, this about wraps it up. If you've made it this far - thank you for reading! Hopefully this guide gives you a good starting point for using Supabase in your Next 13 project, or at the very least points you in the right direction.
+
+Make sure to give the new Next.js [Beta Docs](https://beta.nextjs.org) a read as well, as I've found them to be an invaluable resource for learning some of these new paradigms coming to the world of React.
+
+Happy coding!
+
+## Reference Materials
+
+- **GitHub:** [github.com/mryechkin/nextjs-supabase-auth](https://github.com/mryechkin/nextjs-supabase-auth) (`main` branch)
+- **Live Example:** [supabase-auth-next-13.vercel.app](https://supabase-auth-next-13.vercel.app)
+- **Next.js** Beta Docs: [beta.nextjs.org](https://beta.nextjs.org)
+- **React** Beta Docs: [beta.reactjs.org](https://beta.reactjs.org)

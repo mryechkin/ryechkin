@@ -3,7 +3,7 @@ import cn from 'classnames/dedupe';
 
 export default function ExternalLink({ alt, href, children, className, icon }) {
   return (
-    <span className={cn(className, 'inline whitespace-normal')}>
+    <span className={cn(className, 'inline whitespace-nowrap')}>
       <a href={href} alt={alt} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
