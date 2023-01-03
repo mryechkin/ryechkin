@@ -205,27 +205,27 @@ We've also abstracted some CSS classes that will be used throughout the app in t
 
 @layer base {
   h2 {
-    @apply py-4 text-4xl font-black text-gray-800;
+    @apply py-4 text-gray-800 text-4xl font-black;
   }
 
   .button {
-    @apply custom-focus rounded-full border-2 border-green-400 bg-white px-8 py-2 font-bold text-green-400 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:text-white;
+    @apply custom-focus px-8 py-2 text-green-400 hover:text-white focus:text-white font-bold focus:bg-green-400 hover:bg-green-400 bg-white border-2 border-green-400 rounded-full;
   }
 
   .button-inverse {
-    @apply custom-focus rounded-full border-2 border-white bg-green-400 px-8 py-2 font-bold text-white hover:border-green-400 hover:bg-white hover:text-green-400 focus:border-green-400 focus:bg-white focus:text-green-400;
+    @apply custom-focus px-8 py-2 hover:text-green-400 focus:text-green-400 text-white font-bold bg-green-400 focus:bg-white hover:bg-white border-2 focus:border-green-400 hover:border-green-400 border-white rounded-full;
   }
 
   .custom-focus {
-    @apply focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2;
+    @apply focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-offset-2 focus:ring-green-400;
   }
 
   .heading {
-    @apply text-lg font-semibold text-gray-700;
+    @apply text-gray-700 text-lg font-semibold;
   }
 
   .highlight {
-    @apply ml-1 rounded-lg bg-gray-100 p-2 font-mono;
+    @apply ml-1 p-2 font-mono bg-gray-100 rounded-lg;
   }
 }
 ```
@@ -275,16 +275,15 @@ export const AuthProvider = ({ supabase, ...props }) => {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        session,
-        user,
-        signOut: () => supabase.auth.signOut(),
-      }}
-      {...props}
-    />
-  );
+  const value = useMemo(() => {
+    return {
+      session,
+      user,
+      signOut: () => supabase.auth.signOut(),
+    };
+  }, [session, user, supabase]);
+
+  return <AuthContext.Provider value={value} {...props} />;
 };
 
 export const useAuth = () => {
@@ -343,8 +342,8 @@ export default function Home() {
         <>
           <h2>Welcome!</h2>
           <code className="highlight">{user.role}</code>
-          <Link href="/profile">
-            <a className="button">Go to Profile</a>
+          <Link className="button" href="/profile">
+            Go to Profile
           </Link>
           <button type="button" className="button-inverse" onClick={signOut}>
             Sign Out

@@ -8,7 +8,7 @@ html {
 
 @layer base {
   body {
-    @apply font-sans text-gray-700 selection:bg-black selection:text-sky-200 dark:text-gray-50 dark:selection:bg-sky-200 dark:selection:text-black;
+    @apply font-sans text-gray-700 selection:bg-black selection:text-cyan-200 dark:text-gray-50 dark:selection:bg-cyan-200 dark:selection:text-black;
   }
 
   a {
@@ -38,7 +38,7 @@ html {
   }
 
   .button-outline {
-    @apply border border-indigo-100 hover:border-indigo-300 dark:border-indigo-800 hover:dark:border-indigo-600;
+    @apply border border-indigo-200 hover:border-indigo-300 dark:border-indigo-800 hover:dark:border-indigo-600;
   }
 
   .custom-focus {
@@ -127,7 +127,7 @@ html {
   }
 
   .prose code {
-    @apply text-gray-700 dark:text-indigo-200;
+    @apply text-gray-700 dark:text-cyan-200;
   }
 
   .prose h1 {
