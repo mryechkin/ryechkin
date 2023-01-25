@@ -1,4 +1,3 @@
-import Balancer from 'react-wrap-balancer';
 import Head from 'next/head';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
@@ -9,6 +8,7 @@ import DateDisplay from 'src/components/DateDisplay';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
 import SEO from 'src/components/SEO';
+import TableOfContents from 'src/components/TableOfContents';
 import Tags from 'src/components/Tags';
 import {
   getAllPosts,
@@ -18,7 +18,7 @@ import {
   getReadingTime,
 } from 'src/lib/data';
 
-export default function Post({ source = {} }) {
+export default function Post({ headings, source = {} }) {
   const { frontmatter } = source;
   const fullTitle = `Mykhaylo Ryechkin | ${frontmatter.title}`;
   const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${frontmatter.slug}%2Fcover.png&w=1200&q=100`;
@@ -57,10 +57,8 @@ export default function Post({ source = {} }) {
           },
         }}
       />
-      <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
-        <h1 className="retro">
-          <Balancer>{frontmatter.title}</Balancer>
-        </h1>
+      <article className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base">
+        <h1 className="retro">{frontmatter.title}</h1>
         {frontmatter?.tags?.length && (
           <Tags
             className="my-6 w-full items-center justify-center"
@@ -79,16 +77,17 @@ export default function Post({ source = {} }) {
             priority
           />
         </div>
-        <article className="pb-4 text-gray-800 dark:text-gray-50">
+        <TableOfContents headings={headings} />
+        <div>
           <MDXRemote {...source} components={MDX} />
-        </article>
+        </div>
         <div className="flex items-center justify-center p-2">
           <BackToTop />
         </div>
         <div className="flex items-center justify-center py-8">
           <Counter slug={slug} />
         </div>
-      </div>
+      </article>
     </Layout>
   );
 }

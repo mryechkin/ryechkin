@@ -98,7 +98,7 @@ pre[class*='language-'] {
   padding: 0.2em;
   border-radius: 0.3em;
   color: var(--tag);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   display: inline;
   white-space: normal;
 }

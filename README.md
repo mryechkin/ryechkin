@@ -1,5 +1,5 @@
 # Mykhaylo Ryechkin
 
-Personal site. Built using [Next.js](https://nextjs.org/) and [TailwindCSS](https://www.tailwindcss.com)
+Personal site. Built using [Next.js](https://nextjs.org/) and [Tailwind CSS](https://www.tailwindcss.com)
 
-[ryechk.in](https://www.ryechk.in)
+[misha.wtf](https://misha.wtf)

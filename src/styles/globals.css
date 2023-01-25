@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-height: 5rem;
+}
+
 html {
   @apply scroll-smooth;
+  scroll-padding-top: var(--header-height);
 }
 
 @layer base {
@@ -37,8 +42,12 @@ html {
     @apply bg-gray-50 bg-opacity-80 filter backdrop-blur dark:bg-gray-800 dark:bg-opacity-80 dark:backdrop-blur-sm;
   }
 
+  .border-outline {
+    @apply border-2 border-indigo-200 dark:border-indigo-600;
+  }
+
   .button-outline {
-    @apply border border-indigo-200 hover:border-indigo-300 dark:border-indigo-800 hover:dark:border-indigo-600;
+    @apply border-outline hover:border-sky-400  dark:hover:border-sky-300;
   }
 
   .custom-focus {
@@ -98,6 +107,10 @@ html {
   .title {
     @apply retro py-2 text-5xl font-black tracking-tight;
   }
+
+  .toc-link {
+    @apply custom-focus-offset hover:text-sky-300;
+  }
 }
 
 @layer components {
@@ -110,12 +123,11 @@ html {
   }
 
   .prose blockquote {
-    @apply border-l-[0.5rem] border-indigo-300 bg-indigo-50 p-2 font-normal not-italic text-gray-800 backdrop-blur dark:border-indigo-600 dark:bg-slate-900/80 dark:text-gray-50;
+    @apply border-l-[0.5rem] border-indigo-300 bg-indigo-50 px-2 py-4 font-normal not-italic text-gray-800 backdrop-blur dark:border-indigo-600 dark:bg-slate-900/80 dark:text-gray-50;
   }
 
   .prose blockquote p {
-    @apply text-gray-900 dark:text-white;
-    margin: 0;
+    @apply m-0 text-gray-900 dark:text-white;
   }
 
   .prose blockquote p::before {
@@ -178,7 +190,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply border border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
+    @apply border-2 border-b-0 border-indigo-200 bg-indigo-50 py-1 px-2 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
   }
 }
 

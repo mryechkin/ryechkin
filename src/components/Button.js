@@ -4,14 +4,18 @@ import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 
 const Button = forwardRef((props, ref) => {
-  const { children, className, onClick, ...rest } = props;
+  const { children, className, onClick, outline = true, ...rest } = props;
   const { pressProps } = usePress({ onPress: onClick });
   return (
     <motion.button
       ref={ref}
       type="button"
       className={cn(
-        'flex items-center justify-center rounded-md border border-indigo-200 bg-white/80 p-1 text-sm font-semibold text-indigo-600 backdrop-blur hover:border-sky-400 hover:text-sky-400 dark:border-indigo-600 dark:bg-gray-800/80 dark:text-indigo-200 dark:hover:border-sky-300 dark:hover:text-sky-300 sm:p-2',
+        {
+          'flex items-center justify-center p-1 text-sm font-semibold sm:p-2': true,
+          'button-outline rounded-md bg-gray-100 text-indigo-600 backdrop-blur hover:text-sky-400 dark:bg-slate-900 dark:text-indigo-200 dark:hover:text-sky-300':
+            outline,
+        },
         className
       )}
       whileFocus={{ scale: 1.1 }}

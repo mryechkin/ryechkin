@@ -6,10 +6,9 @@ import cn from 'classnames/dedupe';
 export default function SlideOver({ className, open, setOpen, title, children }) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 overflow-hidden" onClose={setOpen}>
+      <Dialog as="div" className="fixed inset-0 z-20 overflow-hidden" onClose={setOpen}>
         <div className="absolute inset-0 overflow-hidden">
-          <Dialog.Overlay className="absolute inset-0" />
-
+          <Dialog.Overlay className="absolute inset-0 bg-black/50 dark:bg-black/75" />
           <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">
             <Transition.Child
               as={Fragment}

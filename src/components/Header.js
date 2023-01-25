@@ -7,7 +7,16 @@ import DarkModeToggle from './DarkModeToggle';
 import Menu from './Menu';
 
 const SHOW_THRESHOLD = 80;
-const SCROLL_THRESHOLD = 5;
+const SCROLL_THRESHOLD = 10;
+
+const variants = {
+  show: {
+    y: 0,
+  },
+  hide: {
+    y: '-2rem',
+  },
+};
 
 export default function Header({ setConfetti }) {
   const { scrollY } = useScroll();
@@ -23,7 +32,7 @@ export default function Header({ setConfetti }) {
       }
       const previous = scrollY.getPrevious();
       const diff = latest - previous;
-      if (latest < SHOW_THRESHOLD && !show) {
+      if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
         setShow(true);
       } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
         setShow(diff < 0);
@@ -36,16 +45,9 @@ export default function Header({ setConfetti }) {
     <motion.header
       className="fixed z-10"
       initial="show"
-      transition={{ duration: 0.3, type: 'tween' }}
-      variants={{
-        show: {
-          y: 0,
-        },
-        hide: {
-          y: '-2rem',
-        },
-      }}
       animate={show ? 'show' : 'hide'}
+      transition={{ duration: 0.3, type: 'tween' }}
+      variants={variants}
     >
       <div className="h-4 w-full bg-blue-600" />
       <div className="flex h-4 w-full items-center justify-center bg-yellow-300 text-center">
