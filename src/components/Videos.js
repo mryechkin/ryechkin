@@ -4,6 +4,26 @@ import Card from './Card';
 
 const VIDEOS = [
   {
+    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
+    date: '2022-05-20',
+    duration: '43:18',
+    href: 'https://youtu.be/Ld3W9aaNx1g',
+    summary:
+      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
+    imageUrl: '/thumbs/live-code-editor.jpg',
+    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
+  },
+  {
+    title: 'ESLint + Prettier shared config for Next.js',
+    date: '2021-05-15',
+    duration: '20:07',
+    href: 'https://youtu.be/tsPXN4mJGSc',
+    summary:
+      'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
+    imageUrl: '/thumbs/eslint-prettier-config.jpg',
+    tags: ['ESLint', 'Prettier', 'Next.js'],
+  },
+  {
     title: 'HeadlessUI Slideover',
     date: '2021-04-20',
     duration: '12:01',
@@ -24,16 +44,6 @@ const VIDEOS = [
     tags: ['Rollup', 'SVGR', 'Libraries'],
   },
   {
-    title: 'ESLint + Prettier shared config for Next.js',
-    date: '2021-05-15',
-    duration: '20:07',
-    href: 'https://youtu.be/tsPXN4mJGSc',
-    summary:
-      'Learn how to create and publish a custom ESLint and Prettier shared config, for use in Next.js projects!',
-    imageUrl: '/thumbs/eslint-prettier-config.jpg',
-    tags: ['ESLint', 'Prettier', 'Next.js'],
-  },
-  {
     title: 'Accessible SlideOver with Tailwind UI and React-Aria',
     date: '2021-01-21',
     duration: '53:36',
@@ -42,16 +52,6 @@ const VIDEOS = [
       'In this video I show you everything you need to build the "Slide Over" from Tailwind UI as a fully accessible React component, using Tailwind CSS, React-Aria and Framer Motion.',
     imageUrl: '/thumbs/accessible-slideover.jpg',
     tags: ['React Aria', 'Tailwind UI', 'Accessibility', 'a11y'],
-  },
-  {
-    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
-    date: '2022-05-20',
-    duration: '43:18',
-    href: 'https://youtu.be/Ld3W9aaNx1g',
-    summary:
-      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
-    imageUrl: '/thumbs/live-code-editor.jpg',
-    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
   },
 ];
 

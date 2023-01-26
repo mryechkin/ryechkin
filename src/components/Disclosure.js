@@ -11,6 +11,7 @@ const MyDisclosure = memo(({ title, children, className }) => {
           <Disclosure.Button
             className={cn(
               'custom-focus button-outline flex w-full items-center justify-between rounded-lg bg-gray-100 px-4 py-2 dark:bg-slate-900',
+              open && '!border-pink-500',
               className
             )}
           >

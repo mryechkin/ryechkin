@@ -131,10 +131,10 @@ In order to support both the new Server Components and the Client Components, we
 Following the [setup instructions](https://supabase.com/docs/guides/auth/auth-helpers/nextjs-server-components), create two files - `supabase-browser.js` and `supabase-server.js` - one for each type of client. We'll put these in the `src/lib` folder:
 
 ```
-src
-└── lib/
-    ├── supabase-browser.js
-    └── supabase-server.js
+└──src/
+    └── lib/
+        ├── supabase-browser.js
+        └── supabase-server.js
 ```
 
 #### Browser Client
@@ -234,7 +234,7 @@ Previously in [src/pages/index.js](https://github.com/mryechkin/nextjs-supabase-
 
 #### Profile: `/profile`
 
-This is an authenticated-only **Profile** page, showing some basic user info for the current user. If no session is found, it will redirect to `/`.
+This is an authenticated **Profile** page, showing some basic user info for the current user. If no session is found, it will redirect to `/`.
 
 Previously in [src/pages/profile.js](https://github.com/mryechkin/nextjs-supabase-auth/blob/v1/src/pages/profile.js), this page code will now be in `src/app/profile/page.js`.
 
@@ -281,7 +281,7 @@ export default async function RootLayout({ children }) {
 }
 ```
 
-Note how we need to include `<html>` and `<body>` tags here as well. If you'd like to think of it in terms of the old `pages` directory, the root `layout.js` essentially combines the concepts of `_app.js` and `document.js` together into one.
+Note how we need to include `<html>` and `<body>` tags here as well. If you'd like to think of it in terms of the old `pages` directory, the root `layout.js` essentially combines the concepts of `_app.js` and `_document.js` together into one.
 
 One big benefit of a root layout is that state is preserved on route changes, and the layout doesn't unnecessarily rerender. Layouts can also be nested, though we won't be needing that in this project.
 
