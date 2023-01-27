@@ -57,10 +57,10 @@ The code for that is in [GitHub](https://github.com/mryechkin/nextjs-supabase-au
 
 ### Updating Dependencies
 
-First things first, we'll need to update [Supabase](https://github.com/supabase/supabase-js) to the latest version (**v2**), and install [Formik](https://github.com/jaredpalmer/formik) (+ related dependencies) and the [Next.js Auth Helpers](https://github.com/supabase/auth-helpers):
+First things first, we'll need to update Next.js and [Supabase](https://github.com/supabase/supabase-js) to the latest versions, and install [Formik](https://github.com/jaredpalmer/formik) (+ related dependencies) and the [Next.js Auth Helpers](https://github.com/supabase/auth-helpers):
 
 ```bash
-npm install @supabase/supabase-js@latest @supabase/auth-helpers-nextjs classnames formik yup
+npm install next@latest react@latest react-dom@latest @supabase/supabase-js@latest @supabase/auth-helpers-nextjs classnames formik yup
 ```
 
 We'll also utilize Tailwind's [Forms Plugin](https://github.com/tailwindlabs/tailwindcss-forms) to make it easier to style our `Auth` component, so let's install that as well:
