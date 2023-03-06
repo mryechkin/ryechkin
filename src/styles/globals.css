@@ -139,7 +139,22 @@ html {
   }
 
   .prose code {
-    @apply text-gray-700 dark:text-cyan-200;
+    @apply rounded border border-dotted border-slate-700 bg-slate-100 p-1 font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-900/80 dark:text-white;
+  }
+
+  .prose a > code {
+    @apply text-sky-300 dark:text-sky-300;
+  }
+
+  .prose a:has(> code):hover > code {
+    @apply border-sky-300 underline;
+  }
+
+  .prose h1 > code,
+  .prose h2 > code,
+  .prose h3 > code,
+  .prose h4 > code {
+    font-size: inherit;
   }
 
   .prose h1 {

@@ -57,7 +57,7 @@ export default function Post({ headings, source = {} }) {
           },
         }}
       />
-      <article className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base">
+      <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base">
         <h1 className="retro">{frontmatter.title}</h1>
         {frontmatter?.tags?.length && (
           <Tags
@@ -77,7 +77,7 @@ export default function Post({ headings, source = {} }) {
             priority
           />
         </div>
-        <TableOfContents headings={headings} />
+        <TableOfContents className="sticky top-0" headings={headings} />
         <div>
           <MDXRemote {...source} components={MDX} />
         </div>

@@ -49,6 +49,15 @@ module.exports = {
         slow: 'wiggle 2s ease-in-out infinite',
         wiggle: 'wiggle 0.2s ease-in-out infinite',
       },
+      // Disables the backtick (`) character applied by prose classes for <code>
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': { content: '' },
+            'code::after': { content: '' },
+          },
+        },
+      },
     },
   },
   variants: {
