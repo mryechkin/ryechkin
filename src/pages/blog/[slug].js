@@ -58,7 +58,7 @@ export default function Post({ headings, source = {} }) {
           },
         }}
       />
-      <article className="prose prose-sm relative w-full max-w-full prose-img:rounded prose-img:border prose-img:border-pink-500 dark:prose-invert sm:prose-base">
+      <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">{frontmatter.title}</h1>
         {frontmatter?.tags?.length && (
           <Tags
@@ -71,7 +71,7 @@ export default function Post({ headings, source = {} }) {
           <Image
             alt={frontmatter.title}
             src={`/${slug}/cover.png`}
-            className="rounded-lg bg-gray-900 object-cover"
+            className="border-outline rounded-lg bg-gray-900 object-cover shadow-retro dark:shadow-retro-dark"
             width={1200}
             height={627}
             quality={90}
