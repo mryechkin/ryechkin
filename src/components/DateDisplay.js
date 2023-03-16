@@ -5,8 +5,9 @@ import cn from 'classnames/dedupe';
 import { format, parseISO } from 'date-fns';
 
 export default function DateDisplay({ className, data, isExternal }) {
-  const { date, duration, readingTime } = data;
+  const { date, duration, modified, readingTime } = data;
   const dateISO = parseISO(date);
+  const modifiedDate = parseISO(modified);
 
   return (
     <div
@@ -15,9 +16,15 @@ export default function DateDisplay({ className, data, isExternal }) {
         className
       )}
     >
-      <time className="inline-flex justify-center py-1" dateTime={date}>
+      <time className="inline-flex justify-center py-1 font-semibold" dateTime={date}>
         {format(dateISO, 'LLLL d, yyyy')}
       </time>
+      {modified && (
+        <span className="italic">
+          (updated{' '}
+          <time className="font-semibold">{format(modifiedDate, 'LLLL d, yyyy')}</time>)
+        </span>
+      )}
       {readingTime && (
         <>
           <span className="font-black">&middot;</span>

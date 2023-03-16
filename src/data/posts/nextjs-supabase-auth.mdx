@@ -1,6 +1,7 @@
 ---
 title: 'User Authentication in Next.js with Supabase'
 date: '2021-11-23'
+modified: '2023-01-25'
 published: true
 summary: 'How to setup authentication in your Next.js app with Supabase and Supabase UI.'
 canonical: 'https://misha.wtf/blog/nextjs-supabase-auth'
@@ -13,11 +14,12 @@ author:
 
 ## Intro
 
-<blockquote className="!border-l-red-500">
-  **IMPORTANT NOTE:** This article was written for Supabase **v1**, which is now outdated.
-  Though everything still works (to the best of my knowledge), please be aware that the
-  libraries and versions mentioned here **are now outdated**. See the ✨NEW✨ [updated
-  guide](/blog/supabase-auth-next-13) on using Supabase **v2** and Next.js **13** instead.
+<blockquote className="!border-red-500">
+  :warning: **IMPORTANT:** This article was written for Supabase **v1**, which is now
+  outdated. Though everything still works (to the best of my knowledge), please be aware
+  that the libraries and versions mentioned here **are now outdated**. See the ✨NEW✨
+  [updated guide](/blog/supabase-auth-next-13) on using Supabase **v2** and Next.js **13**
+  instead.
 </blockquote>
 
 [Supabase](https://www.supabase.io) has been getting a lot of attention in the tech community, and for good reason. This open source platform makes it super easy to get started building complex full-stack applications, and in this post we will take a look at how to utilize one of its core offerings: **User Authentication**.

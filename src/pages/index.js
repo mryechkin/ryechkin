@@ -55,6 +55,7 @@ export default function Home({ posts }) {
                 className="!my-0 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
                 width={392}
                 height={392}
+                alt="My avatar"
               />
             </div>
           </HeroContainer>

@@ -31,7 +31,7 @@ const TableOfContents = ({ className, headings }) => {
         )}
       </ul>
     ),
-    [className, headings]
+    [headings]
   );
 
   if (!headings?.length) {

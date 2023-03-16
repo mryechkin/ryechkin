@@ -51,13 +51,14 @@ export default function Post({ headings, source = {} }) {
           type: 'article',
           article: {
             publishedTime: frontmatter?.date,
+            modifiedTime: frontmatter?.modified,
             authors: [frontmatter?.author?.name],
             tags: frontmatter?.seo,
             image,
           },
         }}
       />
-      <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base">
+      <article className="prose prose-sm relative w-full max-w-full prose-img:rounded prose-img:border prose-img:border-pink-500 dark:prose-invert sm:prose-base">
         <h1 className="retro">{frontmatter.title}</h1>
         {frontmatter?.tags?.length && (
           <Tags

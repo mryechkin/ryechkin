@@ -81,6 +81,7 @@ export default function Card({
                   src={imageUrl}
                   alt={title}
                   fill
+                  priority
                 />
                 {isVideo && (
                   <FaYoutube className="absolute h-32 w-32 text-white opacity-60 group-hover:opacity-90 group-focus:opacity-90" />
