@@ -738,13 +738,7 @@ This is essentially the same behaviour as we had in the [original solution](/blo
 
 Now, if we try to run the app and go to the Home page in its current state, we'll get an error like this:
 
-<PostImage
-  src={`/blog/supabase-auth-next-13/webpack-error.png`}
-  alt="Home page: Error"
-  width={1600}
-  height={1120}
-  small
-/>
+<ImageCard src={`/blog/supabase-auth-next-13/webpack-error.png`} alt="Home page: Error" />
 
 As mentioned earlier, in Next 13 pages are [Server Components](https://beta.nextjs.org/docs/rendering/server-and-client-components) by default when using the `app` dir. This means that our `AuthProvider`, which is a [Client Component](https://beta.nextjs.org/docs/rendering/server-and-client-components#client-components), cannot be consumed within the **Home** page in its current state.
 
@@ -771,24 +765,18 @@ export default function Home() {
 
 Now if we run the app again, we should see the `Auth` component rendered:
 
-<PostImage
+<ImageCard
   src={`/blog/supabase-auth-next-13/sign-in.png`}
   alt="Home page: Sign In view"
-  width={1600}
-  height={1450}
-  small
 />
 
 Clicking on "Forgot password" or "Sign Up" text will set `view` to the corresponding screen (this is implemented internally in the `Auth` component, by calling `setView` from the `AuthProvider`).
 
 Let's go ahead and either **Sign In** or **Sign Up**. These flows behave [the same as before](/blog/nextjs-supabase-auth#authentication-flows), and if successful we should see the authenticated part of our **Home** page:
 
-<PostImage
+<ImageCard
   src={`/blog/supabase-auth-next-13/home.png`}
   alt="Home page: Authenticated view"
-  width={1600}
-  height={1300}
-  small
 />
 
 The view rerendered because `Home` page is a **Client Component** and is nested within the `AuthProvider` (also a Client Component). As we had [previously done](/blog/nextjs-supabase-auth#handling-auth-state-change), the `onAuthStateChange` listener will listen for auth event changes, and [update the `view`](/blog/nextjs-supabase-auth#switching-auth-views) in the state, thereby triggering a rerender in relevant components (the `Home` page in this case).
@@ -857,25 +845,13 @@ Next, we check if there's a valid `user`, and if there isn't - redirect user bac
 
 Let's run our app, and make sure everything works as expected. If signed in, we should see our **Profile** page:
 
-<PostImage
-  src={`/blog/supabase-auth-next-13/profile-1.png`}
-  alt="Profile"
-  width={1600}
-  height={1288}
-  small
-/>
+<ImageCard src={`/blog/supabase-auth-next-13/profile-1.png`} alt="Profile" />
 
 Everything works great!
 
 But let's say we want to add a "Sign Out" button:
 
-<PostImage
-  src={`/blog/supabase-auth-next-13/profile-2.png`}
-  alt="Profile"
-  width={1600}
-  height={1468}
-  small
-/>
+<ImageCard src={`/blog/supabase-auth-next-13/profile-2.png`} alt="Profile" />
 
 This button will need an `onClick` handler, which means that we can't use it directly in the `Profile` as that's a **Server Component**. We'll need to make this button into a separate **Client Component**, which can then be imported and used in the `Profile`.
 
@@ -1046,13 +1022,7 @@ export default function Loading() {
 
 Now, when you reload the page (or go to `/profile` from the home page), you should see the loading UI almost immediately:
 
-<PostImage
-  src={`/blog/supabase-auth-next-13/loading.png`}
-  alt="Loading UI"
-  width={1600}
-  height={1088}
-  small
-/>
+<ImageCard src={`/blog/supabase-auth-next-13/loading.png`} alt="Loading UI" />
 
 And now that we've verified it works as expected, let's not forget to remove that `sleep` call from our **Profile** page:
 
@@ -1081,12 +1051,9 @@ Almost done! But before we wrap up, there is one other thing left to fix.
 
 Right now, if we have a valid `session` and reload the **Home** page, we'll still see a brief flash of unauthenticated state:
 
-<PostImage
+<ImageCard
   src={`/blog/supabase-auth-next-13/sign-in-flash.gif`}
   alt="Flash of Sign In screen"
-  width={1600}
-  height={1440}
-  small
 />
 
 This happens because on the very first render the `Home` page (which remember is a **Client Component**) doesn't yet have any `session` data from the `AuthProvider`, so it returns the `<Auth>` component:
@@ -1162,13 +1129,7 @@ export default function Home() {
 
 And now if we reload our **Home** page, we should see the same kind of loading state that we have in **Profile**:
 
-<PostImage
-  src={`/blog/supabase-auth-next-13/home-loading.gif`}
-  alt="Home Page loading"
-  width={1600}
-  height={1440}
-  small
-/>
+<ImageCard src={`/blog/supabase-auth-next-13/home-loading.gif`} alt="Home Page loading" />
 
 This is a quick and easy way of dealing with this problem, but by no means the only way. Ideally we'd like to use Suspense for this, but until React lands on a more established pattern for it in client-side components, we're not going to focus on it too much. For the time being, this solves our immediate problem in this scenario.
 

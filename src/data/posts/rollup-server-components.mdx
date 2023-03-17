@@ -1,0 +1,221 @@
+---
+title: React Server Components and Client Components with Rollup
+date: '2023-03-18'
+published: true
+summary: Learn how to enable both Client and Server Components in your component library when using Rollup module bundler.
+canonical: https://misha.wtf/blog/rollup-server-components
+tags: ['Rollup', 'JavaScript', 'Next 13', 'React Server Components']
+seo: ['Rollup', 'JavaScript', 'Next 13', 'React Server Components']
+author:
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
+---
+
+## Background
+
+With the release of [Next 13](https://nextjs.org/blog/next-13) and introduction of the beta [`app/`](https://beta.nextjs.org/docs/app-directory-roadmap) directory, we now have support for React [Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html), and can start building applications using these new React paradigms.
+
+Awhile back I [wrote about](/blog/rollup-library-starter) packaging your JavaScript library code into a dual-module bundle (ESM + CommonJS) using [Rollup](https://rollupjs.org) module bundler. Make sure to check it out (it's been updated for Rollup v3!).
+
+A starter template for React using the setup covered in that post is available here:
+
+<blockquote>
+  <div className="center flex items-center justify-center gap-2">
+    ✨
+    [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
+    ✨
+  </div>
+</blockquote>
+
+Now, that template is great. I've used it in several libraries that have been published to production for several years now without problems.
+
+However, when trying to import a component from a library built using that starter template in a Next 13 `app` directory, you get the following error:
+
+![Server Component import error](/blog/rollup-server-components/import-error.png)
+
+## The Problem
+
+Next 13 pages inside `app` directory are [React Server Components](https://beta.nextjs.org/docs/rendering/server-and-client-components#server-components) by default. In fact, anything deemed a React component, when consumed within the `app` directory, is considered to be a **Server Component** by default.
+
+To make a React component into a **Client Component** (ie. our regular old React components with effects and state that we all use and love), you need to denote it with a `'use client'` directive at the top of the component file:
+
+```jsx:ClientComponent.js
+'use client';
+
+export default function ClientComponent() {
+  return (
+    // ...
+  );
+}
+```
+
+Client Components are any components that rely on client-side only features, such as:
+
+- React [context](https://react.dev/learn/passing-data-deeply-with-context)
+- React [hooks](https://react.dev/reference/react) (`useEffect`, `useState`, etc.)
+- Event handlers
+- Animations
+- `window` object
+
+So, when I tried to import a `Button` component (which has event handlers and is "interactive") inside a Server Component, React had no idea that it was supposed to be a Client Component. It didn't see a `'use client'` anywhere in the library code, so it assumed that it's a Server Component.
+
+This is something that component libraries will need to start addressing soon, as Server Components start to gain ground (and some already have). I wanted to make sure that my starter template supported Server Components properly.
+
+## Possible Solution
+
+One way to address this would be to mark all components in our library as Client Components. This would mean having a top-level `'use client'` directive in each file (or at the top of the bundled file if not using directories).
+
+To do this, include a `banner` option in your `output` options inside the `rollup.config.js`, and add `'use client'` at the very end of it:
+
+```jsx:rollup.config.js
+const outputOptions = {
+  exports: 'named',
+  preserveModules: true,
+  banner: `/*
+ * Rollup Library Starter
+ * {@link https://github.com/mryechkin/rollup-library-starter}
+ * @copyright Mykhaylo Ryechkin (@mryechkin)
+ * @license MIT
+ */
+'use client';`,
+};
+```
+
+Now, if you leave it as is, the `terser` plugin will remove it, so we need to tell it to preserve directives by setting the `compress.directives` option to `false`:
+
+```js:rollup.config.js
+const config = {
+  // ...
+  plugins: [
+    // ...
+    terser({
+      compress: { directives: false },
+    }),
+  ],
+};
+```
+
+And now if you run the `build` script, you'll see that our bundled files have that included at the top.
+
+Great!
+
+...or is it? 🤔
+
+## Better Solution
+
+While the above solution works, it's not very elegant.
+
+We don't necessarily want every component to be a Client Component. There can be components in your library that don't rely on state or use any effects, and can very well benefit from being Server Components.
+
+Well, we've already configured Rollup to output separate files for each of our modules. What if we simply add `'use client'` to the component files themselves?
+
+A-ha! :bulb:
+
+```jsx:src/components/Button/Button.js
+'use client';
+
+const Button = (props) => ({/* */});
+```
+
+However... If we try to run the `build`, we'll see a warning like this:
+
+![Rollup build warning](/blog/rollup-server-components/module-warning.png)
+
+Rollup will simply ignore this directory and not include it in our final bundle. And this is a good thing, in general. However, in this case we _want_ this directive to be included. This is where Rollup community comes to the rescue :tada:
+
+While searching for a solution, I came across [this issue](https://github.com/rollup/rollup/issues/4699). Ironically, one of the suggested solutions in there was the initial solution described earlier above. However, there was also another suggestion.
+
+[Fredrik Höglund](https://github.com/Ephem) shared his plugin that solves our exact problem:
+
+- [`rollup-preserve-directives`](https://github.com/Ephem/rollup-plugin-preserve-directives)
+
+This plugin, as its name implies, preserves any directives written at the top of our files:
+
+> This plugin preserves directives when `preserveModules: true` is set in the Rollup config.
+>
+> Rollup by default always removes directives like `'use client'` from the top of files. This makes sense when bundling files because directives should be applied per file, which is not possible when bundling.
+>
+> When `preserveModules: true` is set, because each module is a separate output file, it's possible to keep directives, which is exactly what this plugin does.
+
+Because we're already using the `preserveModules` option in our Rollup config, this will work great.
+
+With this plugin, we can safely leave the `'use client'` directives in our component files (where they belong), and Rollup won't remove them from our bundled files.
+
+To use the plugin, first install it:
+
+```bash
+npm i -D rollup-plugin-preserve-directives
+```
+
+Then, add it to the `plugins` array in your `rollup.config.js` (before `terser`):
+
+```js:rollup.config.js
+import preserveDirectives from 'rollup-plugin-preserve-directives';
+// ...
+const config = {
+  plugins: [
+    // ...
+    preserveDirectives.default(),
+    terser(),
+    // ...
+  ]
+};
+```
+
+<Warning>
+  We need to use `preserveDirectives.default()` instead of just `preserveDirectives()`
+  here, due to an
+  [issue](https://github.com/Ephem/rollup-plugin-preserve-directives/issues/1) with the
+  plugin in ESM environments.
+</Warning>
+
+Running the `build` again, we can see that the `'use client'` directive is preserved in the output files:
+
+![Preserved "use client" directive](/blog/rollup-server-components/use-client.png)
+
+And now we can import it in a Server Component and use without any issues:
+
+```jsx:src/app/index.js
+import { Button, Text } from 'rollup-library-starter';
+
+export default function Home() {
+  return (
+    <Button>
+      <Text>Hello</Text>
+    </Button>
+  );
+}
+```
+
+### Disabling the warning
+
+Currently the `rollup-preserve-directives` plugin doesn't suppress that Rollup warning we saw earlier. Its README [suggests](https://github.com/Ephem/rollup-plugin-preserve-directives#rollup-warning) to add a custom `onwarn` handler to the Rollup config if desired.
+
+Let's do that. Add the following to `rollup.config.js`:
+
+```js:rollup.config.js
+const config = {
+  // ...
+  onwarn(warning, warn) {
+    if (warning.code !== 'MODULE_LEVEL_DIRECTIVE') {
+      warn(warning);
+    }
+  },
+};
+```
+
+This will suppress any `MODULE_LEVEL_DIRECTIVE` warnings, and throw all others. See [Rollup docs](https://rollupjs.org/configuration-options/#onwarn) for more details.
+
+## Starter Template
+
+The [`rollup-library-starter`](https://github.com/mryechkin/rollup-library-starter) template has been updated to use this plugin, and is available in GitHub for your reference:
+
+<blockquote>
+  <div className="center flex items-center justify-center gap-2">
+    ✨
+    [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
+    ✨
+  </div>
+</blockquote>
+
+Happy hacking!

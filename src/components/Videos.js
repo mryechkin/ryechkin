@@ -63,7 +63,7 @@ function sortByDate(data) {
   );
 }
 
-export default function Videos({ preview, sorted }) {
+export default function Videos({ preview, sorted, limit }) {
   let videos = VIDEOS;
 
   if (sorted) {
@@ -73,10 +73,15 @@ export default function Videos({ preview, sorted }) {
   return (
     <div className="mt-4 flex flex-wrap items-start justify-center gap-6">
       {videos.map((item, i) => {
+        if (i >= limit) {
+          return null;
+        }
+
         if ((i === 0 && preview) || !preview) {
           return <Card key={item.imageUrl} item={item} isExternal isVideo />;
         }
-        if (preview && i < 3) {
+
+        if (preview) {
           return (
             <Card
               className="w-full grow md:w-[calc(50%-12px)]"
@@ -88,6 +93,7 @@ export default function Videos({ preview, sorted }) {
             />
           );
         }
+
         return null;
       })}
     </div>

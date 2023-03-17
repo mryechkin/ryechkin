@@ -5,7 +5,7 @@ export default function Posts({ data, preview, limit }) {
     <div className="mt-4 flex flex-wrap items-start justify-start gap-6">
       {data?.length
         ? data.map((post, i) => {
-            if (i > limit) {
+            if (i >= limit) {
               return null; // Only show up to a `limit` of posts
             }
 

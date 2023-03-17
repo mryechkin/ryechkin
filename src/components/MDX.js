@@ -1,15 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { FaExclamation } from 'react-icons/fa';
 import { FiSmile } from 'react-icons/fi';
+import cn from 'classnames';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Caption from './Caption';
 import ExternalLink from './ExternalLink';
 import Spinner from './Spinner';
+import Stack from './Stack';
 
-const Caption = dynamic(() => import('./Caption'), {
-  loading: () => <Spinner />,
-});
 const Card = dynamic(() => import('./Card'), { loading: () => <Spinner /> });
 const CodeBlock = dynamic(() => import('./CodeBlock'), {
   loading: () => <Spinner />,
@@ -34,7 +36,7 @@ const SyntaxHighlighter = dynamic(() => import('./SyntaxHighlighter'), {
 });
 const Tags = dynamic(() => import('./Tags'), { loading: () => <Spinner /> });
 
-function CustomLink(props) {
+const CustomLink = (props) => {
   const { children, href } = props;
   const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
 
@@ -47,17 +49,43 @@ function CustomLink(props) {
   }
 
   return <ExternalLink {...props} />;
-}
+};
+
+const ImageCard = ({ alt, className, ...props }) => (
+  <>
+    <img
+      className={cn(
+        'border-outline mx-auto flex w-full max-w-4xl shadow-retro dark:shadow-retro-dark',
+        className
+      )}
+      alt={alt}
+      {...props}
+    />
+    {alt && <Caption>{alt}</Caption>}
+  </>
+);
+
+const Warning = ({ children }) => (
+  <blockquote className="!border-l-rose-500">
+    <div className="mb-4 flex items-center justify-start gap-1">
+      <FaExclamation className="text-xl font-bold text-rose-500" />
+      <b>IMPORTANT</b>
+    </div>
+    {children}
+  </blockquote>
+);
 
 const MDX = {
   a: CustomLink,
   hr: Separator,
+  img: ImageCard,
   Caption,
   Card,
   CodeBlock,
   ExternalLink,
   FiSmile,
   Image,
+  ImageCard,
   KyloRen,
   Link,
   PeaceSign,
@@ -66,7 +94,9 @@ const MDX = {
     props.live ? <CodeBlock {...props} /> : <SyntaxHighlighter {...props} />,
   RickRoll,
   Separator,
+  Stack,
   Tags,
+  Warning,
   ...React,
 };
 

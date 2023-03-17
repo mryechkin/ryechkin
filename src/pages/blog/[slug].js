@@ -25,7 +25,7 @@ export default function Post({ headings, source = {} }) {
   const slug = `blog/${frontmatter.slug}`;
 
   return (
-    <Layout>
+    <Layout className="!max-w-5xl">
       <Head>
         <title>{fullTitle}</title>
         <meta name="og:image" content={image} />

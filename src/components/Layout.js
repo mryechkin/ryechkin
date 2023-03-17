@@ -21,11 +21,13 @@ export default function Layout({ className, children }) {
         />
       </div>
       <main className="mt-24 w-full max-w-none overflow-hidden">
-        <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>{children}</div>
+        <div className={cn('mx-auto max-w-[96rem] p-6 md:p-8', className)}>
+          {children}
+        </div>
       </main>
       <footer
         className={cn(
-          'blurred-backdrop w-screen border-t border-gray-200 dark:border-gray-900',
+          'blurred-backdrop mx-auto w-screen border-t border-gray-200 dark:border-gray-900',
           className
         )}
       >

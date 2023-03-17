@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import cn from 'classnames/dedupe';
 
 const MyDisclosure = memo(({ title, children, className }) => {
@@ -16,7 +16,7 @@ const MyDisclosure = memo(({ title, children, className }) => {
             )}
           >
             <span className="text-sm uppercase tracking-widest">{title}</span>
-            <ChevronUpIcon className={cn('h-5 w-5', open && 'rotate-180 transform')} />
+            <ChevronDownIcon className={cn('h-5 w-5', open && 'rotate-180 transform')} />
           </Disclosure.Button>
           <Disclosure.Panel>{children}</Disclosure.Panel>
         </>

@@ -19,6 +19,7 @@
     "*.{js,css,md*}": "npm run prettier"
   },
   "dependencies": {
+    "@cronitorio/cronitor-rum-nextjs": "^0.2.1",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^1.0.6",
     "@next/bundle-analyzer": "^13.0.6",

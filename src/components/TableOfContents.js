@@ -12,7 +12,7 @@ const TableOfContents = ({ className, headings }) => {
             heading.level < 4 && (
               <li
                 className={cn({
-                  'font-semibold': heading.level === 2,
+                  'font-medium': heading.level === 2,
                   'pl-2': heading.level === 3,
                   'pl-4': heading.level >= 4,
                 })}

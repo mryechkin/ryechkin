@@ -1,7 +1,7 @@
 ---
 title: Rollup Library Starter
 date: '2022-10-05'
-modified: '2023-03-17'
+modified: '2023-03-18'
 published: true
 summary: Learn how to package your JavaScript library into a production-ready bundle using Rollup module bundler
 canonical: https://misha.wtf/blog/rollup-library-starter
@@ -11,6 +11,8 @@ author:
   name: Mykhaylo Ryechkin
   url: https://twitter.com/mryechkin
 ---
+
+> **NOTE:** Make sure to also check out the new post on working with **Client** and **Server Components** with Rollup [here](/blog/rollup-server-components).
 
 ## Intro
 
@@ -706,12 +708,10 @@ With `package.json` setup, let's now run our build and check it out. In the term
 
 Thanks to the `rollup-plugin-analyzer` plugin, we also get a summary of our package build:
 
-<PostImage
-  caption="Rollup bundle analyzer plugin output"
+<ImageCard
+  alt="Rollup bundle analyzer plugin output"
   src="/blog/rollup-library-starter/analyzer-output.png"
-  className="max-w-sm"
-  width={792}
-  height={930}
+  className="mx-auto max-w-sm"
 />
 
 ## Wrap Up
@@ -720,8 +720,10 @@ And that about does it! Hopefully this recipe gives you a good starting point fo
 
 The full example project is available in GitHub for your reference:
 
-> <div className="center flex items-center justify-center gap-2">
->   [https://github.com/mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
-> </div>
+<blockquote>
+  <div className="center flex items-center justify-center gap-2">
+    ✨ [rollup-library-starter](https://github.com/mryechkin/rollup-library-starter) ✨
+  </div>
+</blockquote>
 
 If you've made it this far - thanks for reading, and until next time!

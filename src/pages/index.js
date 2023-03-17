@@ -10,6 +10,7 @@ import Prose from 'src/components/Prose';
 import RickRoll from 'src/components/RickRoll';
 import SEO from 'src/components/SEO';
 import Separator from 'src/components/Separator';
+import Stack from 'src/components/Stack';
 import Videos from 'src/components/Videos';
 import { getAllPosts } from 'src/lib/data';
 import { useConfetti } from 'src/lib/hooks';
@@ -52,7 +53,7 @@ export default function Home({ posts }) {
               </div>
               <Image
                 src="/assets/headshot-pixelated.jpg"
-                className="!my-0 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
+                className="not-prose !my-0 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
                 width={392}
                 height={392}
                 alt="My avatar"
@@ -61,28 +62,33 @@ export default function Home({ posts }) {
           </HeroContainer>
         </Prose>
         <Separator />
-        <h1 className="title">Latest Posts</h1>
-        <Posts data={posts} limit={4} preview />
-        <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link
-            href="/blog"
-            prefetch={false}
-            className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
-          >
-            See <strong>all posts</strong> &rarr;
-          </Link>
-        </div>
-        <Separator />
-        <h1 className="title">Popular Videos</h1>
-        <Videos preview sorted />
-        <div className="my-8 flex items-center justify-center sm:justify-end">
-          <Link
-            href="/videos"
-            prefetch={false}
-            className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
-          >
-            See <strong>all videos</strong> &rarr;
-          </Link>
+        <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+          <Stack>
+            <h2 className="title">Latest Posts</h2>
+            <Posts data={posts} limit={3} preview />
+            <div className="my-8 flex items-center justify-center sm:justify-end">
+              <Link
+                href="/blog"
+                prefetch={false}
+                className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
+              >
+                See <strong>all posts</strong> &rarr;
+              </Link>
+            </div>
+          </Stack>
+          <Stack>
+            <h2 className="title">Video Tutorials</h2>
+            <Videos limit={3} preview />
+            <div className="my-8 flex items-center justify-center sm:justify-end">
+              <Link
+                href="/videos"
+                prefetch={false}
+                className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
+              >
+                See <strong>all videos</strong> &rarr;
+              </Link>
+            </div>
+          </Stack>
         </div>
         <div className="mt-8 inline-flex w-full items-center justify-center">
           Thanks for stopping by

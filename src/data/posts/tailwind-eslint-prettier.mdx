@@ -27,12 +27,9 @@ But, I'm here to tell you that it doesn't have to be!
 
 In this article we'll take a look at how tools like [ESLint](https://eslint.org) and [Prettier](https://prettier.io/) can help us never have to think about class names again, and provide some helpful guidance along the way.
 
-<PostImage
+<ImageCard
   src={`/blog/tailwind-eslint-prettier/tailwind-prettier-vscode.gif`}
   alt="Tailwind with ESLint and Prettier"
-  caption="Let ESLint and Prettier work their magic ✨"
-  width={1262}
-  height={417}
 />
 
 [ESLint](https://eslint.org) is a **code linter**. Linters helps identify issues in our code, ensure consistency and reduce possibilities of bugs. They generally concern themselves with code **logic**.
@@ -134,11 +131,9 @@ With our scripts defined, we can now run these as part of our workflow to lint a
 
 To test it out, run `npm run lint`. Here's a real example from my personal site that I ran into recently:
 
-<PostImage
-  src={`/blog/tailwind-eslint-prettier/tailwind-eslint-output.png`}
+<ImageCard
+  src="/blog/tailwind-eslint-prettier/tailwind-eslint-output.png"
   alt="Example of output from ESLint"
-  width={2154}
-  height={536}
 />
 
 As you can see, **eslint-plugin-tailwindcss** helped identify some deprecated classes that I was still using. Neat! I'd been using Tailwind v3 for some time now, without realizing there were deprecated class names in my code. Without this plugin, there's a good chance I still wouldn't have noticed this.
@@ -183,12 +178,9 @@ Let's update this to use our scripts instead:
 
 This will tell **lint-staged** to run our `lint` script on all staged JS files, and `format` on JS, CSS and MD(X) ones (as always, adjust this as needed). Now, before any code is committed, it's guaranteed to be linted and properly formatted. If either of those scripts fails, a commit will not proceed and we'll see what the issues are in the output:
 
-<PostImage
-  src={`/blog/tailwind-eslint-prettier/tailwind-eslint-output.png`}
+<ImageCard
+  src="/blog/tailwind-eslint-prettier/tailwind-eslint-output.png"
   alt="Example output of our linting script"
-  title="Example output of our linting script"
-  width={2154}
-  height={536}
 />
 
 ## Integrating with VSCode
@@ -205,20 +197,16 @@ Install the following VSCode extensions:
 
 The first two integrate **ESLint** and **Prettier** into VSCode, which will let VSCode underline any problematic code that is identified:
 
-<PostImage
-  src={`/blog/tailwind-eslint-prettier/tailwind-vscode-1.png`}
+<ImageCard
+  src="/blog/tailwind-eslint-prettier/tailwind-vscode-1.png"
   alt="Example of issues identified by ESLint Tailwind plugin"
-  width={2108}
-  height={814}
 />
 
 Hovering over the issue will show more details:
 
-<PostImage
-  src={`/blog/tailwind-eslint-prettier/tailwind-vscode-2.png`}
+<ImageCard
+  src="/blog/tailwind-eslint-prettier/tailwind-vscode-2.png"
   alt="Example of issues identified by ESLint Tailwind plugin"
-  width={2116}
-  height={822}
 />
 
 The **Tailwind CSS IntelliSense** extension adds intellisense for Tailwind classes. This will let VSCode show suggestions for Tailwind classes, and what CSS they output. It even works with any custom classes you have defined in your Tailwind config. Very handy!
@@ -241,11 +229,9 @@ If you'd like to take it a step further, you can also create a `.vscode/extensio
 
 The last thing we want to do is enable automatic code formatting whenever we save a file in VSCode. This way, you let the tools worry about style and formatting, and can just focus on writing code.
 
-<PostImage
-  src={`/blog/tailwind-eslint-prettier/tailwind-prettier-vscode.gif`}
+<ImageCard
+  src="/blog/tailwind-eslint-prettier/tailwind-prettier-vscode.gif"
   alt="Tailwind with ESLint and Prettier"
-  width={1262}
-  height={417}
 />
 
 First, open up your VSCode `settings.json` file: `Preferences: Open Settings (JSON)`. Make sure that the default formatter is set to the Prettier extension:

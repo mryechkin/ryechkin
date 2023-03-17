@@ -1,12 +1,11 @@
+import { useCronitor } from '@cronitorio/cronitor-rum-nextjs';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 
-import { usePanelbear } from 'src/lib/analytics';
 import theme from 'src/lib/theme';
 
-// eslint-disable-next-line import/order
 import SEO from '../../next-seo.config';
 
 import 'src/styles/fonts.css';
@@ -15,7 +14,7 @@ import 'src/styles/globals.css';
 export const siteTitle = 'Mykhaylo Ryechkin';
 
 export default function App({ Component, pageProps }) {
-  usePanelbear(process.env.NEXT_PUBLIC_PANELBEAR_SITE_ID);
+  useCronitor(process.env.NEXT_PUBLIC_CRONITOR_CLIENT_KEY);
 
   return (
     <ThemeProvider

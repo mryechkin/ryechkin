@@ -9,7 +9,7 @@ import { getAllPosts } from 'src/lib/data';
 
 export default function Blog({ posts }) {
   return (
-    <Layout>
+    <Layout className="!max-w-5xl">
       <SEO title="Blog" />
       <Prose>
         <h1 className="retro py-2 text-5xl">Blog</h1>

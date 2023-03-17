@@ -139,11 +139,11 @@ html {
   }
 
   .prose code {
-    @apply rounded border border-dotted border-slate-700 bg-slate-100 p-1 font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-900/80 dark:text-white;
+    @apply whitespace-nowrap rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-900/80 dark:text-white;
   }
 
   .prose-lg code {
-    @apply text-base;
+    @apply p-1 text-base;
   }
 
   .prose a > code {
@@ -179,7 +179,7 @@ html {
     @apply my-8 sm:my-10 !important;
   }
 
-  .prose img {
+  .prose img:not('not-prose') {
     @apply border-outline shadow-retro dark:shadow-retro-dark;
   }
 

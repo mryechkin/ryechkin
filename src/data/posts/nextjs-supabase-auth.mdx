@@ -14,13 +14,12 @@ author:
 
 ## Intro
 
-<blockquote className="!border-red-500">
-  :warning: **IMPORTANT:** This article was written for Supabase **v1**, which is now
-  outdated. Though everything still works (to the best of my knowledge), please be aware
-  that the libraries and versions mentioned here **are now outdated**. See the ✨NEW✨
-  [updated guide](/blog/supabase-auth-next-13) on using Supabase **v2** and Next.js **13**
-  instead.
-</blockquote>
+<Warning>
+  This article was written for Supabase **v1**, which is now outdated. Though everything
+  still works (to the best of my knowledge), please be aware that the libraries and
+  versions mentioned here **are now outdated**. See the ✨NEW✨ [updated
+  guide](/blog/supabase-auth-next-13) on using Supabase **v2** and Next.js **13** instead.
+</Warning>
 
 [Supabase](https://www.supabase.io) has been getting a lot of attention in the tech community, and for good reason. This open source platform makes it super easy to get started building complex full-stack applications, and in this post we will take a look at how to utilize one of its core offerings: **User Authentication**.
 
@@ -55,13 +54,7 @@ It's worthwhile to note that the client library is also available in several oth
 
 Supabase also provides an open source component library called [Supabase UI](https://ui.supabase.io/), which is a collection of common UI components and utilities that are used across the range of Supabase products. Its styling is heavily inspired by [Tailwind CSS](https://www.tailwindcss.com/), so you know it will look good out of the box.
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/supabase-ui.png`}
-  alt="Supabase UI"
-  width={1260}
-  height={932}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/supabase-ui.png" alt="Supabase UI" />
 
 We will be using the [Auth](https://ui.supabase.io/components/auth) component, which provides all the necessary screens and integrations for the various authentication flows. In particular, we'll need to be able to perform the following:
 
@@ -89,11 +82,9 @@ In order to be able to access the Supabase API via our JS client, we will need t
 
 In the dashboard, go to **Settings > API**. As you'll see, by default an anonymous public API key is already available. This will be enough for our needs. Take note of this value, as well as the URL:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/settings-api.png`}
+<ImageCard
+  src="/blog/nextjs-supabase-auth/settings-api.png"
   alt="API Settings in Supabase Dashboard"
-  width={1760}
-  height={1266}
 />
 
 Make sure to keep these on hand, as we'll need them later on.
@@ -316,13 +307,7 @@ Where `supabase` is our **Supabase Client** instance. Now we can freely use the 
 
 Let's update the **Home** page to utilize some of the user data, and add a few more UI elements for the authenticated state. We'll add a link to the **Profile** page, and a button to log out the current user (by calling the `signOut` function). We'll also display the user's `role` as a badge. Feel free to get more creative here 😄
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/home.png`}
-  alt="Home Page"
-  width={1404}
-  height={896}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/home.png" alt="Home Page" />
 
 ```jsx:src/pages/index.js
 import { useAuth } from '@/lib/auth';
@@ -375,13 +360,7 @@ return (
 );
 ```
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/sign-in.png`}
-  alt="Sign In"
-  width={1420}
-  height={992}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/sign-in.png" alt="Sign In" />
 
 We pass our Supabase Client instance to it via the `supabaseClient` prop, and voila! 🎉 Now we have a shiny new UI, with all of the required forms to handle the login flows. However, before we can fully test this, we'll need to setup a few more things.
 
@@ -498,30 +477,20 @@ With everything in place, we're now ready to try out the authentication flows. M
 
 First, let's register our user. On the landing page, click on "Sign up" link, which will take you to the **Sign Up** form.
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/sign-up.png`}
-  alt="Sign Up"
-  width={1440}
-  height={980}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/sign-up.png" alt="Sign Up" />
 
 Enter your email and password, and press the "Sign up" button. This will send a confirmation email to the address provided, with a link to complete the registration process. It uses the default email template, which can be updated on the Templates page in Supabase Dashboard settings:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/templates.png`}
-  caption="Supabase Email Templates"
-  width={2414}
-  height={1298}
+<ImageCard
+  src="/blog/nextjs-supabase-auth/templates.png"
+  alt="Supabase Email Templates"
 />
 
 Note as well that the default URL in the link is set to `http://localhost:3000`:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/settings-auth.png`}
-  caption="Supabase URL Settings"
-  width={2384}
-  height={788}
+<ImageCard
+  src="/blog/nextjs-supabase-auth/settings-auth.png"
+  alt="Supabase URL Settings"
 />
 
 This works for development, but will need to be updated to the corresponding URL when running in production environments. See [this](https://github.com/supabase/supabase/discussions/1514) GitHub discussion for more details.
@@ -595,13 +564,7 @@ The **Auth** component will detect this change, and render the sign-in form.
 
 If a user had forgotten their password, they can request a password reset. From the sign in screen, click on "Forgot your password?" and enter the email used to register:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/reset-password.png`}
-  alt="Reset Password"
-  width={1412}
-  height={680}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/reset-password.png" alt="Reset Password" />
 
 After submitting the form, Supabase will send a password reset email with a link. Remember that you can update this email template via Supabase Dashboard as well if you'd like.
 
@@ -638,13 +601,7 @@ export default function Home() {
 
 Now when a user clicks on the link, they'll be presented with this screen:
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/update-password.png`}
-  alt="Update Password"
-  width={1460}
-  height={580}
-  small
-/>
+<ImageCard src="/blog/nextjs-supabase-auth/update-password.png" alt="Update Password" />
 
 Behind the scenes, when a user submits the new password, Supabase UI will call the [update](https://supabase.io/docs/reference/javascript/auth-update) method in Supabase Client, which updates the user on the backend and sets the new password. If successful, Supabase Client then dispatches the `USER_UPDATED` event, which (once again) gets picked up by `onAuthStateChange` listener, and updates our `user` and `session` data.
 
@@ -768,12 +725,9 @@ But don't fret! It's quite easy to work around this limitation in the meantime. 
 
 This will ensure that the input fields, buttons and text links in the **Auth** component us the same styling as the rest of our application. We're also making it a bit more accessible by adding more pronounced focus and hover outlines.
 
-<PostImage
-  src={`/blog/nextjs-supabase-auth/sign-in-themed.gif`}
+<ImageCard
+  src="/blog/nextjs-supabase-auth/sign-in-themed.gif"
   alt="Sign In form improvements"
-  width={960}
-  height={548}
-  small
 />
 
 Now our authentication forms match as well! 🎉 Play around with it and change more as you see fit. Though not the ideal solution, it still beats setting everything up from scratch, and I'm confident that the folks over at **Supabase** will have this capability delivered in the near future.
