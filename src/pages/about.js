@@ -14,7 +14,7 @@ export default function About({ source }) {
   const { frontmatter } = source;
 
   return (
-    <Layout slug="about">
+    <Layout>
       <SEO title={frontmatter.title} description={frontmatter.description} />
       <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
         <h1>About Me</h1>

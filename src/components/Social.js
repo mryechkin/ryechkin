@@ -38,7 +38,7 @@ export default function Social({ className }) {
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mx-1 p-2 text-xl text-gray-700 hover:text-sky-300 focus:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 dark:focus:text-sky-300 sm:mx-2 sm:text-3xl"
+          className="mx-1 p-2 text-xl text-slate-700 hover:text-sky-300 focus:text-sky-300 dark:text-slate-200 dark:hover:text-sky-300 dark:focus:text-sky-300 sm:mx-2 sm:text-3xl"
           whileFocus={{ scale: 1.1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

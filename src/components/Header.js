@@ -61,14 +61,14 @@ export default function Header({ setConfetti }) {
           #StandWithUkraine
         </a>
       </div>
-      <div className="blurred-backdrop w-screen border-b border-gray-200 dark:border-gray-900">
+      <div className="blurred-backdrop w-screen border-b border-slate-200 dark:border-slate-950">
         <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
           <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
             <Avatar setConfetti={setConfetti} tabIndex="-1" />
             <Link
               href="/"
               prefetch={false}
-              className="hidden p-2 text-xl font-normal uppercase text-gray-800 dark:text-gray-50 md:block"
+              className="hidden p-2 text-xl font-normal uppercase text-slate-800 dark:text-slate-50 md:block"
             >
               <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
             </Link>
@@ -76,7 +76,7 @@ export default function Header({ setConfetti }) {
           <Link
             href="/"
             prefetch={false}
-            className="p-2 text-base font-normal uppercase text-gray-800 dark:text-gray-50 sm:text-lg md:hidden"
+            className="p-2 text-base font-normal uppercase text-slate-800 dark:text-slate-50 sm:text-lg md:hidden"
           >
             <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
           </Link>

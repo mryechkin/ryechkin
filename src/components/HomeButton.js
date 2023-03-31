@@ -8,7 +8,7 @@ export default function HomeButton({ className }) {
     <Link href="/" prefetch={false} passHref legacyBehavior>
       <motion.a
         className={cn(
-          'p-2 text-gray-700 hover:text-sky-300 focus:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 dark:focus:text-sky-300',
+          'p-2 text-slate-700 hover:text-sky-300 focus:text-sky-300 dark:text-slate-200 dark:hover:text-sky-300 dark:focus:text-sky-300',
           className
         )}
         whileFocus={{ scale: 1.1 }}

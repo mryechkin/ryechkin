@@ -90,7 +90,7 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
           scope={scope}
           noInline={noInline}
         >
-          <LivePreview className="w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-gray-900/50" />
+          <LivePreview className="w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50" />
           <div
             className={cn(
               'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
@@ -100,13 +100,13 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
               }
             )}
           >
-            <div className="absolute top-3 right-3 flex items-center justify-center gap-2">
+            <div className="absolute right-3 top-3 flex items-center justify-center gap-2">
               <Button aria-label="Format code" title="Format code" onClick={formatCode}>
                 <SiPrettier />
               </Button>
               <CopyButton code={code} />
             </div>
-            <div className="text-xs font-bold uppercase text-gray-400">
+            <div className="text-xs font-bold uppercase text-slate-400">
               Editable Example
             </div>
             <LiveEditor onChange={onChange} className="w-full p-2" />

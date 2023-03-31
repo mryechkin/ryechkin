@@ -27,7 +27,7 @@ export default function Card({
       <Link href={href} passHref legacyBehavior>
         <motion.a
           className={cn(
-            'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-gray-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-gray-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
+            'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-slate-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-slate-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
             {
               'md:grid-flow-col': imageUrl && !hideCover,
             }
@@ -53,7 +53,7 @@ export default function Card({
             >
               <span
                 className={cn(
-                  'w-full text-center line-clamp-2',
+                  'line-clamp-2 w-full text-center',
                   !hideCover && 'md:text-start'
                 )}
               >
@@ -68,7 +68,7 @@ export default function Card({
             )}
             {tags?.length > 0 && <Tags className="justify-center" list={tags} />}
             {summary && (
-              <p className="text-ellipsis text-left line-clamp-4 md:line-clamp-3">
+              <p className="line-clamp-4 text-ellipsis text-left md:line-clamp-3">
                 {summary}
               </p>
             )}
@@ -77,7 +77,7 @@ export default function Card({
             <div className="col-span-5 hidden px-4 pb-4 md:col-span-2 md:block md:pt-4">
               <div className="relative flex h-full w-full items-center justify-center">
                 <Image
-                  className="aspect-video w-full rounded-lg bg-gray-900 object-cover"
+                  className="aspect-video w-full rounded-lg bg-slate-900 object-cover"
                   src={imageUrl}
                   alt={title}
                   fill

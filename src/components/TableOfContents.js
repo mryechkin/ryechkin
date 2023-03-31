@@ -6,7 +6,7 @@ import Disclosure from './Disclosure';
 const TableOfContents = ({ className, headings }) => {
   const memoizedHeadings = useMemo(
     () => (
-      <ul className="not-prose !mt-0 mb-8 list-none space-y-1 rounded-lg border-t-0 bg-gray-100 p-4 dark:bg-slate-900">
+      <ul className="not-prose !mt-0 mb-8 list-none space-y-1 rounded-lg border-t-0 bg-slate-100 p-4 dark:bg-slate-950">
         {headings.map(
           (heading) =>
             heading.level < 4 && (

@@ -19,7 +19,7 @@ export default function Snippets({ source }) {
       <div className="prose prose-sm w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <h1 className="retro">Snippets</h1>
         <h2>{frontmatter.title}</h2>
-        <article className="py-4 text-gray-800 dark:text-gray-50 md:pt-8">
+        <article className="py-4 text-slate-800 dark:text-slate-50 md:pt-8">
           <MDXRemote {...source} components={MDX} />
         </article>
         <div className="flex items-center justify-center py-8">

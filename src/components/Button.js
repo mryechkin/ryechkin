@@ -13,7 +13,7 @@ const Button = forwardRef((props, ref) => {
       className={cn(
         {
           'flex items-center justify-center p-1 text-sm font-semibold sm:p-2': true,
-          'button-outline rounded-md bg-gray-100 text-indigo-600 backdrop-blur hover:text-sky-400 dark:bg-slate-900 dark:text-indigo-200 dark:hover:text-sky-300':
+          'button-outline rounded-md bg-slate-100 text-indigo-600 backdrop-blur hover:text-sky-400 dark:bg-slate-900 dark:text-indigo-200 dark:hover:text-sky-300':
             outline,
         },
         className

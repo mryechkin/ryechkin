@@ -7,7 +7,7 @@ import Layout from 'src/components/Layout';
 export default function NotFound() {
   return (
     <Layout>
-      <div className="prose mx-auto pb-8 text-center sm:mt-20 md:prose-lg lg:prose-xl">
+      <div className="prose mx-auto pb-8 text-center md:prose-lg lg:prose-xl sm:mt-20">
         <div className="flex flex-col items-center justify-center gap-4">
           <div className="flex items-center justify-center p-8">
             <FaExclamationTriangle className="h-10 w-10 text-rose-500 dark:text-rose-300" />

@@ -42,7 +42,7 @@ export default function AnimatedPath({ delay = 100 }) {
           </div>
         </div>
       )}
-      <div className="py-8 text-3xl font-medium tracking-wider text-gray-700 dark:text-white">
+      <div className="py-8 text-3xl font-medium tracking-wider text-slate-700 dark:text-white">
         y = cos(x<sup>2</sup>)
       </div>
       <button

@@ -8,7 +8,7 @@ import Videos from 'src/components/Videos';
 
 export default function VideosPage() {
   return (
-    <Layout className="!max-w-5xl">
+    <Layout>
       <SEO title="Videos" />
       <Prose>
         <h1 className="retro py-2 text-5xl">Video Tutorials</h1>

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 export default function BackgroundPattern({ className }) {
-  const color = cn('text-gray-100 dark:text-gray-600', className);
+  const color = cn('text-slate-100 dark:text-slate-600', className);
 
   return (
     <div className="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-10/12">

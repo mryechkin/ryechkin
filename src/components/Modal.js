@@ -16,7 +16,7 @@ export default function Modal({ children, open, setOpen }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-900/90 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-slate-900/90 transition-opacity" />
           </Transition.Child>
 
           <Transition.Child
@@ -29,10 +29,10 @@ export default function Modal({ children, open, setOpen }) {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div className="inline-block w-full overflow-hidden rounded-lg align-middle shadow-xl transition-all">
-              <div className="absolute top-0 right-0 pt-1 pr-1 sm:pt-4 sm:pr-4">
+              <div className="absolute right-0 top-0 pr-1 pt-1 sm:pr-4 sm:pt-4">
                 <button
                   type="button"
-                  className="custom-focus rounded-full bg-gray-900/75 p-1 text-gray-200 hover:text-sky-300 focus:rounded-full"
+                  className="custom-focus rounded-full bg-slate-900/75 p-1 text-slate-200 hover:text-sky-300 focus:rounded-full"
                   onClick={() => setOpen(false)}
                 >
                   <span className="sr-only">Close</span>

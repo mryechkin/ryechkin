@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
         </Head>
         <DefaultSeo {...SEO} />
         {/* <GoogleAnalytics /> */}
-        <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-900">
+        <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900">
           <Component {...pageProps} />
         </div>
       </StyledProvider>

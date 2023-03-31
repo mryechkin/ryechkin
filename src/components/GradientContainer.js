@@ -9,7 +9,7 @@ export default function GradientContainer({ children, className, ...props }) {
       )}
     >
       <div
-        className="flex flex-col justify-between bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-900 sm:justify-around"
+        className="flex flex-col justify-between bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900 sm:justify-around"
         {...props}
       >
         {children}

@@ -19,7 +19,7 @@ export default function Home({ posts }) {
   const [confetti] = useConfetti();
 
   return (
-    <Layout confetti={confetti}>
+    <Layout confetti={confetti} className="!max-w-[96rem]">
       <SEO title="Home" />
       <div className="inline-flex w-full items-end justify-center">
         <div className="w-full max-w-3xl shrink-0 font-sans text-4xl font-bold tracking-tighter sm:text-center sm:text-5xl md:text-6xl">
@@ -52,7 +52,7 @@ export default function Home({ posts }) {
                 </div>
               </div>
               <Image
-                src="/assets/headshot-pixelated.jpg"
+                src="/assets/headshot-enhanced.jpg"
                 className="not-prose !my-0 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
                 width={392}
                 height={392}
@@ -66,7 +66,7 @@ export default function Home({ posts }) {
           <Stack>
             <h2 className="title">Latest Posts</h2>
             <Posts data={posts} limit={3} preview />
-            <div className="my-8 flex items-center justify-center sm:justify-end">
+            <HeroContainer>
               <Link
                 href="/blog"
                 prefetch={false}
@@ -74,12 +74,12 @@ export default function Home({ posts }) {
               >
                 See <strong>all posts</strong> &rarr;
               </Link>
-            </div>
+            </HeroContainer>
           </Stack>
           <Stack>
             <h2 className="title">Video Tutorials</h2>
             <Videos limit={3} preview />
-            <div className="my-8 flex items-center justify-center sm:justify-end">
+            <HeroContainer>
               <Link
                 href="/videos"
                 prefetch={false}
@@ -87,7 +87,7 @@ export default function Home({ posts }) {
               >
                 See <strong>all videos</strong> &rarr;
               </Link>
-            </div>
+            </HeroContainer>
           </Stack>
         </div>
         <div className="mt-8 inline-flex w-full items-center justify-center">

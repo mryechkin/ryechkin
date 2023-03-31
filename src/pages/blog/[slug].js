@@ -25,7 +25,7 @@ export default function Post({ headings, source = {} }) {
   const slug = `blog/${frontmatter.slug}`;
 
   return (
-    <Layout className="!max-w-5xl">
+    <Layout>
       <Head>
         <title>{fullTitle}</title>
         <meta name="og:image" content={image} />
@@ -71,7 +71,7 @@ export default function Post({ headings, source = {} }) {
           <Image
             alt={frontmatter.title}
             src={`/${slug}/cover.png`}
-            className="border-outline rounded-lg bg-gray-900 object-cover shadow-retro dark:shadow-retro-dark"
+            className="border-outline rounded-lg bg-slate-900 object-cover shadow-retro dark:shadow-retro-dark"
             width={1200}
             height={627}
             quality={90}
