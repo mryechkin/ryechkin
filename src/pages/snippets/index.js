@@ -24,7 +24,7 @@ export default function Blog({ snippets }) {
         </HeroContainer>
       </Prose>
       <Separator />
-      <div className="mx-auto max-w-lg">
+      <div className="mx-auto flex max-w-lg flex-col gap-8">
         {snippets?.length
           ? snippets.map((snippet) => {
               const { summary, slug, tags, title } = snippet.data;

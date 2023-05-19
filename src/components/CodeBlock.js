@@ -8,8 +8,7 @@ import * as Framer from 'framer-motion';
 import { useTheme } from 'next-themes';
 import babelParser from 'prettier/parser-babel';
 import prettier from 'prettier/standalone';
-import darkTheme from 'prism-react-renderer/themes/vsDark';
-import lightTheme from 'prism-react-renderer/themes/vsLight';
+import { themes } from 'prism-react-renderer';
 import styled from 'styled-components';
 
 import Avatar from './Avatar';
@@ -49,11 +48,6 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
   const code = children.trim();
   const [editorCode, setEditorCode] = React.useState(code.trim());
   const { theme } = useTheme();
-  let syntaxTheme = darkTheme;
-
-  if (theme === 'light') {
-    syntaxTheme = lightTheme;
-  }
 
   const formatOnKey = (e) => {
     if (e.ctrlKey && e.keyCode === 76) {
@@ -77,8 +71,8 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
 
   React.useEffect(() => {
     setIsMounted(true);
-    document.addEventListener('keyup', formatOnKey, false);
-    return () => document.removeEventListener('keyup', formatOnKey, false);
+    // document.addEventListener('keyup', formatOnKey, false);
+    // return () => document.removeEventListener('keyup', formatOnKey, false);
   }, []);
 
   if (isMounted && code) {
@@ -86,7 +80,7 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
       <div className="flex w-full flex-col items-center justify-center">
         <LiveProvider
           code={editorCode}
-          theme={syntaxTheme}
+          theme={theme === 'dark' ? themes.nightOwl : themes.github}
           scope={scope}
           noInline={noInline}
         >
@@ -95,8 +89,8 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
             className={cn(
               'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
               {
-                'bg-[#1E1E1E]': theme === 'dark',
-                'bg-[#FFFFFF]': theme === 'light',
+                'bg-slate-900': theme === 'dark',
+                'bg-gray-50': theme === 'light',
               }
             )}
           >

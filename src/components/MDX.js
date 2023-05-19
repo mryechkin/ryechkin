@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import AnimatedPath from './snippets/AnimatedPath';
 import Caption from './Caption';
 import ExternalLink from './ExternalLink';
 import Spinner from './Spinner';
@@ -79,6 +80,7 @@ const MDX = {
   a: CustomLink,
   hr: Separator,
   img: ImageCard,
+  AnimatedPath,
   Caption,
   Card,
   CodeBlock,

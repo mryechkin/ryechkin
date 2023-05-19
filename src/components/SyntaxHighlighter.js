@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import lightTheme from 'prism-react-renderer/themes/github';
-import darkTheme from 'prism-react-renderer/themes/nightOwl';
+import { Highlight, themes } from 'prism-react-renderer';
 
 import CopyButton from './CopyButton';
 
@@ -20,10 +18,9 @@ const SyntaxHighlighter = ({ children }) => {
 
   return (
     <Highlight
-      {...defaultProps}
       code={code}
       language={language}
-      theme={theme === 'dark' ? darkTheme : lightTheme}
+      theme={theme === 'dark' ? themes.nightOwl : themes.github}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="group relative border-2 border-indigo-200 font-mono dark:border-indigo-800">

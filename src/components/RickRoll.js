@@ -4,7 +4,6 @@ import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { trackRickRoll } from 'src/lib/analytics';
 import { useHits } from 'src/lib/hooks';
 
 export default function RickRoll() {
@@ -14,7 +13,7 @@ export default function RickRoll() {
     onPress: () => {
       window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
       increment();
-      trackRickRoll();
+      // trackRickRoll();
       setRickRolled(true);
     },
   });
