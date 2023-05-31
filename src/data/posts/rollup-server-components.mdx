@@ -1,6 +1,7 @@
 ---
 title: React Server Components and Client Components with Rollup
 date: '2023-03-18'
+updated: '2023-05-30'
 published: true
 summary: Learn how to enable both Client and Server Components in your component library when using Rollup module bundler.
 canonical: https://misha.wtf/blog/rollup-server-components
@@ -155,19 +156,12 @@ import preserveDirectives from 'rollup-plugin-preserve-directives';
 const config = {
   plugins: [
     // ...
-    preserveDirectives.default(),
+    preserveDirectives(),
     terser(),
     // ...
   ]
 };
 ```
-
-<Warning>
-  We need to use `preserveDirectives.default()` instead of just `preserveDirectives()`
-  here, due to an
-  [issue](https://github.com/Ephem/rollup-plugin-preserve-directives/issues/1) with the
-  plugin in ESM environments.
-</Warning>
 
 Running the `build` again, we can see that the `'use client'` directive is preserved in the output files:
 

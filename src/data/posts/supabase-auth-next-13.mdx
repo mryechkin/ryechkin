@@ -1,6 +1,7 @@
 ---
 title: 'Authentication in Next.js with Supabase and Next 13'
 date: '2023-01-25'
+modified: '2023-05-30'
 published: true
 summary: 'How to setup authentication in your Next.js app, using Supabase and the new Auth Helpers. Updated for Supabase v2 and Next 13.'
 canonical: https://misha.wtf/blog/supabase-auth-next-13
@@ -60,7 +61,7 @@ The code for that is in [GitHub](https://github.com/mryechkin/nextjs-supabase-au
 First things first, we'll need to update Next.js and [Supabase](https://github.com/supabase/supabase-js) to the latest versions, and install [Formik](https://github.com/jaredpalmer/formik) (+ related dependencies) and the [Next.js Auth Helpers](https://github.com/supabase/auth-helpers):
 
 ```bash
-npm install next@latest react@latest react-dom@latest @supabase/supabase-js@latest @supabase/auth-helpers-nextjs classnames formik yup
+npm install next@latest react@latest react-dom@latest @supabase/supabase-js@2.21.0 @supabase/auth-helpers-nextjs@0.6.1 classnames formik yup
 ```
 
 We'll also utilize Tailwind's [Forms Plugin](https://github.com/tailwindlabs/tailwindcss-forms) to make it easier to style our `Auth` component, so let's install that as well:
@@ -91,7 +92,7 @@ module.exports = nextConfig;
 
 This will allow us to start moving some of our existing code from the `pages` directory to the `app` folder. Note that putting the `app` folder under `src` also works, which is how the previous project was setup.
 
-> Make sure to [read more](https://beta.nextjs.org/docs/routing/fundamentals) about the new `app` directory if you aren't familiar with the new features.
+> Make sure to [read more](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) about the new `app` directory if you aren't familiar with the new features.
 
 ### Updating Tailwind Config
 
@@ -123,12 +124,21 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
 With API keys setup, let's now create the Supabase Client so that we can interact with Supabase API's. We'll be using the **Next.js Auth Helpers** library installed earlier for this.
 
+<Warning>
+  The instructions below are using `@supabase/auth-helpers-nextjs@0.6.1`. At the time of
+  writing, there is an issue with password reset flow in the latest version. Additionally,
+  some of the methods used in this guide have been renamed in version
+  [`0.7.0`](https://github.com/supabase/auth-helpers/releases/tag/%40supabase%2Fauth-helpers-nextjs%400.7.0).
+  See the project repo in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth) for
+  any future changes.
+</Warning>
+
 In order to support both the new Server Components and the Client Components, we'll need to have two different kinds of a Supabase Client:
 
 - **Browser** Client: for use with Client Components in the browser, for example within a `useEffect`
 - **Server Component** Client: for use specifically with Server Components
 
-Following the [setup instructions](https://supabase.com/docs/guides/auth/auth-helpers/nextjs-server-components), create two files - `supabase-browser.js` and `supabase-server.js` - one for each type of client. We'll put these in the `src/lib` folder:
+Create two files - `supabase-browser.js` and `supabase-server.js` - one for each type of client. We'll put these in the `src/lib` folder:
 
 ```
 └──src/
@@ -141,6 +151,7 @@ Following the [setup instructions](https://supabase.com/docs/guides/auth/auth-he
 
 ```jsx:src/lib/supabase-browser.js
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+// NOTE: `createBrowserSupabaseClient` has been renamed to `createPagesBrowserClient` in version `0.7.0`
 
 const supabase = createBrowserSupabaseClient();
 
@@ -151,6 +162,7 @@ export default supabase;
 
 ```jsx:src/lib/supabase-server.js
 import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
+// NOTE: `createServerComponentSupabaseClient` has been renamed to `createServerComponentClient` in version `0.7.0`
 import { cookies, headers } from 'next/headers';
 
 export default () =>
@@ -287,7 +299,7 @@ One big benefit of a root layout is that state is preserved on route changes, an
 
 **IMPORTANT:** Root layout is a Server Component by default, and can **NOT** be set to a Client Component. Any parts of your layout that require interactivity will need to be moved into separate Client Components (which can be marked with the `'use client'` directive).
 
-> Read more on this in ["moving Client Components to the leaves"](https://beta.nextjs.org/docs/rendering/server-and-client-components#moving-client-components-to-the-leaves) in Next.js beta docs for additional information.
+> Read more on this in ["moving Client Components to the leaves"](https://nextjs.org/docs/getting-started/react-essentials#moving-client-components-to-the-leaves) in Next.js docs for additional information.
 
 ### Auth Provider
 
@@ -1137,7 +1149,9 @@ This is a quick and easy way of dealing with this problem, but by no means the o
 
 Well, this about wraps it up. If you've made it this far - thank you for reading! Hopefully this guide gives you a good starting point for using Supabase in your Next 13 project, or at the very least points you in the right direction.
 
-Make sure to give the new Next.js [Beta Docs](https://beta.nextjs.org) a read as well, as I've found them to be an invaluable resource for learning some of these new paradigms coming to the world of React.
+Make sure to give the new Next.js [Beta Docs](https://beta.nextjs.org) a read as well, as I've found them to be an invaluable resource for learning some of these new paradigms coming to the world of React.~~
+
+**EDIT:** The new [Next.js Docs](https://nextjs.org) have now been updated. Definitely give them a read if you haven't yet.
 
 Happy coding!
 
@@ -1147,3 +1161,5 @@ Happy coding!
 - **Live Example:** [supabase-auth-next-13.vercel.app](https://supabase-auth-next-13.vercel.app)
 - **Next.js** Beta Docs: [beta.nextjs.org](https://beta.nextjs.org)
 - **React** Beta Docs: [beta.reactjs.org](https://beta.reactjs.org)
+
+**EDIT:** Both [React](https://react.dev) and [Next.js](https://nextjs.org) docs have since been released.
