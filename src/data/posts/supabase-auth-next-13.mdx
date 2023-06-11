@@ -1,7 +1,7 @@
 ---
 title: 'Authentication in Next.js with Supabase and Next 13'
 date: '2023-01-25'
-modified: '2023-05-30'
+modified: '2023-06-11'
 published: true
 summary: 'How to setup authentication in your Next.js app, using Supabase and the new Auth Helpers. Updated for Supabase v2 and Next 13.'
 canonical: https://misha.wtf/blog/supabase-auth-next-13
@@ -13,6 +13,14 @@ author:
 ---
 
 ## Intro
+
+<Warning>
+  Please note that this guide is **not** using the latest version of **Next.js Auth
+  Helpers** (`0.7.x` at the time of writing), as it introduced some breaking changes and
+  regressions in Reset Password flow. The version used in this guide is pinned at `0.6.1`.
+  If you'd like to use the latest version, please see the [v0.7.x migration
+  guide](https://supabase.com/docs/guides/auth/auth-helpers/nextjs#migrating-to-v07x).
+</Warning>
 
 Awhile back I wrote an [article](/blog/nextjs-supabase-auth) on using [Supabase](https://supabase.com/) to implement user authentication in a [Next.js](https://nextjs.org) app. As it often goes in the world of open-source web, things evolve quickly and a lot can change in just over a year, and so is the case with Supabase.
 
