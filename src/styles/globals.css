@@ -72,11 +72,15 @@ html {
 
   .retro {
     @apply font-black tracking-tight text-blue-300 selection:text-indigo-50 dark:text-amber-50 dark:selection:text-slate-800;
-    text-shadow: 3px 2px 0px #4f46e5, 5px 4px 0px #c7d2fe;
+    text-shadow:
+      3px 2px 0px #4f46e5,
+      5px 4px 0px #c7d2fe;
   }
 
   .dark .retro {
-    text-shadow: 3px 2px 0px #ec4899, 5px 4px 0px #fbbf24;
+    text-shadow:
+      3px 2px 0px #ec4899,
+      5px 4px 0px #fbbf24;
   }
 
   .retro-thin {

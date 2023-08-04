@@ -59,11 +59,11 @@ function sortByDate(data) {
   return [...data].sort(
     (a, b) =>
       // sort by date
-      parseISO(b.date) - parseISO(a.date)
+      parseISO(b.date) - parseISO(a.date),
   );
 }
 
-export default function Videos({ preview, sorted, limit }) {
+export default function Videos({ limit, preview, sorted }) {
   let videos = VIDEOS;
 
   if (sorted) {

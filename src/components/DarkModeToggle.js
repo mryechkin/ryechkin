@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 
 export default function DarkModeToggle({ className }) {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
   const { pressProps } = usePress({
     onPress: () => setTheme(theme === 'light' ? 'dark' : 'light'),
   });

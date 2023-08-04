@@ -24,13 +24,13 @@ const toBase64 = (str) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
 export default function PostImage({
-  className,
-  src,
-  width,
-  height,
-  small,
   alt,
   caption = '',
+  className,
+  height,
+  small,
+  src,
+  width,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export default function PostImage({
         className={cn(
           'custom-focus-offset mx-auto my-4 w-full cursor-pointer rounded-lg shadow',
           small ? 'max-w-2xl' : 'max-w-5xl',
-          className
+          className,
         )}
         type="button"
         onClick={() => setOpen(true)}

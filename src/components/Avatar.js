@@ -17,7 +17,7 @@ export default function Avatar({ className, setConfetti, ...rest }) {
       type="button"
       className={cn(
         'custom-focus-offset flex h-10 w-10 cursor-pointer select-none items-center justify-center rounded-full focus:rounded-full md:h-12 md:w-12',
-        className
+        className,
       )}
       whileFocus={{ scale: 1.1 }}
       whileHover={{ scale: 1.1 }}

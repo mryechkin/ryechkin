@@ -22,7 +22,7 @@ export default function BackToTop({ className }) {
         type="button"
         className={cn(
           'custom-focus flex flex-col items-center justify-center gap-2 rounded p-2',
-          className
+          className,
         )}
         whileFocus={{ scale: 1.1 }}
         whileHover={{ scale: 1.1 }}

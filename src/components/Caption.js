@@ -6,7 +6,7 @@ export default function Caption({ children, className, hideIcon = false }) {
     <span
       className={cn(
         'mb-10 flex items-center justify-center text-sm text-slate-600 dark:text-slate-200',
-        className
+        className,
       )}
     >
       {!hideIcon && (

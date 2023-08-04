@@ -57,7 +57,7 @@ export function getAllPosts() {
   return filteredPosts.sort(
     (a, b) =>
       // sort by date
-      parseISO(b.data.date) - parseISO(a.data.date)
+      parseISO(b.data.date) - parseISO(a.data.date),
   );
 }
 
@@ -83,7 +83,7 @@ export function getAllSnippets() {
   return snippets.sort(
     (a, b) =>
       // sort by date
-      parseISO(b.data.date) - parseISO(a.data.date)
+      parseISO(b.data.date) - parseISO(a.data.date),
   );
 }
 

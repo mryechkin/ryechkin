@@ -7,7 +7,7 @@ export const getHits = async (slug) => {
   return {};
 };
 
-export const updateHits = async ({ slug, count }) => {
+export const updateHits = async ({ count, slug }) => {
   const { data, error } = await supabase
     .from('hits')
     .update({ count, date: new Date() })

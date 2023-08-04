@@ -63,7 +63,7 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
           plugins: [babelParser],
           trailingComma: 'es5',
         })
-        .slice(0, -1)
+        .slice(0, -1),
     );
   };
 
@@ -91,7 +91,7 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
               {
                 'bg-slate-900': theme === 'dark',
                 'bg-gray-50': theme === 'light',
-              }
+              },
             )}
           >
             <div className="absolute right-3 top-3 flex items-center justify-center gap-2">

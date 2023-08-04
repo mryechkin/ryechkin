@@ -13,7 +13,7 @@ export default function DateDisplay({ className, data, isExternal }) {
     <div
       className={cn(
         'flex items-center justify-center gap-2 whitespace-nowrap',
-        className
+        className,
       )}
     >
       <time className="inline-flex justify-center py-1 font-semibold" dateTime={date}>

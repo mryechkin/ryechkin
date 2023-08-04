@@ -27,7 +27,7 @@ export default function Blog({ snippets }) {
       <div className="mx-auto flex max-w-lg flex-col gap-8">
         {snippets?.length
           ? snippets.map((snippet) => {
-              const { summary, slug, tags, title } = snippet.data;
+              const { slug, summary, tags, title } = snippet.data;
               return (
                 <Card
                   key={slug}

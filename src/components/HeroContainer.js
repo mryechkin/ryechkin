@@ -1,7 +1,7 @@
 import { FaTerminal } from 'react-icons/fa';
 import cn from 'classnames/dedupe';
 
-export default function HeroContainer({ className, children, title }) {
+export default function HeroContainer({ children, className, title }) {
   return (
     <div className="border-outline flex flex-col items-center justify-center rounded-md bg-slate-50 shadow-retro dark:bg-slate-900 dark:shadow-retro-dark">
       {title && (

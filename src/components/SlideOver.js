@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XCircleIcon } from '@heroicons/react/outline';
 import cn from 'classnames/dedupe';
 
-export default function SlideOver({ className, open, setOpen, title, children }) {
+export default function SlideOver({ children, className, open, setOpen, title }) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-20 overflow-hidden" onClose={setOpen}>

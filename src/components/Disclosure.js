@@ -3,7 +3,7 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import cn from 'classnames/dedupe';
 
-const MyDisclosure = memo(({ title, children, className }) => {
+const MyDisclosure = memo(({ children, className, title }) => {
   return (
     <Disclosure>
       {({ open }) => (
@@ -12,7 +12,7 @@ const MyDisclosure = memo(({ title, children, className }) => {
             className={cn(
               'custom-focus button-outline flex w-full items-center justify-between rounded-lg bg-slate-100 px-4 py-2 dark:bg-slate-900',
               open && '!border-pink-500',
-              className
+              className,
             )}
           >
             <span className="text-sm uppercase tracking-widest">{title}</span>

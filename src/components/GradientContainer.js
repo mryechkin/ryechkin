@@ -5,7 +5,7 @@ export default function GradientContainer({ children, className, ...props }) {
     <div
       className={cn(
         'relative bg-gradient-to-br from-yellow-400 via-pink-500 to-cyan-500 p-1 dark:from-yellow-300 dark:via-pink-400 dark:to-cyan-400',
-        className
+        className,
       )}
     >
       <div

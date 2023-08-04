@@ -13,14 +13,14 @@ export default function AnimatedPath({ delay = 100 }) {
   const [xy, cycleXY] = useCycle(
     ...x.map((val, i) => {
       return { x: val * 10, y: y[i] * 20 };
-    })
+    }),
   );
 
   useInterval(
     () => {
       cycleXY();
     },
-    isActive ? delay : null
+    isActive ? delay : null,
   );
 
   return (

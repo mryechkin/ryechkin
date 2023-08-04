@@ -1,6 +1,6 @@
 import Card from './Card';
 
-export default function Posts({ data, preview, limit }) {
+export default function Posts({ data, limit, preview }) {
   return (
     <div className="mt-4 flex flex-wrap items-start justify-start gap-6">
       {data?.length
@@ -9,7 +9,7 @@ export default function Posts({ data, preview, limit }) {
               return null; // Only show up to a `limit` of posts
             }
 
-            const { date, readingTime, summary, slug, tags, title } = post.data;
+            const { date, readingTime, slug, summary, tags, title } = post.data;
             const hideCover = preview && i > 0;
 
             return (

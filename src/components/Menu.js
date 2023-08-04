@@ -12,13 +12,13 @@ const links = [
   { name: 'About', href: '/about' },
 ];
 
-export function Nav({ className, ariaLabel = 'Navigation' }) {
+export function Nav({ ariaLabel = 'Navigation', className }) {
   return (
     <nav
       aria-label={ariaLabel}
       className={cn(
         'flex items-center justify-center md:flex md:flex-row md:space-x-2',
-        className
+        className,
       )}
     >
       {links.map((item) => (

@@ -9,7 +9,7 @@ export default function HomeButton({ className }) {
       <motion.a
         className={cn(
           'p-2 text-slate-700 hover:text-sky-300 focus:text-sky-300 dark:text-slate-200 dark:hover:text-sky-300 dark:focus:text-sky-300',
-          className
+          className,
         )}
         whileFocus={{ scale: 1.1 }}
         whileHover={{ scale: 1.1 }}

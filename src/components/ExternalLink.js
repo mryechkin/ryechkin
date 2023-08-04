@@ -1,7 +1,7 @@
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
 
-export default function ExternalLink({ alt, href, children, className, icon }) {
+export default function ExternalLink({ alt, children, className, href, icon }) {
   return (
     <span className={cn(className, 'inline whitespace-nowrap')}>
       <a href={href} alt={alt} target="_blank" rel="noopener noreferrer">

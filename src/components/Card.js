@@ -9,10 +9,10 @@ import Tags from './Tags';
 
 export default function Card({
   className,
-  item,
   hideCover = false,
   isExternal = false,
   isVideo = false,
+  item,
 }) {
   if (!item) return null;
 
@@ -30,7 +30,7 @@ export default function Card({
             'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-slate-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-slate-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
             {
               'md:grid-flow-col': imageUrl && !hideCover,
-            }
+            },
           )}
           whileFocus={{ y: -3 }}
           whileHover={{ y: -3 }}
@@ -42,19 +42,19 @@ export default function Card({
               'col-span-5 flex flex-col items-center justify-start gap-4 p-4',
               {
                 'md:col-span-3 md:items-start': imageUrl && !hideCover,
-              }
+              },
             )}
           >
             <div
               className={cn(
                 'inline-flex w-full flex-nowrap items-center justify-center text-ellipsis text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl',
-                { 'md:justify-center': hideCover, 'md:justify-start': !hideCover }
+                { 'md:justify-center': hideCover, 'md:justify-start': !hideCover },
               )}
             >
               <span
                 className={cn(
                   'line-clamp-2 w-full text-center',
-                  !hideCover && 'md:text-start'
+                  !hideCover && 'md:text-start',
                 )}
               >
                 {title}

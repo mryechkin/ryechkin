@@ -8,7 +8,7 @@ const Root = styled.div({
   minWidth: 0,
 });
 
-export function Box({ css: _css, children, ...props }) {
+export function Box({ children, css: _css, ...props }) {
   return (
     <Root css={css(_css)} {...props}>
       {children}
@@ -16,7 +16,7 @@ export function Box({ css: _css, children, ...props }) {
   );
 }
 
-export function Col({ center, className, end, children, start = true, ...props }) {
+export function Col({ center, children, className, end, start = true, ...props }) {
   return (
     <div
       className={cn('flex flex-col items-center', className, {
@@ -31,7 +31,7 @@ export function Col({ center, className, end, children, start = true, ...props }
   );
 }
 
-export function Row({ center, end, children, start = true, ...props }) {
+export function Row({ center, children, end, start = true, ...props }) {
   return (
     <div
       className={cn('flex items-center', {
@@ -46,10 +46,10 @@ export function Row({ center, end, children, start = true, ...props }) {
   );
 }
 
-export function Show({ fallback, when, children }) {
+export function Show({ children, fallback, when }) {
   return when ? children : fallback;
 }
 
-export function Hide({ fallback, when, children }) {
+export function Hide({ children, fallback, when }) {
   return when ? fallback : children;
 }

@@ -27,11 +27,11 @@ const TableOfContents = ({ className, headings }) => {
                   {heading.text}
                 </a>
               </li>
-            )
+            ),
         )}
       </ul>
     ),
-    [headings]
+    [headings],
   );
 
   if (!headings?.length) {

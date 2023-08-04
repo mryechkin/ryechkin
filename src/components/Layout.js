@@ -7,7 +7,7 @@ import Header from './Header';
 import { Nav } from './Menu';
 import Social from './Social';
 
-export default function Layout({ className, children }) {
+export default function Layout({ children, className }) {
   const [confetti, setConfetti] = useConfetti();
   const year = new Date().getFullYear();
 
@@ -25,7 +25,7 @@ export default function Layout({ className, children }) {
       </main>
       <footer
         className={cn(
-          'blurred-backdrop mx-auto w-screen max-w-none border-t border-slate-200 dark:border-slate-900'
+          'blurred-backdrop mx-auto w-screen max-w-none border-t border-slate-200 dark:border-slate-900',
         )}
       >
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
