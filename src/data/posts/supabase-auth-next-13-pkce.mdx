@@ -1,0 +1,525 @@
+---
+title: Authentication in Next.js with Supabase Auth and PKCE
+date: '2023-08-07'
+published: true
+summary: How to setup authentication in Next.js using Supabase and the Auth Helpers. Now with PKCE flow!
+canonical: https://misha.wtf/blog/supabase-auth-next-13-pkce
+tags: ['Next.js', 'Supabase', 'Authentication', 'Proof Key for Code Exchange', 'PKCE']
+seo: ['Vercel', 'Next.js', 'NextJS', 'Supabase', 'Auth', 'Authentication', 'PKCE']
+author:
+  name: 'Mykhaylo Ryechkin'
+  url: 'https://twitter.com/mryechkin'
+---
+
+## Background
+
+Seems like just the other day I published an [update](/blog/supabase-auth-next-13) to my original [article](/blog/nextjs-supabase-auth) on using **Supabase Auth** with [Next.js](https://nextjs.org), and yet here we are with the 3rd installment in the series.
+
+So why another article? Well, as much as I was being a bit tongue-in-cheek about libraries changing all the time, it certainly seems to be the case with [Supabase](https://supabase.com/). Their [Next.js Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) has recently undergone several significant updates, and they are worth talking about.
+
+On the Next.js front, the [`app`](https://nextjs.org/docs/app/building-your-application/routing) router is now stable in release [13.4](https://nextjs.org/blog/next-13-4), which means a lot more projects starting to use React Server Components. Having been spending more time with RSC's myself, I'm finding certain patterns to work well, and wanted to share how I've applied those in this project.
+
+As the saying goes, "third time's the charm"? I sure hope so :sweat_smile:
+
+## Overview
+
+A few months ago Supabase introduced support for [Proof Key for Code Exchange](https://supabase.com/blog/supabase-auth-sso-pkce#introducing-pkce) flow (or **PKCE** for short, pronounced "pixy").
+
+PKCE provides applications with a more robust and secure authorization process, protecting against various types of attacks and vulnerabilities that can arise in public client environments.
+
+The PKCE flow introduces a code **verifier** (a randomly generated secret) and a code **challenge** (the hash of the code verifier). The authorization code is returned as a query parameter so it's accessible on the server.
+
+<div className="max-w-2xl [&_img]:bg-gray-900 [&_img]:rounded-lg mx-auto">
+  ![PKCE Flow (credit:
+  Supabase)](/blog/supabase-auth-next-13-pkce/supabase-auth-pkce-flow.svg)
+</div>
+
+> Learn more about **Proof Key for Code Exchange** authentication flow [here](https://oauth.net/2/pkce)
+
+Alongside this came release [`0.7.0`](https://github.com/supabase/auth-helpers/releases/tag/%40supabase%2Fauth-helpers-nextjs%400.7.0) of the Next.js Auth Helpers library, which introduced some breaking changes in order to support the new PKCE flow.
+
+In this article, I'm going to share with you the patterns I've landed on for using **PKCE** with Supabase Auth in Next.js 13+. The final solution ends up being much cleaner than the [previous iteration](/blog/supabase-auth-next-13), thanks to the recent updates in Supabase and the power of React Server Components.
+
+As a recap (or if you're reading this for the first time), here is what we're building:
+
+![App Screens](/blog/supabase-auth-next-13-pkce/app.png)
+
+The project has two authenticated pages - **Home** and **Profile**. Unauthenticated users can **Sign In**, **Sign Up**, **Reset Password** and **Update Password**. All of this is powered by Next.js `app` router, with usage of both Client and Server Components, and Supabase handling all of the authentication related functionality. Forms are built using [Formik](https://formik.org/) and [Yup](https://github.com/jquense/yup) for field validation.
+
+## Page Structure
+
+Aiming to take full advantage of RSC's, I've decided to have each authentication flow have its own route (ie. `/sign-in`, `/sign-up`, `/reset-password`, etc.). This is different from the [previous implementation](/blog/supabase-auth-next-13#pages-and-routes), where the Home route (`/`) was rendering both authenticated _and_ unauthenticated state.
+
+One of the reasons for this is to have the **Reset** and **Update Password** flow work with PKCE. I've also found this approach to result in cleaner page code, without the extra logic for determining which view to show.
+
+So, our page routes will be:
+
+- `/` (authenticated **Home** page)
+- `/profile` (authenticated **Profile** page)
+- `/sign-in` (**Sign In** page)
+- `/sign-up` (**Sign Up** page)
+- `/reset-password` (**Reset Password** page)
+- `/update-password` (**Update Password** page)
+
+## Auth Forms
+
+In the [previous iteration](/blog/supabase-auth-next-13#auth-component) of this guide, the individual auth forms were provided in a single `<Auth />` component, which had some internal state and used a `view` prop for showing a specific form (or "view").
+
+Since each authentication flow will now have its own unique route, there isn't really a need for this single `<Auth />` component anymore. We can simply use the individual form components (`<SignIn />`, `<SignUp />`, etc.) instead:
+
+```jsx:src/app/sign-in/page.js
+import SignIn from 'src/components/Auth/SignIn';
+
+export default async function SignInPage() {
+  // ...
+  return <SignIn />;
+}
+```
+
+The individual auth form components can be found in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth/blob/main/src/components/Auth). These were built using [Formik](https://formik.org/), following one of their examples in the docs. See the [previous post](/blog/supabase-auth-next-13#auth-component) for more details.
+
+## Supabase Client
+
+As mentioned earlier, the Supabase [Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) library for Next.js release [`0.7.0`](https://github.com/supabase/auth-helpers/releases/tag/%40supabase%2Fauth-helpers-nextjs%400.7.0) brought with it some substantial changes. In particular, these changes affected how we create and use the Supabase Client. Let's take a look at what those are and how they affect our project structure.
+
+### Client Components
+
+One of the big changes is that Client Component Supabase clients are now **singleton** instances, which was not the case before. Previously, we had to ensure that a single instance of Supabase was shared across Client Components. We did that using React [Context](https://react.dev/learn/passing-data-deeply-with-context) and the `AuthProvider` component.
+
+Now, thanks to the clients being singletons, we can simply import `createClientSupabaseClient` and call it wherever we need a Supabase instance (in a Client Component):
+
+```jsx
+import { createClientSupabaseClient } from '@supabase/auth-helpers-nextjs';
+
+export default function ClientComponent() {
+  const supabase = createClientSupabaseClient();
+  // ...
+}
+```
+
+This results in _much_ cleaner code in our Client Components, since we no longer need to keep track of the client-side session manually, allowing us to essentially ditch the provider pattern (well, almost... more on that below).
+
+### Server Components
+
+When it comes to Server Components, the pattern is pretty much the same. Except the function is named `createServerComponentClient`, and we also need to pass it [`cookies`](https://nextjs.org/docs/app/api-reference/functions/cookies) from `next/headers` so it can properly store the session:
+
+```jsx
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+
+export default function ServerComponent() {
+  const supabase = createServerComponentClient({ cookies });
+  // ...
+}
+```
+
+The above changes means that we no longer need to have a separate module for our Supabase clients like we did [before](/blog/supabase-auth-next-13#supabase-client), and can instead use the provided functions directly.
+
+## Auth Provider
+
+In the previous version of this guide, we used React Context and the [Provider](https://react.dev/reference/react/createContext#provider) pattern by wrapping our application in an `AuthProvider` component, to ensure that a single instance of Supabase client was being used by our Client Components:
+
+```jsx:src/app/layout.js
+export default async function RootLayout({ children }) {
+  // ...
+
+  return (
+    <html lang="en">
+      <body>
+        {/*...*/}
+        <AuthProvider>{children}</AuthProvider>
+        {/*...*/}
+      </body>
+    </html>
+  );
+}
+```
+
+Thanks to the recent updates described above, that's no longer needed. But does that mean we can get rid of the `AuthProvider` completely? Well, not quite.
+
+There is still a good reason to use it, and that's to trigger a [router refresh](https://nextjs.org/docs/app/building-your-application/caching#routerrefresh) whenever the current `session` changes. So long as we setup our pages to handle authenticated / unauthenticated state correctly, this will ensure that if a user signs out, they don't stay on the authenticated page, and similarly that they don't stay on an unauthenticated page after logging in. We'll see how to do that later on.
+
+### Handling auth state changes
+
+To handle the above, we can [listen to auth state changes](https://supabase.com/docs/reference/javascript/auth-onauthstatechange) inside a `useEffect` in the `AuthProvider` component, and trigger Next.js [`router.refresh()`](https://nextjs.org/docs/app/building-your-application/caching#routerrefresh) if the new session's `access_token` doesn't match the existing one:
+
+```jsx:src/components/AuthProvider.js
+'use client';
+
+import { createContext, useEffect } from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+
+export const AuthContext = createContext();
+
+const AuthProvider = ({ accessToken, children }) => {
+  const supabase = createClientComponentClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    const {
+      data: { subscription: authListener },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.access_token !== accessToken) {
+        router.refresh();
+      }
+    });
+
+    return () => {
+      authListener?.unsubscribe();
+    };
+  }, [accessToken, supabase, router]);
+
+  return children;
+};
+
+export default AuthProvider;
+```
+
+The `accessToken` is passed in from our root layout (`src/app/layout.js`), where we read `access_token` from the initial session, and pass it to the `AuthProvider`:
+
+```jsx:src/app/layout.js
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+
+import AuthProvider from 'src/components/AuthProvider';
+
+// ...
+
+export default async function RootLayout({ children }) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || null;
+
+  return (
+    <html lang="en">
+      <body>
+        {/*...*/}
+        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+        {/*...*/}
+      </body>
+    </html>
+  );
+}
+```
+
+Now, any time the session changes or becomes invalid, our application will refresh.
+
+As mentioned earlier, in order for this to fully work, we will also need to add logic in each page to handle the specific scenario (ie. should the user be redirected to the Home or Sign In page?).
+
+### Protected Routes and Redirecting
+
+#### Authenticated Pages
+
+For the **Home** and **Profile** pages, we want to ensure that only authenticated users have access. For this, we can check if a [user exists](https://supabase.com/docs/reference/javascript/auth-getuser) in the current session, and [redirect](https://nextjs.org/docs/app/api-reference/functions/redirect) to the `/sign-in` page if not:
+
+```jsx:src/app/page.js
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/sign-in');
+  }
+
+  // ...
+}
+```
+
+#### Unauthenticated Pages
+
+Similarly, we can ensure that the unauthenticated routes are only accessible if there is no current valid session:
+
+```jsx:src/app/sign-in/page.js
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+import SignIn from 'src/components/Auth/SignIn';
+
+export default async function SignInPage() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
+
+  if (data?.session) {
+    redirect('/');
+  }
+
+  return <SignIn />;
+}
+```
+
+Here, we're checking for an existing session, and if one is found we redirect our user to the **Home** page.
+
+## Middleware and Refreshing Session
+
+Next up, we need to ensure that the user's session does not time out or become stale, as outlined in the [docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware):
+
+> "When using the Supabase client on the server, you must perform extra steps to ensure the user's auth session remains active. Since the user's session is tracked in a cookie, we need to read this cookie and update it if necessary. Next.js Server Components allow you to read a cookie but not write back to it. Middleware on the other hand allow you to both read and write to cookies. Next.js [Middleware](https://nextjs.org/docs/app/building-your-application/routing/middleware) runs immediately before each route is rendered. We'll use Middleware to refresh the user's session before loading Server Component routes."
+
+To use Next.js Middleware, we'll need to create an `src/middleware.js` file at the root of our source folder (NOT the `app`, this is a common mistake!). In there we'll fetch the current session, and let Supabase client take care of updating the cookie.
+
+Similar to Server and Client Components, there is a separate function to create Supabase client in Middleware called `createMiddlewareClient`. Add the following to `src/middleware.js`:
+
+```jsx:src/middleware.js
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
+
+export async function middleware(req) {
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
+  return res;
+}
+
+export const config = {
+  matcher: ['/', '/profile'],
+};
+```
+
+Note that we really only need this to run on authenticated routes, so we're using path [`matcher`](https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths) to ensure this code runs only for **Home** and **Profile** pages.
+
+## Setting up Code Exchange for PKCE flow
+
+Supabase Auth supports two authentication flows: **Implicit** and **PKCE**.
+
+The **PKCE** flow is what we're using in this guide, and is generally preferred when on the server. It introduces a few additional steps which guard against replay and URL capture attacks. Unlike the **Implicit** flow, it also allows users to access the `access_token` and `refresh_token` on the server.
+
+The Next.js Auth Helpers are configured to use the PKCE auth flow as of version `0.7.0`, and require us to setup a Code Exchange route in order to exchange an auth `code` for the user's session, which is set as a cookie for future requests made to Supabase.
+
+> **NOTE**
+> For security purposes, the code has a validity of 5 minutes and can only be exchanged for an access token once. You will need to restart the authentication flow from scratch if you wish to obtain a new access token.
+
+To setup the code exchange, let's create a [Route Handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) at the `/auth/callback` route. Create a file `src/app/auth/callback/route.js` and add the following:
+
+```jsx:src/app/auth/callback/route.js
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
+
+export async function GET(request) {
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
+
+  if (code) {
+    const supabase = createRouteHandlerClient({ cookies });
+    await supabase.auth.exchangeCodeForSession(code);
+  }
+
+  // URL to redirect to after sign in process completes
+  return NextResponse.redirect(requestUrl.origin);
+}
+```
+
+Now anytime a user successfully signs in, Supabase will be able to store that session, and we'll have access to it through Supabase clients.
+
+## Setting up Auth Flows
+
+Now that we have Supabase configured, the next piece of the puzzle is to hook up our auth forms to handle the relevant authentication flows: **Sign In**, **Sign Up**, **Reset Password** and **Update Password**.
+
+All of the forms will follow a similar pattern. We'll let [Formik](https://formik.org/) handle all the form-related functionality (field validation, reading the form data), and on form submit we'll create a handler function:
+
+```jsx
+async function handler(formData) {
+  // ...
+}
+
+<Formik onSubmit={handler} {/*...*/}>
+```
+
+### Sign In
+
+For **Sign In**, we'll use email and password credentials, and the [`signInWithPassword`](https://supabase.com/docs/reference/javascript/auth-signinwithpassword) method.
+
+Add the following to the `SignIn` component:
+
+```jsx:src/components/Auth/SignIn.js
+const SignIn = () => {
+  const supabase = createClientComponentClient();
+  // ...
+
+  async function signIn(formData) {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (error) {
+      // handle error
+    }
+  }
+  // ...
+};
+```
+
+### Sign Up
+
+Similarly for **Sign Up**, create a handler that will call the [`signUp`](https://supabase.com/docs/reference/javascript/auth-signup) method.
+
+Add the following in the `SignUp` component:
+
+```jsx:src/components/Auth/SignUp.js
+const SignUp = () => {
+  const supabase = createClientComponentClient();
+  // ...
+
+  async function signUp(formData) {
+    const { error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (error) {
+      setErrorMsg(error.message);
+    } else {
+      setSuccessMsg('Success! Please check your email for further instructions.');
+    }
+  }
+  //...
+};
+```
+
+### Reset Password
+
+The **Reset Password** flow consists of 2 main steps:
+
+1. Allow the user to login via the password reset link
+2. Update the user's password
+
+When the user clicks the reset link in the email they are redirected back to our application. We'll need to specify the URL for that via the `redirectTo` option in the [`resetPasswordForEmail`](https://supabase.com/docs/reference/javascript/auth-resetpasswordforemail) method.
+
+This URL will be a new route handler that will handle the authentication request from the email, and will essentially allow the user to be "logged in" in order to set a new password. That part we'll handle in the next step.
+
+First, in our `ResetPassword` component, create a handler with the following:
+
+```jsx:src/components/Auth/ResetPassword.js
+const ResetPassword = () => {
+  const supabase = createClientComponentClient();
+  // ...
+
+  async function resetPassword(formData) {
+    const { error } = await supabase.auth.resetPasswordForEmail(formData?.email, {
+      redirectTo: `${window.location.origin}/auth/update-password`,
+    });
+
+    if (error) {
+      // handle error
+    } else {
+      // handle success
+    }
+  }
+  //...
+};
+```
+
+Here, `/auth/update-password` will be the route that users will be redirected to. Note the use of `window.location.origin` as well, which is an easy way to ensure the base path is always matching your environment (ie. local development vs production).
+
+Since this handler is always called on the client side (ie. in the browser), it's safe to use `window` this way.
+
+### Update Password
+
+When a user gets the Reset Password email and click on the link, they'll be redirected to the `/auth/update-password` route in our app. This will be a route handler that will sign the user in (using the auth `code` from the email), and once a session is created, redirect them to the `/update-password` page so that they can set the new password.
+
+The mechanism here is very much the same as what we had setup for the `/auth/callback` route, only this time after exchanging the `code` for a session, we will redirect the user to `/update-password`.
+
+Create a new file under `src/app/auth/update-password/route.js` and add the following:
+
+```jsx:src/app/auth/update-password/route.js
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
+
+export async function GET(request) {
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
+
+  if (code) {
+    const supabase = createRouteHandlerClient({ cookies });
+    await supabase.auth.exchangeCodeForSession(code);
+
+    return NextResponse.redirect(`${requestUrl.origin}/update-password`);
+  }
+
+  console.error('ERROR: Invalid auth code or no auth code found');
+
+  return NextResponse.redirect(`${requestUrl.origin}/sign-in`);
+}
+```
+
+Here, if the code exchange is successful, we're redirecting the user to `/update-password` page, otherwise we send them back to `/sign-in`.
+
+Next up, let's update our `UpdatePassword` component to handle the actual password update itself. For this, we'll use [`updateUser`](https://supabase.com/docs/reference/javascript/auth-updateuser) method.
+
+Add the following to `src/components/Auth/UpdatePassword.js`:
+
+```jsx:src/components/Auth/UpdatePassword.js
+const UpdatePassword = () => {
+  const supabase = createClientComponentClient();
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  async function updatePassword(formData) {
+    const { error } = await supabase.auth.updateUser({
+      password: formData.password,
+    });
+
+    if (error) {
+      // handle error
+    } else {
+      // Go to Home page
+      router.replace('/');
+    }
+  }
+  // ...
+};
+```
+
+We also want to make sure that only authenticated users can access the `/update-password` route, so let's add that logic in our page code in `src/app/update-password/page.js`:
+
+```jsx:src/app/update-password/page.js
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+import UpdatePassword from 'src/components/Auth/UpdatePassword';
+
+export default async function UpdatePasswordPage() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect('/sign-in');
+  }
+
+  return <UpdatePassword />;
+}
+```
+
+And that's it! Now our users can successfully update their password.
+
+## Wrapping Up
+
+The complete project can be found in GitHub: [github.com/mryechkin/nextjs-supabase-auth](https://github.com/mryechkin/nextjs-supabase-auth)
+
+I'm pretty happy with the patterns I've landed on here, and plan on using this setup if I'm working with Supabase for the foreseeable future (or at least until Supabase decides to change things around again :sweat_smile:)
+
+Jokes aside, this will (probably) be the last I wrote on this topic for some time. If you haven't yet, check out my previous two articles in this series for more background and the history of my explorations with Supabase:
+
+- Part 1: [User Authentication in Next.js with Supabase](/blog/nextjs-supabase-auth)
+- Part 2: [Authentication in Next.js with Supabase and Next 13](/blog/supabase-auth-next-13)
+
+Thanks for reading! Until next time.

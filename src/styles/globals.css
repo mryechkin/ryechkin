@@ -143,7 +143,7 @@ html {
   }
 
   .prose code {
-    @apply whitespace-nowrap rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
+    @apply whitespace-nowrap font-normal rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
   }
 
   .prose-lg code {
@@ -183,9 +183,9 @@ html {
     @apply my-8 sm:my-10 !important;
   }
 
-  .prose img:not('not-prose') {
+  /* .prose:not('not-prose') img {
     @apply border-outline shadow-retro dark:shadow-retro-dark;
-  }
+  } */
 
   .prose pre {
     @apply my-0 rounded-none;
@@ -213,7 +213,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply border-2 border-b-0 border-indigo-200 bg-indigo-50 px-2 py-1 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
+    @apply border-2 border-b-0 shadow-retro dark:shadow-retro-dark border-indigo-200 bg-indigo-50 px-2 py-1 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
   }
 
   .prose-lg .rehype-code-title {

@@ -1,25 +1,24 @@
 ---
-title: 'Authentication in Next.js with Supabase and Next 13'
+title: Authentication in Next.js with Supabase and Next 13
 date: '2023-01-25'
-modified: '2023-06-11'
+modified: '2023-08-08'
 published: true
-summary: 'How to setup authentication in your Next.js app, using Supabase and the new Auth Helpers. Updated for Supabase v2 and Next 13.'
+summary: How to setup authentication in your Next.js app, using Supabase and the new Auth Helpers. Updated for Supabase v2 and Next 13.
 canonical: https://misha.wtf/blog/supabase-auth-next-13
 tags: ['Next.js', 'Supabase', 'Authentication']
 seo: ['Vercel', 'Next.js', 'NextJS', 'Supabase', 'Auth', 'Authentication']
 author:
-  name: 'Mykhaylo Ryechkin'
-  url: 'https://twitter.com/mryechkin'
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
 ---
 
 ## Intro
 
 <Warning>
-  Please note that this guide is **not** using the latest version of **Next.js Auth
-  Helpers** (`0.7.x` at the time of writing), as it introduced some breaking changes and
-  regressions in Reset Password flow. The version used in this guide is pinned at `0.6.1`.
-  If you'd like to use the latest version, please see the [v0.7.x migration
-  guide](https://supabase.com/docs/guides/auth/auth-helpers/nextjs#migrating-to-v07x).
+  Note that this guide is now outdated, and is using an older version of the **Next.js
+  Auth Helpers** (pinned at `0.6.1`). Please see the [updated
+  guide](/blog/supabase-auth-next-13-pkce) for the latest version that utilizes the
+  **Proof Key for Code Exchange** (PKCE) flow.
 </Warning>
 
 Awhile back I wrote an [article](/blog/nextjs-supabase-auth) on using [Supabase](https://supabase.com/) to implement user authentication in a [Next.js](https://nextjs.org) app. As it often goes in the world of open-source web, things evolve quickly and a lot can change in just over a year, and so is the case with Supabase.
@@ -1165,9 +1164,7 @@ Happy coding!
 
 ## Reference Materials
 
-- **GitHub:** [github.com/mryechkin/nextjs-supabase-auth](https://github.com/mryechkin/nextjs-supabase-auth) (`main` branch)
+- **GitHub:** [github.com/mryechkin/nextjs-supabase-auth](https://github.com/mryechkin/nextjs-supabase-auth) (`v2` branch)
 - **Live Example:** [supabase-auth-next-13.vercel.app](https://supabase-auth-next-13.vercel.app)
-- **Next.js** Beta Docs: [beta.nextjs.org](https://beta.nextjs.org)
-- **React** Beta Docs: [beta.reactjs.org](https://beta.reactjs.org)
-
-**EDIT:** Both [React](https://react.dev) and [Next.js](https://nextjs.org) docs have since been released.
+- **Next.js** Docs: [nextjs.org](https://nextjs.org)
+- **React** Docs: [react.dev](https://react.dev)

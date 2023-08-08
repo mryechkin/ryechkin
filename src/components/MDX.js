@@ -55,10 +55,7 @@ const CustomLink = (props) => {
 const ImageCard = ({ alt, className, ...props }) => (
   <>
     <img
-      className={cn(
-        'border-outline mx-auto flex w-full max-w-4xl shadow-retro dark:shadow-retro-dark',
-        className,
-      )}
+      className={cn('mx-auto flex w-full max-w-4xl', className)}
       alt={alt}
       {...props}
     />
