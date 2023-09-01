@@ -4,6 +4,15 @@ import Card from './Card';
 
 const VIDEOS = [
   {
+    title: 'Build a Figma plugin using Vite and Preact',
+    date: '2023-08-31',
+    duration: '17:49',
+    href: 'https://youtu.be/fCAZ5JuUygw',
+    summary: 'Learn how to build a sample Figma plugin using Vite Preact template.',
+    imageUrl: '/thumbs/figma-vite.jpg',
+    tags: ['Figma', 'Vite', 'Preact'],
+  },
+  {
     title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
     date: '2022-05-20',
     duration: '43:18',
