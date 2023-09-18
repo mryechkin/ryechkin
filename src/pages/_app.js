@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
         defaultTheme="dark"
         disableTransitionOnChange
         enableSystem={false}
+        // value={{ dark: 'wtf-dark' }}
       >
         <StyledProvider theme={theme}>
           <Head>

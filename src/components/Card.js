@@ -1,4 +1,5 @@
 import { FaYoutube } from 'react-icons/fa';
+import { ButtonCard } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -25,16 +26,12 @@ export default function Card({
   return (
     <div className={cn('w-full', className)}>
       <Link href={href} passHref legacyBehavior>
-        <motion.a
+        <ButtonCard
+          as={motion.a}
           className={cn(
-            'not-prose custom-focus-offset group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis rounded-lg border-2 border-pink-500 bg-slate-50 no-underline shadow-retro hover:border-cyan-400 focus:border-cyan-400 focus:outline-none dark:bg-slate-900 dark:shadow-retro-dark dark:hover:border-cyan-300 dark:focus:border-cyan-300',
-            {
-              'md:grid-flow-col': imageUrl && !hideCover,
-            },
+            'not-prose !p-0 group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis no-underline',
+            imageUrl && !hideCover && 'md:grid-flow-col',
           )}
-          whileFocus={{ y: -3 }}
-          whileHover={{ y: -3 }}
-          whileTap={{ y: 0 }}
           {...externalProps}
         >
           <div
@@ -77,9 +74,10 @@ export default function Card({
             <div className="col-span-5 hidden px-4 pb-4 md:col-span-2 md:block md:pt-4">
               <div className="relative flex h-full w-full items-center justify-center">
                 <Image
-                  className="aspect-video w-full rounded-lg bg-slate-900 object-cover"
+                  className="w-full rounded-lg bg-slate-900"
                   src={imageUrl}
                   alt={title}
+                  objectFit="cover"
                   fill
                   priority
                 />
@@ -89,7 +87,7 @@ export default function Card({
               </div>
             </div>
           )}
-        </motion.a>
+        </ButtonCard>
       </Link>
     </div>
   );

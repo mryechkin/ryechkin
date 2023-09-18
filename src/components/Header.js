@@ -68,17 +68,17 @@ export default function Header({ setConfetti }) {
             <Link
               href="/"
               prefetch={false}
-              className="hidden p-2 text-xl font-normal uppercase text-slate-800 dark:text-slate-50 md:block"
+              className="hidden mr-1 retro p-2 text-3xl font-black md:block"
             >
-              <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
+              MISHA.WTF
             </Link>
           </div>
           <Link
             href="/"
             prefetch={false}
-            className="p-2 text-base font-normal uppercase text-slate-800 dark:text-slate-50 sm:text-lg md:hidden"
+            className="p-2 retro text-2xl font-black md:hidden"
           >
-            <span className="mr-1 font-black">Mykhaylo</span>Ryechkin
+            MISHA.WTF
           </Link>
           <div className="relative flex items-center justify-center">
             <Menu />

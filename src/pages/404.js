@@ -1,7 +1,7 @@
 import { FaExclamationTriangle } from 'react-icons/fa';
+import { Card } from '@wtf-ds/core';
 import Link from 'next/link';
 
-import HeroContainer from 'src/components/HeroContainer';
 import Layout from 'src/components/Layout';
 
 export default function NotFound() {
@@ -13,11 +13,11 @@ export default function NotFound() {
             <FaExclamationTriangle className="h-10 w-10 text-rose-500 dark:text-rose-300" />
           </div>
           <h1 className="retro">Page Not Found.</h1>
-          <HeroContainer>
+          <Card>
             <p className="mx-auto max-w-5xl text-lg lg:text-xl">
               These aren&apos;t the droids you&apos;re looking for.
             </p>
-          </HeroContainer>
+          </Card>
           <Link className="mt-12" href="/" prefetch={false}>
             Go Home
           </Link>

@@ -1,8 +1,8 @@
+import { Card } from '@wtf-ds/core';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote';
 
 import Counter from 'src/components/Counter';
-import HeroContainer from 'src/components/HeroContainer';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
 import SEO from 'src/components/SEO';
@@ -18,7 +18,7 @@ export default function About({ source }) {
       <SEO title={frontmatter.title} description={frontmatter.description} />
       <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
         <h1>About Me</h1>
-        <HeroContainer className="p-2 lg:p-4">
+        <Card className="p-2 lg:p-4">
           <div className="flex items-start justify-between lg:items-center">
             <div className="text-center lg:pr-4 lg:text-left ">
               <div className="not-prose pb-8 lg:hidden">
@@ -44,7 +44,7 @@ export default function About({ source }) {
               />
             </div>
           </div>
-        </HeroContainer>
+        </Card>
       </div>
       <div className="flex items-center justify-center pt-8">
         <Counter slug="blog" />

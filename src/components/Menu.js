@@ -1,10 +1,10 @@
 import { Popover } from '@headlessui/react';
 import { MenuAlt4Icon, XCircleIcon } from '@heroicons/react/outline';
+import { Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import Link from 'next/link';
 
 import DarkModeToggle from './DarkModeToggle';
-import HeroContainer from './HeroContainer';
 
 const links = [
   { name: 'Blog', href: '/blog' },
@@ -49,12 +49,10 @@ export default function Menu() {
         }
       </Popover.Button>
       <Popover.Panel className="absolute right-0 mr-1">
-        <HeroContainer>
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-8">
-            <Nav className="flex-col text-base md:flex-col" />
-            <DarkModeToggle />
-          </div>
-        </HeroContainer>
+        <Card className="flex h-full flex-1 flex-col items-center justify-center gap-8">
+          <Nav className="flex-col text-base md:flex-col" />
+          <DarkModeToggle />
+        </Card>
       </Popover.Panel>
       <Nav className="hidden text-xl" />
     </Popover>

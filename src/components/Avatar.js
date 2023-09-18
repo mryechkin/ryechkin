@@ -26,7 +26,7 @@ export default function Avatar({ className, setConfetti, ...rest }) {
       {...pressProps}
     >
       <Image
-        src="/assets/avatar.jpg"
+        src="/assets/headshot-enhanced.jpg"
         width={48}
         height={48}
         alt="Avatar"
