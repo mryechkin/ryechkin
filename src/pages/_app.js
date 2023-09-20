@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
+import Script from 'next/script';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { ThemeProvider as StyledProvider } from 'styled-components';
@@ -38,6 +39,11 @@ export default function App({ Component, pageProps }) {
         </StyledProvider>
       </ThemeProvider>
       <Analytics />
+      <Script
+        async
+        src="https://umami-one-delta.vercel.app/script.js"
+        data-website-id="503ae3df-f7a4-4e92-a22f-3cadc8373533"
+      />
     </>
   );
 }
