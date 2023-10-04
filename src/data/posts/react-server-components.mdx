@@ -1,0 +1,334 @@
+---
+title: All about React Server Components
+date: '2023-10-04'
+published: true
+summary: Overview of React Server Components - what they are, their benefits, and characteristics to be aware of.
+canonical: https://misha.wtf/blog/react-server-components
+tags: ['React', 'Server Components', 'RSC', 'Next.js']
+seo: ['React', 'Server Components', 'RSC', 'Next.js', 'React Server Components']
+author:
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
+---
+
+## Intro
+
+**React Server Components** are a new concept in the React ecosystem, and if you're wondering what all the fuss is about, then this article is for you.
+
+So... what are **React Server Components** anyway?
+
+## Background
+
+React Server Components (often referred to as just **Server Components** or **RSC**) are a new paradigm coming to the React ecosystem, and signify what can be thought of as the **3rd Age of React** - where there is a significant shift in how we write and architect our React code. The last time this happened was with introduction of hooks in function components.
+
+Server Components introduce a new way to architect React applications and libraries, and bring along a signficant change to our React mental model and how we think about a React component's lifecycle.
+
+You see, through most of React's lifetime (up until recently), the majority of applications built with it were what we consider **client-side**. Let's call this era "the age of client-side React". This is every app that was built with the [create-react-app](https://create-react-app.dev) scaffold (now legacy), or a myriad of other custom [Webpack](https://webpack.js.org) configurations since React's inception.
+
+This is your typical app where you have a `<div id="root">` in your root HTML page, and your entire application bundle (including React itself) is shipped to the browser:
+
+```html
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- ... -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/dist/bundle.js"></script>
+  </body>
+</html>
+```
+
+When the browser loads that page, your application is initalized and React renders it into that `root` element using React DOM. From there, your application runs on the client side (meaning in the browser). This includes things like routing when using libraries like [React Router](https://reactrouter.com/).
+
+This means that the browser needs to download all of the code necessary to render a particular page, and that carries a performance cost. Now, there are techniques like code-splitting to help mitigate the bundle size needed for a particular page, but that only takes you so far. At the end of the day there is still code that the browser needs to download, and then subsequently run, in order to get the final HTML output.
+
+With **Server Components**, a server can do a lot of that work before sending a response to the browser - and have React render everything on the **server**. The browser then gets just the resulting HTML, which it knows exactly what to do with.
+
+> **NOTE:** In reality, it's more complex than that - but we'll keep it simple for the purposes of this explanation. See [Further Reading](#further-reading) for a list of much more detailed explanations.
+
+But wait, isn't that called "server-side rendering"? Well, not quite.
+
+## Server-Side Rendering (SSR) and RSC
+
+When a React app runs on the client, the first thing a user will see is a blank screen. That's because the initial HTML is just an empty `<div>` element, and React hasn't had a chance to render anything yet. Only once the browser downloads the JS bundle and React initializes the app, do we see a result on the screen. Depending on the network speed, application bundle size, and other factors, this may take a varying amount of time as well. That's not the greatest user experience.
+
+Server-Side Rendering (or **SSR**) is a way to address this problem. It is a mechanism through which a server can "pre-render" React components before a payload is sent to the browser, and send the rendered result as static HTML - which the browser can readily use. The catch is, in order for these components to be fully interactive and work as expected, they need to be "hydrated" on the client - and so the server still needs to send an additional payload alongside the HTML for it to fully work. Additionally, SSR only happens on the initial page load.
+
+Prior to **RSC**, all React components were considered "client" components, because they all run in the browser (ie. the "client"). So even though SSR gives us pre-rendering of the static HTML, our React components aren't truly finished rendering until they've run on the client.
+
+With Server Components, that all changes. **RSC** run _entirely on the server_, and their final rendered result is sent to the browser as HTML. There is nothing left to hydrate!
+
+Not only that, but since RSC are run on the server, they allow us to execute server-only code right there in body of the main rendering function:
+
+```jsx
+function ServerComponent() {
+  const db = new DB(); // connect directly to database
+  // ...
+  return <table>{/* show data */}</table>;
+}
+```
+
+That includes all of your favourite Node methods. Want to read from the file system? No problem - Node's `fs` is readily available. You couldn't do this before in regular React components.
+
+This comes with caveats, however, as **Server Components** aren't without their limitations. As mentioned earlier, for components to be fully interactive, they need to be hydrated on the client. So, any attempt to run code like this on the server will result in an error:
+
+```jsx
+const ServerComponent = () => {
+  function handleOnClick(event) {
+    // ...
+  }
+
+  return <button onClick={handleOnClick}>Click Me</button>;
+};
+```
+
+Additionally, Server Components can't run hooks and effects, so any attempt to `useEffect` or `useState` will also result in an error.
+
+If a React component requires any of the above, it will need to be declared a **Client Component**.
+
+## Client Components
+
+**Client Components** are just your regular React components we all use and love - they're essentially what all React components were prior to the introduction of **RSC**. The name "Client Component" is simply to distinguish them from the new **Server Components**, and doesn't introduce anything new.
+
+To declare a component as a Client Component, we need to add a `"use client"` directive at the very top of the file:
+
+```jsx
+'use client';
+
+import { useEffect } from 'react';
+
+// ...
+
+const ClientComponent = () => {
+  useEffect(() => {
+    // ...
+  }, []);
+
+  function handleOnClick(event) {
+    // this now works!
+  }
+
+  return <button onClick={handleOnClick}>Click Me</button>;
+};
+```
+
+This will tell React to treat anything in this file as a Client Component, and it will work exactly as you would expect a regular React component to work.
+
+Now, this entire mechanism requires some pretty deep integration with the bundler, since our app now crosses the client / server boundary. For this and other reasons, React team recommends [using a metaframework](https://react.dev/learn/start-a-new-react-project) like [Next.js](https://nextjs.org/), [Remix](https://remix.run/) or [others](https://react.dev/learn/start-a-new-react-project#production-grade-react-frameworks) when starting a new React project.
+
+## Next.js and RSC
+
+As of the writing of this article, [Next.js](https://nextjs.org/) is the **only** production-ready framework which supports RSC, and thus anything discussed here relating to React behaviour is within the context of Next.js implementation and handling of Server Components.
+
+It's important to know that Next.js uses a special **canary** build of React (`18.3` as of October 2023) to enable support of Server Components - and though many things are pretty well finalized on the Server Component API front, there may still be some changes introduced as React team finalizes this new paradigm, and other frameworks start to adopt RSC.
+
+To use Server Components in Next.js, one must use the new [App Router](https://nextjs.org/docs/app). As of Next 13.4, it's now the default when running `create-next-app`, so if you haven't tried it out yet - it's really easy to do.
+
+Simply run:
+
+```bash
+npx create-next-app my-next-app
+```
+
+## Server Component Characteristics
+
+Server Components have a few characteristics and gotchas to be aware of (see the official [RFC](https://github.com/josephsavona/rfcs/blob/server-components/text/0188-server-components.md#capabilities--constraints-of-server-and-client-components) for more details):
+
+- Server Components **can't** use client-only features like event handlers, React context, state, hooks, and effects
+- Server Components run **once per request** on the server, which is why they **can't** support client-only features like event handlers and component state
+- Server Components **can't** use browser API's
+- Server Components **can** render other Server Components, Client Components and native HTML elements
+- Server Components **can** be asynchronous (you **can** use `await` in the body of the component):
+
+  ```jsx
+  import db from 'db';
+
+  async function ServerComponent({ id }) {
+    const note = await db.posts.get(id);
+
+    return (
+      <div>
+        <h1>{note.title}</h1>
+        <section>{note.body}</section>
+      </div>
+    );
+  }
+  ```
+
+It's also worthwhile to mention that using a `"use client"` directive will mark **everything** in that specific module as a Client Component. For that reason it's important to put Client Components in their own separate files.
+
+Another characteristic to keep in mind is that unlike regular React Components, **Server Components cannot dot into a Client module**. What exactly does that mean?
+
+Say we have a Client Component like this:
+
+```jsx
+// src/components/Select.jsx
+'use client';
+
+const Select = () => {
+  // ...
+};
+
+const Item = () => {
+  // ...
+};
+
+export default Object.assign(Select, { Item });
+```
+
+This component exports the sub-component `Item` by including it together with the `default` export (via `Object.assign()`) of the `Select`.
+
+Normally, that would allow us to use `Item` like this:
+
+```jsx
+import { Select } from '@acme/components';
+// ...
+const App = () => {
+  return (
+    <Select>
+      <Select.Item>Item 1</Select.Item>
+      <Select.Item>Item 2</Select.Item>
+      <Select.Item>Item 3</Select.Item>
+    </Select>
+  );
+};
+```
+
+However, if we try this inside a Server Component:
+
+```jsx
+// src/app/page.jsx
+import { Select } from '@acme/components';
+// ...
+const App = () => {
+  return (
+    <Select>
+      <Select.Item>Item 1</Select.Item>
+      <Select.Item>Item 2</Select.Item>
+      <Select.Item>Item 3</Select.Item>
+    </Select>
+  );
+};
+```
+
+We'll run into an error:
+
+```
+Error: Cannot access .Item on the server. You cannot dot into a client module from a server component. You can only pass the imported name through.
+```
+
+This has to do with how Client Components are bundled for the browser, and the server / client boundary. Without going into specifics of the _why_ (check out [Further Reading](#further-reading) for the nitty gritty) - to use this pattern we must denote the component as a Client Component, with the `"use client"` directive:
+
+```jsx
+// src/app/page.jsx
+'use client';
+
+import { Select } from '@acme/components';
+// ...
+const App = () => {
+  return (
+    <Select>
+      <Select.Item>Item 1</Select.Item>
+      <Select.Item>Item 2</Select.Item>
+      <Select.Item>Item 3</Select.Item>
+    </Select>
+  );
+};
+```
+
+Now, everything will work as expected.
+
+> **NOTE:** If curious, there is an [open issue](https://github.com/vercel/next.js/issues/51593) right now to provide clarity from the Next.js team on this pattern.
+
+### Note on Client Components
+
+As mentioned earlier, Client Components are basically just a fancy name for regular React components, prior to introduction of Server Components. However, there is one **very important** thing to keep in mind when it comes to using them alongside RSC.
+
+Client Components **cannot** simply import Server Components - they must pass them along as **serializable props**. This means that the following won't work:
+
+```jsx
+'use client';
+
+import { createContext, useMemo } from 'react';
+import ServerComponent from './ServerComponent';
+
+const Context = createContext();
+
+const ClientComponent = () => {
+  const value = useMemo({
+    // ...
+  });
+
+  return (
+    <Context.Provider value={value}>
+      <ServerComponent />
+    </Context.Provider>
+  );
+};
+```
+
+Instead, pass the `ServerComponent` as a child (or another prop) to the `ClientComponent`:
+
+```jsx
+'use client';
+
+import { createContext, useMemo } from 'react';
+
+const Context = createContext();
+
+const ClientComponent = ({ children }) => {
+  const value = useMemo({
+    // ...
+  });
+
+  return <Context.Provider value={value}>{children}</Context.Provider>;
+};
+```
+
+Why is this important? Well, since Server Components can run code that's only meant to be run on the server, they may very well include 3rd party packages or Node internals that **cannot** run in the browser. In addition, this would bloat the client bundle (as everything from the Server Component would need to be included) - which is one of the things we're trying to avoid in the first place.
+
+It's a weird concept at first, but just remember it as a rule (kind of like we did with the rules of hooks).
+
+## Why should you care?
+
+So now that we know what React Server Components are and their basic characteristics, the big question is: "Why should I care?".
+
+Here are just some of the reasons:
+
+- Allows you to run server-side code and make API requests right in the body of the component (no more relying on `useEffect` to fetch the data)
+- Helps prevent client-side data fetching waterfalls by resolving data dependencies server-side
+- Server Components can be asynchronous, so you can use `await` directly in the component body
+- Having access to the server means you can access server secrets and use them in your React component, without exposing them to the client
+- Helps save on client bundle size, since there is no need to send a large chunk of additional JavaScript anymore
+- Allows you to keep the React component composition mental model, but apply it on the server
+- Enables [Streaming](https://nextjs.org/docs/app/building-your-application/rendering/server-components#streaming) and React [Suspense](https://react.dev/reference/react/Suspense)
+
+## How to get started?
+
+As mentioned earlier, as of the writing of this article (October 2023), the main way to get started with Server Components is through Next.js [App Router](https://nextjs.org/docs/app).
+
+Simply run `npx create-next-app@latest my-app` which will ask you a few questions and scaffold a new Next.js application. By default, the App Router is used (via the `app` folder). Now, any React components you write inside the `app` folder will be considered Server Components by default, unless the `"use client"` directive is present in the file.
+
+One important thing to keep in mind is that the [Root Layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required) in the `src/app/layout.jsx` file **must** be a Server Component. However, any of its children or [nested layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts) can be Client Components if needed.
+
+## Further Reading
+
+This article covers the basics of RSC, but if you're curious to learn more there is a lot more material available.
+
+These are some of the best resources I've come across when learning about Server Components - check them out for a more in-depth look at RSC behaviour and its specifics:
+
+- [How React Server Components Work (Plasmic Blog)](https://www.plasmic.app/blog/how-react-server-components-work)
+- [Understanding React Server Components (Vercel Blog)](https://vercel.com/blog/understanding-react-server-components)
+- [React Server Components (React Labs)](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components)
+- [Making sense of React Server Components (Josh Comeau)](https://www.joshwcomeau.com/react/server-components/)
+- [Speeding up the dbt™ docs by 20x with React Server Components](https://dagster.io/blog/dbt-docs-on-react)
+- [RFC: React Server Components](https://github.com/josephsavona/rfcs/blob/server-components/text/0188-server-components.md)
+- [Server-side rendering vs. Server Components (FrontEnd First Podcast, EP 169)](https://www.youtube.com/watch?v=fFIHZLiFYzE) (this discussion really helped understand some of the intricacies of RSCs)
+- [Everything I wish I knew before moving 50k lines of code to RSC (Mux Blog)](https://www.mux.com/blog/what-are-react-server-components)
+
+> **NOTE:** If you're looking to build a library that supports both Client and Server Components in one package, then check out my post about [React Server Components and Client Components with Rollup](/blog/rollup-server-components) for a setup that I've found to work well for me.
+
+Thanks for reading, and see you next time!
