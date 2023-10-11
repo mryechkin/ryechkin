@@ -1,6 +1,7 @@
 ---
 title: All about React Server Components
 date: '2023-10-04'
+modified: '2023-10-10'
 published: true
 summary: Overview of React Server Components - what they are, their benefits, and characteristics to be aware of.
 canonical: https://misha.wtf/blog/react-server-components
@@ -41,11 +42,11 @@ This is your typical app where you have a `<div id="root">` in your root HTML pa
 </html>
 ```
 
-When the browser loads that page, your application is initalized and React renders it into that `root` element using React DOM. From there, your application runs on the client side (meaning in the browser). This includes things like routing when using libraries like [React Router](https://reactrouter.com/).
+When the browser loads that page, your application is initialized and React renders it into that `root` element using React DOM. From there, your application runs on the client side (meaning in the browser). This includes things like routing when using libraries like [React Router](https://reactrouter.com/).
 
 This means that the browser needs to download all of the code necessary to render a particular page, and that carries a performance cost. Now, there are techniques like code-splitting to help mitigate the bundle size needed for a particular page, but that only takes you so far. At the end of the day there is still code that the browser needs to download, and then subsequently run, in order to get the final HTML output.
 
-With **Server Components**, a server can do a lot of that work before sending a response to the browser - and have React render everything on the **server**. The browser then gets just the resulting HTML, which it knows exactly what to do with.
+With **Server Components**, a server can do a lot of that work before sending a response to the browser - and have React do all the rendering _entirely_ on the server. The resulting HTML is then [streamed](https://www.patterns.dev/posts/streaming-ssr) into the browser, which it knows exactly what to do with.
 
 > **NOTE:** In reality, it's more complex than that - but we'll keep it simple for the purposes of this explanation. See [Further Reading](#further-reading) for a list of much more detailed explanations.
 
@@ -53,15 +54,27 @@ But wait, isn't that called "server-side rendering"? Well, not quite.
 
 ## Server-Side Rendering (SSR) and RSC
 
-When a React app runs on the client, the first thing a user will see is a blank screen. That's because the initial HTML is just an empty `<div>` element, and React hasn't had a chance to render anything yet. Only once the browser downloads the JS bundle and React initializes the app, do we see a result on the screen. Depending on the network speed, application bundle size, and other factors, this may take a varying amount of time as well. That's not the greatest user experience.
+When a React app runs on the client, the first thing a user will see is a blank screen. That's because the initial HTML is just an empty `<div>` element, and React hasn't had a chance to render anything yet. We see a result on the screen only once the browser downloads the JavaScript bundle, and React initializes the app. Depending on the network speed, application bundle size and other factors, this may take a varying amount of time. That's not the greatest user experience.
 
-Server-Side Rendering (or **SSR**) is a way to address this problem. It is a mechanism through which a server can "pre-render" React components before a payload is sent to the browser, and send the rendered result as static HTML - which the browser can readily use. The catch is, in order for these components to be fully interactive and work as expected, they need to be "hydrated" on the client - and so the server still needs to send an additional payload alongside the HTML for it to fully work. Additionally, SSR only happens on the initial page load.
+**Server-Side Rendering** (or "SSR") is a way to address this problem. It is a mechanism through which a server can "pre-render" React components before the result is sent to the browser. The catch is, in order for these components to be fully interactive and work as expected, they need to be ["hydrated"](https://react.dev/reference/react-dom/client/hydrateRoot) on the client - so the server needs to send an additional payload alongside the HTML for it to fully work. Additionally, SSR only happens on the initial page load.
 
-Prior to **RSC**, all React components were considered "client" components, because they all run in the browser (ie. the "client"). So even though SSR gives us pre-rendering of the static HTML, our React components aren't truly finished rendering until they've run on the client.
+Prior to **Server Components**, all React components were considered "client" components, because they all run in the browser (ie. the "client"). So even though SSR gives us pre-rendering of the static HTML, our React components aren't truly finished rendering until they've run on the client.
 
-With Server Components, that all changes. **RSC** run _entirely on the server_, and their final rendered result is sent to the browser as HTML. There is nothing left to hydrate!
+With **RSC**, that all changes. Server Components render _entirely on the server_. The result of this render is a special data format called the **React Server Component Payload** (or **RSC Payload**).
 
-Not only that, but since RSC are run on the server, they allow us to execute server-only code right there in body of the main rendering function:
+> **What is the React Server Component Payload (RSC)?**
+>
+> The RSC Payload is a compact binary representation of the rendered React Server Components tree. It's used by React on the client to update the browser's DOM. The RSC Payload contains:
+>
+> - The rendered result of Server Components
+> - Placeholders for where Client Components should be rendered and references to their JavaScript files
+> - Any props passed from a Server Component to a Client Component
+
+_Source: [Next.js Docs](https://nextjs.org/docs/app/building-your-application/rendering/server-components)_
+
+In the case of Next.js, the RSC Payload is then used to pre-render the initial HTML to send to the browser, as well as make subsequent updates to the UI after the initial page render (triggered by a route change, for example).
+
+Since RSC run on the server, they allow us to execute server-only code right there in body of the main rendering function:
 
 ```jsx
 function ServerComponent() {
@@ -73,7 +86,7 @@ function ServerComponent() {
 
 That includes all of your favourite Node methods. Want to read from the file system? No problem - Node's `fs` is readily available. You couldn't do this before in regular React components.
 
-This comes with caveats, however, as **Server Components** aren't without their limitations. As mentioned earlier, for components to be fully interactive, they need to be hydrated on the client. So, any attempt to run code like this on the server will result in an error:
+This comes with caveats, however, as Server Components aren't without their limitations. As mentioned earlier, for components to be fully interactive, they need to be hydrated on the client. So, any attempt to run code like this on the server will result in an error:
 
 ```jsx
 const ServerComponent = () => {
@@ -91,7 +104,7 @@ If a React component requires any of the above, it will need to be declared a **
 
 ## Client Components
 
-**Client Components** are just your regular React components we all use and love - they're essentially what all React components were prior to the introduction of **RSC**. The name "Client Component" is simply to distinguish them from the new **Server Components**, and doesn't introduce anything new.
+**Client Components** are just regular React components we all use and love - they're essentially what all React components were prior to the introduction of **RSC**. The name "Client Component" is simply to distinguish them from the new Server Components, and doesn't introduce anything new in itself.
 
 To declare a component as a Client Component, we need to add a `"use client"` directive at the very top of the file:
 
@@ -123,7 +136,7 @@ Now, this entire mechanism requires some pretty deep integration with the bundle
 
 As of the writing of this article, [Next.js](https://nextjs.org/) is the **only** production-ready framework which supports RSC, and thus anything discussed here relating to React behaviour is within the context of Next.js implementation and handling of Server Components.
 
-It's important to know that Next.js uses a special **canary** build of React (`18.3` as of October 2023) to enable support of Server Components - and though many things are pretty well finalized on the Server Component API front, there may still be some changes introduced as React team finalizes this new paradigm, and other frameworks start to adopt RSC.
+It's important to know that Next.js uses a special **canary** build of React (`18.3` as of October 2023) to enable support of Server Components. Though many things are pretty well finalized on the Server Component API front, there may still be some changes introduced as React team finalizes this new paradigm, and other frameworks start to adopt RSC.
 
 To use Server Components in Next.js, one must use the new [App Router](https://nextjs.org/docs/app). As of Next 13.4, it's now the default when running `create-next-app`, so if you haven't tried it out yet - it's really easy to do.
 
@@ -304,7 +317,9 @@ Here are just some of the reasons:
 - Having access to the server means you can access server secrets and use them in your React component, without exposing them to the client
 - Helps save on client bundle size, since there is no need to send a large chunk of additional JavaScript anymore
 - Allows you to keep the React component composition mental model, but apply it on the server
-- Enables [Streaming](https://nextjs.org/docs/app/building-your-application/rendering/server-components#streaming) and React [Suspense](https://react.dev/reference/react/Suspense)
+- Enables [Streaming](https://nextjs.org/docs/app/building-your-application/rendering/server-components#streaming) and React [Suspense](https://react.dev/reference/react/Suspense) - Server Components allow you to split the rendering work into chunks and stream them to the client as they become ready, allowing the user to see parts of the page earlier without having to wait for the entire page to be rendered on the server
+- Faster initial page load and [First Contentful Paint (FCP)](https://web.dev/fcp/), since the initial static HTML can be shown to the user right away, without waiting for the client to download, parse and execute the JavaScript needed to render the page
+- Improved **SEO** (Search Engine Optimization) - the rendered HTML can be used by search engine bots to index pages (as opposed to when everything is rendered on the client)
 
 ## How to get started?
 
