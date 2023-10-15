@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
 import Script from 'next/script';

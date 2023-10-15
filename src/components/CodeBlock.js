@@ -6,8 +6,8 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import cn from 'classnames/dedupe';
 import * as Framer from 'framer-motion';
 import { useTheme } from 'next-themes';
-import babelParser from 'prettier/parser-babel';
-import prettier from 'prettier/standalone';
+// import babelParser from 'prettier/parser-babel';
+// import prettier from 'prettier/standalone';
 import { themes } from 'prism-react-renderer';
 import styled from 'styled-components';
 
@@ -49,23 +49,23 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
   const [editorCode, setEditorCode] = React.useState(code.trim());
   const { theme } = useTheme();
 
-  const formatOnKey = (e) => {
-    if (e.ctrlKey && e.keyCode === 76) {
-      formatCode();
-    }
-  };
+  // const formatOnKey = (e) => {
+  //   if (e.ctrlKey && e.keyCode === 76) {
+  //     formatCode();
+  //   }
+  // };
 
-  const formatCode = () => {
-    setEditorCode((currentCode) =>
-      prettier
-        .format(currentCode, {
-          parser: 'babel',
-          plugins: [babelParser],
-          trailingComma: 'es5',
-        })
-        .slice(0, -1),
-    );
-  };
+  // const formatCode = () => {
+  //   setEditorCode((currentCode) =>
+  //     prettier
+  //       .format(currentCode, {
+  //         parser: 'babel',
+  //         plugins: [babelParser],
+  //         trailingComma: 'es5',
+  //       })
+  //       .slice(0, -1),
+  //   );
+  // };
 
   const onChange = (newCode) => setEditorCode(newCode.trim());
 
@@ -95,7 +95,7 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
             )}
           >
             <div className="absolute right-3 top-3 flex items-center justify-center gap-2">
-              <Button aria-label="Format code" title="Format code" onClick={formatCode}>
+              <Button aria-label="Format code" title="Format code" onClick={null}>
                 <SiPrettier />
               </Button>
               <CopyButton code={code} />

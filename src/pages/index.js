@@ -32,7 +32,7 @@ export default function Home({ posts }) {
         </div>
       </div>
       <div className="mx-auto items-center justify-center">
-        <Prose className="mt-1 md:mt-4 text-center lg:max-w-3xl">
+        <Prose className="mt-1 text-center md:mt-4 lg:max-w-3xl">
           <Card className="flex items-center justify-between p-8 md:flex-row lg:max-w-3xl">
             <div className="flex flex-col gap-4 pr-0 md:pr-4 md:text-left">
               <div className="inline-block">

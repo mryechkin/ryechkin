@@ -29,7 +29,7 @@ export default function Card({
         <ButtonCard
           as={motion.a}
           className={cn(
-            'not-prose !p-0 group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis no-underline',
+            'not-prose group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis !p-0 no-underline',
             imageUrl && !hideCover && 'md:grid-flow-col',
           )}
           {...externalProps}

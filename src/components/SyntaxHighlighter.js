@@ -23,7 +23,7 @@ const SyntaxHighlighter = ({ children }) => {
       theme={theme === 'dark' ? themes.nightOwl : themes.github}
     >
       {({ className, getLineProps, getTokenProps, style, tokens }) => (
-        <div className="group relative border-2 border-indigo-200 font-mono dark:border-indigo-800 shadow-retro dark:shadow-retro-dark">
+        <div className="group relative border-2 border-indigo-200 font-mono shadow-retro dark:border-indigo-800 dark:shadow-retro-dark">
           <CopyButton
             className="absolute right-0 mr-1.5 mt-1.5 sm:mr-2 sm:mt-2"
             code={code}
