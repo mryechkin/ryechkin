@@ -1,7 +1,7 @@
-import { usePress } from 'react-aria';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { usePress } from 'react-aria';
 
 export default function Avatar({ className, setConfetti, ...rest }) {
   const { pressProps } = usePress({

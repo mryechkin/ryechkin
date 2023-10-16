@@ -1,9 +1,9 @@
-import { FaYoutube } from 'react-icons/fa';
 import { ButtonCard } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaYoutube } from 'react-icons/fa';
 
 import DateDisplay from './DateDisplay';
 import Tags from './Tags';

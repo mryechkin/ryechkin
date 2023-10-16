@@ -1,5 +1,5 @@
-import { HiOutlineDocumentText } from 'react-icons/hi';
 import cn from 'classnames';
+import { HiOutlineDocumentText } from 'react-icons/hi';
 
 export default function Caption({ children, className, hideIcon = false }) {
   return (

@@ -198,6 +198,7 @@ Normally, that would allow us to use `Item` like this:
 
 ```jsx
 import { Select } from '@acme/components';
+
 // ...
 const App = () => {
   return (
@@ -215,6 +216,7 @@ However, if we try this inside a Server Component:
 ```jsx
 // src/app/page.jsx
 import { Select } from '@acme/components';
+
 // ...
 const App = () => {
   return (
@@ -240,6 +242,7 @@ This has to do with how Client Components are bundled for the browser, and the s
 'use client';
 
 import { Select } from '@acme/components';
+
 // ...
 const App = () => {
   return (
@@ -266,6 +269,7 @@ Client Components **cannot** simply import Server Components - they must pass th
 'use client';
 
 import { createContext, useMemo } from 'react';
+
 import ServerComponent from './ServerComponent';
 
 const Context = createContext();

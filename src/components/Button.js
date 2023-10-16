@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
-import { usePress } from 'react-aria';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
+import { usePress } from 'react-aria';
 
 const Button = forwardRef((props, ref) => {
   const { children, className, onClick, outline = true, ...rest } = props;

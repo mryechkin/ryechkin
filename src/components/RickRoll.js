@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePress } from 'react-aria';
 import { FaHeadphones } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
-import { AnimatePresence, motion } from 'framer-motion';
 
 import { useHits } from 'src/lib/hooks';
 

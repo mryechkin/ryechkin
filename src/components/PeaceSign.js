@@ -1,7 +1,7 @@
-import { usePress } from 'react-aria';
-import { FaHandPeace } from 'react-icons/fa';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
+import { usePress } from 'react-aria';
+import { FaHandPeace } from 'react-icons/fa';
 
 export default function PeaceSign({ className, innerClassName, setConfetti }) {
   const { pressProps } = usePress({

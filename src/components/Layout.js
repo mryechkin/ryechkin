@@ -1,5 +1,5 @@
-import Confetti from 'react-dom-confetti';
 import cn from 'classnames/dedupe';
+import Confetti from 'react-dom-confetti';
 
 import { useConfetti } from 'src/lib/hooks';
 

@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import { MDXRemote } from 'next-mdx-remote';
+import Head from 'next/head';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';

@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 
 export default function SEO({ canonical, description, image, openGraph, title }) {
   const fullTitle = title ? `${title} - Mykhaylo Ryechkin` : 'Mykhaylo Ryechkin';

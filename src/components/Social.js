@@ -1,6 +1,6 @@
-import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
+import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
 
 const social = [
   {

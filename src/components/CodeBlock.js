@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { SiPrettier } from 'react-icons/si';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import cn from 'classnames/dedupe';
 import * as Framer from 'framer-motion';
 import { useTheme } from 'next-themes';
 // import babelParser from 'prettier/parser-babel';
 // import prettier from 'prettier/standalone';
 import { themes } from 'prism-react-renderer';
+import { SiPrettier } from 'react-icons/si';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import styled from 'styled-components';
 
 import Avatar from './Avatar';

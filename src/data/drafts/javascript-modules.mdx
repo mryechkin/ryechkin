@@ -384,6 +384,7 @@ To illustrate this, let's say we want to bundle the following code, and target a
 
 ```js
 import external_default, * as external from 'external';
+
 console.log(external_default, external.namedExport, external);
 ```
 
@@ -391,6 +392,7 @@ It's important to note that for tools like [Rollup](https://rollupjs.org), the f
 
 ```js
 import * as external from 'external';
+
 console.log(external.namedExport);
 ```
 
@@ -398,6 +400,7 @@ is completely equivalent to
 
 ```js
 import { namedExport } from 'external';
+
 console.log(namedExport);
 ```
 

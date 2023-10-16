@@ -145,7 +145,7 @@ html {
   }
 
   .prose code {
-    @apply whitespace-nowrap font-normal rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
+    @apply whitespace-nowrap rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm font-normal text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
   }
 
   .prose-lg code {
@@ -215,7 +215,7 @@ html {
   }
 
   .prose .rehype-code-title {
-    @apply border-2 border-b-0 shadow-retro dark:shadow-retro-dark border-indigo-200 bg-indigo-50 px-2 py-1 font-mono text-sm font-bold text-indigo-800 dark:border-indigo-800 dark:bg-black dark:text-indigo-200;
+    @apply border-2 border-b-0 border-indigo-200 bg-indigo-50 px-2 py-1 font-mono text-sm font-bold text-indigo-800 shadow-retro dark:border-indigo-800 dark:bg-black dark:text-indigo-200 dark:shadow-retro-dark;
   }
 
   .prose-lg .rehype-code-title {

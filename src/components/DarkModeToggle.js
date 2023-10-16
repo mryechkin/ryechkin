@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { usePress } from 'react-aria';
-import { CgSun } from 'react-icons/cg';
-import { IoMoon } from 'react-icons/io5';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
+import { usePress } from 'react-aria';
+import { CgSun } from 'react-icons/cg';
+import { IoMoon } from 'react-icons/io5';
 
 export default function DarkModeToggle({ className }) {
   const [mounted, setMounted] = useState(false);

@@ -1,7 +1,7 @@
-import { FiSmile } from 'react-icons/fi';
 import { Card } from '@wtf-ds/core';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FiSmile } from 'react-icons/fi';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';

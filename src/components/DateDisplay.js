@@ -1,8 +1,8 @@
+import cn from 'classnames/dedupe';
+import { format, parseISO } from 'date-fns';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import { IoMdBook } from 'react-icons/io';
 import { MdOutlineCameraRoll } from 'react-icons/md';
-import cn from 'classnames/dedupe';
-import { format, parseISO } from 'date-fns';
 
 export default function DateDisplay({ className, data, isExternal }) {
   const { date, duration, modified, readingTime } = data;

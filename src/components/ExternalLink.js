@@ -1,5 +1,5 @@
-import { HiOutlineExternalLink } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 
 export default function ExternalLink({ alt, children, className, href, icon }) {
   return (

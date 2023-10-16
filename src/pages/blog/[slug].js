@@ -1,6 +1,6 @@
+import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
 import Image from 'next/image';
-import { MDXRemote } from 'next-mdx-remote';
 
 import BackToTop from 'src/components/BackToTop';
 import Counter from 'src/components/Counter';

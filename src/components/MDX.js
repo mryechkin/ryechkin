@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { FaExclamation } from 'react-icons/fa';
-import { FiSmile } from 'react-icons/fi';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaExclamation } from 'react-icons/fa';
+import { FiSmile } from 'react-icons/fi';
 
-import AnimatedPath from './snippets/AnimatedPath';
 import Caption from './Caption';
 import ExternalLink from './ExternalLink';
+import AnimatedPath from './snippets/AnimatedPath';
 import Spinner from './Spinner';
 import Stack from './Stack';
 

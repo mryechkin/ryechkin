@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { usePress } from 'react-aria';
-import { BiUpArrowCircle } from 'react-icons/bi';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
+import { usePress } from 'react-aria';
+import { BiUpArrowCircle } from 'react-icons/bi';
 
 export default function BackToTop({ className }) {
   const [mounted, setMounted] = useState(false);

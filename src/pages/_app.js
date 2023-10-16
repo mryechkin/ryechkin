@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-unresolved
 import { Analytics } from '@vercel/analytics/react';
-import Head from 'next/head';
-import Script from 'next/script';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
+import Head from 'next/head';
+import Script from 'next/script';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 
 import theme from 'src/lib/theme';

@@ -1,5 +1,5 @@
-import { usePress } from 'react-aria';
 import cn from 'classnames/dedupe';
+import { usePress } from 'react-aria';
 
 export default function Badges({ className, data, onClick }) {
   const { pressProps } = usePress({

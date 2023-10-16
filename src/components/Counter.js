@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { HiOutlineGlobeAlt } from 'react-icons/hi';
 import cn from 'classnames/dedupe';
+import { HiOutlineGlobeAlt } from 'react-icons/hi';
 
 import { useHits } from 'src/lib/hooks';
 
