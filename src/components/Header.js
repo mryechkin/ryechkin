@@ -23,23 +23,25 @@ export default function Header({ setConfetti }) {
   const [initial, setInitial] = useState(true);
   const [show, setShow] = useState(true);
 
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      // initial render, don't hide
-      if (initial) {
-        setInitial(false);
-        return;
-      }
-      const previous = scrollY.getPrevious();
-      const diff = latest - previous;
-      if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
-        setShow(true);
-      } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
-        setShow(diff < 0);
-      }
-    });
+  useEffect(
+    () =>
+      scrollY.onChange((latest) => {
+        // initial render, don't hide
+        if (initial) {
+          setInitial(false);
+          return;
+        }
+        const previous = scrollY.getPrevious();
+        const diff = latest - previous;
+        if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
+          setShow(true);
+        } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
+          setShow(diff < 0);
+        }
+      }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initial, scrollY]);
+    [initial, scrollY],
+  );
 
   return (
     <motion.header

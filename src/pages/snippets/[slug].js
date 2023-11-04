@@ -51,13 +51,11 @@ export async function getStaticPaths() {
   const snippets = getAllSnippets();
 
   return {
-    paths: snippets.map((post) => {
-      return {
-        params: {
-          slug: post.data?.slug,
-        },
-      };
-    }),
+    paths: snippets.map((post) => ({
+      params: {
+        slug: post.data?.slug,
+      },
+    })),
     fallback: false,
   };
 }

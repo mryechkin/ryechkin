@@ -10,11 +10,7 @@ export default function AnimatedPath({ delay = 100 }) {
   const y = x.map((i) => Math.cos(i * i));
   const [isActive, setIsActive] = useState(null);
 
-  const [xy, cycleXY] = useCycle(
-    ...x.map((val, i) => {
-      return { x: val * 10, y: y[i] * 20 };
-    }),
-  );
+  const [xy, cycleXY] = useCycle(...x.map((val, i) => ({ x: val * 10, y: y[i] * 20 })));
 
   useInterval(
     () => {
