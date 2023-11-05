@@ -48,6 +48,10 @@ html {
     @apply border-2 border-indigo-300 dark:border-indigo-500;
   }
 
+  .border-faint {
+    @apply border-outline border-opacity-30 dark:border-opacity-30;
+  }
+
   .button-outline {
     @apply border-outline hover:border-sky-400  dark:hover:border-sky-300;
   }
@@ -75,14 +79,14 @@ html {
   .retro {
     @apply font-black tracking-tight text-blue-300 selection:text-indigo-50 dark:text-amber-50 dark:selection:text-slate-800;
     text-shadow:
-      3px 2px 0px #4f46e5,
-      5px 4px 0px #c7d2fe;
+      3px 2px 0px theme(colors.indigo.600),
+      5px 4px 0px theme(colors.indigo.200);
   }
 
   .dark .retro {
     text-shadow:
-      3px 2px 0px #ec4899,
-      5px 4px 0px #fbbf24;
+      3px 2px 0px theme(colors.pink.500),
+      5px 4px 0px theme(colors.amber.400);
   }
 
   .retro-thin {

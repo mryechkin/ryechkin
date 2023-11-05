@@ -1,44 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { Button } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
-import * as Framer from 'framer-motion';
 import { useTheme } from 'next-themes';
 // import babelParser from 'prettier/parser-babel';
 // import prettier from 'prettier/standalone';
 import { themes } from 'prism-react-renderer';
 import { SiPrettier } from 'react-icons/si';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import styled from 'styled-components';
 
-import Avatar from './Avatar';
-import BackToTop from './BackToTop';
-import Badges from './Badges';
-import Button from './Button';
-import Card from './Card';
 import CopyButton from './CopyButton';
-import Counter from './Counter';
-import DarkModeToggle from './DarkModeToggle';
-import ExternalLink from './ExternalLink';
-import KyloRen from './KyloRen';
-import { Box, Col, Hide, Row, Show } from './Primitives';
+import { Col, Hide, Row, Show } from './Primitives';
 
 const scope = {
-  Avatar,
-  BackToTop,
-  Badges,
-  Box,
-  Card,
-  Counter,
-  DarkModeToggle,
-  ExternalLink,
-  KyloRen,
+  Button,
+  CopyButton,
   Hide,
   Show,
   Col,
   Row,
-  styled,
-  ...Framer,
   ...React,
 };
 
@@ -84,10 +63,10 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
           scope={scope}
           noInline={noInline}
         >
-          <LivePreview className="w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50" />
+          <LivePreview className="border-faint w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50" />
           <div
             className={cn(
-              'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
+              'border-faint relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
               {
                 'bg-slate-900': theme === 'dark',
                 'bg-gray-50': theme === 'light',

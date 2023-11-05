@@ -15,7 +15,7 @@ export default function Counter({ className, slug = 'index' }) {
   return (
     <div
       className={cn({
-        'flex select-none items-center justify-center rounded-full border-2 border-blue-400 border-opacity-25 bg-slate-50 bg-opacity-80 px-4 py-2 text-xs font-semibold tracking-widest text-blue-400 text-opacity-80 backdrop-blur dark:border-blue-500 dark:border-opacity-25 dark:bg-slate-900 dark:bg-opacity-80 dark:text-blue-500 dark:text-opacity-80': true,
+        'border-faint flex select-none items-center justify-center rounded-full bg-slate-50 bg-opacity-80 px-4 py-2 text-xs font-semibold tracking-widest text-blue-400 text-opacity-80 backdrop-blur dark:bg-slate-900 dark:bg-opacity-80 dark:text-blue-500 dark:text-opacity-80': true,
         className,
       })}
     >

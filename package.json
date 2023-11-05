@@ -15,10 +15,11 @@
     "test": "jest --watch"
   },
   "lint-staged": {
-    "*.{js,css,md*}": [
+    "*.js": [
       "eslint --fix",
       "prettier --write"
-    ]
+    ],
+    "*.{css,md*}": "prettier --write"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
