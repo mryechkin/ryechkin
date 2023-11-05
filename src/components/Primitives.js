@@ -1,20 +1,4 @@
-import css from '@styled-system/css';
 import cn from 'classnames/dedupe';
-import styled from 'styled-components';
-
-const Root = styled.div({
-  boxSizing: 'border-box',
-  margin: 0,
-  minWidth: 0,
-});
-
-export function Box({ children, css: _css, ...props }) {
-  return (
-    <Root css={css(_css)} {...props}>
-      {children}
-    </Root>
-  );
-}
 
 export function Col({ center, children, className, end, start = true, ...props }) {
   return (

@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const wtf = require('@wtf-ds/tailwind');
 
 module.exports = {
-  content: ['./src/**/*.{js,mdx}', './data/**/*.mdx'],
+  presets: [wtf],
   darkMode: 'class',
   theme: {
     extend: {
@@ -18,15 +18,15 @@ module.exports = {
       boxShadow: {
         link: '0 -6px 0 0 #7dd3fc inset',
         underline: '0 -2px 0 0 #7dd3fc inset',
-        retro: '6px 6px 0px #C7D2FE',
-        'retro-dark': '6px 6px 0px #3730A3',
-        neon: '2px 2px 0px #C7D2FE',
-        'neon-dark': '2px 2px 0px #3730A3',
+        // retro: '6px 6px 0px #C7D2FE',
+        // 'retro-dark': '6px 6px 0px #3730A3',
+        // neon: '2px 2px 0px #C7D2FE',
+        // 'neon-dark': '2px 2px 0px #3730A3',
       },
-      colors: {
-        pink: colors.fuchsia,
-        'sky-accent': '#7dd3fc',
-      },
+      // colors: {
+      //   pink: colors.fuchsia,
+      //   'sky-accent': '#7dd3fc',
+      // },
       fontFamily: {
         sans: ['Libre Franklin', ...defaultTheme.fontFamily.sans],
         serif: ['Libre Franklin', ...defaultTheme.fontFamily.serif],
@@ -50,20 +50,20 @@ module.exports = {
         wiggle: 'wiggle 0.2s ease-in-out infinite',
       },
       // Disables the backtick (`) character applied by prose classes for <code>
-      typography: {
-        DEFAULT: {
-          css: {
-            'code::before': { content: '' },
-            'code::after': { content: '' },
-          },
-        },
-      },
+      // typography: {
+      //   DEFAULT: {
+      //     css: {
+      //       'code::before': { content: '' },
+      //       'code::after': { content: '' },
+      //     },
+      //   },
+      // },
     },
   },
-  variants: {
-    extend: {
-      animation: ['hover', 'focus', 'active'],
-    },
-  },
-  plugins: [require('@tailwindcss/typography')],
+  // variants: {
+  //   extend: {
+  //     animation: ['hover', 'focus', 'active'],
+  //   },
+  // },
+  // plugins: [require('@tailwindcss/typography')],
 };
