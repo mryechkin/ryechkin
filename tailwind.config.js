@@ -5,6 +5,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const wtf = require('@wtf-ds/tailwind');
 
 module.exports = {
+  content: ['./src/**/*.{js,css,mdx}'],
   presets: [wtf],
   darkMode: 'class',
   theme: {
@@ -15,18 +16,10 @@ module.exports = {
         'circuit-dark': "url('/assets/circuit-board-dark.svg')",
         'circuit-light': "url('/assets/circuit-board-light.svg')",
       },
-      boxShadow: {
-        link: '0 -6px 0 0 #7dd3fc inset',
-        underline: '0 -2px 0 0 #7dd3fc inset',
-        // retro: '6px 6px 0px #C7D2FE',
-        // 'retro-dark': '6px 6px 0px #3730A3',
-        // neon: '2px 2px 0px #C7D2FE',
-        // 'neon-dark': '2px 2px 0px #3730A3',
-      },
-      // colors: {
-      //   pink: colors.fuchsia,
-      //   'sky-accent': '#7dd3fc',
-      // },
+      boxShadow: ({ theme }) => ({
+        link: `0 -6px 0 0 ${theme('colors.sky.300')} inset`,
+        underline: `0 -2px 0 0 ${theme('colors.sky.300')} inset`,
+      }),
       fontFamily: {
         sans: ['Libre Franklin', ...defaultTheme.fontFamily.sans],
         serif: ['Libre Franklin', ...defaultTheme.fontFamily.serif],
@@ -49,21 +42,6 @@ module.exports = {
         slow: 'wiggle 2s ease-in-out infinite',
         wiggle: 'wiggle 0.2s ease-in-out infinite',
       },
-      // Disables the backtick (`) character applied by prose classes for <code>
-      // typography: {
-      //   DEFAULT: {
-      //     css: {
-      //       'code::before': { content: '' },
-      //       'code::after': { content: '' },
-      //     },
-      //   },
-      // },
     },
   },
-  // variants: {
-  //   extend: {
-  //     animation: ['hover', 'focus', 'active'],
-  //   },
-  // },
-  // plugins: [require('@tailwindcss/typography')],
 };

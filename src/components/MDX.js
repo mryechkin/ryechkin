@@ -2,14 +2,13 @@
 import React from 'react';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaExclamation } from 'react-icons/fa';
 import { FiSmile } from 'react-icons/fi';
 
 import Caption from './Caption';
 import ExternalLink from './ExternalLink';
-import AnimatedPath from './snippets/AnimatedPath';
+import Separator from './Separator';
 import Spinner from './Spinner';
 import Stack from './Stack';
 
@@ -17,25 +16,13 @@ const Card = dynamic(() => import('./Card'), { loading: () => <Spinner /> });
 const CodeBlock = dynamic(() => import('./CodeBlock'), {
   loading: () => <Spinner />,
 });
-const KyloRen = dynamic(() => import('./KyloRen'), {
-  loading: () => <Spinner />,
-});
-const PeaceSign = dynamic(() => import('./PeaceSign'), {
-  loading: () => <Spinner />,
-});
-const PostImage = dynamic(() => import('./PostImage'), {
-  loading: () => <Spinner />,
-});
-const RickRoll = dynamic(() => import('./RickRoll'), {
-  loading: () => <Spinner />,
-});
-const Separator = dynamic(() => import('./Separator'), {
-  loading: () => <Spinner />,
-});
 const SyntaxHighlighter = dynamic(() => import('./SyntaxHighlighter'), {
   loading: () => <Spinner />,
 });
 const Tags = dynamic(() => import('./Tags'), { loading: () => <Spinner /> });
+const WTFCard = dynamic(() => import('@wtf-ds/core').then((mod) => mod.Card), {
+  loading: () => <Spinner />,
+});
 
 const CustomLink = (props) => {
   const { children, href } = props;
@@ -77,25 +64,16 @@ const MDX = {
   a: CustomLink,
   hr: Separator,
   img: ImageCard,
-  AnimatedPath,
-  Caption,
   Card,
   CodeBlock,
-  ExternalLink,
   FiSmile,
-  Image,
   ImageCard,
-  KyloRen,
-  Link,
-  PeaceSign,
-  PostImage,
   pre: (props) =>
     props.live ? <CodeBlock {...props} /> : <SyntaxHighlighter {...props} />,
-  RickRoll,
-  Separator,
   Stack,
   Tags,
   Warning,
+  WTFCard,
   ...React,
 };
 

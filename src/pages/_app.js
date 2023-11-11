@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
       <Script
         async
         src="https://umami-one-delta.vercel.app/script.js"
-        data-website-id="503ae3df-f7a4-4e92-a22f-3cadc8373533"
+        data-website-id={process.env.NEXT_PUBLIC_WEBSITE_ID}
       />
     </>
   );
