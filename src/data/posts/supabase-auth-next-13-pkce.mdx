@@ -1,6 +1,7 @@
 ---
 title: Authentication in Next.js with Supabase Auth and PKCE
 date: '2023-08-07'
+modified: '2023-11-14'
 published: true
 summary: How to setup authentication in Next.js using Supabase and the Auth Helpers. Now with PKCE flow!
 canonical: https://misha.wtf/blog/supabase-auth-next-13-pkce
@@ -17,9 +18,12 @@ Seems like just the other day I published an [update](/blog/supabase-auth-next-1
 
 So why another article? Well, as much as I was being a bit tongue-in-cheek about libraries changing all the time, it certainly seems to be the case with [Supabase](https://supabase.com/). Their [Next.js Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) has recently undergone several significant updates, and they are worth talking about.
 
-On the Next.js front, the [`app`](https://nextjs.org/docs/app/building-your-application/routing) router is now stable in release [13.4](https://nextjs.org/blog/next-13-4), which means a lot more projects starting to use React Server Components. Having been spending more time with RSC's myself, I'm finding certain patterns to work well, and wanted to share how I've applied those in this project.
+On **Next.js** front, the [App Router](https://nextjs.org/docs/app/building-your-application/routing) is now stable in release [13.4](https://nextjs.org/blog/next-13-4), which means a lot more projects starting to use React Server Components. Having been spending more time with RSC's myself, I'm finding certain patterns to work well, and wanted to share how I've applied those in this project.
 
 As the saying goes, "third time's the charm"? I sure hope so :sweat_smile:
+
+> **November 2023 Update**<br />
+> Narrator: ["It was not."](https://supabase.com/docs/guides/auth/server-side/migrating-to-ssr-from-auth-helpers) :upside_down_face: This guide will stay on Auth Helpers, I'm not refactoring this for the 4th time.
 
 ## Overview
 
@@ -193,13 +197,11 @@ export default async function RootLayout({ children }) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const accessToken = session?.access_token || null;
-
   return (
     <html lang="en">
       <body>
         {/*...*/}
-        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+        <AuthProvider accessToken={session?.access_token}>{children}</AuthProvider>
         {/*...*/}
       </body>
     </html>
