@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -30,7 +32,7 @@ export default function Avatar({ className, setConfetti, ...rest }) {
         width={48}
         height={48}
         alt="Avatar"
-        className="rounded-full"
+        className="rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-0.5"
       />
     </motion.button>
   );

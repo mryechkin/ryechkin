@@ -1,28 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { Card as WTFCard } from '@wtf-ds/core';
 import cn from 'classnames';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FaExclamation } from 'react-icons/fa';
 import { FiSmile } from 'react-icons/fi';
 
 import Caption from './Caption';
+import Card from './Card';
+import CodeBlock from './CodeBlockDynamic';
 import ExternalLink from './ExternalLink';
 import Separator from './Separator';
 import Spinner from './Spinner';
 import Stack from './Stack';
-
-const Card = dynamic(() => import('./Card'), { loading: () => <Spinner /> });
-const CodeBlock = dynamic(() => import('./CodeBlock'), {
-  loading: () => <Spinner />,
-});
-const SyntaxHighlighter = dynamic(() => import('./SyntaxHighlighter'), {
-  loading: () => <Spinner />,
-});
-const Tags = dynamic(() => import('./Tags'), { loading: () => <Spinner /> });
-const WTFCard = dynamic(() => import('@wtf-ds/core').then((mod) => mod.Card), {
-  loading: () => <Spinner />,
-});
+import SyntaxHighlighter from './SyntaxHighlighter';
+import Tags from './Tags';
 
 const CustomLink = (props) => {
   const { children, href } = props;
@@ -68,9 +60,20 @@ const MDX = {
   CodeBlock,
   FiSmile,
   ImageCard,
-  pre: (props) =>
-    props.live ? <CodeBlock {...props} /> : <SyntaxHighlighter {...props} />,
+  pre: (props) => {
+    const { children, filename, live, ...rest } = props;
+    const childProps = children?.props;
+    const code = childProps?.children;
+    const language = childProps?.className?.replace(/language-/, '').trim();
+
+    return live ? (
+      <CodeBlock {...rest}>{code}</CodeBlock>
+    ) : (
+      <SyntaxHighlighter code={code} filename={filename} language={language} {...rest} />
+    );
+  },
   Stack,
+  Spinner,
   Tags,
   Warning,
   WTFCard,

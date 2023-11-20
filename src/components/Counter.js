@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import cn from 'classnames/dedupe';

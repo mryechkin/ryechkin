@@ -65,7 +65,7 @@ Next, we need to create config files for both ESLint and Prettier.
 
 First, let's do **ESLint**. Create an `.eslintrc` file at the root of your project:
 
-```json:.eslintrc
+```json filename=".eslintrc"
 {
   "extends": [
     "eslint:recommended",
@@ -95,7 +95,7 @@ Here we're extending the recommended rule sets from ESLint, Prettier, and the Ta
 
 For **Prettier**, we'll stick with most of the defaults, overriding just a couple of options. Create a `.prettierrc` file:
 
-```json:.prettierrc
+```json filename=".prettierrc"
 {
   "printWidth": 90,
   "singleQuote": true
@@ -110,7 +110,7 @@ One neat thing with Prettier is that you don't need to explicitly list the plugi
 
 Let's now create some scripts to help automate the linting process. In `package.json`, add a `lint` and `format` scripts. For demo purposes, let's assume all of our code is in `src` folder:
 
-```json:package.json
+```json filename="package.json"
 {
   "scripts": {
     "lint": "eslint --fix src",
@@ -160,7 +160,7 @@ This does a few things:
 
 Notice the new entry in `package.json`:
 
-```json:package.json
+```json filename="package.json"
 "lint-staged": {
   "*.js": "eslint --cache --fix",
   "*.{js,css,md}": "prettier --write"
@@ -169,7 +169,7 @@ Notice the new entry in `package.json`:
 
 Let's update this to use our scripts instead:
 
-```json:package.json
+```json filename="package.json"
 "lint-staged": {
   "*.js": "npm run lint",
   "*.{js,css,md*}": "npm run format"
@@ -215,12 +215,12 @@ Now, as long as you have the `.eslintrc` and `.prettierrc` configuration files i
 
 If you'd like to take it a step further, you can also create a `.vscode/extensions.json` file in your repo to provide a list of recommended extensions for anyone cloning it:
 
-```json:.vscode/extensions.json
+```json filename=".vscode/extensions.json"
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
+    "bradlc.vscode-tailwindcss"
   ]
 }
 ```
@@ -248,7 +248,7 @@ Then, enable format on save:
 
 Note that these settings can also be specified separately for specific languages:
 
-```json:settings.json
+```json filename="settings.json"
 "[html, javascript]": {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true
@@ -261,7 +261,7 @@ Now, whenever you save a file, **Prettier** will format it using the VSCode exte
 
 If you like this setup (and are using **React** and **Next.js**) - all of the plugins mentioned here (and a few others) are included in my personal shared config:
 
-<WTFCard className="center flex items-center justify-center gap-2 [&>p]:m-0">
+<WTFCard className="flex items-center justify-center gap-2">
   ✨ [ACME ESLint Config](https://www.npmjs.com/package/eslint-config-acme) ✨
 </WTFCard>
 

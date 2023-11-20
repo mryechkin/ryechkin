@@ -119,7 +119,7 @@ First, let's scaffold out the base pages.
 
 Let's go ahead and put some placeholder content on the main page to start with:
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 import Layout from '@/components/Layout';
 
 export default function Home() {
@@ -136,7 +136,7 @@ export default function Home() {
 
 Similarly, let's put some placeholder content on the Profile page:
 
-```jsx:src/pages/profile.js
+```jsx filename="src/pages/profile.js"
 import Link from 'next/link';
 
 import Layout from '@/components/Layout';
@@ -157,7 +157,7 @@ export default function Profile() {
 
 Where `Layout` is our main layout container, abstracted into a component in `components/Layout.js`:
 
-```jsx:src/components/Layout.js
+```jsx filename="src/components/Layout.js"
 import Head from 'next/head';
 
 export default function Layout({ children }) {
@@ -227,19 +227,19 @@ Supabase Client lets us easily work with the Supabase API, and manages our authe
 
 We can do this by setting those values as [environment variables](https://nextjs.org/docs/basic-features/environment-variables) in **Next.js**. Create a `.env.local` file in the root of the project, and set the values to the ones from the dashboard earlier:
 
-```json:.env.local
+```json filename=".env.local"
 NEXT_PUBLIC_SUPABASE_URL=<value>
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<value>
 ```
 
 Next, let's create a separate file for our Supabase Client instance. Name this file `client.js` and put it in `lib` folder at the root of the project:
 
-```jsx:src/lib/client.js
+```jsx filename="src/lib/client.js"
 import { createClient } from '@supabase/supabase-js';
 
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 ```
 
@@ -253,7 +253,7 @@ We'll call this **AuthProvider** and use it as the top-level component in our ap
 
 Inside the `lib` folder, create a file `auth.js`, and add the following:
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 import { createContext, useContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
@@ -286,7 +286,7 @@ Here, we have the main **AuthProvider**, which we'll need to wrap our applicatio
 
 Now before we can use it, we need to make **AuthProvider** the top-level component of our application. We'll do this by adding the following to `pages/_app.js`:
 
-```jsx:src/pages/_app.js
+```jsx filename="src/pages/_app.js"
 import { AuthProvider } from '@/lib/auth';
 import { supabase } from '@/lib/client';
 
@@ -309,7 +309,7 @@ Let's update the **Home** page to utilize some of the user data, and add a few m
 
 <ImageCard src="/blog/nextjs-supabase-auth/home.png" alt="Home Page" />
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 import { useAuth } from '@/lib/auth';
 
 export default function Home() {
@@ -346,7 +346,7 @@ Supabase makes this easy for us to do as well. Using the **Auth** component from
 
 To do this, we'll use the **Auth** component on the main landing page, and pass it our Supabase Client instance. In `pages/index.js`, add:
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 import { Auth } from '@supabase/ui';
 
 import { supabase } from '@/lib/client';
@@ -370,7 +370,7 @@ What happens if the authenticated state changes in Supabase Client? For example,
 
 Back in our **lib/auth.js** file, create `authListener` for the `onAuthStateChange` event inside a `useEffect` hook (on initial load):
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 useEffect(() => {
   const activeSession = supabase.auth.session();
   setSession(activeSession);
@@ -380,7 +380,7 @@ useEffect(() => {
     (event, currentSession) => {
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
-    }
+    },
   );
 
   return () => {
@@ -397,7 +397,7 @@ We need a way to tell the **Auth** component which screen to show as a result of
 
 First, let's store all the possible values for both the `VIEWS` and `EVENTS` in `lib/auth.js`:
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 export const EVENTS = {
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
   SIGNED_OUT: 'SIGNED_OUT',
@@ -415,7 +415,7 @@ export const VIEWS = {
 
 We'll need to keep track of the current view in our **AuthProvider**, so let's add it as `view` to the context as well:
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 export const AuthProvider = ({ supabase, ...props }) => {
   const [view, setView] = useState(VIEWS.SIGN_IN);
   // ...
@@ -436,7 +436,7 @@ export const AuthProvider = ({ supabase, ...props }) => {
             break;
           default:
         }
-      }
+      },
     );
     // ...
   }, []);
@@ -457,7 +457,7 @@ export const AuthProvider = ({ supabase, ...props }) => {
 
 Here we're setting the `view` to `UPDATE_PASSWORD` when `PASSWORD_RECOVERY` event is dispatched, and to `SIGN_IN` when user logs out, or user is updated in session. Now all that's left is to pass this value to the **Auth** component. In our main page `pages/index.js`, update the following:
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 export default function Home() {
   const { user, view, signOut } = useAuth();
   // ...
@@ -537,7 +537,7 @@ This also broadcasts the `SIGNED_IN` event, which gets picked up by our `onAuthS
 
 Signing out a user is as easy as calling the `signOut` function:
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 const { user, view, signOut } = useAuth();
 // ...
 <button type="button" className="button-inverse" onClick={signOut}>
@@ -547,7 +547,7 @@ const { user, view, signOut } = useAuth();
 
 This will remove the signed in user from the browser session, clear any associated items from localStorage, and fire the `SIGNED_OUT` event. Since our `onAuthStateChange` event handler is already setup, it will set the `Auth` view to `SIGN_IN`, so that our users are presented with the Sign In form again:
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 switch (event) {
   // ...
   case EVENTS.SIGNED_OUT:
@@ -584,7 +584,7 @@ Since we're relying on `user` to determine whether to show the auth forms, we ne
 
 Add this conditional to check for the `view` on the `Home` page:
 
-```jsx:src/pages/index.js
+```jsx filename="src/pages/index.js"
 export default function Home() {
   const { user, view, signOut } = useAuth();
 
@@ -617,7 +617,7 @@ Let's add this to the existing **Profile** page.
 
 First, we need to create a new API route. Create a new `auth.js` file in the `pages/api` folder:
 
-```jsx:src/pages/api/auth.js
+```jsx filename="src/pages/api/auth.js"
 import { supabase } from '@/lib/client';
 
 export default function handler(req, res) {
@@ -629,7 +629,7 @@ Calling the `setAuthCookie` method will set the current `session` in a cookie, a
 
 Next, we need to ensure that whenver authentication state changes, that change gets propagated down (via the above API). To do this, update **AuthProvider** in `lib/auth.js` to call the `/api/auth` API with the current `session` in the `onAuthStateChange` handler:
 
-```jsx:src/lib/auth.js
+```jsx filename="src/lib/auth.js"
 export const AuthProvider = ({ supabase, ...props }) => {
   // ...
   useEffect(() => {
@@ -643,7 +643,7 @@ export const AuthProvider = ({ supabase, ...props }) => {
           credentials: 'same-origin',
           body: JSON.stringify({ event, session: currentSession }),
         }).then((res) => res.json());
-      }
+      },
     );
     // ...
   }, []);
@@ -655,7 +655,7 @@ We also need to enable [server-side rendering](https://nextjs.org/docs/basic-fea
 
 In `pages/profile.js`, add `getServerSideProps` and call the [getUserByCookie](https://supabase.com/docs/reference/javascript/auth-user) method from **Supabase Client**:
 
-```jsx:src/pages/profile.js
+```jsx filename="src/pages/profile.js"
 export default function Profile({ user }) {
   // ...
 }
@@ -676,7 +676,7 @@ If there is a valid logged-in user in the session stored in the cookie, we can u
 
 Next, let's update the **Profile** page to display some of the user data. Update `pages/profile.js` to display the user `id` and the `last_sign_in_at` date:
 
-```jsx:src/pages/profile.js
+```jsx filename="src/pages/profile.js"
 export default function Profile({ user }) {
   return (
     <Layout>
@@ -740,9 +740,9 @@ And this about wraps it up. If you've followed along this far, by now you should
 
 All of the code in this article is available for reference in [GitHub](https://github.com/mryechkin/nextjs-supabase-auth). Live version is available as well:
 
-> <center>
->   [next-supabase-ui-auth.vercel.app](https://next-supabase-ui-auth.vercel.app)
-> </center>
+<WTFCard className="flex justify-center">
+  [next-supabase-ui-auth.vercel.app](https://next-supabase-ui-auth.vercel.app)
+</WTFCard>
 
 If you'd like to learn more about **Supabase** and **Supabase UI**, make sure to check out the official docs:
 

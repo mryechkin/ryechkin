@@ -1,3 +1,5 @@
+'use client';
+
 import { ButtonCard } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { motion } from 'framer-motion';
@@ -36,7 +38,7 @@ export default function Card({
         >
           <div
             className={cn(
-              'col-span-5 flex flex-col items-center justify-start gap-4 p-4',
+              'col-span-5 flex flex-col items-center justify-start gap-4 overflow-hidden p-4',
               {
                 'md:col-span-3 md:items-start': imageUrl && !hideCover,
               },
@@ -64,20 +66,16 @@ export default function Card({
               />
             )}
             {tags?.length > 0 && <Tags className="justify-center" list={tags} />}
-            {summary && (
-              <p className="line-clamp-4 text-ellipsis text-left md:line-clamp-3">
-                {summary}
-              </p>
-            )}
+            {summary && <p className="line-clamp-3 text-ellipsis text-left">{summary}</p>}
           </div>
           {!hideCover && imageUrl && (
             <div className="col-span-5 hidden px-4 pb-4 md:col-span-2 md:block md:pt-4">
-              <div className="relative flex h-full w-full items-center justify-center">
+              <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <Image
-                  className="w-full rounded-lg bg-slate-900"
+                  className="w-full rounded-lg bg-slate-900 object-cover"
                   src={imageUrl}
                   alt={title}
-                  objectFit="cover"
+                  sizes="360px"
                   fill
                   priority
                 />

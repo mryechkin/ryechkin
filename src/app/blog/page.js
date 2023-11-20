@@ -4,21 +4,24 @@ import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Posts from 'src/components/Posts';
 import Prose from 'src/components/Prose';
-import SEO from 'src/components/SEO';
 import Separator from 'src/components/Separator';
+// import { WTFCard } from 'src/components/WTF';
 import { getAllPosts } from 'src/lib/data';
 
-export default function Blog({ posts }) {
+export const metadata = {
+  title: 'Mykhaylo Ryechkin | Blog',
+};
+
+export default function Blog() {
+  const posts = getAllPosts();
+
   return (
     <Layout>
-      <SEO title="Blog" />
       <Prose>
         <h1 className="retro py-2 text-5xl">Blog</h1>
-        <Card>
-          <div className="text-center lg:max-w-3xl">
-            I write about modern web development, design systems and stuff I&apos;ve
-            recently learned, used, or just simply find interesting.
-          </div>
+        <Card className="p-8 text-center lg:max-w-3xl">
+          I write about modern web development, design systems and stuff I&apos;ve
+          recently learned, used, or just simply find interesting.
         </Card>
       </Prose>
       <Separator />
@@ -30,13 +33,4 @@ export default function Blog({ posts }) {
       </div>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const posts = getAllPosts();
-  return {
-    props: {
-      posts,
-    },
-  };
 }

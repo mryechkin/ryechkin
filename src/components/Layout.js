@@ -1,14 +1,16 @@
+'use client';
+
 import cn from 'classnames/dedupe';
 import Confetti from 'react-dom-confetti';
 
-import { useConfetti } from 'src/lib/hooks';
+import useTimedToggle from 'src/hooks/useTimedToggle';
 
 import Header from './Header';
 import { Nav } from './Menu';
 import Social from './Social';
 
 export default function Layout({ children, className }) {
-  const [confetti, setConfetti] = useConfetti();
+  const [confetti, setConfetti] = useTimedToggle(false, 0);
   const year = new Date().getFullYear();
 
   return (

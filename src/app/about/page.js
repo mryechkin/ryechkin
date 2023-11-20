@@ -1,24 +1,30 @@
-import { Card } from '@wtf-ds/core';
-import { MDXRemote } from 'next-mdx-remote';
+import { compileMDX, getRawFile } from '@wtf-ds/next-mdx-utils';
 import Image from 'next/image';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
-import SEO from 'src/components/SEO';
-import { getMdx, getRawFile, getReadingTime } from 'src/lib/data';
+import { WTFCard } from 'src/components/WTF';
 import { yearsToDate } from 'src/lib/utils';
 
-export default function About({ source }) {
+export const metadata = {
+  title: 'Mykhaylo Ryechkin | About',
+};
+
+export default async function About() {
   const experience = yearsToDate('05/01/2009');
-  const { frontmatter } = source;
+  const source = getRawFile('/src/data/about.mdx');
+  const { content } = await compileMDX({
+    source,
+    components: MDX,
+    scope: { experience },
+  });
 
   return (
     <Layout>
-      <SEO title={frontmatter.title} description={frontmatter.description} />
       <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
         <h1>About Me</h1>
-        <Card className="p-2 lg:p-4">
+        <WTFCard className="p-2 lg:p-8">
           <div className="flex items-start justify-between lg:items-center">
             <div className="text-center lg:pr-4 lg:text-left ">
               <div className="not-prose pb-8 lg:hidden">
@@ -31,7 +37,7 @@ export default function About({ source }) {
                   priority
                 />
               </div>
-              <MDXRemote {...source} components={MDX} scope={{ experience }} />
+              {content}
             </div>
             <div className="not-prose hidden shrink-0 lg:inline-flex lg:w-72">
               <Image
@@ -44,7 +50,7 @@ export default function About({ source }) {
               />
             </div>
           </div>
-        </Card>
+        </WTFCard>
       </div>
       <div className="flex items-center justify-center pt-8">
         <Counter slug="blog" />
@@ -53,20 +59,20 @@ export default function About({ source }) {
   );
 }
 
-export async function getStaticProps() {
-  const fileContents = getRawFile('/src/data/about.mdx');
-  const data = await getMdx(fileContents);
+// export async function getStaticProps() {
+//   const fileContents = getRawFile('/src/data/about.mdx');
+//   const data = await getMdx(fileContents);
 
-  return {
-    props: {
-      source: {
-        ...data,
-        frontmatter: {
-          ...data.frontmatter,
-          readingTime: getReadingTime(data),
-          slug: 'about',
-        },
-      },
-    },
-  };
-}
+//   return {
+//     props: {
+//       source: {
+//         ...data,
+//         data: {
+//           ...data.data,
+//           readingTime: getReadingTime(data),
+//           slug: 'about',
+//         },
+//       },
+//     },
+//   };
+// }

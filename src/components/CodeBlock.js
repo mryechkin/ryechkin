@@ -1,91 +1,111 @@
-import React from 'react';
-import { Button } from '@wtf-ds/core';
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { useTheme } from 'next-themes';
-// import babelParser from 'prettier/parser-babel';
-// import prettier from 'prettier/standalone';
 import { themes } from 'prism-react-renderer';
+import { FiCheck } from 'react-icons/fi';
 import { SiPrettier } from 'react-icons/si';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import { CodeEditor, useLiveRunner } from 'react-live-runner';
+
+import useTimedToggle from 'src/hooks/useTimedToggle';
 
 import CopyButton from './CopyButton';
-import { Col, Hide, Row, Show } from './Primitives';
+
+// import Spinner from './Spinner';
+
+// const CodeEditor = dynamic(
+//   () => import('react-live-runner').then((module) => module.CodeEditor),
+//   { loading: Spinner, ssr: false },
+// );
 
 const scope = {
   Button,
   CopyButton,
-  Hide,
-  Show,
-  Col,
-  Row,
   ...React,
 };
 
-const CodeBlock = ({ children: rootChildren, noInline = false }) => {
-  const [isMounted, setIsMounted] = React.useState(false);
-  const { children } = rootChildren.props;
-  const code = children.trim();
-  const [editorCode, setEditorCode] = React.useState(code.trim());
+const CodeBlock = ({ children, className }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [prettified, setPrettified] = useTimedToggle(false);
   const { theme } = useTheme();
 
-  // const formatOnKey = (e) => {
-  //   if (e.ctrlKey && e.keyCode === 76) {
-  //     formatCode();
-  //   }
-  // };
+  const initialCode = children.trim();
+  const [editorCode, setEditorCode] = useState(initialCode);
 
-  // const formatCode = () => {
-  //   setEditorCode((currentCode) =>
-  //     prettier
-  //       .format(currentCode, {
-  //         parser: 'babel',
-  //         plugins: [babelParser],
-  //         trailingComma: 'es5',
-  //       })
-  //       .slice(0, -1),
-  //   );
-  // };
+  const { code, element, error, onChange } = useLiveRunner({
+    initialCode: editorCode,
+    scope,
+  });
 
-  const onChange = (newCode) => setEditorCode(newCode.trim());
+  const formatCode = useCallback(async () => {
+    if (!error) {
+      try {
+        const prettify = (await import('src/lib/utils/prettify')).default;
+        const result = await prettify(code);
+        const formattedCode = result.slice(0, -1);
+        setPrettified(true);
+        setEditorCode(formattedCode);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      }
+    }
+  }, [code, error, setPrettified]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsMounted(true);
-    // document.addEventListener('keyup', formatOnKey, false);
-    // return () => document.removeEventListener('keyup', formatOnKey, false);
   }, []);
 
-  if (isMounted && code) {
+  if (isMounted && initialCode) {
     return (
-      <div className="flex w-full flex-col items-center justify-center">
-        <LiveProvider
-          code={editorCode}
-          theme={theme === 'dark' ? themes.nightOwl : themes.github}
-          scope={scope}
-          noInline={noInline}
-        >
-          <LivePreview className="border-faint w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50" />
-          <div
-            className={cn(
-              'border-faint relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
-              {
-                'bg-slate-900': theme === 'dark',
-                'bg-gray-50': theme === 'light',
-              },
-            )}
-          >
-            <div className="absolute right-3 top-3 flex items-center justify-center gap-2">
-              <Button aria-label="Format code" title="Format code" onClick={null}>
-                <SiPrettier />
+      <div
+        className={cn(
+          'not-prose flex w-full flex-col items-center justify-center',
+          className,
+        )}
+      >
+        <div className="border-faint w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50">
+          {element}
+        </div>
+        <Card
+          className={cn('relative mt-4 w-full', {
+            'bg-slate-900': theme === 'dark',
+            'bg-gray-50': theme === 'light',
+          })}
+          innerClassName="!p-0"
+          title="Editable Example"
+          actions={
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                aria-label="Format code"
+                disabled={prettified}
+                title="Format code"
+                onClick={formatCode}
+              >
+                {prettified ? <FiCheck /> : <SiPrettier />}
               </Button>
-              <CopyButton code={code} />
+              <CopyButton code={editorCode} />
             </div>
-            <div className="text-xs font-bold uppercase text-slate-400">
-              Editable Example
-            </div>
-            <LiveEditor onChange={onChange} className="w-full p-2" />
-          </div>
-          <LiveError className="mt-4 w-full bg-red-600 p-2 text-white" />
-        </LiveProvider>
+          }
+        >
+          <CodeEditor
+            className="w-full"
+            onChange={(newCode) => {
+              setEditorCode(newCode);
+              onChange(newCode);
+            }}
+            tabIndex={-1}
+            value={editorCode}
+            theme={theme === 'dark' ? themes.nightOwl : themes.github}
+          />
+        </Card>
+        {error && (
+          <pre className="!mt-4 w-full !rounded border-2 border-red-600 bg-red-50 p-2 text-red-600">
+            {error}
+          </pre>
+        )}
       </div>
     );
   }

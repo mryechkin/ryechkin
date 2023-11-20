@@ -1,0 +1,44 @@
+---
+title: prettify
+summary: Formats a string representation of code using Prettier code formatter, for use in the browser.
+canonical: https://misha.wtf/snippets/prettify
+category: JavaScript
+---
+
+```js
+import babelPlugin from 'prettier/plugins/babel';
+import estreePlugin from 'prettier/plugins/estree';
+import prettier from 'prettier/standalone';
+
+/**
+ * Formats code using Prettier
+ * @param {string} code - Code to be formatted
+ * @param {Object} config - Optional Prettier config
+ * @return {string}
+ */
+export default async function prettify(code, config = {}) {
+  try {
+    return await prettier.format(code, {
+      parser: 'babel',
+      plugins: [babelPlugin, estreePlugin],
+      printWidth: 80,
+      ...config,
+    });
+  } catch (error) {
+    console.error(error);
+    return code;
+  }
+}
+```
+
+## Usage
+
+```js
+import prettify from './prettify';
+
+const code = `
+  // some ugly code
+`;
+
+const formatted = prettify(code);
+```

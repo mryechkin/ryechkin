@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import Link from 'next/link';
 
 import Avatar from './Avatar';
@@ -23,25 +25,20 @@ export default function Header({ setConfetti }) {
   const [initial, setInitial] = useState(true);
   const [show, setShow] = useState(true);
 
-  useEffect(
-    () =>
-      scrollY.onChange((latest) => {
-        // initial render, don't hide
-        if (initial) {
-          setInitial(false);
-          return;
-        }
-        const previous = scrollY.getPrevious();
-        const diff = latest - previous;
-        if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
-          setShow(true);
-        } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
-          setShow(diff < 0);
-        }
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [initial, scrollY],
-  );
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    // initial render, don't hide
+    if (initial) {
+      setInitial(false);
+      return;
+    }
+    const previous = scrollY.getPrevious();
+    const diff = latest - previous;
+    if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
+      setShow(true);
+    } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
+      setShow(diff < 0);
+    }
+  });
 
   return (
     <motion.header
@@ -63,14 +60,14 @@ export default function Header({ setConfetti }) {
           #StandWithUkraine
         </a>
       </div>
-      <div className="blurred-backdrop w-screen border-b border-slate-200 dark:border-slate-950">
+      <div className="blurred-backdrop w-screen border-b-2 border-slate-200 dark:border-slate-950">
         <div className="mx-auto flex w-full max-w-5xl flex-nowrap items-center justify-between px-4 py-2 md:px-2">
           <div className="flex items-center justify-between gap-2 font-bold tracking-tighter md:grow-0">
             <Avatar setConfetti={setConfetti} tabIndex="-1" />
             <Link
               href="/"
               prefetch={false}
-              className="retro mr-1 hidden p-2 text-3xl font-black md:block"
+              className="retro-thin mr-1 hidden p-2 text-3xl font-black md:block"
             >
               MISHA.WTF
             </Link>
@@ -78,7 +75,7 @@ export default function Header({ setConfetti }) {
           <Link
             href="/"
             prefetch={false}
-            className="retro p-2 text-2xl font-black md:hidden"
+            className="retro-thin p-2 text-2xl font-black md:hidden"
           >
             MISHA.WTF
           </Link>

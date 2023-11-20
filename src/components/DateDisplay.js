@@ -12,7 +12,7 @@ export default function DateDisplay({ className, data, isExternal }) {
   return (
     <div
       className={cn(
-        'flex items-center justify-center gap-2 whitespace-nowrap',
+        'flex flex-wrap items-center justify-center gap-2 whitespace-nowrap',
         className,
       )}
     >
@@ -26,28 +26,19 @@ export default function DateDisplay({ className, data, isExternal }) {
         </span>
       )}
       {readingTime && (
-        <>
-          <span className="font-black">&middot;</span>
-          <div className="flex items-center justify-center gap-2">
-            <IoMdBook className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
-            {readingTime}
-          </div>
-        </>
+        <div className="flex items-center justify-center gap-2">
+          <IoMdBook className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
+          {readingTime}
+        </div>
       )}
       {duration && (
-        <>
-          <span className="font-black">&middot;</span>
-          <div className="flex items-center justify-center gap-2">
-            <MdOutlineCameraRoll className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
-            {duration}
-          </div>
-        </>
+        <div className="flex items-center justify-center gap-2">
+          <MdOutlineCameraRoll className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
+          {duration}
+        </div>
       )}
       {isExternal && (
-        <>
-          <span className="font-black">&middot;</span>
-          <HiOutlineExternalLink className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
-        </>
+        <HiOutlineExternalLink className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
       )}
     </div>
   );

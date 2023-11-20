@@ -49,7 +49,7 @@ export default function Menu() {
         }
       </Popover.Button>
       <Popover.Panel className="absolute right-0 mr-1">
-        <Card className="flex h-full flex-1 flex-col items-center justify-center gap-8">
+        <Card className="flex h-full flex-1 flex-col items-center justify-center gap-8 p-8">
           <Nav className="flex-col text-base md:flex-col" />
           <DarkModeToggle />
         </Card>

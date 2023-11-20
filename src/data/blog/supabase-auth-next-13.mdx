@@ -85,7 +85,7 @@ npm uninstall @supabase/ui
 
 With dependencies updated, we'll need to configure Next to use the new `app` directory (make sure you're on version 13 or above). To enable this, add (or update) `next.config.js` in the project's root folder:
 
-```js:next.config.js
+```jsx filename="next.config.js"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -105,7 +105,7 @@ This will allow us to start moving some of our existing code from the `pages` di
 
 Last thing we need to do is specify the `@tailwindcss/forms` plugin in our Tailwind config file:
 
-```jsx:tailwind.config.js
+```jsx filename="tailwind.config.js"
 /** @type {import('tailwindcss').Config} */
 const forms = require('@tailwindcss/forms');
 
@@ -156,8 +156,9 @@ Create two files - `supabase-browser.js` and `supabase-server.js` - one for each
 
 #### Browser Client
 
-```jsx:src/lib/supabase-browser.js
+```jsx filename="src/lib/supabase-browser.js"
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+
 // NOTE: `createBrowserSupabaseClient` has been renamed to `createPagesBrowserClient` in version `0.7.0`
 
 const supabase = createBrowserSupabaseClient();
@@ -167,7 +168,7 @@ export default supabase;
 
 #### Server Component Client
 
-```jsx:src/lib/supabase-server.js
+```jsx filename="src/lib/supabase-server.js"
 import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
 // NOTE: `createServerComponentSupabaseClient` has been renamed to `createServerComponentClient` in version `0.7.0`
 import { cookies, headers } from 'next/headers';
@@ -279,7 +280,7 @@ Since we only have a single layout shared across the whole app, we can just crea
 
 Using the existing [Layout](https://github.com/mryechkin/nextjs-supabase-auth/tree/v1/src/components/Layout.js) component as our starting point, create `src/app/layout.js` and paste the following (feel free to adjust styling as needed):
 
-```jsx:src/app/layout.js
+```jsx filename="src/app/layout.js"
 import 'src/styles/globals.css';
 
 export default async function RootLayout({ children }) {
@@ -318,7 +319,7 @@ Previously found in the [`src/lib/auth.js`](https://github.com/mryechkin/nextjs-
 
 In the original implementation, this component was used in the `_app.js`:
 
-```jsx:src/pages/_app.js
+```jsx filename="src/pages/_app.js"
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider supabase={supabase}>
@@ -332,7 +333,7 @@ With the move to `app` directory, we'll need to find it a new home. Considering 
 
 Update `src/app/layout.js` with the following:
 
-```jsx:src/app/layout.js
+```jsx filename="src/app/layout.js"
 import { AuthProvider } from 'src/components/AuthProvider';
 
 import 'src/styles/globals.css';
@@ -358,7 +359,7 @@ Given the above, we'll need to make `AuthProvider` a Client Component, since it 
 
 To do this, add `'use client'` at the very top of the `src/components/AuthProvider.js` file:
 
-```js:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 'use client';
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
@@ -367,7 +368,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 export const AuthProvider = (props) => {
   // ...
-}
+};
 ```
 
 Note that even though `AuthProvider` is now a Client Component, it can still be imported and used in the `RootLayout` (which is a Server Component).
@@ -380,7 +381,7 @@ Next.js [middleware](https://nextjs.org/docs/advanced-features/middleware) is us
 
 So, we'll need to add Next.js middleware in our app. Create a `middleware.js` file at the root of our `src` folder, and add the following:
 
-```jsx:src/middleware.js
+```jsx filename="src/middleware.js"
 import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 
@@ -421,7 +422,7 @@ First, remove the deprecated `session()` method and use [getSession()](https://s
 
 Create an async `getActiveSession` method, and invoke it from within the `useEffect`. In the `AuthProvider` component, update the `useEffect` from this:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 useEffect(() => {
   const activeSession = supabase.auth.session();
   setSession(activeSession);
@@ -432,7 +433,7 @@ useEffect(() => {
 
 to this:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 useEffect(() => {
   async function getActiveSession() {
     const {
@@ -450,7 +451,7 @@ Next, we need to update the `onAuthStateChange` handler.
 
 To get the `authListener` for our effect cleanup, we now need to read it from `data.subscription` in the returned object:
 
-```jsx:src/components/AuthProvider.jsx
+```jsx filename="src/components/AuthProvider.jsx"
 useEffect(() => {
   // ...
   const {
@@ -472,7 +473,7 @@ The `setAuthCookie` and `getUserByCookie` methods have also been deprecated. Rec
 
 This means that we won't need to manually create or delete a cookie whenever auth state changes, and the `/api/auth` API routes are no longer required. We can delete `pages/api/auth` altogether, and remove the fetch call to `/api/auth` in our `onAuthStateChange` handler as well:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 useEffect(() => {
   // ...
   const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -483,7 +484,7 @@ useEffect(() => {
       //   credentials: 'same-origin',
       //   body: JSON.stringify({ event, session: currentSession }),
       // }).then((res) => res.json());
-    }
+    },
   );
   //...
 }, []);
@@ -491,40 +492,40 @@ useEffect(() => {
 
 The `useEffect` in `AuthProvider` should now look like this:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 //...
 useEffect(() => {
-    async function getActiveSession() {
-      const {
-        data: { session: activeSession },
-      } = await supabase.auth.getSession();
-      setSession(activeSession);
-      setUser(activeSession?.user ?? null);
-    }
-    getActiveSession();
-
+  async function getActiveSession() {
     const {
-      data: { subscription: authListener },
-    } = supabase.auth.onAuthStateChange((event, currentSession) => {
-      setSession(currentSession);
-      setUser(currentSession?.user ?? null);
+      data: { session: activeSession },
+    } = await supabase.auth.getSession();
+    setSession(activeSession);
+    setUser(activeSession?.user ?? null);
+  }
+  getActiveSession();
 
-      switch (event) {
-        case EVENTS.PASSWORD_RECOVERY:
-          setView(VIEWS.UPDATE_PASSWORD);
-          break;
-        case EVENTS.SIGNED_OUT:
-        case EVENTS.USER_UPDATED:
-          setView(VIEWS.SIGN_IN);
-          break;
-        default:
-      }
-    });
+  const {
+    data: { subscription: authListener },
+  } = supabase.auth.onAuthStateChange((event, currentSession) => {
+    setSession(currentSession);
+    setUser(currentSession?.user ?? null);
 
-    return () => {
-      authListener?.unsubscribe();
-    };
-  }, []);
+    switch (event) {
+      case EVENTS.PASSWORD_RECOVERY:
+        setView(VIEWS.UPDATE_PASSWORD);
+        break;
+      case EVENTS.SIGNED_OUT:
+      case EVENTS.USER_UPDATED:
+        setView(VIEWS.SIGN_IN);
+        break;
+      default:
+    }
+  });
+
+  return () => {
+    authListener?.unsubscribe();
+  };
+}, []);
 // ...
 ```
 
@@ -541,7 +542,7 @@ Let's make each form an individual component:
 
 Then, create a parent `Auth` component that will display the corresponding screen based on the current `view`:
 
-```jsx:src/components/Auth/index.js
+```jsx filename="src/components/Auth/index.js"
 'use client';
 
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
@@ -577,7 +578,7 @@ Here, we're checking the value of `view` from our `AuthProvider` via the `useAut
 
 The individual forms all follow the same basic structure, which looks like this for **Sign In**:
 
-```jsx:src/components/Auth/SignIn.js
+```jsx filename="src/components/Auth/SignIn.js"
 'use client';
 
 import { useState } from 'react';
@@ -715,7 +716,7 @@ Our **Home** page will use the original code from [src/pages/index.js](https://g
 
 With all said, the `Home` page should look something like this:
 
-```jsx:src/app/page.js
+```jsx filename="src/app/page.js"
 import Link from 'next/link';
 
 import Auth from 'src/components/Auth';
@@ -769,7 +770,7 @@ const { user, view, signOut } = useAuth();
 
 To fix this, we need to make `Home` a Client Component. As before, add `'use client'` at the very top of the `src/app/page.js` file:
 
-```jsx:src/app/page.js
+```jsx filename="src/app/page.js"
 'use client';
 
 import Link from 'next/link';
@@ -810,7 +811,7 @@ This is also where we use the Supabase **Server Component** client we had create
 
 Add the following to `src/app/profile/page.js`:
 
-```jsx:src/app/profile/page.js
+```jsx filename="src/app/profile/page.js"
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -845,7 +846,7 @@ Let's break this down a bit.
 
 As noted earlier, the `getUserByCookie` method was deprecated. We can now [get the current user](https://supabase.com/docs/reference/javascript/auth-getuser) with the `getUser()` method:
 
-```jsx:src/app/profile/page.js
+```jsx filename="src/app/profile/page.js"
 export default async function Profile() {
   const supabase = createClient();
 
@@ -876,7 +877,7 @@ This button will need an `onClick` handler, which means that we can't use it dir
 
 Let's put this tiny component in `src/components/SignOut.js`. Upon clicking the button, it'll call the `signOut()` method from our `AuthProvider`:
 
-```jsx:src/components/SignOut.js
+```jsx filename="src/components/SignOut.js"
 'use client';
 
 import { useAuth } from './AuthProvider';
@@ -902,7 +903,7 @@ export default function SignOut() {
 
 Then add it to the **Profile** page:
 
-```jsx:src/app/profile/page.js
+```jsx filename="src/app/profile/page.js"
 import SignOut from 'src/components/SignOut';
 
 export default async function Profile() {
@@ -935,7 +936,7 @@ But how do we know if the session is no longer valid on the server side? A-ha! F
 
 In the `AuthProvider`, add the following:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 // ...
 import { useRouter } from 'next/navigation';
 
@@ -955,7 +956,7 @@ export const AuthProvider = (props) => {
     // ...
   });
   // ...
-}
+};
 ```
 
 Now, whenever the auth state changes, we're checking if the current session's `access_token` (on the client) matches the one on the server. If it does not, we trigger a `router.refresh()` and our UI state will be updated. The server's access token will be passed as the `accessToken` prop.
@@ -964,7 +965,7 @@ So, where should this access token come from? Well, considering that we need to 
 
 Add the following to `src/app/layout.js`:
 
-```jsx:src/app/layout.js
+```jsx filename="src/app/layout.js"
 import createClient from 'src/lib/supabase-server';
 
 // ...
@@ -994,7 +995,7 @@ We also don't want our `RootLayout` to get cached, so we'll need to change the d
 
 Add the following to `src/app/layout.js`:
 
-```jsx:src/app/layout.js
+```jsx filename="src/app/layout.js"
 // ...
 export const revalidate = 0;
 ```
@@ -1007,7 +1008,7 @@ Now if go back to the **Profile** page, and click "Sign Out", we should be redir
 
 You may have noticed that when going to **Profile** for the first time, it takes a little bit of time to load. Let's exaggerate it by adding a simple `sleep` util in our `Profile` and `await` it:
 
-```jsx:src/app/profile/page.js
+```jsx filename="src/app/profile/page.js"
 // ...
 const sleep = (ms) =>
   new Promise((resolve) => {
@@ -1033,7 +1034,7 @@ Using it couldn't be any simpler. Just add a `loading.js` file wherever you'd li
 
 For our **Profile**, let's add the following to `src/app/profile/loading.js`:
 
-```jsx:src/app/profile/loading.js
+```jsx filename="src/app/profile/loading.js"
 export default function Loading() {
   return <div className="card h-72">Loading...</div>;
 }
@@ -1045,7 +1046,7 @@ Now, when you reload the page (or go to `/profile` from the home page), you shou
 
 And now that we've verified it works as expected, let's not forget to remove that `sleep` call from our **Profile** page:
 
-```jsx:src/app/profile/page.js
+```jsx filename="src/app/profile/page.js"
 // ...
 export default async function Profile() {
   const supabase = createClient();
@@ -1077,7 +1078,7 @@ Right now, if we have a valid `session` and reload the **Home** page, we'll stil
 
 This happens because on the very first render the `Home` page (which remember is a **Client Component**) doesn't yet have any `session` data from the `AuthProvider`, so it returns the `<Auth>` component:
 
-```jsx:src/app/page.js
+```jsx filename="src/app/page.js"
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();
   // ...
@@ -1099,7 +1100,7 @@ One simple way to fix this is to add another state variable in our `AuthProvider
 
 In the `AuthProvider`, create an `initial` state, and make sure its value is provided:
 
-```jsx:src/components/AuthProvider.js
+```jsx filename="src/components/AuthProvider.js"
 // ...
 export const AuthProvider = (props) => {
   const [initial, setInitial] = useState(true);
@@ -1128,12 +1129,12 @@ export const AuthProvider = (props) => {
   }, [initial, session, user, view]);
 
   return <AuthContext.Provider value={value} {...rest} />;
-}
+};
 ```
 
 Now we can read `initial` using the `useAuth` hook in our **Home** page, and while it's value is `true`, show our loading state instead of returning the `<Auth>` component:
 
-```jsx:src/app/page.js
+```jsx filename="src/app/page.js"
 // ...
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();

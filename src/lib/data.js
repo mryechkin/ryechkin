@@ -28,14 +28,14 @@ export function getReadingTime(source) {
 
 export function getAllPosts() {
   const posts = fs
-    .readdirSync(join(process.cwd(), 'src/data/posts'))
+    .readdirSync(join(process.cwd(), 'src/data/blog'))
     // Only include mdx files
     .filter((path) => /\.mdx$/.test(path));
 
   const filteredPosts = [];
 
   posts.forEach((fileName) => {
-    const source = getRawFile(`/src/data/posts/${fileName}`);
+    const source = getRawFile(`/src/data/blog/${fileName}`);
     const slug = fileName.replace(/\.mdx$/, '');
 
     // Using gray-matter here as we don't need the entire MDX, just frontmatter
@@ -87,31 +87,31 @@ export function getAllSnippets() {
   );
 }
 
-export async function getMdx(source, addAnchors = true) {
-  let rehypePlugins = [rehypeCodeTitles];
+// export async function getMdx(source, addAnchors = true) {
+//   let rehypePlugins = [rehypeCodeTitles];
 
-  if (addAnchors) {
-    rehypePlugins = [
-      ...rehypePlugins,
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'append',
-          properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
-        },
-      ],
-    ];
-  }
+//   if (addAnchors) {
+//     rehypePlugins = [
+//       ...rehypePlugins,
+//       rehypeSlug,
+//       [
+//         rehypeAutolinkHeadings,
+//         {
+//           behavior: 'append',
+//           properties: { class: 'anchor', ariaHidden: true, tabIndex: -1 },
+//         },
+//       ],
+//     ];
+//   }
 
-  return serialize(source, {
-    mdxOptions: {
-      remarkPlugins: [remarkMdxCodeMeta, remarkEmoji, remarkGfm],
-      rehypePlugins,
-    },
-    parseFrontmatter: true,
-  });
-}
+//   return serialize(source, {
+//     mdxOptions: {
+//       remarkPlugins: [remarkMdxCodeMeta, remarkEmoji, remarkGfm],
+//       rehypePlugins,
+//     },
+//     parseFrontmatter: true,
+//   });
+// }
 
 /**
  * Extracts headings from MDX files (levels H2 and above)

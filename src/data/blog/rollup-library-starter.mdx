@@ -30,7 +30,7 @@ Let's get started!
 
 First, init your project using `npm init`. You should have a `package.json` now that looks something like this:
 
-```json:package.json
+```json filename="package.json"
 {
   "name": "rollup-library-starter",
   "version": "1.0.0",
@@ -73,7 +73,7 @@ src/
 
 This is just an example convention. Ultimately, you can structure it however you'd like. The main thing to remember is every folder will need an `index.js` file, including the top-level `src`:
 
-```js:src/index.js
+```jsx filename="src/index.js"
 export * from './components';
 export * from './utils';
 ```
@@ -92,7 +92,7 @@ To make things easier to maintain, we're putting each module and the related fil
 
 We can then further group these modules by category and put all related modules in the same folder (ie. `src/components`). Each folder also needs to have its own `index.js` file as well:
 
-```js:src/components/index.js
+```jsx filename="src/components/index.js"
 export { default as Button } from './Button';
 export { default as Text } from './Text';
 ```
@@ -101,7 +101,7 @@ Here we're importing the `default` exports of the `Button` and `Text` modules, a
 
 Inside each of our `Button` and `Text` folders, we have the main `index.js` files, as well as separate component files (`Button.js` and `Text.js`):
 
-```jsx:src/components/Button/Button.js
+```jsx filename="src/components/Button/Button.js"
 const Button = (props) => {
   const { children, onClick } = props;
 
@@ -127,7 +127,7 @@ export default Button;
 
 <p></p>
 
-```jsx:src/components/Button/index.js
+```jsx filename="src/components/Button/index.js"
 import Button, { VARIANT } from './Button';
 
 export default Object.assign(Button, {
@@ -137,7 +137,7 @@ export default Object.assign(Button, {
 
 Notice the little trick we're doing inside the component `index.js` file above:
 
-```js
+```jsx
 export default Object.assign(Button, {
   VARIANT,
 });
@@ -155,7 +155,7 @@ This pattern allows us to group related code that normally would be imported tog
 
 The `Text` component is slightly simpler, with just one main **default** export, which is then re-exported inside `index.js`:
 
-```jsx:src/components/Text/Text.js
+```jsx filename="src/components/Text/Text.js"
 export default function Text({ children }) {
   return <div style={{ fontSize: '2.5rem', fontFamily: 'monospace' }}>{children}</div>;
 }
@@ -163,7 +163,7 @@ export default function Text({ children }) {
 
 <p></p>
 
-```js:src/components/Text/index.js
+```jsx filename="src/components/Text/index.js"
 import Text from './Text';
 
 export default Text;
@@ -171,13 +171,13 @@ export default Text;
 
 And finally, in our `utils` folder, we have a single `index.js` file, with a sample function `Greet` exported as a **named** export:
 
-```js:src/utils/index.js
+```jsx filename="src/utils/index.js"
 export const Greet = (text) => console.log(`Hello ${text}.`);
 ```
 
 To export all these modules at the root, make sure they're included in the `index.js` file at the top of the `src` folder, as we saw earlier:
 
-```js:src/index.js
+```jsx filename="src/index.js"
 export * from './components';
 export * from './utils';
 ```
@@ -222,7 +222,7 @@ npm i -D rollup rollup-plugin-analyzer @rollup/plugin-alias @rollup/plugin-babel
 
 And lastly, since we're using React in our library, we'll also need to specify `react` and `react-dom` as peer dependencies in `package.json`:
 
-```json:package.json
+```json filename="package.json"
 {
   "peerDependencies": {
     "react": "^16.14.0 || ^17.0.0 || ^18.2.0",
@@ -247,9 +247,9 @@ Rollup will handle all the transpilation of our code from ESM to CJS, and genera
 
 First, let's create a file called `rollup.config.js` at the root of our project. We will import all the packages and plugins, and then break down what each of them does.
 
-```js:rollup.config.js
-import { fileURLToPath } from 'node:url';
+```jsx filename="rollup.config.js"
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 import alias from '@rollup/plugin-alias';
 import babel from '@rollup/plugin-babel';
@@ -274,7 +274,7 @@ The `config` is where we'll be setting all the different [options](https://rollu
 
 We will be generating two bundles, and there are some common output options shared between the two. Let's put these in a variable:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 // ...
 const outputOptions = {
   exports: 'named',
@@ -300,7 +300,7 @@ Lastly, and completely optional, we can add a `banner` to each of the generated 
 
 With these options defined, let's now provide the entry point for our package. This will be the root-level `index.js` file, which if you recall containts all of our available modules exported as "named". We will also set our `output` options as well:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 // ...
 const config = {
   input: 'src/index.js',
@@ -325,7 +325,7 @@ Our `output` option is an array of objects, one for each of the bundles we'd lik
 
 Next, we need to tell Rollup which of the modules used in our code are `external` to our library. Together with [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve), this ensures that Rollup doesn't bundle those dependencies into our final bundle. The function `makeExternalPredicate()` generates the list of package names specified in `dependencies` and `peerDependencies` in `package.json`. All credit for this and a big thank you goes out to [Mateusz Burzyński](https://github.com/Andarist) for providing it in [this issue](https://github.com/rollup/rollup-plugin-babel/issues/148#issuecomment-399696316):
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 // ...
 const makeExternalPredicate = (externalArr) => {
   if (externalArr.length === 0) {
@@ -354,8 +354,9 @@ Next up, we have the `plugins` array, and it specifies which Rollup plugins to r
 
 The first plugin we're using is [`@rollup/plugin-alias`](https://www.npmjs.com/package/@rollup/plugin-alias), which enables us to use absolute import paths for `src` (or any other path you want to configure):
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import alias from '@rollup/plugin-alias';
+
 // ...
 const config = [
   {
@@ -375,8 +376,9 @@ const config = [
 
 Next, we have [`@rollup/plugin-node-resolve`](https://www.npmjs.com/package/@rollup/plugin-node-resolve), which allows Rollup to resolve external modules from `node_modules`:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import nodeResolve from '@rollup/plugin-node-resolve';
+
 // ...
 const config = [
   {
@@ -393,8 +395,9 @@ const config = [
 
 The [`@rollup/plugin-commonjs`](https://www.npmjs.com/package/@rollup/plugin-commonjs) plugin converts 3rd-party CommonJS modules into ES6 code, so that they can be included in our Rollup bundle:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import commonjs from '@rollup/plugin-commonjs';
+
 // ...
 const config = [
   {
@@ -411,7 +414,7 @@ const config = [
 
 Next, we need to enable Babel for code transpilation. We do that by passing [`@rollup/plugin-babel`](https://github.com/rollup/plugins/tree/master/packages/babel) as a plugin, and then specifying the `@babel/plugin-transform-runtime` Babel plugin:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import babel from '@rollup/plugin-babel';
 // ...
 const babelRuntimeVersion = pkg.dependencies['@babel/runtime'].replace(/^[^0-9]*/, '');
@@ -435,13 +438,13 @@ From the plugin's docs:
 
 The version of Babel runtime is pulled from `package.json` by reading the `dependencies`:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 const babelRuntimeVersion = pkg.dependencies['@babel/runtime'].replace(/^[^0-9]*/, '');
 ```
 
 We're also telling the Babel plugin how to handle Babel helper code via `babelHelpers` (it is recommended to use the "runtime" option for bundling libraries with Rollup), as well as not to touch anything imported from `node_modules` by setting the `exclude` option:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import babel from '@rollup/plugin-babel';
 // ...
 const config = [
@@ -460,7 +463,7 @@ const config = [
 
 We also need to specify a few presets so that we can use latest JavaScript features, as well as enable React support. These are [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) and [`@babel/preset-react`](https://babeljs.io/docs/en/babel-preset-react), respectively:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import babel from '@rollup/plugin-babel';
 // ...
 const config = [
@@ -486,7 +489,7 @@ This next one will help us reduce final bundle size by minifying the generated c
 
 We'll be sticking with the defaults it provides, so no need to specify any options:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import terser from '@rollup/plugin-terser';
 // ...
 const config = [
@@ -503,7 +506,7 @@ const config = [
 
 Lastly, we have [`rollup-plugin-analyzer`](https://github.com/doesdev/rollup-plugin-analyzer). This plugin will print out some useful info about our generated bundle upon successful builds:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import analyze from 'rollup-plugin-analyzer';
 // ...
 const config = [
@@ -524,9 +527,9 @@ export default config;
 
 And with that, we're done configuring Rollup! Here's what your `rollup.config.js` should look like in the end:
 
-```js:rollup.config.js
-import { fileURLToPath } from 'node:url';
+```jsx filename="rollup.config.js"
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 import alias from '@rollup/plugin-alias';
 import babel from '@rollup/plugin-babel';
@@ -618,7 +621,7 @@ With Rollup configuration done, let's now configure our package file `package.js
 
 First, let's add a `build` script, so that we can actually run Rollup:
 
-```json:package.json
+```json filename="package.json"
 {
   "scripts": {
     "prebuild": "rm -rf dist",
@@ -635,7 +638,7 @@ As of Rollup **v3**, we need to ensure that our configuration file is [loaded as
 
 There are a few ways to do this. One is by using the `.mjs` extension, and another is by specifying our library package to be ESM, which is done by setting the `type` to `"module"` in the package file:
 
-```json:package.json
+```json filename="package.json"
 {
   "type": "module"
 }
@@ -647,7 +650,7 @@ We've configured Rollup to output the bundle to the `dist` folder. And since we'
 
 For CommonJS, set the `main` field to point to the `cjs` bundle:
 
-```json:package.json
+```json filename="package.json"
 {
   "main": "./dist/cjs/index.js"
 }
@@ -655,7 +658,7 @@ For CommonJS, set the `main` field to point to the `cjs` bundle:
 
 Then do the same for ES Modules, by pointing the `module` field to the `esm` bundle:
 
-```json:package.json
+```json filename="package.json"
 {
   "module": "./dist/esm/index.js"
 }
@@ -667,14 +670,14 @@ In order to ensure maximum interoperability with tools like Webpack (and others)
 
 To do this, add an `exports` field and specify the main entry point's `import` and `require` to point to the `esm` and `cjs` bundles, respectively:
 
-```json:package.json
+```json filename="package.json"
 {
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     }
-  },
+  }
 }
 ```
 
@@ -694,7 +697,7 @@ Lastly, we need to tell NPM which files and folders to include in our package. F
 
 Add the `dist` folder to the `files` array:
 
-```json:package.json
+```json filename="package.json"
 {
   "files": ["dist"]
 }
@@ -720,10 +723,8 @@ And that about does it! Hopefully this recipe gives you a good starting point fo
 
 The full example project is available in GitHub for your reference:
 
-<blockquote>
-  <div className="center flex items-center justify-center gap-2">
-    ✨ [rollup-library-starter](https://github.com/mryechkin/rollup-library-starter) ✨
-  </div>
-</blockquote>
+<WTFCard className="center flex items-center justify-center gap-2">
+  ✨ [rollup-library-starter](https://github.com/mryechkin/rollup-library-starter) ✨
+</WTFCard>
 
 If you've made it this far - thanks for reading, and until next time!

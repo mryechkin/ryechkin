@@ -95,7 +95,7 @@ To ensure that this file is always up-to-date, it can be run as a `postinstall` 
 
 The script itself is as follows:
 
-```js:scripts/dependencies.js
+```jsx filename="scripts/dependencies.js"
 const fs = require('fs');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -197,7 +197,7 @@ Promise.all(promises).then((result) => {
 
 This gives us the result, which is the `data` that we'd like to store in our JSON file. The resulting output will look something like this:
 
-```json:dependencies.json
+```json filename="dependencies.json"
 [
   {
     "name": "@wtf-ds/core",

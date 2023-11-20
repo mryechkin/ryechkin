@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Button } from '@wtf-ds/core';
 import cn from 'classnames';

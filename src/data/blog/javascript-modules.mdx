@@ -119,7 +119,7 @@ ESM uses `.js` and `.mjs` extensions (browser and Node, respectively), and utili
 
 When exporting from ESM, you can do either **default** or **named** exports:
 
-```js:module.esm.js
+```jsx filename="module.esm.js"
 const user = { name: 'Human', location: 'Planet Earth' };
 
 // named exports
@@ -135,19 +135,19 @@ export default user;
 
 Importing can be done using **default** imports:
 
-```js:index.js
+```jsx filename="index.js"
 import user from './module.js';
 ```
 
 or using **named** imports, where the name of the thing you're importing goes inside curly braces:
 
-```js:index.js
+```jsx filename="index.js"
 import { greet } from './module.js';
 ```
 
 You can also import both default and named at the same time, as well as multiple named imports, using this one-line convention:
 
-```js:index.js
+```jsx filename="index.js"
 import user, { greet, GREETING } from './foo.js';
 
 console.log(greet(GREETING, user)); // "Hello, Human from Planet Earth"
@@ -185,7 +185,7 @@ CommonJS (or **CJS**) is a module system that originated in [Node](https://nodej
 
 CJS modules are exported via `module.exports`, and use the `require` keyword for importing:
 
-```js:module.cjs.js
+```jsx filename="module.cjs.js"
 const user = { name: 'Human', location: 'Planet Earth' };
 
 const GREETING = 'Hello';
@@ -207,7 +207,7 @@ module.exports.default = user;
 
 To import CommonJS, use the `require` keyword :
 
-```js:index.js
+```jsx filename="index.js"
 const { default: user, greet, GREETING } = require('./module.js');
 console.log(greet(GREETING, user)); // "Hello, Human from Planet Earth"
 console.log(GREETING); // "Hello"

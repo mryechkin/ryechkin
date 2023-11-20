@@ -48,16 +48,6 @@ export const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
-export const useConfetti = () => {
-  const [confetti, setConfetti] = useState(false);
-
-  useEffect(() => {
-    if (confetti) setConfetti(false);
-  }, [confetti]);
-
-  return [confetti, setConfetti];
-};
-
 // Credit: Sam Selikoff (https://youtu.be/aV2YJuxQ2vo?t=1252)
 export const usePrevious = (state) => {
   const [tuple, setTuple] = useState([null, state]);

@@ -20,13 +20,11 @@ Awhile back I [wrote about](/blog/rollup-library-starter) packaging your JavaScr
 
 A starter template for React using the setup covered in that post is available here:
 
-<blockquote>
-  <div className="center flex items-center justify-center gap-2">
-    ✨
-    [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
-    ✨
-  </div>
-</blockquote>
+<WTFCard className="center flex items-center justify-center gap-2">
+  ✨
+  [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
+  ✨
+</WTFCard>
 
 Now, that template is great. I've used it in several libraries that have been published to production for several years now without problems.
 
@@ -40,7 +38,7 @@ Next 13 pages inside `app` directory are [React Server Components](https://beta.
 
 To make a React component into a **Client Component** (ie. our regular old React components with effects and state that we all use and love), you need to denote it with a `'use client'` directive at the top of the component file:
 
-```jsx:ClientComponent.js
+```jsx filename="ClientComponent.js"
 'use client';
 
 export default function ClientComponent() {
@@ -68,7 +66,7 @@ One way to address this would be to mark all components in our library as Client
 
 To do this, include a `banner` option in your `output` options inside the `rollup.config.js`, and add `'use client'` at the very end of it:
 
-```jsx:rollup.config.js
+```jsx filename="rollup.config.js"
 const outputOptions = {
   exports: 'named',
   preserveModules: true,
@@ -84,7 +82,7 @@ const outputOptions = {
 
 Now, if you leave it as is, the `terser` plugin will remove it, so we need to tell it to preserve directives by setting the `compress.directives` option to `false`:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 const config = {
   // ...
   plugins: [
@@ -112,10 +110,12 @@ Well, we've already configured Rollup to output separate files for each of our m
 
 A-ha! :bulb:
 
-```jsx:src/components/Button/Button.js
+```jsx filename="src/components/Button/Button.js"
 'use client';
 
-const Button = (props) => ({/* */});
+const Button = (props) => ({
+  // ...
+});
 ```
 
 However... If we try to run the `build`, we'll see a warning like this:
@@ -150,8 +150,9 @@ npm i -D rollup-plugin-preserve-directives
 
 Then, add it to the `plugins` array in your `rollup.config.js` (before `terser`):
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 import preserveDirectives from 'rollup-plugin-preserve-directives';
+
 // ...
 const config = {
   plugins: [
@@ -159,7 +160,7 @@ const config = {
     preserveDirectives(),
     terser(),
     // ...
-  ]
+  ],
 };
 ```
 
@@ -169,7 +170,7 @@ Running the `build` again, we can see that the `'use client'` directive is prese
 
 And now we can import it in a Server Component and use without any issues:
 
-```jsx:src/app/index.js
+```jsx filename="src/app/index.js"
 import { Button, Text } from 'rollup-library-starter';
 
 export default function Home() {
@@ -187,7 +188,7 @@ Currently the `rollup-preserve-directives` plugin doesn't suppress that Rollup w
 
 Let's do that. Add the following to `rollup.config.js`:
 
-```js:rollup.config.js
+```jsx filename="rollup.config.js"
 const config = {
   // ...
   onwarn(warning, warn) {
@@ -204,12 +205,10 @@ This will suppress any `MODULE_LEVEL_DIRECTIVE` warnings, and throw all others. 
 
 The [`rollup-library-starter`](https://github.com/mryechkin/rollup-library-starter) template has been updated to use this plugin, and is available in GitHub for your reference:
 
-<blockquote>
-  <div className="center flex items-center justify-center gap-2">
-    ✨
-    [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
-    ✨
-  </div>
-</blockquote>
+<WTFCard className="flex items-center justify-center gap-2">
+  ✨
+  [mryechkin/rollup-library-starter](https://github.com/mryechkin/rollup-library-starter)
+  ✨
+</WTFCard>
 
 Happy hacking!

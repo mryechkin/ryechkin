@@ -15,7 +15,7 @@ html {
 
 @layer base {
   body {
-    @apply font-sans text-slate-700 selection:bg-black selection:text-cyan-200 dark:text-slate-50 dark:selection:bg-cyan-200 dark:selection:text-black;
+    @apply font-sans text-slate-700 selection:bg-blue-600 selection:text-yellow-300 dark:text-slate-50;
   }
 
   a {
@@ -41,7 +41,7 @@ html {
   }
 
   .blurred-backdrop {
-    @apply bg-slate-50 bg-opacity-80 filter backdrop-blur dark:bg-slate-900 dark:bg-opacity-80 dark:backdrop-blur-sm;
+    @apply bg-slate-50 bg-opacity-90 filter backdrop-blur dark:bg-slate-900 dark:bg-opacity-90 dark:backdrop-blur;
   }
 
   .border-outline {
@@ -77,7 +77,7 @@ html {
   }
 
   .retro {
-    @apply font-black tracking-tight text-blue-300 selection:text-indigo-50 dark:text-amber-50 dark:selection:text-slate-800;
+    @apply font-black tracking-tight text-blue-300 dark:text-amber-50;
     text-shadow:
       3px 2px 0px theme(colors.indigo.600),
       5px 4px 0px theme(colors.indigo.200);
@@ -90,12 +90,12 @@ html {
   }
 
   .retro-thin {
-    @apply font-black tracking-tight text-indigo-600 selection:text-indigo-50 dark:text-yellow-300 dark:selection:text-slate-800;
-    text-shadow: 3px 2px 0px #c7d2fe;
+    @apply font-black tracking-tight text-yellow-400 dark:text-blue-200;
+    text-shadow: 3px 2px 0px theme(colors.pink.600);
   }
 
   .dark .retro-thin {
-    text-shadow: 3px 2px 0px #ec4899;
+    text-shadow: 3px 2px 0px theme(colors.blue.600);
   }
 
   .social-github {

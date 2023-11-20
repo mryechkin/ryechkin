@@ -5,118 +5,171 @@ canonical: 'https://misha.wtf/snippets/code-editor'
 tags: ['React', 'Code Editor', 'React-Live']
 ---
 
-### Code
+## Usage
 
-#### Usage
+The **CodeBlock** component is a live code editor that lets you write and render React code directly in the browser.
 
-```jsx:index.js
+Pass the code you want to render via the `code` prop, as either:
+
+- Inline element
+- Function component
+- Compose components using `render` or `export default`
+
+````jsx filename="index.js"
 import CodeBlock from './CodeBlock';
 
 const code = `
 () => {
-  return (
-    <button type="button">Click Me</button>
-  );
+  const [count, setCount] = useState(0);
+
+  return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
 };
 `;
 
-export default function CodeEditor() {
+export default function LiveCodePlayground() {
   return <CodeBlock code={code} />;
 }
+
+/**
+ * NOTE - You could also do:
+ * ```
+ * const Example = () => { ... }
+ * render(Example);
+ * ```
+ */
+````
+
+## Example
+
+```jsx live className="mb-8"
+() => {
+  const [count, setCount] = useState(0);
+
+  return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
+};
 ```
 
-#### Implementation
+## Implementation
 
-```jsx:CodeBlock.js
-import React from 'react';
-import { SiPrettier } from 'react-icons/si';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+This component utilizes [`react-live-runner`](https://github.com/nihgwu/react-runner#react-live-runner) library, which provides a `CodeEditor` and `useLiveRunner` hook to render our React code in the browser.
+
+If you'd like to follow along a more in-depth tutorial, check out my video on recreating Chakra UI's code editor below:
+
+<Card
+  className="mb-8"
+  item={{
+    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
+    date: '2022-05-20',
+    duration: '43:18',
+    href: 'https://youtu.be/Ld3W9aaNx1g',
+    summary:
+      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
+    imageUrl: '/thumbs/live-code-editor.jpg',
+    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
+  }}
+  isExternal
+  isVideo
+/>
+
+```jsx filename="CodeBlock.js"
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { useTheme } from 'next-themes';
-import babelParser from 'prettier/parser-babel';
-import prettier from 'prettier/standalone';
-import darkTheme from 'prism-react-renderer/themes/vsDark';
-import lightTheme from 'prism-react-renderer/themes/vsLight';
+import { themes } from 'prism-react-renderer';
+import { FiCheck } from 'react-icons/fi';
+import { SiPrettier } from 'react-icons/si';
+import { useLiveRunner } from 'react-live-runner';
 
-import Button from './Button';
+import useTimedToggle from 'src/hooks/useTimedToggle';
+
 import CopyButton from './CopyButton';
+import Spinner from './Spinner';
 
+// Pass any modules you want the code to have access to here
+// ie. components, hooks, etc.
 const scope = {
   Button,
   CopyButton,
   ...React,
 };
 
-const CodeBlock = ({ children: rootChildren, noInline = false }) => {
-  const [isMounted, setIsMounted] = React.useState(false);
-  const { children } = rootChildren.props;
-  const code = children.trim();
-  const [editorCode, setEditorCode] = React.useState(code.trim());
+const CodeBlock = ({ children, className }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [prettified, setPrettified] = useTimedToggle(false);
   const { theme } = useTheme();
-  let syntaxTheme = darkTheme;
 
-  if (theme === 'light') {
-    syntaxTheme = lightTheme;
-  }
+  const initialCode = children.trim();
+  const [editorCode, setEditorCode] = useState(initialCode);
 
-  const formatOnKey = (e) => {
-    if (e.ctrlKey && e.keyCode === 76) {
-      formatCode();
+  const { code, element, error, onChange } = useLiveRunner({
+    initialCode: editorCode,
+    scope,
+  });
+
+  const formatCode = useCallback(async () => {
+    if (!error) {
+      try {
+        const prettify = (await import('src/lib/utils/prettify')).default;
+        const result = await prettify(code);
+        const formattedCode = result.slice(0, -1);
+        setPrettified(true);
+        setEditorCode(formattedCode);
+      } catch (e) {
+        console.error(e);
+      }
     }
-  };
+  }, [code, error, setPrettified]);
 
-  const formatCode = () => {
-    setEditorCode((currentCode) =>
-      prettier
-        .format(currentCode, {
-          parser: 'babel',
-          plugins: [babelParser],
-          trailingComma: 'es5',
-        })
-        .slice(0, -1)
-    );
-  };
-
-  const onChange = (newCode) => setEditorCode(newCode.trim());
-
-  React.useEffect(() => {
+  useEffect(() => {
     setIsMounted(true);
-    document.addEventListener('keyup', formatOnKey, false);
-    return () => document.removeEventListener('keyup', formatOnKey, false);
   }, []);
 
-  if (isMounted && code) {
+  if (isMounted && initialCode) {
     return (
-      <div className="flex flex-col items-center justify-center w-full">
-        <LiveProvider
-          code={editorCode}
-          theme={syntaxTheme}
-          scope={scope}
-          noInline={noInline}
-        >
-          <LivePreview className="w-full p-2 rounded-md bg-white/50 backdrop-blur-lg dark:bg-gray-900/50" />
-          <div
-            className={cn(
-              'relative mt-4 flex w-full flex-col items-center justify-center rounded-md p-2',
-              {
-                'bg-[#1E1E1E]': theme === 'dark',
-                'bg-[#FFFFFF]': theme === 'light',
-              }
-            )}
-          >
-            <div className="absolute flex items-center justify-center gap-2 top-3 right-3">
-              <Button aria-label="Format code" title="Format code" onClick={formatCode}>
-                <SiPrettier />
+      <div className="not-prose flex w-full flex-col items-center justify-center">
+        <div className="border-faint w-full rounded-md bg-white/50 p-2 backdrop-blur-lg dark:bg-slate-900/50">
+          {element}
+        </div>
+        <div
+          className={cn('relative mt-4 w-full', {
+            'bg-slate-900': theme === 'dark',
+            'bg-gray-50': theme === 'light',
+          })}
+          innerClassName="!p-0"
+          title="Editable Example"
+          actions={
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                aria-label="Format code"
+                disabled={prettified}
+                title="Format code"
+                onClick={formatCode}
+              >
+                {prettified ? <FiCheck /> : <SiPrettier />}
               </Button>
-              <CopyButton code={code} />
+              <CopyButton code={editorCode} />
             </div>
-            <div className="text-xs font-bold text-gray-400 uppercase">
-              Editable Example
-            </div>
-            <LiveEditor onChange={onChange} className="w-full p-2" />
-          </div>
-          <LiveError className="w-full p-2 mt-4 text-white bg-red-600" />
-        </LiveProvider>
+          }
+        >
+          <CodeEditor
+            className="w-full"
+            onChange={(newCode) => {
+              setEditorCode(newCode);
+              onChange(newCode);
+            }}
+            tabIndex={-1}
+            value={editorCode}
+            theme={theme === 'dark' ? themes.nightOwl : themes.github}
+          />
+        </Card>
+        {error && (
+          <pre className="!mt-4 w-full !rounded border-2 border-red-600 bg-red-50 p-2 text-red-600">
+            {error}
+          </pre>
+        )}
       </div>
     );
   }
@@ -124,18 +177,4 @@ const CodeBlock = ({ children: rootChildren, noInline = false }) => {
 };
 
 export default CodeBlock;
-```
-
-<hr />
-
-### Demo
-
-And here it is in action! Feel free to try things out.
-
-```jsx live
-() => {
-  const [count, setCount] = useState(0);
-
-  return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
-};
 ```

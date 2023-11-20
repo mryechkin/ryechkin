@@ -1,47 +1,48 @@
-import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
-import { Highlight, themes } from 'prism-react-renderer';
+'use client';
+
+import { Card } from '@wtf-ds/core';
+import cn from 'classnames';
+import { Highlight, Prism, themes } from 'prism-react-renderer';
 
 import CopyButton from './CopyButton';
 
-const SyntaxHighlighter = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-  const code = children.props.children;
-  const language = children.props.className?.replace(/language-/, '').trim();
+(typeof global !== 'undefined' ? global : window).Prism = Prism;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+import('prismjs/components/prism-bash');
 
-  if (!mounted) return null;
-
-  return (
-    <Highlight
-      code={code}
-      language={language}
-      theme={theme === 'dark' ? themes.nightOwl : themes.github}
-    >
-      {({ className, getLineProps, getTokenProps, style, tokens }) => (
-        <div className="group relative border-2 border-indigo-200 font-mono shadow-retro dark:border-indigo-800 dark:shadow-retro-dark">
-          <CopyButton
-            className="absolute right-0 mr-1.5 mt-1.5 sm:mr-2 sm:mt-2"
-            code={code}
-            title={language}
-          />
-          <pre className={className} style={{ ...style }}>
-            {tokens.slice(0, -1).map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
-                ))}
+const SyntaxHighlighter = ({
+  className: wrapperClassName,
+  code,
+  filename,
+  language = 'text',
+}) => (
+  <Highlight code={code} language={language} theme={themes.shadesOfPurple}>
+    {({ className, getLineProps, getTokenProps, style, tokens }) => (
+      <Card
+        className={wrapperClassName}
+        innerClassName="!p-0"
+        actions={<CopyButton code={code} />}
+        title={filename}
+      >
+        <pre className={className} style={{ ...style }}>
+          {tokens.slice(0, -1).map((line, i) => {
+            const { key: lineKey, ...lineProps } = getLineProps({ line, key: i });
+            return (
+              <div key={lineKey} {...lineProps}>
+                {line.map((token, key) => {
+                  const { key: tokenKey, ...tokenProps } = getTokenProps({
+                    token,
+                    key,
+                  });
+                  return <span key={tokenKey} {...tokenProps} />;
+                })}
               </div>
-            ))}
-          </pre>
-        </div>
-      )}
-    </Highlight>
-  );
-};
+            );
+          })}
+        </pre>
+      </Card>
+    )}
+  </Highlight>
+);
 
 export default SyntaxHighlighter;
