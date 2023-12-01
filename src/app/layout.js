@@ -10,6 +10,25 @@ import Providers from 'src/components/Providers';
 export const metadata = {
   metadataBase: 'https://misha.wtf',
   title: 'Mykhaylo Ryechkin',
+  description: 'UX engineering, design systems, and all things modern web.',
+  openGraph: {
+    title: 'Mykhaylo Ryechkin',
+    description: 'UX engineering, design systems, and all things modern web.',
+    images: [
+      {
+        url: 'https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100',
+        width: 1200,
+        height: 627,
+        alt: 'Mykhaylo Ryechkin',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mykhaylo Ryechkin',
+    description: 'UX engineering, design systems, and all things modern web.',
+    images: ['https://www.misha.wtf/_next/image?url=%2Fseo.jpg&w=1200&q=100'],
+  },
 };
 
 export const viewport = {

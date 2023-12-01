@@ -24,7 +24,7 @@ export async function generateMetadata({ params: { slug } }) {
 
   const title = data?.title ? `Mykhaylo Ryechkin | ${data.title}` : 'Mykhaylo Ryechkin';
   const description = data?.summary;
-  const image = `https://www.misha.wtf/_next/image?url=%2F${slug}%2Fcover.png&w=1200&q=100`;
+  const image = `https://www.misha.wtf/_next/image?url=%2Fblog%2F${slug}%2Fcover.png&w=1200&q=100`;
 
   const openGraph = {
     title,
@@ -52,6 +52,9 @@ export async function generateMetadata({ params: { slug } }) {
   const twitter = {
     card: 'summary_large_image',
     creator: '@mryechkin',
+    images: [image],
+    description,
+    title,
   };
 
   return { title, description, openGraph, twitter, locale: 'en_CA', type: 'website' };
