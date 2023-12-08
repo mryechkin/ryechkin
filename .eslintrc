@@ -1,5 +1,6 @@
 {
-  "extends": ["plugin:@next/next/recommended", "acme"],
+  "extends": ["plugin:@next/next/recommended", "plugin:css/recommended", "acme"],
+  "plugins": ["css"],
   "rules": {
     "no-unused-vars": "warn",
     "react-hooks/exhaustive-deps": "warn"

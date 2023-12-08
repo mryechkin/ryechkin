@@ -4,6 +4,16 @@ import Card from './Card';
 
 const VIDEOS = [
   {
+    title: 'W3C Design Tokens in CSS using Style Dictionary',
+    date: '2023-12-07',
+    duration: '19:50',
+    href: 'https://youtu.be/RcxP0RePlVU',
+    summary:
+      'Learn how to turn your Design Tokens from W3C format into CSS using Style Dictionary.',
+    imageUrl: '/thumbs/style-dictionary-tokens.jpg',
+    tags: ['Design Tokens', 'Design Systems', 'Style Dictionary'],
+  },
+  {
     title: 'Build a Figma plugin using Vite and Preact',
     date: '2023-08-31',
     duration: '17:49',
