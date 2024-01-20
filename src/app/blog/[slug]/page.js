@@ -1,4 +1,3 @@
-import { Button } from '@wtf-ds/core';
 import {
   getAllDataByPath,
   getHeadings,

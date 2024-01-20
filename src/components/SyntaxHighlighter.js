@@ -1,7 +1,6 @@
 'use client';
 
 import { Card } from '@wtf-ds/core';
-import cn from 'classnames';
 import { Highlight, Prism, themes } from 'prism-react-renderer';
 
 import CopyButton from './CopyButton';
