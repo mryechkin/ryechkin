@@ -1,7 +1,7 @@
 ---
-title: 'Code Editor'
-summary: 'Live code editor using React-Live, with syntax highlighting and a preview pane to render your React code.'
-canonical: 'https://misha.wtf/snippets/code-editor'
+title: Code Editor
+summary: Live code editor using React-Live, with syntax highlighting and a preview pane to render your React code.
+canonical: https://misha.wtf/snippets/code-editor
 tags: ['React', 'Code Editor', 'React-Live']
 ---
 
@@ -44,32 +44,17 @@ export default function LiveCodePlayground() {
 ```jsx live className="mb-8"
 () => {
   const [count, setCount] = useState(0);
-
   return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
 };
 ```
 
 ## Implementation
 
+<WTFCard className="center flex items-center justify-center">
+  Check out the [video tutorial](#video-tutorial) below for a detailed step-by-step guide.
+</WTFCard>
+
 This component utilizes [`react-live-runner`](https://github.com/nihgwu/react-runner#react-live-runner) library, which provides a `CodeEditor` and `useLiveRunner` hook to render our React code in the browser.
-
-If you'd like to follow along a more in-depth tutorial, check out my video on recreating Chakra UI's code editor below:
-
-<Card
-  className="mb-8"
-  item={{
-    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
-    date: '2022-05-20',
-    duration: '43:18',
-    href: 'https://youtu.be/Ld3W9aaNx1g',
-    summary:
-      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
-    imageUrl: '/thumbs/live-code-editor.jpg',
-    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
-  }}
-  isExternal
-  isVideo
-/>
 
 ```jsx filename="CodeBlock.js"
 'use client';
@@ -178,3 +163,20 @@ const CodeBlock = ({ children, className }) => {
 
 export default CodeBlock;
 ```
+
+## Video Tutorial
+
+<Card
+  item={{
+    title: 'Recreating code editor from Chakra UI docs using React Live and TailwindCSS',
+    date: '2022-05-20',
+    duration: '43:18',
+    href: 'https://youtu.be/Ld3W9aaNx1g',
+    summary:
+      'Recreate the live code editor from Chakra UI, built using React Live and TailwindCSS.',
+    imageUrl: '/thumbs/live-code-editor.jpg',
+    tags: ['Chakra UI', 'React Live', 'TailwindCSS'],
+  }}
+  isExternal
+  isVideo
+/>

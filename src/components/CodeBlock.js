@@ -4,21 +4,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { useTheme } from 'next-themes';
-import { themes } from 'prism-react-renderer';
 import { FiCheck } from 'react-icons/fi';
 import { SiPrettier } from 'react-icons/si';
 import { CodeEditor, useLiveRunner } from 'react-live-runner';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
+import shadesOfPurple from 'src/lib/themes/shadesOfPurple';
 
 import CopyButton from './CopyButton';
-
-// import Spinner from './Spinner';
-
-// const CodeEditor = dynamic(
-//   () => import('react-live-runner').then((module) => module.CodeEditor),
-//   { loading: Spinner, ssr: false },
-// );
 
 const scope = {
   Button,
@@ -91,14 +84,14 @@ const CodeBlock = ({ children, className }) => {
           }
         >
           <CodeEditor
-            className="w-full"
+            className="font-mono text-sm"
             onChange={(newCode) => {
               setEditorCode(newCode);
               onChange(newCode);
             }}
             tabIndex={-1}
             value={editorCode}
-            theme={theme === 'dark' ? themes.nightOwl : themes.github}
+            theme={shadesOfPurple}
           />
         </Card>
         {error && (

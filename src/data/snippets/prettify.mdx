@@ -2,8 +2,38 @@
 title: prettify
 summary: Formats a string representation of code using Prettier code formatter, for use in the browser.
 canonical: https://misha.wtf/snippets/prettify
-category: JavaScript
+tags: ['JavaScript', 'Prettier', 'Utilities']
 ---
+
+## Usage
+
+```js
+import prettify from './prettify';
+
+const code = `
+  () => {
+    const [count, setCount] = useState(0);
+
+    return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>
+  };
+`;
+
+const prettyCode = prettify(code);
+
+// Prettified result:
+//
+// () => {
+//   const [count, setCount] = useState(0);
+//
+//   return (
+//     <Button onClick={() => setCount((count) => count + 1)}>
+//       Count: {count}
+//     </Button>
+//   );
+// };
+```
+
+## Implementation
 
 ```js
 import babelPlugin from 'prettier/plugins/babel';
@@ -29,16 +59,4 @@ export default async function prettify(code, config = {}) {
     return code;
   }
 }
-```
-
-## Usage
-
-```js
-import prettify from './prettify';
-
-const code = `
-  // some ugly code
-`;
-
-const formatted = prettify(code);
 ```
