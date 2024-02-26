@@ -9,7 +9,7 @@ import { SiPrettier } from 'react-icons/si';
 import { CodeEditor, useLiveRunner } from 'react-live-runner';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
-import shadesOfPurple from 'src/lib/themes/shadesOfPurple';
+import prismTheme from 'src/lib/themes/prism/synthwave84';
 
 import CopyButton from './CopyButton';
 
@@ -91,7 +91,7 @@ const CodeBlock = ({ children, className }) => {
             }}
             tabIndex={-1}
             value={editorCode}
-            theme={shadesOfPurple}
+            theme={prismTheme}
           />
         </Card>
         {error && (

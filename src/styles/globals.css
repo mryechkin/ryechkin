@@ -14,7 +14,7 @@ html {
 }
 
 @layer base {
-  body {
+  body:not(textarea) {
     @apply font-sans text-slate-700 selection:bg-blue-600 selection:text-yellow-300 dark:text-slate-50;
   }
 
@@ -77,15 +77,16 @@ html {
   }
 
   .retro {
-    @apply font-black tracking-tight text-blue-300 dark:text-amber-50;
+    @apply font-black tracking-tight text-blue-200;
     text-shadow:
-      3px 2px 0px theme(colors.indigo.600),
-      5px 4px 0px theme(colors.indigo.200);
+      3px 2px 0px theme(colors.purple.900),
+      5px 4px 0px theme(colors.indigo.300);
   }
 
   .dark .retro {
+    @apply text-amber-50;
     text-shadow:
-      3px 2px 0px theme(colors.pink.500),
+      3px 2px 0px theme(colors.fuchsia.600),
       5px 4px 0px theme(colors.amber.400);
   }
 
@@ -148,12 +149,16 @@ html {
     display: none;
   }
 
+  /* .prose code {
+    @apply rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm font-normal text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
+  } */
+
   .prose code {
-    @apply whitespace-nowrap rounded border border-dotted border-slate-700 bg-slate-100 px-1 py-[0.125rem] font-mono text-sm font-normal text-slate-700 dark:border-indigo-300 dark:bg-slate-950/80 dark:text-white;
+    @apply font-mono text-sm font-normal;
   }
 
   .prose-lg code {
-    @apply p-1 text-base;
+    @apply text-base;
   }
 
   .prose a > code {
@@ -224,6 +229,41 @@ html {
 
   .prose-lg .rehype-code-title {
     @apply text-base;
+  }
+
+  pre.shiki {
+    @apply text-base;
+  }
+
+  pre.shiki .diff,
+  pre.shiki .highlighted {
+    @apply relative inline-block w-full;
+  }
+
+  pre.shiki .highlighted-word {
+    @apply -mx-[3px] -my-px border border-dotted border-slate-500 !bg-slate-700 px-[3px] py-px;
+  }
+
+  pre.shiki .diff.add {
+    @apply !bg-green-400/15;
+  }
+
+  pre.shiki .diff.add::before {
+    content: '+';
+    @apply absolute left-2 !text-green-400;
+  }
+
+  pre.shiki .diff.remove {
+    @apply !bg-rose-500/15;
+  }
+
+  pre.shiki .diff.remove::before {
+    content: '-';
+    @apply absolute left-2 !text-rose-500;
+  }
+
+  pre.shiki .highlighted {
+    @apply !bg-slate-700;
   }
 }
 

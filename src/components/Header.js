@@ -67,7 +67,7 @@ export default function Header({ setConfetti }) {
             <Link
               href="/"
               prefetch={false}
-              className="retro-thin mr-1 hidden p-2 text-3xl font-black md:block"
+              className="retro hidden p-2 font-mono text-3xl font-black md:block"
             >
               MISHA.WTF
             </Link>
@@ -75,7 +75,7 @@ export default function Header({ setConfetti }) {
           <Link
             href="/"
             prefetch={false}
-            className="retro-thin p-2 text-2xl font-black md:hidden"
+            className="retro p-2 font-mono text-2xl font-black md:hidden"
           >
             MISHA.WTF
           </Link>
