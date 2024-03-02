@@ -11,9 +11,9 @@ import Card from './Card';
 import CodeBlock from './CodeBlockDynamic';
 import ExternalLink from './ExternalLink';
 import Separator from './Separator';
+import SyntaxHighlighter from './ShikiHighlighter';
 import Spinner from './Spinner';
 import Stack from './Stack';
-import SyntaxHighlighter from './SyntaxHighlighter';
 import Tags from './Tags';
 
 const CustomLink = (props) => {
@@ -63,13 +63,13 @@ const MDX = {
   pre: (props) => {
     const { children, filename, live, ...rest } = props;
     const childProps = children?.props;
-    const code = childProps?.children;
-    const language = childProps?.className?.replace(/language-/, '').trim();
+    const code = childProps?.children?.trim();
+    const lang = childProps?.className?.replace(/language-/, '').trim();
 
     return live ? (
       <CodeBlock {...rest}>{code}</CodeBlock>
     ) : (
-      <SyntaxHighlighter code={code} filename={filename} language={language} {...rest} />
+      <SyntaxHighlighter code={code} filename={filename} lang={lang} {...rest} />
     );
   },
   Stack,

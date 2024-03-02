@@ -27,6 +27,8 @@
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.1",
     "@supabase/supabase-js": "^1.35.7",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.2.2",
     "@vercel/analytics": "^1.1.1",
     "@wtf-ds/core": "file:wtf-ds-core-1.0.3.tgz",
     "@wtf-ds/next-mdx-utils": "file:wtf-ds-next-mdx-utils-1.0.1.tgz",
@@ -65,6 +67,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.0",
+    "@shikijs/transformers": "^1.1.7",
     "@tailwindcss/typography": "^0.5.10",
     "@wtf-ds/tailwind": "file:wtf-ds-tailwind-1.0.2.tgz",
     "autoprefixer": "^10.4.17",
@@ -77,6 +80,7 @@
     "prettier": "^3.2.4",
     "react-test-renderer": "^18.2.0",
     "remark-code-import": "^1.2.0",
+    "shiki": "^1.1.7",
     "tailwindcss": "^3.4.1"
   }
 }

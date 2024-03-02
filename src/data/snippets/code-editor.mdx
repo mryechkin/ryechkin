@@ -22,7 +22,11 @@ const code = `
 () => {
   const [count, setCount] = useState(0);
 
-  return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
+  return (
+    <Button onClick={() => setCount((count) => count + 1)}>
+      Count: {count}
+    </Button>
+  );
 };
 `;
 
@@ -44,6 +48,7 @@ export default function LiveCodePlayground() {
 ```jsx live className="mb-8"
 () => {
   const [count, setCount] = useState(0);
+
   return <Button onClick={() => setCount((count) => count + 1)}>Count: {count}</Button>;
 };
 ```
@@ -57,15 +62,16 @@ export default function LiveCodePlayground() {
 This component utilizes [`react-live-runner`](https://github.com/nihgwu/react-runner#react-live-runner) library, which provides a `CodeEditor` and `useLiveRunner` hook to render our React code in the browser.
 
 ```jsx filename="CodeBlock.js"
+// [!code word:code]
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Card } from '@wtf-ds/core';
-import cn from 'classnames/dedupe';
-import { useTheme } from 'next-themes';
+import cn from 'classnames/dedupe'; // [!code --]
+import { useTheme } from 'next-themes'; // [!code ++]
 import { themes } from 'prism-react-renderer';
 import { FiCheck } from 'react-icons/fi';
-import { SiPrettier } from 'react-icons/si';
+import { SiPrettier } from 'react-icons/si'; // [!code highlight]
 import { useLiveRunner } from 'react-live-runner';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
@@ -90,8 +96,8 @@ const CodeBlock = ({ children, className }) => {
   const [editorCode, setEditorCode] = useState(initialCode);
 
   const { code, element, error, onChange } = useLiveRunner({
-    initialCode: editorCode,
-    scope,
+    initialCode: editorCode, // [!code --]
+    scope, // [!code ++]
   });
 
   const formatCode = useCallback(async () => {
@@ -106,7 +112,7 @@ const CodeBlock = ({ children, className }) => {
         console.error(e);
       }
     }
-  }, [code, error, setPrettified]);
+  }, [code, error, setPrettified]); // [!code highlight]
 
   useEffect(() => {
     setIsMounted(true);

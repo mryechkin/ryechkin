@@ -185,34 +185,34 @@ export default function Layout({ children }) {
 
 We've also abstracted some CSS classes that will be used throughout the app in the `styles/globals.css` file (using Tailwind):
 
-```css:src/styles/globals.css
+```css filename="src/styles/globals.css"
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   h2 {
-    @apply py-4 text-gray-800 text-4xl font-black;
+    @apply py-4 text-4xl font-black text-gray-800;
   }
 
   .button {
-    @apply custom-focus px-8 py-2 text-green-400 hover:text-white focus:text-white font-bold focus:bg-green-400 hover:bg-green-400 bg-white border-2 border-green-400 rounded-full;
+    @apply custom-focus rounded-full border-2 border-green-400 bg-white px-8 py-2 font-bold text-green-400 hover:bg-green-400 hover:text-white focus:bg-green-400 focus:text-white;
   }
 
   .button-inverse {
-    @apply custom-focus px-8 py-2 hover:text-green-400 focus:text-green-400 text-white font-bold bg-green-400 focus:bg-white hover:bg-white border-2 focus:border-green-400 hover:border-green-400 border-white rounded-full;
+    @apply custom-focus rounded-full border-2 border-white bg-green-400 px-8 py-2 font-bold text-white hover:border-green-400 hover:bg-white hover:text-green-400 focus:border-green-400 focus:bg-white focus:text-green-400;
   }
 
   .custom-focus {
-    @apply focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-offset-2 focus:ring-green-400;
+    @apply focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2;
   }
 
   .heading {
-    @apply text-gray-700 text-lg font-semibold;
+    @apply text-lg font-semibold text-gray-700;
   }
 
   .highlight {
-    @apply ml-1 p-2 font-mono bg-gray-100 rounded-lg;
+    @apply ml-1 rounded-lg bg-gray-100 p-2 font-mono;
   }
 }
 ```
@@ -703,7 +703,7 @@ While the default styling of **Supabase UI** is a good start, more than likely y
 
 But don't fret! It's quite easy to work around this limitation in the meantime. We can set styling of UI elements in **Supabase UI** by targeting their CSS classes, and extend them in our `src/styles/globals.css` file with Tailwind, and our existing custom classes:
 
-```css:src/styles/globals.css
+```css filename="src/styles/globals.css"
 .sbui-input {
   @apply custom-focus rounded-full focus:shadow-none !important;
 }

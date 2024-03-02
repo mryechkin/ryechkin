@@ -232,16 +232,16 @@ html {
   }
 
   pre.shiki {
-    @apply text-base;
+    @apply p-4 text-base;
   }
 
   pre.shiki .diff,
   pre.shiki .highlighted {
-    @apply relative inline-block w-full;
+    @apply relative -ml-4 inline-block w-[calc(100%+2rem)] px-4;
   }
 
   pre.shiki .highlighted-word {
-    @apply -mx-[3px] -my-px border border-dotted border-slate-500 !bg-slate-700 px-[3px] py-px;
+    @apply -mx-1 -my-px border border-dotted border-slate-500 !bg-slate-950 px-1 py-px;
   }
 
   pre.shiki .diff.add {
@@ -250,7 +250,7 @@ html {
 
   pre.shiki .diff.add::before {
     content: '+';
-    @apply absolute left-2 !text-green-400;
+    @apply absolute left-1 !text-green-400;
   }
 
   pre.shiki .diff.remove {
@@ -259,7 +259,7 @@ html {
 
   pre.shiki .diff.remove::before {
     content: '-';
-    @apply absolute left-2 !text-rose-500;
+    @apply absolute left-1 !text-rose-500;
   }
 
   pre.shiki .highlighted {
