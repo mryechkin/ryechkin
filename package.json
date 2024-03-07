@@ -63,7 +63,8 @@
     "remark-gfm": "^3.0.1",
     "remark-mdx-code-meta": "^1.0.0",
     "swr": "^2.2.4",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "uvcanvas": "^0.2.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.0",

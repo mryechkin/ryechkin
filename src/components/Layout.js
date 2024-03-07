@@ -2,6 +2,7 @@
 
 import cn from 'classnames/dedupe';
 import Confetti from 'react-dom-confetti';
+import { Novatrix } from 'uvcanvas';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
 
@@ -9,25 +10,34 @@ import Header from './Header';
 import { Nav } from './Menu';
 import Social from './Social';
 
+const GridBackground = () => (
+  <div className="fixed top-0 z-20 h-dvh w-full bg-slate-50/95 bg-left-top bg-repeat bg-origin-content dark:bg-slate-900/95" />
+);
+
 export default function Layout({ children, className }) {
   const [confetti, setConfetti] = useTimedToggle(false, 0);
   const year = new Date().getFullYear();
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-slate-50 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-slate-900 dark:bg-pattern-dark">
-      <Header setConfetti={setConfetti} />
-      <div className="fixed top-12 flex w-full items-center justify-center">
+    <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden">
+      <Novatrix
+        className="fixed top-0 z-10 h-dvh w-full -hue-rotate-30 invert"
+        style={{ height: '100vh', width: '100vw' }}
+      />
+      <GridBackground />
+      <Header className="fixed z-40" setConfetti={setConfetti} />
+      <div className="fixed top-12 z-30 flex w-full items-center justify-center">
         <Confetti
           active={confetti}
           config={{ colors: ['#2563eb', '#fde047'], spread: 360 }}
         />
       </div>
-      <main className="mt-24 w-full max-w-none overflow-hidden">
+      <main className="z-30 mt-24 w-full max-w-none overflow-hidden">
         <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>{children}</div>
       </main>
       <footer
         className={cn(
-          'blurred-backdrop mx-auto w-screen max-w-none border-t border-slate-200 dark:border-slate-900',
+          'blurred-backdrop z-40 mx-auto w-screen max-w-none border-t border-slate-200 dark:border-slate-900',
         )}
       >
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">

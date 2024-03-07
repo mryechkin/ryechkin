@@ -20,7 +20,7 @@ const variants = {
   },
 };
 
-export default function Header({ setConfetti }) {
+export default function Header({ className, setConfetti }) {
   const { scrollY } = useScroll();
   const [initial, setInitial] = useState(true);
   const [show, setShow] = useState(true);
@@ -42,7 +42,7 @@ export default function Header({ setConfetti }) {
 
   return (
     <motion.header
-      className="fixed z-10"
+      className={className}
       initial="show"
       animate={show ? 'show' : 'hide'}
       transition={{ duration: 0.3, type: 'tween' }}
@@ -67,7 +67,7 @@ export default function Header({ setConfetti }) {
             <Link
               href="/"
               prefetch={false}
-              className="retro hidden p-2 font-mono text-3xl font-black md:block"
+              className="retro-thin hidden p-2 font-mono text-3xl font-black md:block"
             >
               MISHA.WTF
             </Link>
@@ -75,7 +75,7 @@ export default function Header({ setConfetti }) {
           <Link
             href="/"
             prefetch={false}
-            className="retro p-2 font-mono text-2xl font-black md:hidden"
+            className="retro-thin p-2 font-mono text-2xl font-black md:hidden"
           >
             MISHA.WTF
           </Link>

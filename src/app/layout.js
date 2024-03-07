@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
-          <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900">
+          <div className="relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900">
             {children}
           </div>
         </Providers>

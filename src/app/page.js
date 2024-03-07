@@ -22,10 +22,10 @@ export default function Home() {
       <div className="inline-flex w-full items-end justify-center">
         <div className="w-full max-w-3xl shrink-0 font-sans text-4xl font-bold tracking-tighter sm:text-center md:text-5xl">
           <span className="flex flex-wrap items-center justify-center">
-            <span className="flex items-center justify-center p-2 text-yellow-500 dark:text-yellow-300">
+            <span className="retro flex items-center justify-center p-2">
               Hey, I&apos;m
             </span>
-            <span className="retro ml-1 inline-flex md:ml-2">Mykhaylo.</span>
+            <span className="retro-thin ml-1 inline-flex md:ml-2">Mykhaylo.</span>
           </span>
         </div>
       </div>
