@@ -68,7 +68,7 @@ export default async function Post({ params }) {
   frontmatter.readingTime = getReadingTime(source);
 
   return (
-    <Layout className="!max-w-6xl border-x border-slate-200 bg-slate-50/5 backdrop-blur dark:border-slate-900 dark:bg-slate-900/5 md:px-8 lg:px-16 xl:px-20">
+    <Layout className="!max-w-6xl border-x border-slate-200 bg-slate-50/90 backdrop-blur dark:border-slate-950 dark:bg-slate-900/90 md:px-8 lg:px-16 xl:px-20">
       <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
         <div className="flex justify-center">
           <Link className="text-xs" href="/blog">

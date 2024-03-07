@@ -11,7 +11,7 @@ import { Nav } from './Menu';
 import Social from './Social';
 
 const GridBackground = () => (
-  <div className="fixed top-0 z-20 h-dvh w-full bg-slate-50/95 bg-left-top bg-repeat bg-origin-content dark:bg-slate-900/95" />
+  <div className="fixed top-0 z-20 h-dvh w-full bg-slate-50/90 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-slate-900/90 dark:bg-pattern-dark" />
 );
 
 export default function Layout({ children, className }) {
@@ -21,7 +21,7 @@ export default function Layout({ children, className }) {
   return (
     <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden">
       <Novatrix
-        className="fixed top-0 z-10 h-dvh w-full -hue-rotate-30 invert"
+        className="fixed top-0 z-10 h-dvh w-full -hue-rotate-30 dark:invert"
         style={{ height: '100vh', width: '100vw' }}
       />
       <GridBackground />

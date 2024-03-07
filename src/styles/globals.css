@@ -41,7 +41,7 @@ html {
   }
 
   .blurred-backdrop {
-    @apply bg-slate-50/50 filter backdrop-blur dark:bg-slate-900/50 dark:backdrop-blur;
+    @apply bg-slate-50/90 filter backdrop-blur dark:bg-slate-900/90 dark:backdrop-blur;
   }
 
   .border-outline {
