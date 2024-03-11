@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import { Card } from '@wtf-ds/core';
+import { twMerge } from 'tailwind-merge';
 
 import { codeToHtml } from 'src/lib/shiki';
 
@@ -10,7 +11,7 @@ const ShikiHighlighter = async ({ className, code, filename, lang = 'text' }) =>
 
   return (
     <Card
-      className={className}
+      className={twMerge('not-prose', className)}
       innerClassName="!p-0"
       actions={<CopyButton code={code} />}
       title={filename}
