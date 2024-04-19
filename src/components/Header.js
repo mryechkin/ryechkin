@@ -9,7 +9,7 @@ import DarkModeToggle from './DarkModeToggle';
 import Menu from './Menu';
 
 const SHOW_THRESHOLD = 80;
-const SCROLL_THRESHOLD = 10;
+const SCROLL_THRESHOLD = 15;
 
 const variants = {
   show: {
@@ -25,17 +25,21 @@ export default function Header({ className, setConfetti }) {
   const [initial, setInitial] = useState(true);
   const [show, setShow] = useState(true);
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
+  useMotionValueEvent(scrollY, 'change', (current) => {
     // initial render, don't hide
     if (initial) {
       setInitial(false);
       return;
     }
     const previous = scrollY.getPrevious();
-    const diff = latest - previous;
-    if (latest < SHOW_THRESHOLD + SCROLL_THRESHOLD && !show) {
+    const diff = current - previous;
+
+    // If current Y position is less than the visibility + scroll threshold, show the utility bar
+    if (current < SHOW_THRESHOLD + SCROLL_THRESHOLD) {
       setShow(true);
     } else if (Math.abs(diff) > SCROLL_THRESHOLD) {
+      // If scrolled more than the threshold, set visibility according to scroll direction
+      // (hide on scrolling down, show on scrolling up)
       setShow(diff < 0);
     }
   });
