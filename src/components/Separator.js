@@ -8,7 +8,7 @@ export default function Separator({ className }) {
         'aria-hidden my-2 flex h-full w-full select-none items-center justify-center sm:my-4',
       )}
     >
-      <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-500 bg-clip-text text-4xl text-transparent dark:from-yellow-300 dark:via-pink-400 dark:to-cyan-400 sm:text-6xl">
+      <div className="bg-gradient-to-r from-yellow-400 to-blue-500 bg-clip-text text-6xl text-transparent dark:from-yellow-300 dark:to-blue-400">
         &middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;
       </div>
     </div>

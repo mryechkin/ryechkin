@@ -1,4 +1,5 @@
 import { Card } from '@wtf-ds/core';
+import Link from 'next/link';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
@@ -12,10 +13,10 @@ export const metadata = {
 
 export default function VideosPage() {
   return (
-    <Layout>
+    <Layout showHomeButton>
       <Prose>
         <h1 className="retro py-2 text-5xl">Video Tutorials</h1>
-        <Card className="p-8 text-center lg:max-w-3xl [&>p]:my-1">
+        <Card className="mx-auto p-8 text-center lg:max-w-3xl [&>p]:my-1">
           <p>Here you will find some of my coding tutorials.</p>
           <p>
             Most of these are things I&apos;ve had to learn at some point, and wanted to
@@ -24,9 +25,7 @@ export default function VideosPage() {
         </Card>
       </Prose>
       <Separator />
-      <div className="my-8 pb-4">
-        <Videos sorted />
-      </div>
+      <Videos sorted />
       <div className="flex items-center justify-center py-8">
         <Counter slug="videos" />
       </div>

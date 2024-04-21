@@ -1,6 +1,8 @@
 'use client';
 
+import { Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
+import Link from 'next/link';
 import Confetti from 'react-dom-confetti';
 import { Novatrix } from 'uvcanvas';
 
@@ -14,7 +16,7 @@ const GridBackground = () => (
   <div className="fixed top-0 z-20 h-dvh w-full bg-slate-50/90 bg-pattern-light bg-left-top bg-repeat bg-origin-content dark:bg-slate-900/90 dark:bg-pattern-dark" />
 );
 
-export default function Layout({ children, className }) {
+export default function Layout({ children, className, showHomeButton = false }) {
   const [confetti, setConfetti] = useTimedToggle(false, 0);
   const year = new Date().getFullYear();
 
@@ -33,7 +35,21 @@ export default function Layout({ children, className }) {
         />
       </div>
       <main className="z-30 mt-24 w-full max-w-none overflow-hidden">
-        <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>{children}</div>
+        <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>
+          {children}
+          {showHomeButton && (
+            <div className="text-center">
+              <Card className="inline-block p-4">
+                <Link
+                  className="text-sm font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
+                  href="/"
+                >
+                  Go Home
+                </Link>
+              </Card>
+            </div>
+          )}
+        </div>
       </main>
       <footer
         className={cn(

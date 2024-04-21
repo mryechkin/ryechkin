@@ -1,10 +1,11 @@
+import { Card } from '@wtf-ds/core';
 import { compileMDX, getRawFile } from '@wtf-ds/next-mdx-utils';
 import Image from 'next/image';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
-import { WTFCard } from 'src/components/WTF';
+// import { WTFCard } from 'src/components/WTF';
 import { yearsToDate } from 'src/lib/utils';
 
 export const metadata = {
@@ -21,10 +22,10 @@ export default async function About() {
   });
 
   return (
-    <Layout>
+    <Layout showHomeButton>
       <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
         <h1>About Me</h1>
-        <WTFCard className="p-2 lg:p-8">
+        <Card className="p-2 lg:p-8">
           <div className="flex items-start justify-between lg:items-center">
             <div className="text-center lg:pr-4 lg:text-left ">
               <div className="not-prose pb-8 lg:hidden">
@@ -50,9 +51,9 @@ export default async function About() {
               />
             </div>
           </div>
-        </WTFCard>
+        </Card>
       </div>
-      <div className="flex items-center justify-center pt-8">
+      <div className="flex items-center justify-center py-8">
         <Counter slug="blog" />
       </div>
     </Layout>

@@ -90,7 +90,7 @@ export default function Videos({ limit, preview, sorted }) {
   }
 
   return (
-    <div className="mt-4 flex flex-wrap items-start justify-center gap-6">
+    <div className="my-4 flex flex-wrap items-start justify-center gap-6">
       {videos.map((item, i) => {
         if (i >= limit) {
           return null;

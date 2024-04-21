@@ -1,26 +1,22 @@
+import { Card as WTFCard } from '@wtf-ds/core';
+
 import Card from 'src/components/Card';
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Prose from 'src/components/Prose';
 import Separator from 'src/components/Separator';
-import { WTFCard } from 'src/components/WTF';
 import { getAllSnippets } from 'src/lib/data';
 
 export default function Snippets() {
   const snippets = getAllSnippets();
 
   return (
-    <Layout>
+    <Layout showHomeButton>
       <Prose>
         <h1 className="retro py-2 text-5xl">Snippets</h1>
-        <WTFCard>
-          <div className="text-center lg:max-w-3xl">
-            <p>
-              This is a collection of code snippets, components and hooks that I use in my
-              projects.
-            </p>
-            <p>Feel free to use in your own!</p>
-          </div>
+        <WTFCard className="p-8 text-center">
+          This is a collection of miscellaneous code snippets, components and hooks that
+          don&apos;t have a particular home.
         </WTFCard>
       </Prose>
       <Separator />

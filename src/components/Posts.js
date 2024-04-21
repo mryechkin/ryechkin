@@ -2,7 +2,7 @@ import Card from './Card';
 
 export default function Posts({ data, limit, preview }) {
   return (
-    <div className="mt-4 flex flex-wrap items-start justify-start gap-6">
+    <div className="my-4 flex flex-wrap items-start justify-start gap-6">
       {data?.length
         ? data.map((post, i) => {
             if (i >= limit) {
