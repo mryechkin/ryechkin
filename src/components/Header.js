@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Avatar from './Avatar';
 import DarkModeToggle from './DarkModeToggle';
 import Menu from './Menu';
+import SearchButton from './SearchButton';
 
 const SHOW_THRESHOLD = 80;
 const SCROLL_THRESHOLD = 15;
@@ -85,7 +86,8 @@ export default function Header({ className, setConfetti }) {
           </Link>
           <div className="relative flex items-center justify-center">
             <Menu />
-            <div className="hidden w-full min-w-[4rem] items-center justify-center md:flex">
+            <div className="hidden w-full min-w-[4rem] items-center justify-center gap-6 pl-2 md:flex">
+              <SearchButton />
               <DarkModeToggle />
             </div>
           </div>

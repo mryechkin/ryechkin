@@ -63,26 +63,18 @@ export default function Home() {
           <Stack>
             <h2 className="title">Latest Posts</h2>
             <Posts data={posts} limit={3} />
-            <WTFCard className="my-8 p-4">
-              <Link
-                href="/blog"
-                prefetch={false}
-                className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
-              >
-                See <strong>all posts</strong> &rarr;
+            <WTFCard className="prose my-8 p-4">
+              <Link href="/blog" prefetch={false}>
+                See <strong>all posts</strong>
               </Link>
             </WTFCard>
           </Stack>
           <Stack>
             <h2 className="title">Video Tutorials</h2>
             <Videos limit={3} />
-            <WTFCard className="my-8 p-4">
-              <Link
-                href="/videos"
-                prefetch={false}
-                className="text-lg font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
-              >
-                See <strong>all videos</strong> &rarr;
+            <WTFCard className="prose my-8 p-4">
+              <Link href="/videos" prefetch={false}>
+                See <strong>all videos</strong>
               </Link>
             </WTFCard>
           </Stack>

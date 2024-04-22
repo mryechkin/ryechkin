@@ -39,12 +39,9 @@ export default function Layout({ children, className, showHomeButton = false }) 
           {children}
           {showHomeButton && (
             <div className="text-center">
-              <Card className="inline-block p-4">
-                <Link
-                  className="text-sm font-medium hover:text-sky-500 focus:text-sky-500 dark:hover:text-sky-300 dark:focus:text-sky-300"
-                  href="/"
-                >
-                  Go Home
+              <Card className="prose inline-block p-4">
+                <Link href="/">
+                  Go <b>Home</b>
                 </Link>
               </Card>
             </div>

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
-// import { WTFCard } from 'src/components/WTF';
 import { yearsToDate } from 'src/lib/utils';
 
 export const metadata = {
@@ -59,21 +58,3 @@ export default async function About() {
     </Layout>
   );
 }
-
-// export async function getStaticProps() {
-//   const fileContents = getRawFile('/src/data/about.mdx');
-//   const data = await getMdx(fileContents);
-
-//   return {
-//     props: {
-//       source: {
-//         ...data,
-//         data: {
-//           ...data.data,
-//           readingTime: getReadingTime(data),
-//           slug: 'about',
-//         },
-//       },
-//     },
-//   };
-// }
