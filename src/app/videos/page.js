@@ -1,5 +1,4 @@
 import { Card } from '@wtf-ds/core';
-import Link from 'next/link';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';

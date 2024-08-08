@@ -5,10 +5,10 @@ import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Prose from 'src/components/Prose';
 import Separator from 'src/components/Separator';
-import { getAllSnippets } from 'src/lib/data';
+import { getAllDataByPath } from 'src/lib/data';
 
 export default function Snippets() {
-  const snippets = getAllSnippets();
+  const snippets = getAllDataByPath('src/data/snippets', false);
 
   return (
     <Layout showHomeButton>

@@ -1,16 +1,21 @@
-import { getRawFile } from '@wtf-ds/next-mdx-utils';
+import fs from 'fs';
+import path from 'path';
+
 import Link from 'next/link';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
-import { getAllSnippets } from 'src/lib/data';
-import { getMDX } from 'src/lib/mdx';
+import { getAllDataByPath } from 'src/lib/data';
+import { compileMDX } from 'src/lib/mdx';
 
-export default async function Snippet({ params }) {
-  const slug = `snippets/${params.slug}`;
-  const source = getRawFile(`/src/data/${slug}.mdx`);
-  const { content, frontmatter } = await getMDX({ source, components: MDX });
+export default async function Snippet({ params: { slug } }) {
+  // const fullPath = path.join(process.cwd(), `src/data/snippets/${slug}.mdx`);
+  // const source = fs.readFileSync(fullPath, 'utf8');
+  const source = getAllDataByPath('src/data/snippets', false).filter(
+    (snippet) => snippet.slug === slug,
+  );
+  const { content, frontmatter } = await compileMDX({ source, components: MDX });
 
   return (
     <Layout
@@ -37,7 +42,7 @@ export default async function Snippet({ params }) {
 }
 
 export async function generateStaticParams() {
-  const snippets = getAllSnippets();
+  const snippets = getAllDataByPath('src/data/snippets', false);
   return snippets.map((snippet) => ({
     params: {
       slug: snippet.data?.slug,

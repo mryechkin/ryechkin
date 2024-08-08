@@ -72,16 +72,12 @@ export default function Header({ className, setConfetti }) {
             <Link
               href="/"
               prefetch={false}
-              className="retro-thin hidden p-2 font-mono text-3xl font-black md:block"
+              className="retro-thin hidden p-2 text-3xl md:block"
             >
               MISHA.WTF
             </Link>
           </div>
-          <Link
-            href="/"
-            prefetch={false}
-            className="retro-thin p-2 font-mono text-2xl font-black md:hidden"
-          >
+          <Link href="/" prefetch={false} className="retro-thin p-2 text-2xl md:hidden">
             MISHA.WTF
           </Link>
           <div className="relative flex items-center justify-center">

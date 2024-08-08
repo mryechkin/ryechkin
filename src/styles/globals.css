@@ -116,26 +116,33 @@ pre.shiki {
   }
 
   .retro {
-    @apply font-black tracking-tight text-blue-200;
+    @apply font-black tracking-tight text-purple-50 dark:text-amber-50;
+    -webkit-text-stroke: 1px theme(colors.purple.950);
     text-shadow:
-      3px 2px 0px theme(colors.purple.900),
-      5px 4px 0px theme(colors.indigo.300);
+      3px 2px 0px theme(colors.purple.950),
+      5px 4px 0px theme(colors.fuchsia.600);
   }
 
   .dark .retro {
-    @apply text-amber-50;
+    -webkit-text-stroke: 0;
     text-shadow:
       3px 2px 0px theme(colors.fuchsia.600),
       5px 4px 0px theme(colors.amber.400);
   }
 
   .retro-thin {
-    @apply font-black tracking-tight text-yellow-400 dark:text-blue-200;
-    text-shadow: 3px 2px 0px theme(colors.pink.600);
+    @apply font-black tracking-tight text-blue-100 dark:text-blue-50;
+    -webkit-text-stroke: 1px theme(colors.blue.900);
+    text-shadow:
+      3px 2px 0px theme(colors.blue.800),
+      4px 3px 0px theme(colors.yellow.500);
   }
 
   .dark .retro-thin {
-    text-shadow: 3px 2px 0px theme(colors.blue.600);
+    -webkit-text-stroke: 0;
+    text-shadow:
+      3px 2px 0px theme(colors.blue.700),
+      4px 3px 0px theme(colors.yellow.400);
   }
 
   .social-github {

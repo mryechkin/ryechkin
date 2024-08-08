@@ -7,7 +7,6 @@ import { MdOutlineCameraRoll } from 'react-icons/md';
 export default function DateDisplay({ className, data, isExternal }) {
   const { date, duration, modified, readingTime } = data;
   const dateISO = parseISO(date);
-  const modifiedDate = parseISO(modified);
 
   return (
     <div
@@ -22,7 +21,10 @@ export default function DateDisplay({ className, data, isExternal }) {
       {modified && (
         <span className="italic">
           (updated{' '}
-          <time className="font-semibold">{format(modifiedDate, 'LLLL d, yyyy')}</time>)
+          <time className="font-semibold">
+            {format(parseISO(modified), 'LLLL d, yyyy')}
+          </time>
+          )
         </span>
       )}
       {readingTime && (

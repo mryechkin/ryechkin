@@ -11,9 +11,9 @@ import Card from './Card';
 import CodeBlock from './CodeBlockDynamic';
 import ExternalLink from './ExternalLink';
 import Separator from './Separator';
-import SyntaxHighlighter from './ShikiHighlighter';
 import Spinner from './Spinner';
 import Stack from './Stack';
+import SyntaxHighlighter from './SyntaxHighlighter';
 import Tags from './Tags';
 
 const CustomLink = (props) => {

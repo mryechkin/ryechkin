@@ -1,9 +1,6 @@
-import {
-  getAllDataByPath,
-  getHeadings,
-  getRawFile,
-  getReadingTime,
-} from '@wtf-ds/next-mdx-utils';
+import fs from 'fs';
+import path from 'path';
+
 import matter from 'gray-matter';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,13 +10,14 @@ import Counter from 'src/components/Counter';
 import DateDisplay from 'src/components/DateDisplay';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
-import Separator from 'src/components/Separator';
 import TableOfContents from 'src/components/TableOfContents';
 import Tags from 'src/components/Tags';
-import { getMDX } from 'src/lib/mdx';
+import { getReadingTime } from 'src/lib/data';
+import { compileMDX, getHeadings } from 'src/lib/mdx';
 
 export async function generateMetadata({ params: { slug } }) {
-  const source = getRawFile(`/src/data/blog/${slug}.mdx`);
+  const fullPath = path.join(process.cwd(), `src/data/blog/${slug}.mdx`);
+  const source = fs.readFileSync(fullPath, 'utf8');
   const { data } = matter(source);
 
   const title = data?.title ? `Mykhaylo Ryechkin | ${data.title}` : 'Mykhaylo Ryechkin';
@@ -60,10 +58,10 @@ export async function generateMetadata({ params: { slug } }) {
   return { title, description, openGraph, twitter, locale: 'en_CA', type: 'website' };
 }
 
-export default async function Post({ params }) {
-  const slug = `blog/${params.slug}`;
-  const source = getRawFile(`/src/data/${slug}.mdx`);
-  const { content, frontmatter } = await getMDX({ source, components: MDX });
+export default async function Post({ params: { slug } }) {
+  const fullPath = path.join(process.cwd(), `src/data/blog/${slug}.mdx`);
+  const source = fs.readFileSync(fullPath, 'utf8');
+  const { content, frontmatter } = await compileMDX({ source, components: MDX });
   const headings = await getHeadings(source);
 
   frontmatter.readingTime = getReadingTime(source);
@@ -90,7 +88,7 @@ export default async function Post({ params }) {
         <div className="mx-auto mt-8 max-w-2xl shadow-md">
           <Image
             alt={frontmatter.title}
-            src={`/${slug}/cover.png`}
+            src={`blog/${slug}/cover.png`}
             className="border-outline rounded-lg bg-slate-900 object-cover shadow-retro dark:shadow-retro-dark"
             width={1200}
             height={627}
@@ -111,11 +109,11 @@ export default async function Post({ params }) {
   );
 }
 
-export async function generateStaticParams() {
-  const posts = getAllDataByPath('src/data/blog');
-  return posts.map((post) => ({
-    params: {
-      slug: post.data?.slug,
-    },
-  }));
-}
+// export async function generateStaticParams() {
+//   const posts = getAllDataByPath('src/data/blog');
+//   return posts.map((post) => ({
+//     params: {
+//       slug: post.data?.slug,
+//     },
+//   }));
+// }

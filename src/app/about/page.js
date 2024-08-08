@@ -1,10 +1,11 @@
 import { Card } from '@wtf-ds/core';
-import { compileMDX, getRawFile } from '@wtf-ds/next-mdx-utils';
 import Image from 'next/image';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
+import { getRawFile } from 'src/lib/data';
+import { compileMDX } from 'src/lib/mdx';
 import { yearsToDate } from 'src/lib/utils';
 
 export const metadata = {
@@ -13,7 +14,7 @@ export const metadata = {
 
 export default async function About() {
   const experience = yearsToDate('05/01/2009');
-  const source = getRawFile('/src/data/about.mdx');
+  const source = getRawFile('src/data/about.mdx');
   const { content } = await compileMDX({
     source,
     components: MDX,

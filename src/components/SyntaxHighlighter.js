@@ -1,23 +1,24 @@
+/* eslint-disable react/no-danger */
 import { Card } from '@wtf-ds/core';
-import { Code } from 'bright';
+import { twMerge } from 'tailwind-merge';
 
-import theme from 'src/lib/themes/vscode/shadesOfPurple';
+import { codeToHtml } from 'src/lib/shiki';
 
 import CopyButton from './CopyButton';
 
-Code.theme = theme;
+const SyntaxHighlighter = async ({ className, code, filename, lang = 'text' }) => {
+  const html = await codeToHtml(code, { lang });
 
-const SyntaxHighlighter = ({ className, code, filename, language = 'text' }) => (
-  <Card
-    className={className}
-    innerClassName="!p-0"
-    actions={<CopyButton code={code} />}
-    title={filename}
-  >
-    <Code className="!my-0" lang={language}>
-      {code.trim()}
-    </Code>
-  </Card>
-);
+  return (
+    <Card
+      className={twMerge('not-prose', className)}
+      innerClassName="!p-0"
+      actions={<CopyButton code={code} />}
+      title={filename}
+    >
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Card>
+  );
+};
 
 export default SyntaxHighlighter;
