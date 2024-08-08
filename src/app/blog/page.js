@@ -1,20 +1,18 @@
 import { Card } from '@wtf-ds/core';
-import Link from 'next/link';
 
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Posts from 'src/components/Posts';
 import Prose from 'src/components/Prose';
 import Separator from 'src/components/Separator';
-// import { WTFCard } from 'src/components/WTF';
-import { getAllPosts } from 'src/lib/data';
+import { getAllDataByPath } from 'src/lib/data';
 
 export const metadata = {
   title: 'Mykhaylo Ryechkin | Blog',
 };
 
 export default function Blog() {
-  const posts = getAllPosts();
+  const posts = getAllDataByPath('src/data/blog');
 
   return (
     <Layout showHomeButton>

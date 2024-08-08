@@ -12,10 +12,10 @@ import Sparkles from 'src/components/Sparkles';
 import Stack from 'src/components/Stack';
 import Videos from 'src/components/Videos';
 import { WTFCard } from 'src/components/WTF';
-import { getAllPosts } from 'src/lib/data';
+import { getAllDataByPath } from 'src/lib/data';
 
 export default function Home() {
-  const posts = getAllPosts();
+  const posts = getAllDataByPath('src/data/blog');
 
   return (
     <Layout className="!max-w-[96rem]">

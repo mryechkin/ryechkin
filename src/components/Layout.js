@@ -4,7 +4,6 @@ import { Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import Link from 'next/link';
 import Confetti from 'react-dom-confetti';
-import { Novatrix } from 'uvcanvas';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
 
@@ -22,10 +21,6 @@ export default function Layout({ children, className, showHomeButton = false }) 
 
   return (
     <div className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden">
-      <Novatrix
-        className="fixed top-0 z-10 h-dvh w-full -hue-rotate-30 dark:invert"
-        style={{ height: '100vh', width: '100vw' }}
-      />
       <GridBackground />
       <Header className="fixed z-40" setConfetti={setConfetti} />
       <div className="fixed top-12 z-30 flex w-full items-center justify-center">

@@ -1,11 +1,11 @@
 import { cache } from 'react';
 
+import { getAllDataByPath } from 'src/lib/data';
+
 import 'server-only';
 
-import { getAllPosts } from 'src/lib/data';
-
 const getSearchIndex = cache(async () => {
-  const data = getAllPosts();
+  const data = getAllDataByPath('src/data/blog');
   return data.map((post) => ({
     ...post.data,
     id: post.data?.slug,
