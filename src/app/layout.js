@@ -7,7 +7,6 @@ import 'src/styles/fonts.css';
 import 'src/styles/globals.css';
 
 import Providers from 'src/components/Providers';
-import { preloadSearchIndex } from 'src/lib/utils/getSearchIndex';
 
 export const metadata = {
   metadataBase: 'https://misha.wtf',
@@ -40,8 +39,6 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
-  preloadSearchIndex();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
