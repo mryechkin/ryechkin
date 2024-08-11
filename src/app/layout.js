@@ -1,5 +1,6 @@
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-unresolved */
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
 
 import 'src/styles/fonts.css';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
           </div>
         </Providers>
         <Analytics />
+        <SpeedInsights />
         <Script
           async
           src="https://umami-one-delta.vercel.app/script.js"
