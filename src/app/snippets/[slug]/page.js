@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 import Link from 'next/link';
 
@@ -10,11 +10,8 @@ import { getAllDataByPath } from 'src/lib/data';
 import { compileMDX } from 'src/lib/mdx';
 
 export default async function Snippet({ params: { slug } }) {
-  // const fullPath = path.join(process.cwd(), `src/data/snippets/${slug}.mdx`);
-  // const source = fs.readFileSync(fullPath, 'utf8');
-  const source = getAllDataByPath('src/data/snippets', false).filter(
-    (snippet) => snippet.slug === slug,
-  );
+  const fullPath = join(process.cwd(), `src/data/snippets/${slug}.mdx`);
+  const source = await readFile(fullPath, 'utf8');
   const { content, frontmatter } = await compileMDX({ source, components: MDX });
 
   return (

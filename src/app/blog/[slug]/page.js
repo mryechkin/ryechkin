@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
 
 import matter from 'gray-matter';
 import Image from 'next/image';
@@ -12,12 +12,12 @@ import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
 import TableOfContents from 'src/components/TableOfContents';
 import Tags from 'src/components/Tags';
-import { getReadingTime } from 'src/lib/data';
+import { getAllDataByPath, getReadingTime } from 'src/lib/data';
 import { compileMDX, getHeadings } from 'src/lib/mdx';
 
 export async function generateMetadata({ params: { slug } }) {
-  const fullPath = path.join(process.cwd(), `src/data/blog/${slug}.mdx`);
-  const source = fs.readFileSync(fullPath, 'utf8');
+  const fullPath = join(process.cwd(), `src/data/blog/${slug}.mdx`);
+  const source = await readFile(fullPath, 'utf8');
   const { data } = matter(source);
 
   const title = data?.title ? `Mykhaylo Ryechkin | ${data.title}` : 'Mykhaylo Ryechkin';
@@ -59,8 +59,8 @@ export async function generateMetadata({ params: { slug } }) {
 }
 
 export default async function Post({ params: { slug } }) {
-  const fullPath = path.join(process.cwd(), `src/data/blog/${slug}.mdx`);
-  const source = fs.readFileSync(fullPath, 'utf8');
+  const fullPath = join(process.cwd(), `src/data/blog/${slug}.mdx`);
+  const source = await readFile(fullPath, 'utf8');
   const { content, frontmatter } = await compileMDX({ source, components: MDX });
   const headings = await getHeadings(source);
 
@@ -109,11 +109,11 @@ export default async function Post({ params: { slug } }) {
   );
 }
 
-// export async function generateStaticParams() {
-//   const posts = getAllDataByPath('src/data/blog');
-//   return posts.map((post) => ({
-//     params: {
-//       slug: post.data?.slug,
-//     },
-//   }));
-// }
+export async function generateStaticParams() {
+  const posts = getAllDataByPath('src/data/blog');
+  return posts.map((post) => ({
+    params: {
+      slug: post.data?.slug,
+    },
+  }));
+}
