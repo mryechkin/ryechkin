@@ -1,3 +1,4 @@
+import { Card as WTFCard } from '@wtf-ds/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiSmile } from 'react-icons/fi';
@@ -11,7 +12,6 @@ import Separator from 'src/components/Separator';
 import Sparkles from 'src/components/Sparkles';
 import Stack from 'src/components/Stack';
 import Videos from 'src/components/Videos';
-import { WTFCard } from 'src/components/WTF';
 import { getAllDataByPath } from 'src/lib/data';
 
 export default function Home() {
@@ -38,7 +38,7 @@ export default function Home() {
                 I&apos;m a <span className="font-semibold">Front-End Engineer</span> based
                 in <span className="font-semibold">Canada</span>.
               </div>
-              <div className="inline-block">
+              <div className="inline">
                 I write code for a living, drink more coffee than I probably should, and
                 listen to a lot of electronic music in the process. <RickRoll />
               </div>

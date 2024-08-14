@@ -3,6 +3,7 @@
   "plugins": ["css"],
   "rules": {
     "no-unused-vars": "warn",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "tailwindcss/no-custom-classname": "off"
   }
 }

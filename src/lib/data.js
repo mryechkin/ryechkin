@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { parseISO } from 'date-fns';
@@ -6,8 +6,8 @@ import matter from 'gray-matter';
 import readingTime from 'reading-time';
 
 export function getAllDataByPath(basePath, sort = true) {
-  const items = fs
-    .readdirSync(join(process.cwd(), basePath))
+  const files = readdirSync(join(process.cwd(), basePath));
+  const items = files
     .filter((path) => /\.mdx?$/.test(path)) // Only include md(x) files
     .map((filename) => {
       const source = getRawFile(`${basePath}/${filename}`);
@@ -26,7 +26,7 @@ export function getAllDataByPath(basePath, sort = true) {
       };
     });
 
-  if (sort) {
+  if (sort && items) {
     return items.sort(
       (a, b) =>
         // sort by date
@@ -43,7 +43,7 @@ export function getAllDataByPath(basePath, sort = true) {
  */
 export function getRawFile(path) {
   const fullPath = join(process.cwd(), path);
-  return fs.readFileSync(fullPath, 'utf8');
+  return readFileSync(fullPath, 'utf8');
 }
 
 export function getReadingTime(source) {

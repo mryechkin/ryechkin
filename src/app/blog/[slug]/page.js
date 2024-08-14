@@ -72,9 +72,10 @@ export default async function Post({ params: { slug } }) {
       showHomeButton
     >
       <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
-        <div className="flex justify-center pb-8 pt-4">
+        <div className="flex items-baseline justify-center gap-2 pb-8 pt-4">
+          &larr;
           <Link className="text-sm" href="/blog">
-            &larr; Back to Blog
+            Back to Blog
           </Link>
         </div>
         <h1 className="retro">{frontmatter.title}</h1>
@@ -88,7 +89,7 @@ export default async function Post({ params: { slug } }) {
         <div className="mx-auto mt-8 max-w-2xl shadow-md">
           <Image
             alt={frontmatter.title}
-            src={`blog/${slug}/cover.png`}
+            src={`/blog/${slug}/cover.png`}
             className="border-outline rounded-lg bg-slate-900 object-cover shadow-retro dark:shadow-retro-dark"
             width={1200}
             height={627}

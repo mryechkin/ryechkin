@@ -176,7 +176,7 @@ pre.shiki {
   }
 
   .prose a:not(.not-prose):not(.anchor):not(.toc-link):not(.simple-link) {
-    @apply font-medium text-slate-800 underline decoration-sky-300 decoration-2 underline-offset-2 transition-all hover:underline-offset-4 focus:no-underline dark:text-slate-50 !important;
+    @apply font-medium text-slate-800 underline decoration-sky-300 decoration-2 underline-offset-4 transition-all hover:decoration-fuchsia-500 focus:no-underline dark:text-slate-50 !important;
   }
 
   .prose blockquote {

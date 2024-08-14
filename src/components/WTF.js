@@ -1,5 +1,5 @@
 'use client';
 
-import { Card as WTFCard } from '@wtf-ds/core';
+import { Button, Card } from '@wtf-ds/core';
 
-export { WTFCard };
+export { Button, Card };
