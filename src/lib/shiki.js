@@ -4,9 +4,9 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from '@shikijs/transformers';
-import { getHighlighter } from 'shiki/bundle/web';
+import { createHighlighter } from 'shiki/bundle/web';
 
-const highlighter = getHighlighter({
+const highlighter = await createHighlighter({
   langs: [
     'html',
     'css',
@@ -22,7 +22,7 @@ const highlighter = getHighlighter({
 });
 
 export const codeToHtml = async (code, { lang }) =>
-  (await highlighter).codeToHtml(code, {
+  highlighter.codeToHtml(code, {
     lang,
     theme: 'synthwave-84',
     transformers: [

@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { motion } from 'framer-motion';
-import { SiGithub, SiLinkedin, SiTwitter, SiYoutube } from 'react-icons/si';
+import { FaXTwitter } from 'react-icons/fa6';
+import { SiGithub, SiLinkedin, SiYoutube } from 'react-icons/si';
 
 const social = [
   {
@@ -19,7 +20,7 @@ const social = [
     name: 'Twitter',
     className: 'social-twitter',
     href: 'https://twitter.com/mryechkin',
-    icon: (props) => <SiTwitter {...props} />,
+    icon: (props) => <FaXTwitter {...props} />,
   },
   {
     name: 'YouTube',
