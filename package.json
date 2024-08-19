@@ -11,7 +11,8 @@
     "lint:staged": "lint-staged",
     "prepare": "husky install",
     "prettier": "prettier --write src",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "lint-staged": {
     "*.js": [
@@ -69,12 +70,19 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.5",
     "@shikijs/transformers": "^1.13.0",
+    "@swc/core": "^1.7.11",
+    "@swc/jest": "^0.2.36",
     "@tailwindcss/typography": "^0.5.14",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "autoprefixer": "^10.4.20",
+    "browserslist": "^4.23.3",
     "eslint": "^8.57.0",
     "eslint-plugin-css": "^0.10.0",
     "husky": "^9.1.4",
     "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
