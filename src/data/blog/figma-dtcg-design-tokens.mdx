@@ -1,0 +1,42 @@
+---
+title: DTCG Design Tokens and Figma
+date: '2025-10-31'
+published: false
+summary: Overview of the newly stable Design Tokens W3C Community Group (DTCG) JSON format spec and its upcoming support in Figma.
+canonical: https://misha.wtf/blog/figma-dtcg-design-tokens
+tags: ['DTCG', 'Design Tokens', 'Design Systems', 'Figma', 'Style Dictionary']
+seo: ['DTCG', 'Design Tokens', 'Design Systems', 'Figma', 'Style Dictionary']
+author:
+  name: Mykhaylo Ryechkin
+  url: https://twitter.com/mryechkin
+---
+
+Earlier this week, Figma announced several new exciting features at [Schema 2025](https://www.figma.com/blog/schema-2025-design-systems-recap/), and like so many others in the design systems community, I am thrilled to hear about them. In particular, I'm looking forward to support for [slots](https://www.figma.com/blog/schema-2025-design-systems-recap/#slots) in Figma components, which opens up a lot of possibilities for [Code Connect](https://developers.figma.com/docs/code-connect/) and design-to-code workflows. I know, I know... that's all everyone is seemingly talking about this week, and it is a big deal - but that's a whole other topic for another day. In this post, I'd like to focus on another exciting update.
+
+The **Design Tokens W3C Community Group** ([DTCG](https://www.designtokens.org/)) JSON format spec is now officially stable! 🎉 This means we now have a standard specification for how design token data should be structured, enabling interoperability between various design and developer tooling, and providing a much-needed structure in an area that can get quite messy rather quickly otherwise.
+
+Alongside that announcement, Figma introduced support for the DTCG format spec in [variables](https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma), finally adding the ability to export them as DTCG-compliant JSON data 🥳 So long, custom export scripts!
+
+I for one am very excited to finally ditch my tokens export script that I relied on for this previously - originally adapted from Figma's [Plugin Samples](https://github.com/figma/plugin-samples/tree/main/variables-import-export) repo - as it's one less thing to maintain. It also means that anyone with access to the variables file in Figma can do the same without having to run the script locally, which can be especially helpful for non-technical team members.
+
+Additionally, Figma will also provide a way to [import variables](https://www.figma.com/blog/schema-2025-design-systems-recap/#importing-and-exporting-variables) from JSON data in the DTCG format, making it possible to quickly do batch updates to variables by simply authoring your data directly in JSON. Throw this task to your AI agent of choice, and the process becomes even easier.
+
+On the tooling side, having a common spec for how to interpret design tokens data opens up a lot of possibilities.
+
+For example, we can take that JSON export from Figma and generate various platform-specific assets from it. Using tools like [Style Dictionary](https://styledictionary.com/), [Cobalt](https://cobalt-ui.pages.dev/), or [Theemo](https://theemo.io/), we can generate design tokens as [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties) - which can then be used in any digital product that supports CSS. The same goes for native mobile apps as well - these tools have you covered there too, providing ability to generate tokens as iOS Swift code or Android XML resources.
+
+Speaking of Style Dictionary, a while back I did a video on how to do exactly that (generate CSS variables from design token data in the DTCG format).
+
+Go from token JSON files that looks like this:
+
+![Tokens in DTCG format](/blog/figma-dtcg-design-tokens/tokens.jpeg)
+
+To CSS that looks like this:
+
+![Design tokens in CSS](/blog/figma-dtcg-design-tokens/css.jpeg)
+
+The full video tutorial is available [here](https://youtu.be/RcxP0RePlVU).
+
+Note that since the recording of the video Style Dictionary has shipped a new [major version](https://styledictionary.com/versions/v4/migration/) with added support for the DTCG format out of the box, which means the additional package used in the video is not even needed anymore - but the overall idea remains just the same. Shout-out to [Lukas Opperman](https://www.linkedin.com/in/lukasoppermann) for the awesome [`style-dictionary-utils`](https://github.com/lukasoppermann/style-dictionary-utils) library which made this possible at the time!
+
+The repo for this tutorial is available in GitHub for reference: https://github.com/mryechkin/style-dictionary-tokens
