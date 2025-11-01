@@ -34,7 +34,7 @@ export default function SlideOver({ children, className, open, setOpen, title })
                         >
                           <span className="sr-only">Close panel</span>
                           <XCircleIcon
-                            className="h-8 w-8 text-rose-400"
+                            className="size-8 text-rose-400"
                             aria-hidden="true"
                           />
                         </button>

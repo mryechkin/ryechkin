@@ -45,7 +45,7 @@ export default function Social({ className }) {
           whileTap={{ scale: 0.9 }}
         >
           <span className="sr-only">{item.name}</span>
-          <item.icon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
+          <item.icon className="size-6 sm:size-8" aria-hidden="true" />
         </motion.a>
       ))}
     </span>

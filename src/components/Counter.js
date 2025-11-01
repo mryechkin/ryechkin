@@ -21,7 +21,7 @@ export default function Counter({ className, slug = 'index' }) {
         className,
       })}
     >
-      <HiOutlineGlobeAlt className="mr-2 h-4 w-4" />
+      <HiOutlineGlobeAlt className="mr-2 size-4" />
       {String(data?.count || 0).padStart(5, '0')}
     </div>
   );

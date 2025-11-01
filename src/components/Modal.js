@@ -36,7 +36,7 @@ export default function Modal({ children, open, setOpen }) {
                   onClick={() => setOpen(false)}
                 >
                   <span className="sr-only">Close</span>
-                  <XIcon className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
+                  <XIcon className="size-6 sm:size-8" aria-hidden="true" />
                 </button>
               </div>
               <div className="inline-flex min-h-screen max-w-7xl items-center justify-center p-2 sm:p-8">

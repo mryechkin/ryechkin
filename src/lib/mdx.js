@@ -1,24 +1,24 @@
+/* eslint-disable import/no-unresolved */
 import GithubSlugger from 'github-slugger';
-import { compileMDX as compileMDXRsc } from 'next-mdx-remote/rsc';
-import { serialize as serializeMDX } from 'next-mdx-remote/serialize';
+import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
+import rehypeUnwrapImages from 'rehype-unwrap-images';
 import { remark } from 'remark';
 import remarkEmoji from 'remark-emoji';
 import remarkGfm from 'remark-gfm';
-import remarkUnwrapImages from 'remark-unwrap-images';
 
 export async function compileMDX({ components = {}, scope, source }) {
-  const { content, frontmatter } = await compileMDXRsc({
+  const { content, frontmatter } = await evaluate({
     components,
     options: {
-      parseFrontmatter: true,
       mdxOptions: {
         rehypePlugins,
         remarkPlugins,
       },
+      parseFrontmatter: true,
       scope,
     },
     source,
@@ -59,6 +59,7 @@ export const rehypePlugins = [
   rehypeCodeTitles,
   rehypeMdxCodeProps,
   rehypeSlug,
+  rehypeUnwrapImages,
   [
     rehypeAutolinkHeadings,
     {
@@ -68,14 +69,4 @@ export const rehypePlugins = [
   ],
 ];
 
-export const remarkPlugins = [remarkEmoji, remarkGfm, remarkUnwrapImages];
-
-export async function serialize(source) {
-  return serializeMDX(source, {
-    mdxOptions: {
-      remarkPlugins,
-      rehypePlugins,
-    },
-    parseFrontmatter: true,
-  });
-}
+export const remarkPlugins = [remarkEmoji, remarkGfm];

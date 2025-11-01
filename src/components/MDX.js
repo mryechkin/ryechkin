@@ -2,19 +2,23 @@
 import React from 'react';
 import { Card as WTFCard } from '@wtf-ds/core';
 import cn from 'classnames';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FaExclamation } from 'react-icons/fa';
 import { FiSmile } from 'react-icons/fi';
 
 import Caption from './Caption';
 import Card from './Card';
-import CodeBlock from './CodeBlockDynamic';
 import ExternalLink from './ExternalLink';
 import Separator from './Separator';
 import Spinner from './Spinner';
 import Stack from './Stack';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Tags from './Tags';
+
+const CodeBlock = dynamic(() => import('src/components/CodeBlock'), {
+  loading: Spinner,
+});
 
 const CustomLink = (props) => {
   const { children, href } = props;

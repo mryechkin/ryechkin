@@ -22,7 +22,7 @@ export default function AnimatedPath({ delay = 100 }) {
   return (
     <div className="mx-auto flex h-screen w-full flex-col items-center justify-center overflow-hidden md:max-w-3xl">
       <motion.div
-        className="h-12 w-12 p-2 font-bold text-cyan-300"
+        className="size-12 p-2 font-bold text-cyan-300"
         initial={false}
         animate={{ ...xy }}
       >

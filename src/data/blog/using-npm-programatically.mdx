@@ -219,7 +219,7 @@ We can now import this in our React code, and display the relevant data on the U
 > Note that you'll need to specify the `json` [import assertion](https://v8.dev/features/import-assertions) here to import this as a [JSON module](https://github.com/tc39/proposal-json-modules)
 
 ```jsx
-import dependencies from 'dependencies.json' assert { type: 'json' };
+import dependencies from 'dependencies.json' with { type: 'json' };
 
 export default function Dependencies() {
   return (

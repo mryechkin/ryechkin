@@ -8,7 +8,7 @@ export default function SearchButton() {
   const router = useRouter();
   return (
     <Button className="rounded-full p-2" onClick={() => router.push('/search')}>
-      <HiOutlineMagnifyingGlass className="h-6 w-6" />
+      <HiOutlineMagnifyingGlass className="size-6" />
     </Button>
   );
 }

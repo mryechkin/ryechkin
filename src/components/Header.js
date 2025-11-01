@@ -82,7 +82,7 @@ export default function Header({ className, setConfetti }) {
           </Link>
           <div className="relative flex items-center justify-center">
             <Menu />
-            <div className="hidden w-full min-w-[4rem] items-center justify-center gap-6 pl-2 md:flex">
+            <div className="hidden w-full min-w-16 items-center justify-center gap-6 pl-2 md:flex">
               <SearchButton />
               <DarkModeToggle />
             </div>

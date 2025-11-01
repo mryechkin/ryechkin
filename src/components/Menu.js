@@ -43,9 +43,9 @@ export default function Menu() {
       <Popover.Button className="custom-focus block p-2 md:hidden" aria-label="Menu">
         {({ open }) =>
           open ? (
-            <XCircleIcon className="h-8 w-8 text-rose-400" />
+            <XCircleIcon className="size-8 text-rose-400" />
           ) : (
-            <MenuAlt4Icon className="h-8 w-8 text-sky-300" />
+            <MenuAlt4Icon className="size-8 text-sky-300" />
           )
         }
       </Popover.Button>

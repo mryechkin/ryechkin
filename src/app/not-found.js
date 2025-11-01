@@ -11,7 +11,7 @@ export default function NotFound() {
         <div className="flex flex-col items-center justify-center gap-4">
           <h1 className="retro">Page Not Found.</h1>
           <Card className="flex items-center justify-center gap-4 p-8">
-            <FaExclamationTriangle className="h-10 w-10 text-rose-500 dark:text-rose-400" />
+            <FaExclamationTriangle className="size-10 text-rose-500 dark:text-rose-400" />
             These are not the droids you&apos;re looking for.
           </Card>
           <Link className="mt-12" href="/" prefetch={false}>

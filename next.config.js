@@ -5,9 +5,10 @@
 module.exports = {
   reactStrictMode: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  experimental: {
-    outputFileTracingIncludes: {
-      '/search': ['./src/data/blog/*'],
-    },
+  images: {
+    qualities: [75, 90],
+  },
+  outputFileTracingIncludes: {
+    '/search': ['./src/data/blog/*'],
   },
 };

@@ -10,7 +10,7 @@ export default function ExternalLink({ alt, children, className, href, icon }) {
       {icon || (
         <HiOutlineExternalLink
           data-testid="icon-external"
-          className="inline-block h-6 w-6 pl-1 text-sky-300"
+          className="inline-block size-6 pl-1 text-sky-300"
         />
       )}
     </span>

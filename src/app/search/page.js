@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default async function Search({ searchParams }) {
-  const { q } = searchParams;
+  const { q } = await searchParams;
 
   let results = q && SearchIndex.search(q);
 

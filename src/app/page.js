@@ -32,7 +32,7 @@ export default function Home() {
       <div className="mx-auto items-center justify-center">
         <Prose className="mt-1 text-center md:mt-4 lg:max-w-3xl">
           <WTFCard className="relative z-0 flex items-center justify-between p-8 md:flex-row lg:max-w-3xl">
-            <Sparkles className="absolute inset-0 z-0 h-full w-full" />
+            <Sparkles className="absolute inset-0 z-0 size-full" />
             <div className="z-10 flex flex-col gap-4 pr-0 md:pr-4 md:text-left">
               <div className="inline-block">
                 I&apos;m a <span className="font-semibold">Front-End Engineer</span> based
@@ -51,7 +51,7 @@ export default function Home() {
             </div>
             <Image
               src="/assets/headshot-enhanced.jpg"
-              className="not-prose z-10 box-content hidden aspect-square h-32 w-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
+              className="not-prose z-10 box-content hidden aspect-square size-32 rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-1 md:block"
               width={392}
               height={392}
               alt="My avatar"

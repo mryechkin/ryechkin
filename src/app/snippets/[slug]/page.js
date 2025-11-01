@@ -9,7 +9,8 @@ import MDX from 'src/components/MDX';
 import { getAllDataByPath } from 'src/lib/data';
 import { compileMDX } from 'src/lib/mdx';
 
-export default async function Snippet({ params: { slug } }) {
+export default async function Snippet({ params }) {
+  const { slug } = await params;
   const fullPath = join(process.cwd(), `src/data/snippets/${slug}.mdx`);
   const source = await readFile(fullPath, 'utf8');
   const { content, frontmatter } = await compileMDX({ source, components: MDX });

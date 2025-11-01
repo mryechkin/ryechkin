@@ -29,18 +29,18 @@ export default function DateDisplay({ className, data, isExternal }) {
       )}
       {readingTime && (
         <div className="flex items-center justify-center gap-2">
-          <IoMdBook className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
+          <IoMdBook className="size-6 font-light text-indigo-600 dark:text-indigo-400" />
           {readingTime}
         </div>
       )}
       {duration && (
         <div className="flex items-center justify-center gap-2">
-          <MdOutlineCameraRoll className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
+          <MdOutlineCameraRoll className="size-6 font-light text-indigo-600 dark:text-indigo-400" />
           {duration}
         </div>
       )}
       {isExternal && (
-        <HiOutlineExternalLink className="h-6 w-6 font-light text-indigo-600 dark:text-indigo-400" />
+        <HiOutlineExternalLink className="size-6 font-light text-indigo-600 dark:text-indigo-400" />
       )}
     </div>
   );

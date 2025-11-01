@@ -25,9 +25,9 @@ export default function DarkModeToggle({ className }) {
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       {theme === 'light' ? (
-        <CgSun className="h-6 w-6 text-rose-400" />
+        <CgSun className="size-6 text-rose-400" />
       ) : (
-        <IoMoon className="h-6 w-6 text-indigo-500" />
+        <IoMoon className="size-6 text-indigo-500" />
       )}
     </Button>
   );

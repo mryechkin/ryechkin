@@ -15,7 +15,8 @@ import Tags from 'src/components/Tags';
 import { getAllDataByPath, getReadingTime } from 'src/lib/data';
 import { compileMDX, getHeadings } from 'src/lib/mdx';
 
-export async function generateMetadata({ params: { slug } }) {
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
   const fullPath = join(process.cwd(), `src/data/blog/${slug}.mdx`);
   const source = await readFile(fullPath, 'utf8');
   const { data } = matter(source);
@@ -58,7 +59,8 @@ export async function generateMetadata({ params: { slug } }) {
   return { title, description, openGraph, twitter, locale: 'en_CA', type: 'website' };
 }
 
-export default async function Post({ params: { slug } }) {
+export default async function Post({ params }) {
+  const { slug } = await params;
   const fullPath = join(process.cwd(), `src/data/blog/${slug}.mdx`);
   const source = await readFile(fullPath, 'utf8');
   const { content, frontmatter } = await compileMDX({ source, components: MDX });
