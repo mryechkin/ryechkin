@@ -13,7 +13,7 @@ export default function Snippets() {
   return (
     <Layout showHomeButton>
       <Prose>
-        <h1 className="retro py-2 text-5xl">Snippets</h1>
+        <h1 className="title">Snippets</h1>
         <WTFCard className="p-8 text-center">
           This is a collection of miscellaneous code snippets, components and hooks that
           don&apos;t have a particular home.

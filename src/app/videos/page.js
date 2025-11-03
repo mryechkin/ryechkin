@@ -14,7 +14,7 @@ export default function VideosPage() {
   return (
     <Layout showHomeButton>
       <Prose>
-        <h1 className="retro py-2 text-5xl">Video Tutorials</h1>
+        <h1 className="title">Video Tutorials</h1>
         <Card className="mx-auto p-8 text-center lg:max-w-3xl [&>p]:my-1">
           <p>Here you will find some of my coding tutorials.</p>
           <p>

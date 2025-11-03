@@ -27,7 +27,7 @@ export function Nav({ ariaLabel = 'Navigation', className }) {
           <Link
             href={item.href}
             prefetch={false}
-            className="nav-link w-full text-center !font-semibold uppercase"
+            className="nav-link w-full text-center uppercase"
           >
             {item.name}
           </Link>

@@ -4,12 +4,14 @@ import { join } from 'path';
 import matter from 'gray-matter';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BiLeftArrowCircle } from 'react-icons/bi';
 
 import BackToTop from 'src/components/BackToTop';
 import Counter from 'src/components/Counter';
 import DateDisplay from 'src/components/DateDisplay';
 import Layout from 'src/components/Layout';
 import MDX from 'src/components/MDX';
+import Separator from 'src/components/Separator';
 import TableOfContents from 'src/components/TableOfContents';
 import Tags from 'src/components/Tags';
 import { getAllDataByPath, getReadingTime } from 'src/lib/data';
@@ -74,10 +76,15 @@ export default async function Post({ params }) {
       showHomeButton
     >
       <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
-        <div className="flex items-baseline justify-center gap-2 pb-8 pt-4">
-          &larr;
-          <Link className="text-sm" href="/blog">
-            Back to Blog
+        <div className="mb-8 flex items-center justify-center">
+          <Link href="/blog">
+            <BackToTop
+              as="span"
+              className="text-sm"
+              icon={<BiLeftArrowCircle className="size-8" />}
+            >
+              Back to Blog
+            </BackToTop>
           </Link>
         </div>
         <h1 className="retro">{frontmatter.title}</h1>
@@ -104,10 +111,11 @@ export default async function Post({ params }) {
         <div className="flex items-center justify-center p-2">
           <BackToTop />
         </div>
-        <div className="flex items-center justify-center py-8">
+        <div className="flex items-center justify-center py-4 md:py-8">
           <Counter slug={slug} />
         </div>
       </article>
+      <Separator />
     </Layout>
   );
 }

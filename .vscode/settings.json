@@ -3,6 +3,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.trimTrailingWhitespace": true,
   "prettier.configPath": ".prettierrc",
   "prettier.printWidth": 90,
@@ -13,5 +14,8 @@
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.editorAssociations": {
+    "*.svg": "default"
   }
 }

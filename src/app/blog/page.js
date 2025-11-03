@@ -17,7 +17,7 @@ export default function Blog() {
   return (
     <Layout showHomeButton>
       <Prose>
-        <h1 className="retro py-2 text-5xl">Blog</h1>
+        <h1 className="title">Blog</h1>
         <Card className="mx-auto p-8 text-center lg:max-w-3xl">
           I write about modern web development, design systems and stuff I&apos;ve
           recently learned, used, or just simply find interesting.

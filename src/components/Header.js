@@ -56,7 +56,7 @@ export default function Header({ className, setConfetti }) {
       <div className="h-4 w-full bg-blue-600" />
       <div className="flex h-4 w-full items-center justify-center bg-yellow-300 text-center">
         <a
-          className="h-4 text-xs font-bold uppercase tracking-wider text-blue-600"
+          className="h-4 font-mono text-sm font-bold uppercase tracking-wide text-blue-600"
           href="https://war.ukraine.ua/"
           title="Donate to support Ukraine #StandWithUkraine"
           target="_blank"
@@ -72,12 +72,16 @@ export default function Header({ className, setConfetti }) {
             <Link
               href="/"
               prefetch={false}
-              className="retro-thin hidden p-2 text-3xl md:block"
+              className="retro-thin hidden p-2 font-sans text-3xl md:block"
             >
               MISHA.WTF
             </Link>
           </div>
-          <Link href="/" prefetch={false} className="retro-thin p-2 text-2xl md:hidden">
+          <Link
+            href="/"
+            prefetch={false}
+            className="retro-thin p-2 font-sans text-2xl md:hidden"
+          >
             MISHA.WTF
           </Link>
           <div className="relative flex items-center justify-center">

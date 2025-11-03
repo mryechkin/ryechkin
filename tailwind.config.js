@@ -34,8 +34,8 @@ module.exports = {
       }),
       fontFamily: {
         sans: ['Libre Franklin', ...defaultTheme.fontFamily.sans],
-        serif: ['Libre Franklin', ...defaultTheme.fontFamily.serif],
-        mono: ['Fira Code', ...defaultTheme.fontFamily.mono],
+        serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
+        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
       },
       fontSize: {
         xxs: '0.5rem',

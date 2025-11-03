@@ -30,11 +30,11 @@ export default function Layout({ children, className, showHomeButton = false }) 
         />
       </div>
       <main className="z-30 mt-24 w-full max-w-none overflow-hidden">
-        <div className={cn('mx-auto max-w-5xl p-6 md:p-8', className)}>
+        <div className={cn('mx-auto max-w-5xl px-4 py-2 md:p-8', className)}>
           {children}
           {showHomeButton && (
             <div className="text-center">
-              <Card className="prose inline-block p-4">
+              <Card className="prose my-4 inline-block p-4">
                 <Link href="/">
                   Go <b>Home</b>
                 </Link>

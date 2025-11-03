@@ -24,7 +24,7 @@ export default async function About() {
   return (
     <Layout showHomeButton>
       <div className="prose mx-auto max-w-full py-6 lg:prose-lg">
-        <h1>About Me</h1>
+        <h1 className="title">About Me</h1>
         <Card className="p-2 lg:p-8">
           <div className="flex items-start justify-between lg:items-center">
             <div className="text-center lg:pr-4 lg:text-left ">

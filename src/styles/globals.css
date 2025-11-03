@@ -54,7 +54,7 @@ pre.shiki {
 
 @layer base {
   body:not(textarea) {
-    @apply font-sans text-slate-700 selection:bg-blue-600 selection:text-yellow-300 dark:text-slate-50;
+    @apply font-serif text-slate-700 selection:bg-blue-600 selection:text-yellow-300 dark:text-slate-50;
   }
 
   a {
@@ -68,7 +68,7 @@ pre.shiki {
 
   nav:not(.toc) a,
   .nav-link {
-    @apply p-2 font-bold text-slate-800 no-underline shadow-underline transition-all hover:shadow-link dark:text-slate-50;
+    @apply p-2 font-sans font-bold text-slate-800 no-underline shadow-underline transition-all hover:shadow-link dark:text-slate-50;
   }
 
   .accent {
@@ -162,7 +162,7 @@ pre.shiki {
   }
 
   .title {
-    @apply retro py-2 text-5xl font-black tracking-tight;
+    @apply retro py-2 font-sans text-5xl font-black tracking-tight;
   }
 
   .toc-link {
@@ -200,11 +200,11 @@ pre.shiki {
   } */
 
   .prose code {
-    @apply font-mono text-sm font-normal;
+    @apply font-mono text-base font-normal;
   }
 
   .prose-lg code {
-    @apply text-base;
+    @apply text-xl;
   }
 
   .prose a > code {

@@ -65,13 +65,12 @@ export default function Card({
           {summary && <p className="line-clamp-3 text-ellipsis text-left">{summary}</p>}
         </div>
         {!hideCover && imageUrl && (
-          <div className="col-span-5 hidden px-4 pb-4 md:col-span-2 md:block md:pt-4">
-            <div className="relative flex size-full items-center justify-center overflow-hidden">
+          <div className="col-span-5 px-4 pb-4 md:col-span-2 md:pt-4">
+            <div className="relative flex h-32 w-full items-center justify-center overflow-hidden md:h-full">
               <Image
                 className="w-full rounded-lg bg-slate-900 object-cover"
                 src={imageUrl}
                 alt={title}
-                sizes="360px"
                 fill
                 priority
               />

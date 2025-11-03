@@ -15,6 +15,7 @@ import Spinner from './Spinner';
 import Stack from './Stack';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Tags from './Tags';
+import YouTubeEmbed from './YouTubeEmbed';
 
 const CodeBlock = dynamic(() => import('src/components/CodeBlock'), {
   loading: Spinner,
@@ -64,6 +65,7 @@ const MDX = {
   CodeBlock,
   FiSmile,
   ImageCard,
+  YouTubeEmbed,
   pre: (props) => {
     const { children, filename, live, ...rest } = props;
     const childProps = children?.props;

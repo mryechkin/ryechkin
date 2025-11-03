@@ -24,7 +24,7 @@ export default async function Search({ searchParams }) {
   return (
     <Layout showHomeButton>
       <Prose>
-        <h1 className="retro py-2 text-5xl">Search</h1>
+        <h1 className="title">Search</h1>
         <SearchInput />
         <Separator />
         {q && (
