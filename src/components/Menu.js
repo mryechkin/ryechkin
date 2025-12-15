@@ -1,9 +1,9 @@
 import { Popover } from '@headlessui/react';
 import { MenuAlt4Icon, XCircleIcon } from '@heroicons/react/outline';
-import { Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import Link from 'next/link';
 
+import Card from './Card';
 import DarkModeToggle from './DarkModeToggle';
 import SearchButton from './SearchButton';
 

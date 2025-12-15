@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { useTheme } from 'next-themes';
 import { FiCheck } from 'react-icons/fi';
@@ -11,6 +10,8 @@ import { CodeEditor, useLiveRunner } from 'react-live-runner';
 import useTimedToggle from 'src/hooks/useTimedToggle';
 import prismTheme from 'src/lib/themes/prism/synthwave84';
 
+import Button from './Button';
+import Card from './Card';
 import CopyButton from './CopyButton';
 
 const scope = {

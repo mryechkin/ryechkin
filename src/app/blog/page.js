@@ -1,5 +1,4 @@
-import { Card } from '@wtf-ds/core';
-
+import Card from 'src/components/Card';
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Posts from 'src/components/Posts';

@@ -1,4 +1,4 @@
-import Card from './Card';
+import FeatureCard from './FeatureCard';
 
 export default function Posts({ data, limit, preview }) {
   return (
@@ -13,7 +13,7 @@ export default function Posts({ data, limit, preview }) {
             const hideCover = preview && i > 0;
 
             return (
-              <Card
+              <FeatureCard
                 className={hideCover && 'w-full grow md:w-[calc(50%-12px)]'}
                 hideCover={hideCover}
                 key={slug}

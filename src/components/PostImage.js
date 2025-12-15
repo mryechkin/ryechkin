@@ -40,7 +40,7 @@ export default function PostImage({
     <div className="flex w-full flex-col items-center justify-center">
       <button
         className={cn(
-          'custom-focus-offset mx-auto my-4 w-full cursor-pointer rounded-lg shadow',
+          'custom-focus mx-auto my-4 w-full cursor-pointer rounded-lg shadow',
           small ? 'max-w-2xl' : 'max-w-5xl',
           className,
         )}

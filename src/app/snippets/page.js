@@ -1,7 +1,6 @@
-import { Card as WTFCard } from '@wtf-ds/core';
-
 import Card from 'src/components/Card';
 import Counter from 'src/components/Counter';
+import FeatureCard from 'src/components/FeatureCard';
 import Layout from 'src/components/Layout';
 import Prose from 'src/components/Prose';
 import Separator from 'src/components/Separator';
@@ -14,10 +13,10 @@ export default function Snippets() {
     <Layout showHomeButton>
       <Prose>
         <h1 className="title">Snippets</h1>
-        <WTFCard className="p-8 text-center">
+        <Card className="p-8 text-center">
           This is a collection of miscellaneous code snippets, components and hooks that
           don&apos;t have a particular home.
-        </WTFCard>
+        </Card>
       </Prose>
       <Separator />
       <div className="mx-auto flex max-w-lg flex-col gap-8">
@@ -25,7 +24,7 @@ export default function Snippets() {
           ? snippets.map((snippet) => {
               const { slug, summary, tags, title } = snippet.data;
               return (
-                <Card
+                <FeatureCard
                   key={slug}
                   item={{ href: `/snippets/${slug}`, summary, tags, title }}
                 />

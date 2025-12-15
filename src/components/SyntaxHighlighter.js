@@ -1,9 +1,9 @@
 /* eslint-disable react/no-danger */
-import { Card } from '@wtf-ds/core';
 import { twMerge } from 'tailwind-merge';
 
 import { codeToHtml } from 'src/lib/shiki';
 
+import Card from './Card';
 import CopyButton from './CopyButton';
 
 const SyntaxHighlighter = async ({ className, code, filename, lang = 'text' }) => {

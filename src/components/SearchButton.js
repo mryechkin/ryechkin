@@ -1,8 +1,9 @@
 'use client';
 
-import { Button } from '@wtf-ds/core';
 import { useRouter } from 'next/navigation';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+
+import Button from './Button';
 
 export default function SearchButton() {
   const router = useRouter();

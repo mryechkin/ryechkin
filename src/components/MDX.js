@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { Card as WTFCard } from '@wtf-ds/core';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -10,6 +9,7 @@ import { FiSmile } from 'react-icons/fi';
 import Caption from './Caption';
 import Card from './Card';
 import ExternalLink from './ExternalLink';
+import FeatureCard from './FeatureCard';
 import Separator from './Separator';
 import Spinner from './Spinner';
 import Stack from './Stack';
@@ -61,8 +61,8 @@ const MDX = {
   a: CustomLink,
   hr: Separator,
   img: ImageCard,
-  Card,
   CodeBlock,
+  FeatureCard,
   FiSmile,
   ImageCard,
   YouTubeEmbed,
@@ -82,7 +82,7 @@ const MDX = {
   Spinner,
   Tags,
   Warning,
-  WTFCard,
+  Card,
   ...React,
 };
 

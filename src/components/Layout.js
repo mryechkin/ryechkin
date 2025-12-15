@@ -1,12 +1,12 @@
 'use client';
 
-import { Card } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import Link from 'next/link';
 import Confetti from 'react-dom-confetti';
 
 import useTimedToggle from 'src/hooks/useTimedToggle';
 
+import Card from './Card';
 import Header from './Header';
 import { Nav } from './Menu';
 import Social from './Social';

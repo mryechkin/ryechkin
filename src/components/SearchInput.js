@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@wtf-ds/core';
 import cn from 'classnames/dedupe';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+import Button from './Button';
 
 export default function SearchInput(props) {
   const router = useRouter();

@@ -1,0 +1,82 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaYoutube } from 'react-icons/fa';
+import { twMerge } from 'tailwind-merge';
+
+import ButtonCard from './ButtonCard';
+import DateDisplay from './DateDisplay';
+import Tags from './Tags';
+
+export default function FeatureCard({
+  className,
+  hideCover = false,
+  isExternal = false,
+  isVideo = false,
+  item,
+}) {
+  if (!item) return null;
+
+  const { date, duration, href, imageUrl, readingTime, summary, tags, title } = item;
+
+  const externalProps = isExternal
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+
+  return (
+    <div className={twMerge('w-full', className)}>
+      <ButtonCard
+        as={Link}
+        href={href}
+        className={twMerge(
+          'not-prose group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis !p-0 no-underline',
+          imageUrl && !hideCover && 'md:grid-flow-col',
+        )}
+        {...externalProps}
+      >
+        <div
+          className={twMerge(
+            'col-span-5 flex flex-col items-center justify-start gap-4 overflow-hidden p-4',
+            imageUrl && !hideCover && 'md:col-span-3 md:items-start',
+          )}
+        >
+          <div
+            className={twMerge(
+              'inline-flex w-full flex-nowrap items-center justify-center text-ellipsis text-lg font-bold group-hover:text-black group-hover:decoration-sky-300 group-focus:text-black group-focus:decoration-sky-300 dark:group-hover:text-sky-300 dark:group-hover:decoration-sky-300 dark:group-focus:text-sky-300 dark:group-focus:decoration-sky-300 md:text-xl lg:text-2xl',
+              hideCover ? 'md:justify-center' : 'md:justify-start',
+            )}
+          >
+            <span
+              className={twMerge(
+                'line-clamp-2 w-full text-center',
+                !hideCover && 'md:text-start',
+              )}
+            >
+              {title}
+            </span>
+          </div>
+          {date && (
+            <DateDisplay data={{ date, duration, readingTime }} isExternal={isExternal} />
+          )}
+          {tags?.length > 0 && <Tags className="justify-center" list={tags} />}
+          {summary && <p className="line-clamp-3 text-ellipsis text-left">{summary}</p>}
+        </div>
+        {!hideCover && imageUrl && (
+          <div className="col-span-5 px-4 pb-4 md:col-span-2 md:pt-4">
+            <div className="relative flex h-32 w-full items-center justify-center overflow-hidden md:h-full">
+              <Image
+                className="w-full rounded-lg bg-slate-900 object-cover"
+                src={imageUrl}
+                alt={title}
+                fill
+                priority
+              />
+              {isVideo && (
+                <FaYoutube className="absolute size-32 text-white opacity-60 group-hover:opacity-90 group-focus:opacity-90" />
+              )}
+            </div>
+          </div>
+        )}
+      </ButtonCard>
+    </div>
+  );
+}

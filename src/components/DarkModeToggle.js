@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@wtf-ds/core';
 import cn from 'classnames';
 import { useTheme } from 'next-themes';
 import { CgSun } from 'react-icons/cg';
 import { IoMoon } from 'react-icons/io5';
+
+import Button from './Button';
 
 export default function DarkModeToggle({ className }) {
   const [mounted, setMounted] = useState(false);

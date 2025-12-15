@@ -6,7 +6,7 @@
     "analyze": "ANALYZE=true next build",
     "build": "next build",
     "dev": "next dev",
-    "lint": "eslint src",
+    "lint": "eslint --ignore-path .gitignore src && prettier --check src",
     "lint:fix": "npm run lint -- --fix",
     "lint:staged": "lint-staged",
     "prepare": "husky install",
@@ -39,7 +39,6 @@
     "@tsparticles/slim": "^3.9.1",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
-    "@wtf-ds/core": "file:wtf-ds-core-1.0.3.tgz",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^4.1.0",
@@ -75,10 +74,10 @@
     "server-only": "^0.0.1",
     "shiki": "^3.20.0",
     "swr": "^2.3.7",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^16.0.10",
+    "@next/eslint-plugin-next": "^15.5.9",
     "@shikijs/transformers": "^3.20.0",
     "@swc/core": "^1.15.4",
     "@swc/jest": "^0.2.39",

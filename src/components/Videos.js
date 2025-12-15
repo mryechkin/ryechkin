@@ -1,6 +1,6 @@
 import { parseISO } from 'date-fns';
 
-import Card from './Card';
+import FeatureCard from './FeatureCard';
 
 const VIDEOS = [
   {
@@ -97,12 +97,12 @@ export default function Videos({ limit, preview, sorted }) {
         }
 
         if ((i === 0 && preview) || !preview) {
-          return <Card key={item.imageUrl} item={item} isExternal isVideo />;
+          return <FeatureCard key={item.imageUrl} item={item} isExternal isVideo />;
         }
 
         if (preview) {
           return (
-            <Card
+            <FeatureCard
               className="w-full grow md:w-[calc(50%-12px)]"
               key={item.imageUrl}
               item={item}

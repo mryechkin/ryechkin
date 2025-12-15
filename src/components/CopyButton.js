@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@wtf-ds/core';
 import { FiCheck, FiCopy } from 'react-icons/fi';
 
 import { useClipboard } from 'src/hooks';
+
+import Button from './Button';
 
 const CopyButton = ({ code, ...props }) => {
   const { hasCopied, onCopy } = useClipboard(code);

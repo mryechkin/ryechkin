@@ -1,8 +1,8 @@
-import { Card as WTFCard } from '@wtf-ds/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiSmile } from 'react-icons/fi';
 
+import Card from 'src/components/Card';
 import Counter from 'src/components/Counter';
 import Layout from 'src/components/Layout';
 import Posts from 'src/components/Posts';
@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       <div className="mx-auto items-center justify-center">
         <Prose className="mt-1 text-center md:mt-4 lg:max-w-3xl">
-          <WTFCard className="relative z-0 flex items-center justify-between p-8 md:flex-row lg:max-w-3xl">
+          <Card className="relative z-0 flex items-center justify-between p-8 md:flex-row lg:max-w-3xl">
             <Sparkles className="absolute inset-0 z-0 size-full" />
             <div className="z-10 flex flex-col gap-4 pr-0 md:pr-4 md:text-left">
               <div className="inline-block">
@@ -56,27 +56,27 @@ export default function Home() {
               height={392}
               alt="My avatar"
             />
-          </WTFCard>
+          </Card>
         </Prose>
         <Separator />
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
           <Stack>
             <h2 className="title">Latest Posts</h2>
             <Posts data={posts} limit={3} />
-            <WTFCard className="prose my-8 p-4">
+            <Card className="prose my-8 p-4">
               <Link href="/blog" prefetch={false}>
                 See <strong>all posts</strong>
               </Link>
-            </WTFCard>
+            </Card>
           </Stack>
           <Stack>
             <h2 className="title">Video Tutorials</h2>
             <Videos limit={3} />
-            <WTFCard className="prose my-8 p-4">
+            <Card className="prose my-8 p-4">
               <Link href="/videos" prefetch={false}>
                 See <strong>all videos</strong>
               </Link>
-            </WTFCard>
+            </Card>
           </Stack>
         </div>
         <div className="mt-8 inline-flex w-full items-center justify-center">

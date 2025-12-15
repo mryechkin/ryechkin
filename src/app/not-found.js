@@ -1,7 +1,7 @@
-import { Card } from '@wtf-ds/core';
 import Link from 'next/link';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
+import Card from 'src/components/Card';
 import Layout from 'src/components/Layout';
 
 export default function NotFound() {
