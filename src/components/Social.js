@@ -1,7 +1,8 @@
 import cn from 'classnames';
 import { motion } from 'framer-motion';
+import { FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { SiGithub, SiLinkedin, SiYoutube } from 'react-icons/si';
+import { SiGithub, SiYoutube } from 'react-icons/si';
 
 const social = [
   {
@@ -14,7 +15,7 @@ const social = [
     name: 'LinkedIn',
     className: 'social-linkedin',
     href: 'https://ca.linkedin.com/in/mryechkin',
-    icon: (props) => <SiLinkedin {...props} />,
+    icon: (props) => <FaLinkedinIn {...props} />,
   },
   {
     name: 'Twitter',

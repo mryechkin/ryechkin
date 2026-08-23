@@ -18,8 +18,7 @@
 # misc
 .DS_Store
 *.pem
-unsplash
-Figma Brand Assets
+public/search-index.json
 
 # debug
 npm-debug.log*
