@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 
-import { getHits, updateHits } from 'src/lib/api';
+import { getHits, incrementHits } from 'src/lib/api';
 
 export const useHits = (slug = 'index') => {
   const [init, setInit] = useState(false);
@@ -13,10 +13,13 @@ export const useHits = (slug = 'index') => {
     if (!init && data) setInit(true);
   }, [data]);
 
-  function increment(count = 1) {
-    if (!data) return;
-    mutate({ ...data, count: data.count + count }, false);
-    mutate(updateHits({ slug, count: data.count + count }));
+  function increment() {
+    if (!data || process.env.NEXT_PUBLIC_APP_ENV !== 'production') {
+      return;
+    }
+
+    mutate({ ...data, count: data.count + 1 }, false);
+    mutate(incrementHits(slug));
   }
 
   return {

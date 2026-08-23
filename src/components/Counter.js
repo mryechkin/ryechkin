@@ -11,7 +11,9 @@ export default function Counter({ className, slug = 'index' }) {
   const { data, increment, init } = useHits(slug);
 
   useEffect(() => {
-    if (init && process.env.NEXT_PUBLIC_APP_ENV === 'production') increment();
+    if (init) {
+      increment();
+    }
   }, [init]);
 
   return (

@@ -54,7 +54,7 @@ export default async function About() {
         </Card>
       </div>
       <div className="flex items-center justify-center py-8">
-        <Counter slug="blog" />
+        <Counter slug="about" />
       </div>
     </Layout>
   );

@@ -112,7 +112,7 @@ export default async function Post({ params }) {
           <BackToTop />
         </div>
         <div className="flex items-center justify-center py-4 md:py-8">
-          <Counter slug={slug} />
+          <Counter slug={`blog/${slug}`} />
         </div>
       </article>
       <Separator />

@@ -32,7 +32,7 @@ export default async function Snippet({ params }) {
           {content}
         </article>
         <div className="flex items-center justify-center py-8">
-          <Counter slug={slug} />
+          <Counter slug={`snippets/${slug}`} />
         </div>
       </div>
     </Layout>
