@@ -7,7 +7,7 @@ import Separator from 'src/components/Separator';
 import { getAllDataByPath } from 'src/lib/data';
 
 export default function Snippets() {
-  const snippets = getAllDataByPath('src/data/snippets', false);
+  const snippets = getAllDataByPath('snippets', false);
 
   return (
     <Layout showHomeButton>

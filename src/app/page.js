@@ -15,7 +15,7 @@ import Videos from 'src/components/Videos';
 import { getAllDataByPath } from 'src/lib/data';
 
 export default function Home() {
-  const posts = getAllDataByPath('src/data/blog');
+  const posts = getAllDataByPath('blog');
 
   return (
     <Layout className="!max-w-[96rem]">

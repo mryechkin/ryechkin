@@ -14,7 +14,7 @@ export const metadata = {
 
 export default async function About() {
   const experience = yearsToDate('05/01/2009');
-  const source = getRawFile('src/data/about.mdx');
+  const source = getRawFile('about.mdx');
   const { content } = await compileMDX({
     source,
     components: MDX,

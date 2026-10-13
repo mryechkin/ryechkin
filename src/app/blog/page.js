@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default function Blog() {
-  const posts = getAllDataByPath('src/data/blog');
+  const posts = getAllDataByPath('blog');
 
   return (
     <Layout showHomeButton>

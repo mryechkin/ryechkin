@@ -121,7 +121,7 @@ export default async function Post({ params }) {
 }
 
 export async function generateStaticParams() {
-  const posts = getAllDataByPath('src/data/blog');
+  const posts = getAllDataByPath('blog');
   return posts.map((post) => ({
     params: {
       slug: post.data?.slug,

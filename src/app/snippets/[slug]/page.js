@@ -40,7 +40,7 @@ export default async function Snippet({ params }) {
 }
 
 export async function generateStaticParams() {
-  const snippets = getAllDataByPath('src/data/snippets', false);
+  const snippets = getAllDataByPath('snippets', false);
   return snippets.map((snippet) => ({
     params: {
       slug: snippet.data?.slug,

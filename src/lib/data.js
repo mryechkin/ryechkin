@@ -6,7 +6,7 @@ import matter from 'gray-matter';
 import readingTime from 'reading-time';
 
 export function getAllDataByPath(basePath, sort = true) {
-  const files = readdirSync(join(process.cwd(), basePath));
+  const files = readdirSync(join(process.cwd(), 'src/data', basePath));
   const items = files
     .filter((path) => /\.mdx?$/.test(path)) // Only include md(x) files
     .map((filename) => {
@@ -38,11 +38,11 @@ export function getAllDataByPath(basePath, sort = true) {
 }
 
 /**
- * Reads the file at specified path
+ * Reads the file at specified path, relative to src/data
  * @param {string} path - Path of file to read
  */
 export function getRawFile(path) {
-  const fullPath = join(process.cwd(), path);
+  const fullPath = join(process.cwd(), 'src/data', path);
   return readFileSync(fullPath, 'utf8');
 }
 
