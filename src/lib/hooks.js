@@ -14,11 +14,11 @@ export const useHits = (slug = 'index') => {
   }, [data]);
 
   function increment() {
-    if (!data || process.env.NEXT_PUBLIC_APP_ENV !== 'production') {
+    if (!data) {
       return;
     }
 
-    mutate({ ...data, count: data.count + 1 }, false);
+    mutate({ ...data, count: (data.count ?? 0) + 1 }, false);
     mutate(incrementHits(slug));
   }
 

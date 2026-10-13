@@ -17,7 +17,8 @@ export default async function Search({ searchParams }) {
   let results = q && SearchIndex.search(q);
 
   if (results?.length) {
-    results = results.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Snippets have no date, so they sort after dated posts
+    results = results.sort((a, b) => new Date(b.date ?? 0) - new Date(a.date ?? 0));
   }
 
   return (

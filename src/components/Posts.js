@@ -9,17 +9,19 @@ export default function Posts({ data, limit, preview }) {
               return null; // Only show up to a `limit` of posts
             }
 
-            const { date, readingTime, slug, summary, tags, title } = post.data;
+            const { category, date, path, readingTime, slug, summary, tags, title } =
+              post.data;
             const hideCover = preview && i > 0;
 
             return (
               <FeatureCard
                 className={hideCover && 'w-full grow md:w-[calc(50%-12px)]'}
                 hideCover={hideCover}
-                key={slug}
+                key={path ?? slug}
                 item={{
-                  href: `/blog/${slug}`,
-                  imageUrl: `/blog/${slug}/cover.png`,
+                  href: path ?? `/blog/${slug}`,
+                  imageUrl:
+                    category === 'snippets' ? undefined : `/blog/${slug}/cover.png`,
                   date,
                   readingTime,
                   summary,

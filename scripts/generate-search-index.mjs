@@ -5,7 +5,7 @@
  * This script:
  * 1. Reads all MDX files from src/data/blog and src/data/snippets directories
  * 2. Parses each MDX file to extract title, headings, and content
- * 3. Generates a JSON search index file that can be loaded client-side
+ * 3. Writes a JSON search index that is read server-side by src/lib/search.js
  *
  * Run with: node scripts/generate-search-index.mjs
  */
@@ -14,13 +14,34 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { decodeHTML } from 'entities';
 import GithubSlugger from 'github-slugger';
 import matter from 'gray-matter';
+import readingTime from 'reading-time';
+import { remark } from 'remark';
+import remarkEmoji from 'remark-emoji';
+import remarkGfm from 'remark-gfm';
+import remarkMdx from 'remark-mdx';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const ROOT_DIR = path.resolve(dirname, '..');
+const OUTPUT_PATH = path.join(ROOT_DIR, '.generated/search-index.json');
+
+const mdProcessor = remark().use(remarkGfm).use(remarkEmoji);
+const mdxProcessor = remark().use(remarkMdx).use(remarkGfm).use(remarkEmoji);
+
+// Nodes whose content should never end up in the searchable text
+const SKIP_NODES = new Set([
+  'code',
+  'html',
+  'image',
+  'imageReference',
+  'mdxjsEsm',
+  'mdxFlowExpression',
+  'mdxTextExpression',
+]);
+
+const TEXT_BLOCKS = new Set(['heading', 'paragraph', 'tableCell']);
 
 /**
  * Gets all MDX/MD files from a directory
@@ -42,155 +63,100 @@ function getMdxFiles(directory) {
     }));
 }
 
-/**
- * Strips MDX/Markdown syntax to get plain text content
- */
-function stripMarkdown(content) {
-  const stripped = content
-    // Remove frontmatter
-    .replace(/^---[\s\S]*?---/m, '')
-    // Remove code blocks entirely (including content)
-    .replace(/```[\w]*\n?[\s\S]*?```/g, '')
-    // Remove inline code markers but keep content
-    .replace(/`([^`]+)`/g, '$1')
-    // Remove JSX/HTML tags
-    .replace(/<[^>]+>/g, '')
-    // Remove import statements
-    .replace(/^import\s+.*$/gm, '')
-    // Remove export statements
-    .replace(/^export\s+.*$/gm, '')
-    // Remove headings markers but keep text
-    .replace(/^#{1,6}\s+/gm, '')
-    // Remove bold/italic markers
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/_([^_]+)_/g, '$1')
-    // Remove links but keep text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    // Remove images
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
-    // Remove horizontal rules
-    .replace(/^[-*_]{3,}$/gm, '')
-    // Remove blockquotes markers
-    .replace(/^>\s+/gm, '')
-    // Remove list markers
-    .replace(/^[\s]*[-*+]\s+/gm, '')
-    .replace(/^[\s]*\d+\.\s+/gm, '')
-    // Remove table syntax
-    .replace(/\|/g, ' ')
-    .replace(/^[-:]+$/gm, '')
-    // Remove MDX component syntax like {props.something}
-    .replace(/\{[^}]+\}/g, '')
-    // Remove multiple spaces
-    .replace(/[ \t]+/g, ' ')
-    // Remove multiple newlines
-    .replace(/\n{3,}/g, '\n\n')
-    // Remove leading/trailing whitespace per line
-    .split('\n')
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0)
-    .join(' ')
-    // Remove leading/trailing whitespace
-    .trim();
-
-  // Decode HTML entities using 'entities' library
-  return decodeHTML(stripped);
+function parse(content, filePath) {
+  const processor = filePath.endsWith('.mdx') ? mdxProcessor : mdProcessor;
+  return processor.runSync(processor.parse(content));
 }
 
 /**
- * Extracts headings from MDX content
+ * Plain text of a node, matching what rehype-slug sees for headings
  */
-function extractHeadings(content) {
-  const slugger = new GithubSlugger();
-  const headingLines = content.split('\n').filter((line) => line.match(/^#{2,3}\s/));
-
-  return headingLines.map((raw) => {
-    const level = raw.match(/^#+/)[0].length;
-    const text = raw.replace(/^#{1,6}\s+/, '').trim();
-    const id = slugger.slug(text);
-    return { text, level, id };
-  });
-}
-
-/**
- * Creates a content excerpt for search results
- */
-function createExcerpt(content, maxLength = 200) {
-  const plainText = stripMarkdown(content);
-  if (plainText.length <= maxLength) {
-    return plainText;
+function toText(node) {
+  if (SKIP_NODES.has(node.type)) {
+    return '';
   }
-  return `${plainText.slice(0, maxLength).trim()}...`;
+  if (node.type === 'text' || node.type === 'inlineCode') {
+    return node.value;
+  }
+  return node.children ? node.children.map(toText).join('') : '';
+}
+
+function collectText(node, out = []) {
+  if (SKIP_NODES.has(node.type)) {
+    return out;
+  }
+  if (TEXT_BLOCKS.has(node.type)) {
+    out.push(toText(node));
+    return out;
+  }
+  node.children?.forEach((child) => collectText(child, out));
+  return out;
+}
+
+/**
+ * Slugs every heading in document order (like rehype-slug) so duplicate
+ * suffixes line up with the rendered page, but only returns H2/H3.
+ */
+function collectHeadings(node, slugger = new GithubSlugger(), out = []) {
+  if (node.type === 'heading') {
+    const text = toText(node).trim();
+    const id = slugger.slug(text);
+    if (node.depth === 2 || node.depth === 3) {
+      out.push({ text, id });
+    }
+    return out;
+  }
+  node.children?.forEach((child) => collectHeadings(child, slugger, out));
+  return out;
 }
 
 /**
  * Processes a single MDX file
  */
 function processPage({ category, filePath, slug }) {
-  try {
-    if (!fs.existsSync(filePath)) {
-      console.warn(`Warning: File not found: ${filePath}`);
-      return null;
-    }
+  const source = fs.readFileSync(filePath, 'utf8');
+  const { content, data: frontmatter } = matter(source);
 
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { content, data: frontmatter } = matter(fileContent);
-
-    const headings = extractHeadings(content);
-    const plainContent = stripMarkdown(content);
-    const excerpt = createExcerpt(content);
-    const routePath = `/${category}/${slug}`;
-
-    return {
-      id: routePath,
-      title: frontmatter.title || slug,
-      path: routePath,
-      excerpt,
-      // Include headings for section-level search
-      headings: headings.map((h) => ({
-        text: h.text,
-        id: h.id,
-        anchor: `${routePath}#${h.id}`,
-      })),
-      // Full content for deep search (stripped of markdown)
-      content: plainContent,
-      // Metadata for display
-      category,
-      // Optional tags for search
-      tags: frontmatter.tags || [],
-    };
-  } catch (error) {
-    console.error(`Error processing ${filePath}:`, error.message);
+  if (frontmatter.published === false) {
     return null;
   }
+
+  const tree = parse(content, filePath);
+  const routePath = `/${category}/${slug}`;
+
+  return {
+    id: routePath,
+    slug,
+    path: routePath,
+    category,
+    title: frontmatter.title || slug,
+    summary: frontmatter.summary || '',
+    tags: frontmatter.tags || [],
+    date: frontmatter.date ?? null,
+    readingTime: readingTime(source).text,
+    headings: collectHeadings(tree).map(({ id, text }) => ({
+      text,
+      id,
+      anchor: `${routePath}#${id}`,
+    })),
+    content: collectText(tree).join(' ').replace(/\s+/g, ' ').trim(),
+  };
 }
 
-/**
- * Main function to generate the search index
- */
 function generateSearchIndex() {
   console.log('Generating search index...\n');
 
-  // Get all MDX files from blog and snippets directories
-  const blogFiles = getMdxFiles('blog');
-  const snippetFiles = getMdxFiles('snippets');
-  const allFiles = [...blogFiles, ...snippetFiles];
+  const allFiles = [...getMdxFiles('blog'), ...getMdxFiles('snippets')];
 
-  // Process each file
-  const searchIndex = allFiles
-    .map((file) => processPage(file))
-    .filter((page) => page !== null);
+  const searchIndex = allFiles.map((file) => processPage(file)).filter(Boolean);
 
-  // Write the search index to a JSON file
-  const outputPath = path.join(ROOT_DIR, 'public/search-index.json');
-  fs.writeFileSync(outputPath, JSON.stringify(searchIndex, null, 2));
+  fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
+  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(searchIndex));
 
   console.log(
     '\x1b[1;92m✔\x1b[0m',
-    `Search index generated with ${searchIndex.length} pages in ${outputPath}`,
+    `Search index generated with ${searchIndex.length} pages in ${OUTPUT_PATH}`,
   );
 }
 
-// Run the script
 generateSearchIndex();

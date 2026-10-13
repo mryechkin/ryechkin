@@ -9,6 +9,7 @@ module.exports = {
     qualities: [75, 90],
   },
   outputFileTracingIncludes: {
-    '/search': ['./src/data/blog/*'],
+    '/search': ['./.generated/search-index.json'],
+    '/api/hits': ['./.generated/search-index.json'],
   },
 };

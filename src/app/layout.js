@@ -40,15 +40,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      // className={cn(
-      //   inconsolata.className,
-      //   libreFranklin.className,
-      //   merriweather.className,
-      // )}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
           <div className="relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900">
