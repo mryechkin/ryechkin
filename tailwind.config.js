@@ -33,9 +33,9 @@ module.exports = {
         )}`,
       }),
       fontFamily: {
-        sans: ['Libre Franklin', ...defaultTheme.fontFamily.sans],
-        serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
-        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-libre-franklin)', ...defaultTheme.fontFamily.sans],
+        serif: ['var(--font-merriweather)', ...defaultTheme.fontFamily.serif],
+        mono: ['var(--font-inconsolata)', ...defaultTheme.fontFamily.mono],
       },
       fontSize: {
         xxs: '0.5rem',

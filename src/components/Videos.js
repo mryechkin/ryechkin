@@ -2,7 +2,7 @@ import { parseISO } from 'date-fns';
 
 import FeatureCard from './FeatureCard';
 
-const VIDEOS = [
+export const VIDEOS = [
   {
     title: 'W3C Design Tokens in CSS using Style Dictionary',
     date: '2023-12-07',
@@ -74,7 +74,7 @@ const VIDEOS = [
   },
 ];
 
-function sortByDate(data) {
+export function sortByDate(data) {
   return [...data].sort(
     (a, b) =>
       // sort by date

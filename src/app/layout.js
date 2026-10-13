@@ -1,12 +1,32 @@
 /* eslint-disable import/no-unresolved */
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import cn from 'classnames';
+// eslint-disable-next-line camelcase
+import { Inconsolata, Libre_Franklin, Merriweather } from 'next/font/google';
 import Script from 'next/script';
 
-import 'src/styles/fonts.css';
 import 'src/styles/globals.css';
 
 import Providers from 'src/components/Providers';
+
+const inconsolata = Inconsolata({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inconsolata',
+});
+
+const libreFranklin = Libre_Franklin({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-libre-franklin',
+});
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-merriweather',
+});
 
 export const metadata = {
   metadataBase: 'https://misha.wtf',
@@ -40,7 +60,11 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(inconsolata.variable, libreFranklin.variable, merriweather.variable)}
+      suppressHydrationWarning
+    >
       <body>
         <Providers>
           <div className="relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-700 dark:to-slate-900">

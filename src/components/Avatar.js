@@ -18,7 +18,7 @@ export default function Avatar({ className, setConfetti, ...rest }) {
       id="avatar"
       type="button"
       className={cn(
-        'custom-focus flex h-10 w-10 cursor-pointer select-none items-center justify-center rounded-full focus-visible:rounded-full md:h-12 md:w-12',
+        'custom-focus flex cursor-pointer select-none items-center justify-center rounded-full focus-visible:rounded-full md:h-12 md:w-12',
         className,
       )}
       whileFocus={{ scale: 1.1 }}
@@ -29,8 +29,8 @@ export default function Avatar({ className, setConfetti, ...rest }) {
     >
       <Image
         src="/assets/headshot-enhanced.jpg"
-        width={48}
-        height={48}
+        width={50}
+        height={50}
         alt="Avatar"
         className="rounded-full bg-gradient-to-br from-blue-600 to-yellow-300 p-0.5"
       />

@@ -72,49 +72,58 @@ export default async function Post({ params }) {
 
   return (
     <Layout
-      className="!max-w-6xl border-x border-slate-200 bg-slate-50/90 backdrop-blur dark:border-slate-950 dark:bg-slate-900/90 md:px-8 lg:px-16 xl:px-20"
+      className="!max-w-7xl border-x border-slate-200 bg-slate-50/90 backdrop-blur dark:border-slate-950 dark:bg-slate-900/90 md:px-8 lg:px-12"
       showHomeButton
     >
-      <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
-        <div className="mb-8 flex items-center justify-center">
-          <Link href="/blog">
-            <BackToTop
-              as="span"
-              className="text-sm"
-              icon={<BiLeftArrowCircle className="size-8" />}
-            >
-              Back to Blog
-            </BackToTop>
-          </Link>
-        </div>
-        <h1 className="retro">{frontmatter.title}</h1>
-        {frontmatter?.tags?.length && (
-          <Tags
-            className="my-6 w-full items-center justify-center"
-            list={frontmatter?.tags}
+      <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-12">
+        <article className="prose prose-sm relative w-full max-w-full dark:prose-invert sm:prose-base lg:prose-lg">
+          <div className="mb-8 flex items-center justify-center">
+            <Link href="/blog">
+              <BackToTop
+                as="span"
+                className="text-sm"
+                icon={<BiLeftArrowCircle className="size-8" />}
+              >
+                Back to Blog
+              </BackToTop>
+            </Link>
+          </div>
+          <h1 className="retro">{frontmatter.title}</h1>
+          {frontmatter?.tags?.length && (
+            <Tags
+              className="my-6 w-full items-center justify-center"
+              list={frontmatter?.tags}
+            />
+          )}
+          <DateDisplay data={frontmatter} />
+          <div className="mx-auto mt-8 max-w-2xl shadow-md">
+            <Image
+              alt={frontmatter.title}
+              src={`/blog/${slug}/cover.png`}
+              className="border-outline rounded-lg bg-slate-900 object-cover shadow-retro dark:shadow-retro-dark"
+              width={1200}
+              height={627}
+              quality={90}
+              priority
+            />
+          </div>
+          <TableOfContents
+            className="top-[5.25rem] xl:hidden"
+            headings={headings}
+            variant="bar"
           />
-        )}
-        <DateDisplay data={frontmatter} />
-        <div className="mx-auto mt-8 max-w-2xl shadow-md">
-          <Image
-            alt={frontmatter.title}
-            src={`/blog/${slug}/cover.png`}
-            className="border-outline rounded-lg bg-slate-900 object-cover shadow-retro dark:shadow-retro-dark"
-            width={1200}
-            height={627}
-            quality={90}
-            priority
-          />
-        </div>
-        <TableOfContents className="sticky top-0" headings={headings} />
-        <div>{content}</div>
-        <div className="flex items-center justify-center p-2">
-          <BackToTop />
-        </div>
-        <div className="flex items-center justify-center py-4 md:py-8">
-          <Counter slug={`blog/${slug}`} />
-        </div>
-      </article>
+          <div>{content}</div>
+          <div className="flex items-center justify-center p-2">
+            <BackToTop />
+          </div>
+          <div className="flex items-center justify-center py-4 md:py-8">
+            <Counter slug={`blog/${slug}`} />
+          </div>
+        </article>
+        <aside className="hidden xl:block">
+          <TableOfContents headings={headings} variant="rail" />
+        </aside>
+      </div>
       <Separator />
     </Layout>
   );

@@ -7,7 +7,7 @@ import Separator from 'src/components/Separator';
 import { getAllDataByPath } from 'src/lib/data';
 
 export const metadata = {
-  title: 'Mykhaylo Ryechkin | Blog',
+  title: 'Mykhaylo Ryechkin | Writing',
 };
 
 export default function Blog() {
@@ -16,7 +16,7 @@ export default function Blog() {
   return (
     <Layout showHomeButton>
       <Prose>
-        <h1 className="title">Blog</h1>
+        <h1 className="title">Writing</h1>
         <Card className="mx-auto p-8 text-center lg:max-w-3xl">
           I write about modern web development, design systems and stuff I&apos;ve
           recently learned, used, or just simply find interesting.

@@ -6,7 +6,7 @@ import Separator from 'src/components/Separator';
 import Videos from 'src/components/Videos';
 
 export const metadata = {
-  title: 'Mykhaylo Ryechkin | Videos',
+  title: 'Mykhaylo Ryechkin | Video Tutorials',
 };
 
 export default function VideosPage() {

@@ -11,9 +11,13 @@ name: Mykhaylo Ryechkin
 url: https://twitter.com/mryechkin
 ---
 
+## Intro
+
 Last week, Figma announced several exciting new features at [Schema 2025](https://www.figma.com/blog/schema-2025-design-systems-recap/), and like so many others in the design systems community, I was thrilled to hear about them. In particular, I'm looking forward to support for [slots](https://www.figma.com/blog/schema-2025-design-systems-recap/#slots) in Figma components, which opens up a whole new set of possibilities for [Code Connect](https://developers.figma.com/docs/code-connect/) and design-to-code workflows.
 
 I know, I know... that's all everyone seems to be talking about after the conference. And, it is a big deal - but that's a whole other topic for another day. In this post, I'd like to focus on another exciting update.
+
+## Design Tokens Specification
 
 [Kaelig](https://www.kaelig.fr) from The W3C [Design Tokens Community Group](https://www.designtokens.org) (or **DTCG** for short) has announced that the [JSON format spec](https://www.designtokens.org/tr/2025.10/) is officially **stable**! 🎉 This means we now have a standard specification for how token data should be structured, enabling interoperability between various design and developer tools, and providing some much-needed structure in this foundational area of every design system.
 
@@ -47,13 +51,19 @@ By standardizing how tokens are defined and exchanged, the DTCG spec enables tru
 
 In short, the DTCG format creates a **shared language** for design systems. It allows teams to scale more confidently, reduces the risk of visual drift, and paves the way for better automation and collaboration between design and code.
 
+## Figma Support for DTCG
+
 Alongside the stable release of the DTCG token format, Figma is introducing support for this spec in [variables](https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma), finally adding the ability to export them as DTCG-compliant JSON data - with no plugins or custom export scripts needed! 🥳
 
 Personally, I'm looking forward to ditching my tokens export script, which I had originally adapted from Figma's [Plugin Samples](https://github.com/figma/plugin-samples/tree/main/variables-import-export) repo a year or so ago. It's one less thing to maintain, and in a team setting means that anyone with the required access to the variables file in Figma can do this directly in Figma UI, without having to run the script locally.
 
 Additionally, Figma will also provide a way to [import variables](https://www.figma.com/blog/schema-2025-design-systems-recap/#importing-and-exporting-variables) from JSON data in the DTCG format, making it possible to quickly do batch updates to variables by simply authoring your data directly in JSON. Throw this task to your AI agent of choice, and the process becomes even easier.
 
+## Tooling and Automation
+
 On the tooling side, having a common spec for how to interpret design tokens data opens up a lot of possibilities. For example, we can take that JSON export from Figma and generate various platform-specific assets from it. Using tools like [Style Dictionary](https://styledictionary.com), [Terrazzo](https://terrazzo.app), or [Theemo](https://theemo.io), we can generate design tokens as [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties), which can then be used in any digital product that supports CSS. Similarly for native mobile app development, these tools have you covered as well - offering the ability to generate tokens as Swift code for iOS or XML resources for Android.
+
+## Style Dictionary Example
 
 Speaking of **Style Dictionary**, awhile back I did a [video](https://youtu.be/RcxP0RePlVU) on how to do exactly that - generating CSS variables from design token data in the DTCG format.
 

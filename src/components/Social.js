@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { SiGithub, SiYoutube } from 'react-icons/si';
+import { twMerge } from 'tailwind-merge';
 
 const social = [
   {
@@ -31,24 +32,35 @@ const social = [
   },
 ];
 
-export default function Social({ className }) {
+export function SocialButton({ className, data }) {
   return (
-    <span className={cn('flex', className)}>
+    <motion.a
+      key={data.name}
+      href={data.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={data.name}
+      aria-label={data.name}
+      className={twMerge(
+        'p-1 text-xl text-slate-700 hover:text-sky-300 focus:text-sky-300 dark:text-slate-200 dark:hover:text-sky-300 dark:focus:text-sky-300 sm:text-3xl',
+        className,
+      )}
+      whileFocus={{ scale: 1.1 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+    >
+      <span className="sr-only">{data.name}</span>
+      <data.icon className="size-6 sm:size-7" aria-hidden="true" />
+    </motion.a>
+  );
+}
+
+export default function Social({ className, itemClassName }) {
+  return (
+    <div className={cn('flex gap-2', className)}>
       {social.map((item) => (
-        <motion.a
-          key={item.name}
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-1 p-2 text-xl text-slate-700 hover:text-sky-300 focus:text-sky-300 dark:text-slate-200 dark:hover:text-sky-300 dark:focus:text-sky-300 sm:mx-2 sm:text-3xl"
-          whileFocus={{ scale: 1.1 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <span className="sr-only">{item.name}</span>
-          <item.icon className="size-6 sm:size-8" aria-hidden="true" />
-        </motion.a>
+        <SocialButton key={item.name} className={itemClassName} data={item} />
       ))}
-    </span>
+    </div>
   );
 }

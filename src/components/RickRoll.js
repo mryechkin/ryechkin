@@ -29,7 +29,7 @@ export default function RickRoll() {
         {!rickrolled && (
           <motion.button
             aria-label="Headphones"
-            className="custom-focus rounded p-2"
+            className="custom-focus rounded p-1"
             whileFocus={{ scale: 1.1 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -40,7 +40,7 @@ export default function RickRoll() {
         )}
         {rickrolled && (
           <motion.button
-            className="cursor-pointer rounded p-2"
+            className="cursor-pointer rounded p-1"
             animate={{
               scale: [1, 1.25, 1, 0.9],
               transition: { duration: 1, repeat: Infinity, ease: 'easeInOut' },

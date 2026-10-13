@@ -13,6 +13,7 @@ export default function FeatureCard({
   isExternal = false,
   isVideo = false,
   item,
+  vertical = false,
 }) {
   if (!item) return null;
 
@@ -29,14 +30,14 @@ export default function FeatureCard({
         href={href}
         className={twMerge(
           'not-prose group grid max-h-full grid-flow-row grid-cols-5 overflow-hidden overflow-ellipsis !p-0 no-underline',
-          imageUrl && !hideCover && 'md:grid-flow-col',
+          imageUrl && !hideCover && !vertical && 'md:grid-flow-col',
         )}
         {...externalProps}
       >
         <div
           className={twMerge(
             'col-span-5 flex flex-col items-center justify-start gap-4 overflow-hidden p-4',
-            imageUrl && !hideCover && 'md:col-span-3 md:items-start',
+            imageUrl && !hideCover && !vertical && 'md:col-span-3 md:items-start',
           )}
         >
           <div
@@ -61,8 +62,18 @@ export default function FeatureCard({
           {summary && <p className="line-clamp-3 text-ellipsis text-left">{summary}</p>}
         </div>
         {!hideCover && imageUrl && (
-          <div className="col-span-5 px-4 pb-4 md:col-span-2 md:pt-4">
-            <div className="relative flex h-32 w-full items-center justify-center overflow-hidden md:h-full">
+          <div
+            className={twMerge(
+              'col-span-5 px-4 pb-4 md:col-span-2 md:pt-4',
+              vertical && 'order-first pb-0 pt-4 md:col-span-5',
+            )}
+          >
+            <div
+              className={twMerge(
+                'relative flex h-32 w-full items-center justify-center overflow-hidden md:h-full',
+                vertical && 'aspect-[1200/627] h-auto md:h-auto',
+              )}
+            >
               <Image
                 className="w-full rounded-lg bg-slate-900 object-cover"
                 src={imageUrl}
